@@ -1,0 +1,31 @@
+{
+  "name": "forum.node",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/twinlabs/forum.node/"
+  },
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha ./tests"
+  },
+  "dependencies": {
+    "socket.io": "~0.9.16",
+    "redis": "0.8.3",
+    "express": "3.2.0",
+    "connect-redis": "1.4.5",
+    "passport": "0.1.17",
+    "passport-local": "0.1.6",
+    "less-middleware": "0.1.12",
+    "marked": "0.2.8",
+    "bcrypt": "0.7.5",
+    "async": "0.2.8",
+    "node-imagemagick": "0.1.8",
+    "sitemap": "~0.6.0",
+    "request": "~2.25.0",
+    "winston": "~0.7.2"
+  },
+  "devDependencies": {
+    "mocha": "~1.13.0"
+  }
+}
