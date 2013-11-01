@@ -28,6 +28,7 @@
     "winston": "~0.7.2"
   },
   "devDependencies": {
-    "mocha": "~1.13.0"
+    "mocha": "~1.13.0",
+    "sinon": "~1.7.3"
   }
 }
