@@ -1,3 +1,6 @@
+1. Flesh out post specs
+2. Figure out socket communication
+
 Proposed Directory Structure:
 =============================
 
