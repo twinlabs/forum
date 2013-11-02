@@ -7,8 +7,8 @@
   },
   "main": "app.js",
   "scripts": {
-    "test": "mocha ./test",
-    "test:watch": "mocha --watch --reporter min ./test",
+    "test": "mocha --recursive ./test",
+    "test:watch": "mocha --recursive --watch --reporter min ./test",
     "start": "node app.js"
   },
   "dependencies": {
