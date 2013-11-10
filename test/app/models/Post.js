@@ -4,6 +4,18 @@ require('../../../rootRequire');
 var Post = rootRequire('/app/models/post');
 
 describe('models/Post.js', function(){
+  var TEST_USER = 'James Heintschel';
+
+  before(function(){
+    global.session = {
+      user: TEST_USER
+    };
+  });
+
+  after(function(){
+    delete global.session;
+  });
+
   it('exists', function(){
     assert(Post, "'Post' model specified doesn't exist");
   });
@@ -46,5 +58,10 @@ describe('models/Post.js', function(){
     var childPost = new Post(parentPost);
 
     assert(Post.find(childPost.id) === childPost);
+  });
+
+  it('associates posts with the session\'s user', function(){
+    var post = new Post();
+    assert(post.user === TEST_USER, "user associated with post not as expected");
   });
 });

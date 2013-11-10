@@ -5,6 +5,16 @@ var User = rootRequire('/app/models/User');
 var Post = rootRequire('/app/models/Post');
 
 describe('models/User.js', function(){
+  before(function(){
+    global.session = {
+      user: 'test user'
+    };
+  });
+
+  after(function(){
+    delete global.session;
+  });
+
   it('exists', function(){
     assert(User, "'User' model specified doesn't exist");
   });
