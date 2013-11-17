@@ -3,4 +3,24 @@ html(lang="en")
   head
     title ...
   body
-    h1 Forum Universe
+    h1 Forum
+    #main
+      block main
+    #posts
+    .new
+      form
+        input(type="text")
+      script(src="javascripts/socket.io.js")
+      script(src="javascripts/jquery.js")
+      script.
+        var socket = io.connect('http://localhost:5000');
+        $('.new form').submit(function(event){
+          event.preventDefault();
+          var $input = $(this).find('input');
+          socket.emit('post', {message: $input.val(), timestamp: +new Date()});
+          $input.val('');
+        });
+        socket.on('post', function(data){
+          $('#posts').prepend($('<p/>').text(data.timestamp + ': ' + data.message));
+        });
+

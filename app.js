@@ -3,6 +3,9 @@ var app = express();
 var io = require('socket.io').listen(5000);
 
 io.sockets.on('connection', function(socket){
+  socket.on('post', function(data){
+    io.sockets.emit('post', data);
+  });
 });
 
 
@@ -15,7 +18,7 @@ app.set('view engine', 'jade');
 app.use(express.static(__dirname + '/app/assets'));
 
 app.get('/', function(request, response){
-  response.render('application');
+  response.render('index');
 });
 
 var server = app.listen(PORT);
