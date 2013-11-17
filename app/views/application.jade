@@ -2,6 +2,9 @@ doctype 5
 html(lang="en")
   head
     title ...
+    script.
+      var forum = {};
+      forum.constants = !{clientConstants}
   body
     h1 Forum
     #main
@@ -13,7 +16,7 @@ html(lang="en")
       script(src="javascripts/socket.io.js")
       script(src="javascripts/jquery.js")
       script.
-        var socket = io.connect('http://localhost:5000');
+        var socket = io.connect(forum.constants.socketAddress);
         $('.new form').submit(function(event){
           event.preventDefault();
           var $input = $(this).find('input');

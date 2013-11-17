@@ -11,6 +11,11 @@ io.sockets.on('connection', function(socket){
 
 var PORT = process.argv[2] || 3000;
 
+var clientConstants = {
+    socketAddress: 'http://localhost:5000'
+};
+app.locals.clientConstants = JSON.stringify(clientConstants);
+
 app.engine('jade', require('jade').__express);
 app.set('views', process.cwd() + '/app/views');
 app.set('view engine', 'jade');
