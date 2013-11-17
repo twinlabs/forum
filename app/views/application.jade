@@ -18,8 +18,11 @@ html(lang="en")
       script.
         var socket = io.connect(forum.constants.socketAddress);
         $('.new form').submit(function(event){
-          event.preventDefault();
           var $input = $(this).find('input');
+
+          if ($input.val() === "") return false;
+
+          event.preventDefault();
           socket.emit('post', {message: $input.val(), timestamp: +new Date()});
           $input.val('');
         });
