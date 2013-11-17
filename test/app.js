@@ -36,4 +36,8 @@ describe('socket communication', function(){
       });
     });
   });
+
+  after(function(){
+    app.io.server.close();
+  });
 });
