@@ -20,6 +20,11 @@ describe('app.js', function(){
 });
 
 
+describe('assets', function(){
+  xit('uses middleware to serve static assets out of "assets" subdirectory', function(){
+  });
+});
+
 describe('rendering', function(){
   it('looks for views in the "app/views" subdirectory', function(){
     assert(app.express.get('views') === rootDir + '/app/views', "this instance of express has a different 'views' default than expected.");
