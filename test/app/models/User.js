@@ -1,8 +1,7 @@
 var assert = require('assert');
 var sinon = require('sinon');
-require('../../../rootRequire');
-var User = rootRequire('/app/models/User');
-var Post = rootRequire('/app/models/Post');
+var User = rootRequire('app/models/User');
+var Post = rootRequire('app/models/Post');
 
 describe('models/User.js', function(){
   before(function(){
