@@ -35,14 +35,22 @@ describe('rendering', function(){
 });
 
 describe('socket communication', function(){
-  // this all requires server to be running. seems like an integration test:
+  // this all requires server to be running. seems like an integration test suite.
+
+  // set up a new event handler for our test event:
+  app.io.sockets.on('connection', function(socket){
+    socket.on('testEvent', function(data){
+      app.io.sockets.emit(data.message, data);
+    });
+  });
+
   it('Should broadcast messages', function(done){
     var client1 = io.connect(socketURL, options);
     var testData = {message: 'ping'};
 
     client1.on('connect', function(data){
 
-      client1.emit('customEvent', testData);
+      client1.emit('testEvent', testData);
 
       // TODO: can we remove this event in teardown?
       client1.once('ping', function(receivedData){
