@@ -19,6 +19,8 @@
     "socket.io": "~0.9.9",
     "socket.io-client": "~0.9.9",
 
+    "jade": "~0.35.0",
+
     "async": "0.2.8",
 
     "passport": "0.1.17",

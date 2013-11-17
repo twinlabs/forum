@@ -20,6 +20,20 @@ describe('app.js', function(){
 });
 
 
+describe('rendering', function(){
+  it('looks for views in the "app/views" subdirectory', function(){
+    assert(app.express.get('views') === rootDir + '/app/views', "this instance of express has a different 'views' default than expected.");
+  });
+
+  it('registers jade as a templating engine', function(){
+    assert(app.express.engines['.jade'], "jade is not registered with this instance of express.");
+  });
+
+  it('registers jade the default templating engine', function(){
+    assert(app.express.get('view engine') === 'jade', "jade is not the default view engine for this instance of express.");
+  });
+});
+
 describe('socket communication', function(){
   // this all requires server to be running. seems like an integration test:
   it('Should broadcast messages', function(done){
