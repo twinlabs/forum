@@ -4,6 +4,7 @@ var app = require('../app');
 var io = require('socket.io-client');
 
 var socketURL = 'http://localhost:5000';
+app.io.set('log level', 1);
 
 var options = {
   transports: ['websocket'],
