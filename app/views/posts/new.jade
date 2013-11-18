@@ -1,0 +1,17 @@
+.new
+  form
+    input(type="text")
+  script.
+    socket.on('post', function(data){
+      $('#posts').prepend($('<p/>').text(data.timestamp + ': ' + data.message));
+    });
+
+    $('.new form').submit(function(event){
+      var $input = $(this).find('input');
+
+      if ($input.val() === "") return false;
+
+      event.preventDefault();
+      socket.emit('post', {message: $input.val(), timestamp: +new Date()});
+      $input.val('');
+    });

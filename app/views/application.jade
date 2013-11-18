@@ -9,24 +9,9 @@ html(lang="en")
     h1 Forum
     #main
       block main
+    script(src="javascripts/socket.io.js")
+    script(src="javascripts/jquery.js")
     #posts
-    .new
-      form
-        input(type="text")
-      script(src="javascripts/socket.io.js")
-      script(src="javascripts/jquery.js")
-      script.
-        var socket = io.connect(forum.constants.socketAddress);
-        $('.new form').submit(function(event){
-          var $input = $(this).find('input');
-
-          if ($input.val() === "") return false;
-
-          event.preventDefault();
-          socket.emit('post', {message: $input.val(), timestamp: +new Date()});
-          $input.val('');
-        });
-        socket.on('post', function(data){
-          $('#posts').prepend($('<p/>').text(data.timestamp + ': ' + data.message));
-        });
-
+    script.
+      var socket = io.connect(forum.constants.socketAddress);
+    include posts/new
