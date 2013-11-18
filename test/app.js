@@ -65,6 +65,18 @@ describe('socket communication', function(){
     });
   });
 
+  it('Should respond to "post" events', function(done){
+    var client = io.connect(socketAddress, options);
+    var testData = {message: "hello world"};
+
+    client.once('post', function(){
+      assert(true);
+      done();
+    });
+
+    client.emit('post', testData);
+  });
+
   after(function(){
     app.io.server.close();
   });
