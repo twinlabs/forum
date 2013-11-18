@@ -3,7 +3,7 @@ var sinon = require('sinon');
 var app = require('../app');
 var io = require('socket.io-client');
 
-var socketURL = 'http://localhost:5000';
+var socketAddress = 'http://localhost:5000';
 app.io.set('log level', 1);
 
 var options = {
@@ -50,15 +50,15 @@ describe('socket communication', function(){
   });
 
   it('Should broadcast messages', function(done){
-    var client1 = io.connect(socketURL, options);
+    var client = io.connect(socketAddress, options);
     var testData = {message: 'ping'};
 
-    client1.on('connect', function(data){
+    client.on('connect', function(data){
 
-      client1.emit('testEvent', testData);
+      client.emit('testEvent', testData);
 
       // TODO: can we remove this event in teardown?
-      client1.once('ping', function(receivedData){
+      client.once('ping', function(receivedData){
         assert(receivedData.message === testData.message);
         done();
       });
