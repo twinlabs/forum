@@ -1,3 +1,7 @@
+Persistent Tests:
+=================
+`npm run-script test:watch`
+
 Proposed Directory Structure:
 =============================
 
