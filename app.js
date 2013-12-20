@@ -26,6 +26,11 @@ app.get('/', function(request, response){
   response.render('index');
 });
 
+app.get('/uisandbox', function(request, response){
+  response.render('posts/show');
+});
+
+
 var server = app.listen(PORT);
 console.log('listening on port ' + PORT);
 
