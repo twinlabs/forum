@@ -2,6 +2,14 @@ Persistent Tests:
 =================
 `npm run-script test:watch`
 
+Run App:
+========
+`npm start`
+
+Run Test Suite:
+===============
+`npm test`
+
 Proposed Directory Structure:
 =============================
 
