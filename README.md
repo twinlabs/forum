@@ -1,3 +1,5 @@
+![Build Status](https://travis-ci.org/twinlabs/forum.node.png)
+
 Persistent Tests:
 =================
 `npm run-script test:watch`
