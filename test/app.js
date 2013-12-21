@@ -2,6 +2,7 @@ var assert = require('assert');
 var sinon = require('sinon');
 var app = require('../app');
 var io = require('socket.io-client');
+var http = require('http');
 
 var socketAddress = 'http://localhost:5000';
 app.io.set('log level', 1);
@@ -21,7 +22,20 @@ describe('app.js', function(){
 
 
 describe('assets', function(){
-  xit('uses middleware to serve static assets out of "assets" subdirectory', function(){
+  it('uses middleware to serve LESS assets as CSS', function(done){
+    var request = http.request({
+      path: '/stylesheets/normalize.css',
+      port: app.port
+    }, function(response){
+      assert(response.statusCode === 200, "status code not 200/OK");
+      done();
+    });
+
+    request.end();
+
+    request.on('error', function(error){
+      console.log('request error: ' + error.message);
+    });
   });
 });
 

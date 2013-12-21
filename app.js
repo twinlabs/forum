@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var io = require('socket.io').listen(5000);
 var argv = require('optimist').argv;
+var lessMiddleware = require('less-middleware');
 
 io.sockets.on('connection', function(socket){
   socket.on('post', function(data){
@@ -20,6 +21,11 @@ app.locals.clientConstants = JSON.stringify(clientConstants);
 app.engine('jade', require('jade').__express);
 app.set('views', process.cwd() + '/app/views');
 app.set('view engine', 'jade');
+
+app.use(lessMiddleware({
+  src: __dirname + '/app/assets'
+  //, compress: true
+}));
 
 app.use(express.static(__dirname + '/app/assets'));
 
