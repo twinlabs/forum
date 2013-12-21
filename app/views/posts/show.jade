@@ -1,8 +1,11 @@
 extends ../application
 
+block head
+  link(rel="stylesheet" href="/stylesheets/post.css")
+
 block main
   section.post
-    .meta
-      .username {Username}
-      .time-rel {Time Ago}
+    .meta.clearfix
+      .username.piece User's Name
+      .time-rel.piece 3 hours ago
 

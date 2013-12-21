@@ -1,0 +1,25 @@
+.post {
+  color: #fff;
+  width: 100%;
+  .meta {
+    @height: 40px;
+
+    height: @height;
+    background: #ff99ac;
+    border-radius: 3px;
+
+    .piece {
+      padding: 0 10px;
+      float: left;
+      height: 100%;
+      line-height: @height;
+
+      &:first-child {
+        background: #00ce11;
+      }
+      &:nth-child(2){
+        background: #11c0cf;
+      }
+    }
+  }
+}
