@@ -4,7 +4,7 @@ var app = require('../app');
 var io = require('socket.io-client');
 var http = require('http');
 
-var socketAddress = 'http://localhost:5000';
+var socketAddress = 'http://localhost:' + app.socket_port;
 app.io.set('log level', 1);
 
 var options = {

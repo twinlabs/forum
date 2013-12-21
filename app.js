@@ -1,8 +1,10 @@
 var express = require('express');
 var app = express();
-var io = require('socket.io').listen(5000);
 var argv = require('optimist').argv;
 var lessMiddleware = require('less-middleware');
+
+var SOCKET_PORT = argv.socket_port || 5000;
+var io = require('socket.io').listen(SOCKET_PORT);
 
 io.sockets.on('connection', function(socket){
   socket.on('post', function(data){
@@ -14,7 +16,7 @@ io.sockets.on('connection', function(socket){
 var PORT = argv.port || 3000;
 
 var clientConstants = {
-    socketAddress: 'http://localhost:5000'
+    socketAddress: 'http://localhost:' + SOCKET_PORT
 };
 app.locals.clientConstants = JSON.stringify(clientConstants);
 
@@ -45,5 +47,6 @@ module.exports = {
   server: server,
   io: io,
   express: app,
-  port: PORT
+  port: PORT,
+  socket_port: SOCKET_PORT
 };
