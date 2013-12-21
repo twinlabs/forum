@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var io = require('socket.io').listen(5000);
+var argv = require('optimist').argv;
 
 io.sockets.on('connection', function(socket){
   socket.on('post', function(data){
@@ -9,7 +10,7 @@ io.sockets.on('connection', function(socket){
 });
 
 
-var PORT = process.argv[2] || 3000;
+var PORT = argv.port || 3000;
 
 var clientConstants = {
     socketAddress: 'http://localhost:5000'
@@ -37,5 +38,6 @@ console.log('listening on port ' + PORT);
 module.exports = {
   server: server,
   io: io,
-  express: app
+  express: app,
+  port: PORT
 };
