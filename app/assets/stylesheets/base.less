@@ -12,6 +12,78 @@
   }
 }
 
+@menusize: 330px;
+
 body {
+  padding-left: 110px;
   font-family: 'Roboto', sans-serif;
+  &.menu {
+    margin-left: @menusize;
+  }
+}
+#menu, #controls {
+  -webkit-transition: all 100ms ease-in;
+  -moz-transition: all 100ms ease-in;
+  transition: all 100ms ease-in;
+}
+#menu {
+  position: absolute;
+  top: 0;
+  left: -@menusize;
+  width: @menusize;
+  height: 100%;
+  background: #000;
+
+  &.active {
+    left: 0;
+  }
+  a {
+    color: #fff;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+#controls {
+  padding: 32px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  &.active {
+    margin-left: @menusize;
+  }
+  .toggle {
+    @color: #b9b9b9;
+
+    display: block;
+    position: relative;
+    width: 40px;
+    height: 40px;
+
+    .handle,
+    &:before,
+    &:after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 5px;
+      color: inherit;
+      background-color: @color;
+    }
+
+    &:hover {
+      .handle, &:before, &:after {
+        background-color: #11C0CF;
+      }
+    }
+
+    &:before {
+      margin-bottom: 5px;
+    }
+    &:after {
+      margin-top: 5px;
+    }
+  }
 }

@@ -14,6 +14,21 @@ html(lang="en")
     block head
   body
     h1 Forum
+    #menu
+      ul
+        li
+          a(href="#") links to
+        li
+          a(href="#") useradmin
+        li
+          a(href="#") forumadmin
+        li
+          a(href="#") and logout
+        li
+          a(href="#") ...etc
+    #controls
+      a.toggle(href="#")
+        span.handle
     #main
       block main
     script(src="javascripts/socket.io.js")
@@ -22,3 +37,12 @@ html(lang="en")
     script.
       var socket = io.connect(forum.constants.socketAddress);
     include posts/new
+    script.
+      $('#controls .toggle').on('click', function(event){
+        event.preventDefault();
+        setTimeout(function(){
+          $('body').toggleClass('menu')
+        }, 120);
+        $('#menu').toggleClass('active');
+        $('#controls').toggleClass('active');
+      });
