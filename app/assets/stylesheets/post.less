@@ -1,18 +1,32 @@
 .post {
-  color: #fff;
   width: 100%;
   .meta {
     @height: 40px;
 
     height: @height;
+    color: #fff;
     background: #ff99ac;
     border-radius: 3px;
 
-    .piece {
+    .datum {
       padding: 0 10px;
       float: left;
       height: 100%;
       line-height: @height;
+
+      &.username {
+        width: 25%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      &.time-rel {
+        position: relative;
+        width: 140px;
+        &:after {
+          border-bottom: 1px dotted #fff;
+        }
+      }
 
       &:first-child {
         background: #00ce11;
