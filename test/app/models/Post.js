@@ -3,7 +3,10 @@ var sinon = require('sinon');
 var Post = rootRequire('app/models/Post');
 
 describe('models/Post.js', function(){
-  var TEST_USER = 'James Heintschel';
+  var TEST_USER = {
+    name: 'James Heintschel',
+    id: 555
+  };
 
   before(function(){
     global.session = {
@@ -61,6 +64,6 @@ describe('models/Post.js', function(){
 
   it('associates posts with the session\'s user', function(){
     var post = new Post();
-    assert(post.user === TEST_USER, "user associated with post not as expected");
+    assert(post.userid === TEST_USER.id, "user associated with post not as expected");
   });
 });

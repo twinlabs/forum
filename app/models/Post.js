@@ -5,7 +5,7 @@ var Post = function(parent){
     if (parent) return parent;
     return false;
   })();
-  this.user = global.session.user;
+  this.userid = global.session.user.id;
   Post._list.push(this);
 };
 
