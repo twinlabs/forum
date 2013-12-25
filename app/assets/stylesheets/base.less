@@ -12,9 +12,14 @@
   }
 }
 
-@menusize: 330px;
+@menusize: 170px;
 
+html {
+  height: 100%;
+}
 body {
+  min-height: 100%;
+  padding: 21px;
   padding-left: 110px;
   font-family: 'Roboto', sans-serif;
   &.menu {
@@ -34,6 +39,10 @@ body {
   height: 100%;
   background: #000;
 
+  ul {
+    padding: 10px;
+  }
+
   &.active {
     left: 0;
   }
@@ -51,6 +60,8 @@ body {
   top: 0;
   left: 0;
   height: 100%;
+  background-color: #fff;
+
   &.active {
     margin-left: @menusize;
   }
