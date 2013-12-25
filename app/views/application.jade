@@ -40,10 +40,20 @@ html(lang="en")
     script.
       $('#controls .toggle').on('click', function(event){
         event.preventDefault();
-        setTimeout(function(){
-          $('body').toggleClass('menu')
-        }, 120);
-        $('#menu').toggleClass('active');
+        if ($('#controls').hasClass('active')){
+          $('#menu').removeClass('active');
+        }
+
+        $('body').toggleClass('menu')
+
         $('#controls').toggleClass('active');
+      });
+      $('#controls').on('transitionend webkitTransitionEnd oTransitionEnd otransitionend', function() {
+        setTimeout(function(){
+          if ($('body').hasClass('menu')) {
+            $('#menu').addClass('active');
+          }
+        }, 1);
+
       });
     block script
