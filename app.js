@@ -40,6 +40,8 @@ app.get('/uisandbox', function(request, response){
   response.render('posts/show');
 });
 
+app.use('/templates/post', express.static(__dirname + '/app/views/posts/'));
+
 app.locals({
   posts: [
     {
