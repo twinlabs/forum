@@ -22,20 +22,6 @@
       height: 100%;
       line-height: @height;
 
-      &.username {
-        width: 25%;
-      }
-      &.time {
-        position: relative;
-        width: 140px;
-        i {
-          padding-right: 4px;
-        }
-        &:after {
-          border-bottom: 1px dotted #fff;
-        }
-      }
-
       &:first-child {
         background: #00ce11;
       }
@@ -46,7 +32,20 @@
 
     .username,
     .time {
+      width: 25%;
+
       .ellipsify();
+    }
+
+    .username {}
+    .time {
+      position: relative;
+      i {
+        padding-right: 4px;
+      }
+      &:after {
+        border-bottom: 1px dotted #fff;
+      }
     }
   }
 }
