@@ -1,9 +1,25 @@
+script#post(type="text/template").
+  <section class="post">
+    <div class="meta clearfix">
+      <div class="username datum"><%= user %></div>
+      <div class="time datum">
+        <i class="fa fa-clock-o"></i>
+        <%= date %>
+      </div>
+    </div>
+    <div class="content"><%= body %></div>
+  </section>
+
 .new
   form
     input(type="text")
   script.
-    socket.on('post', function(data){
-      $('#posts').prepend($('<p/>').text(data.timestamp + ': ' + data.message));
+    socket.on('post', function(response){
+      $('#main').prepend(_.template($('#post').html())({
+        user: 'Jim',
+        date: moment(response.date).fromNow(),
+        body: response.body
+      }));
     });
 
     $('.new form').submit(function(event){
@@ -12,6 +28,6 @@
       if ($input.val() === "") return false;
 
       event.preventDefault();
-      socket.emit('post', {message: $input.val(), timestamp: +new Date()});
+      socket.emit('post', {body: $input.val(), date: new Date()});
       $input.val('');
     });
