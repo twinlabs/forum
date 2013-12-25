@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var argv = require('optimist').argv;
 var lessMiddleware = require('less-middleware');
+var moment = require('moment');
 
 var SOCKET_PORT = argv.socket_port || 5000;
 var io = require('socket.io').listen(SOCKET_PORT);
