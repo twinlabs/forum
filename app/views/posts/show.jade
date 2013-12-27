@@ -2,10 +2,4 @@ extends ../application
 
 block main
   each post in posts
-    section.post
-      .meta.clearfix
-        .username.datum=post.user
-        .time.datum
-          i.fa.fa-clock-o
-          = post.date
-      .content!=post.body
+    include post

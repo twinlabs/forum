@@ -1,25 +1,15 @@
-script#post(type="text/template").
-  <section class="post">
-    <div class="meta clearfix">
-      <div class="username datum"><%= user %></div>
-      <div class="time datum">
-        <i class="fa fa-clock-o"></i>
-        <%= date %>
-      </div>
-    </div>
-    <div class="content"><%= body %></div>
-  </section>
+script(src="/templates/post/post.js")
 
 .new
   form
     input(type="text")
   script.
     socket.on('post', function(response){
-      $('#main').prepend(_.template($('#post').html())({
-        user: 'Jim',
-        date: moment(response.date).fromNow(),
-        body: response.body
-      }));
+      var locals = {};
+      locals.post = response;
+      locals.post.date = moment(locals.post.date).fromNow();
+      locals.post.user = 'Jim';
+      $('#main').prepend(anonymous(locals));
     });
 
     $('.new form').submit(function(event){
