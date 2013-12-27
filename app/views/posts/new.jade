@@ -9,7 +9,7 @@ script(src="/templates/post/post.js")
       locals.post = response;
       locals.post.date = moment(locals.post.date).fromNow();
       locals.post.user = 'Jim';
-      $('#main').prepend(anonymous(locals));
+      $('#main').append(anonymous(locals));
     });
 
     $('.new form').submit(function(event){
