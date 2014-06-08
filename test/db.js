@@ -2,7 +2,7 @@ var assert = require('assert');
 
 var Sequelize = require('sequelize');
 
-var sequelize = new Sequelize("postgres://noah@localhost/forum");
+var sequelize = new Sequelize("postgres://postgres@localhost/forum");
 
 describe("orm post stuff", function(){
   it("works, basically", function(done){
