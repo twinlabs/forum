@@ -1,4 +1,4 @@
-![Build Status](https://travis-ci.org/twinlabs/forum.node.png)
+[![Build Status](https://travis-ci.org/twinlabs/forum.node.svg?branch=master)](https://travis-ci.org/twinlabs/forum.node)
 
 Persistent Tests:
 =================
