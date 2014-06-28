@@ -6,18 +6,7 @@ var sequelize = new Sequelize("postgres://postgres@localhost/forum");
 
 describe("orm post stuff", function(){
   it("works, basically", function(done){
-    var Post = sequelize.define('post', {
-      id: {
-        type: Sequelize.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-      },
-      body: Sequelize.TEXT,
-      user_id: Sequelize.INTEGER
-    }, {
-      underscored: true,
-      tableName: 'post'
-    });
+    var Post = rootRequire('app/models/Post.orm')(sequelize);
 
     Post.create({
       body: "it's happening",
