@@ -30,21 +30,10 @@ describe('models/Post.js', function(){
     assert(new Post().className === 'Post', "Post instance className is not as expected");
   });
 
-  it('has an "id" attribute in a particular format', function(){
-    var post = new Post();
-    assert(typeof post.id !== "undefined", "Post instance does not have an ID attribute");
-    assert(post.id.match(/post_[0-9]+/), "Post identifier not in the format expected");
-  });
-
   it('creates a new ID for each post...', function(){
     var post = new Post();
     var anotherPost = new Post();
     assert(post.id !== anotherPost.id, "post IDs were unexpectedly equal");
-  });
-
-  it('has a "parent" attribute', function(){
-    var post = new Post();
-    assert(typeof new Post().parent !== "undefined", "Post instance does not have a parent attribute");
   });
 
   it('uses "parent" to refer to another post', function(){
