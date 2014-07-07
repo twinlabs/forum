@@ -1,6 +1,6 @@
 var assert = require('assert');
 var sinon = require('sinon');
-var Post = rootRequire('app/models/Post');
+var Post = rootRequire('app/models/PostLegacy');
 
 describe('models/Post.js', function(){
   var TEST_USER = {
@@ -56,3 +56,7 @@ describe('models/Post.js', function(){
     assert(post.userid === TEST_USER.id, "user associated with post not as expected");
   });
 });
+
+
+// this is all well and good, but sequelize is going to do 99.99% of this for us.
+// the code isn't worth too much any more...
