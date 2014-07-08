@@ -8,10 +8,21 @@ var PostSequelize = function(sequelize){
       autoIncrement: true
     },
     body: Sequelize.TEXT,
-    user_id: Sequelize.INTEGER
+    user_id: {
+      type: Sequelize.INTEGER,
+      allowNull: false
+    },
+    parent: {
+      type: Sequelize.INTEGER
+    }
   }, {
     underscored: true,
-    tableName: 'post'
+    tableName: 'post',
+    instanceMethods: {
+      getParent: function(){
+        return Post.find(this.parent);
+      }
+    }
   });
 
   return Post;
