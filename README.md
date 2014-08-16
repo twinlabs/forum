@@ -8,9 +8,17 @@ Run App:
 ========
 `npm start`
 
+Debug App:
+==========
+`npm run-script start:debug`
+
 Run Test Suite:
 ===============
 `npm test`
+
+Run Test Suite in Debug Mode:
+=============================
+`npm run-script test:debug`
 
 Proposed Directory Structure:
 =============================
