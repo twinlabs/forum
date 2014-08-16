@@ -5,8 +5,10 @@ describe('models/User.js', function(){
   it('has a name', function(){
     var user = User.build({
       // instance attributes go here...
+      name: 'will high'
     });
 
-    assert(user.get('name') === "will high");
+
+    assert(user.get('name') === 'will high');
   });
 });
