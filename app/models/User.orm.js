@@ -7,7 +7,7 @@ var UserSequelize = function(sequelize){
         type: Sequelize.STRING,
         allowNull: false,
         validate: {
-          len:[1, 15]
+          len:[1, 30]
         }
     }
   }, {
