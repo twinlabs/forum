@@ -1,11 +1,6 @@
-var User = function(){
-  "use strict";
-  this.posts = [];
-  this.id = "1"; // get this from the datastore...
-  this.name = "new user";
-  this.displayName = this.name;
-};
+var Sequelize = require('sequelize');
+var sequelize = new Sequelize("postgres://postgres@localhost/forum");
 
-User.prototype.className = 'User';
+var User = rootRequire('app/models/User.orm')(sequelize);
 
 module.exports = User;

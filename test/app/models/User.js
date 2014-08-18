@@ -1,44 +1,28 @@
 var assert = require('assert');
-var sinon = require('sinon');
 var User = rootRequire('app/models/User');
-var Post = rootRequire('app/models/PostLegacy');
 
 describe('models/User.js', function(){
-  before(function(){
-    global.session = {
-      user: 'test user'
-    };
+  it('has a name', function(){
+    var user = User.build({
+      // instance attributes go here...
+      name: 'will high'
+    });
+
+
+    assert(user.get('name') === 'will high');
   });
 
-  after(function(){
-    delete global.session;
+  it('adds a validation error for a user name less than one character', function() {
+    var user = User.build({
+      name: ''
+    });
+    assert(user.validate() && user.validate().name.length > 0);
   });
 
-  it('exists', function(){
-    assert(User, "'User' model specified doesn't exist");
-  });
-
-  it('can have an array of posts...', function(){
-    var POSTS_SIZE = 5;
-    var user = new User();
-
-    assert(user.posts.length === 0, "newly-initialized user doesn't have an empty collection of posts");
-    for (var i = 0; i < POSTS_SIZE; i++){
-      user.posts.push(new Post());
-    }
-
-    assert(user.posts.length === POSTS_SIZE, "user doesn't have the number of posts expected");
-  });
-
-  it('has an ID...', function(){
-    var user = new User();
-
-    assert(typeof user.id !== "undefined", "user doesn't have an ID attribute");
-  });
-
-  it('has a default displayname', function(){
-    var user = new User();
-
-    assert(user.displayName === user.name, "user's displayname is different from expected");
+  it('adds a validation error for a user name greater than than 30 characters', function() {
+    var user = User.build({
+      name: 'critique of pure reason, critique of pure will'
+    });
+    assert(user.validate() && user.validate().name.length > 0);
   });
 });
