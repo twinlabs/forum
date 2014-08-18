@@ -1,69 +1,28 @@
 var assert = require('assert');
-var sinon = require('sinon');
 var Post = rootRequire('app/models/Post');
 
 describe('models/Post.js', function(){
-  var TEST_USER = {
-    name: 'James Heintschel',
-    id: 555
-  };
-
-  before(function(){
-    global.session = {
-      user: TEST_USER
-    };
-  });
-
-  after(function(){
-    delete global.session;
-  });
-
   it('exists', function(){
-    assert(Post, "'Post' model specified doesn't exist");
+    assert(Post);
   });
 
-  it('knows its "className"', function(){
-    assert(Post.prototype.className === 'Post', "Post className is not as expected");
+  it('has a body', function(){
+    var post = Post.build({
+      body: "yes"
+    });
   });
 
-  it('uses prototypes appropriately (sanity check)', function(){
-    assert(new Post().className === 'Post', "Post instance className is not as expected");
-  });
+  it('can have a parent...', function(){
+    var originalPost = Post.build({
+      body: 'parent post',
+      id: 1
+    });
 
-  it('has an "id" attribute in a particular format', function(){
-    var post = new Post();
-    assert(typeof post.id !== "undefined", "Post instance does not have an ID attribute");
-    assert(post.id.match(/post_[0-9]+/), "Post identifier not in the format expected");
-  });
+    var secondaryPost = Post.build({
+      body: 'gee, that original post sure was interesting...',
+      parent: 1
+    });
 
-  it('creates a new ID for each post...', function(){
-    var post = new Post();
-    var anotherPost = new Post();
-    assert(post.id !== anotherPost.id, "post IDs were unexpectedly equal");
-  });
-
-  it('has a "parent" attribute', function(){
-    var post = new Post();
-    assert(typeof new Post().parent !== "undefined", "Post instance does not have a parent attribute");
-  });
-
-  it('uses "parent" to refer to another post', function(){
-    var parentPost = new Post();
-    var childPost = new Post(parentPost);
-    var descendantPost = new Post(childPost);
-    assert(childPost.parent === parentPost, "childPost.parent should refer to parentPost");
-    assert(descendantPost.parent.parent === parentPost, "descendantPost.parent.parent should refer to parentPost");
-  });
-
-  it('finds posts by ID', function(){
-    var parentPost = new Post();
-    var childPost = new Post(parentPost);
-
-    assert(Post.find(childPost.id) === childPost);
-  });
-
-  it('associates posts with the session\'s user', function(){
-    var post = new Post();
-    assert(post.userid === TEST_USER.id, "user associated with post not as expected");
+    assert(secondaryPost.getParent);
   });
 });
