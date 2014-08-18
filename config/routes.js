@@ -12,6 +12,7 @@ var routes = function(app){
   app.get('io').sockets.on('connection', function(socket){
     socket.on('post', function(data){
 
+      data.user_id = data.user.id;
       PostsController.add(data);
       app.get('io').sockets.emit('post', data);
     });

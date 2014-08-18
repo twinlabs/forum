@@ -18,7 +18,7 @@ var PostSequelize = function(sequelize){
   }, {
     classMethods: {
       associate: function(models){
-        Post.belongsTo(models.User);
+        Post.belongsTo(models.User, {foreignKey: 'user_id'});
       }
     },
     underscored: true,

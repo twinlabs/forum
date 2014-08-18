@@ -20,7 +20,10 @@ script(src="/templates/post/post.js")
       socket.emit('post', {
         body: $input.val(),
         date: new Date(),
-        user_id: 1
+        user: {
+          id: '1',
+          name: 'Will of the Highlands'
+        }
       });
       $input.val('');
     });

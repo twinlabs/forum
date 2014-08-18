@@ -81,7 +81,12 @@ describe('socket communication', function(){
 
   it('Should respond to "post" events', function(done){
     var client = io.connect(socketAddress, options);
-    var testData = {message: "hello world"};
+    var testData = {
+      message: "hello world",
+      user: {
+        id: 1
+      }
+    };
 
     client.once('post', function(){
       assert(true);
