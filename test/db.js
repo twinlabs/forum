@@ -61,8 +61,18 @@ describe("user-to-post association", function(){
     var secondPostDeferred = second_post.save();
 
     userDeferred.done(function(){
-      firstPostDeferred.done(function(){
-        secondPostDeferred.done(function(){
+      firstPostDeferred.done(function(error){
+        if (error) {
+          testDone();
+          return console.log(error);
+        }
+
+        secondPostDeferred.done(function(error){
+          if (error) {
+            testDone();
+            return console.log(error);
+          }
+
           user.getPosts().done(function(error, data){
             if (error) {
               console.log(error);
