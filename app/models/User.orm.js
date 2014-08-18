@@ -3,6 +3,11 @@ var Sequelize = require('sequelize');
 var UserSequelize = function(sequelize){
   var User = sequelize.define('User', {
     // attributes of data model go here:
+    id: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     name: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -12,6 +17,13 @@ var UserSequelize = function(sequelize){
     }
   }, {
     // options go here:
+    classMethods: {
+      associate: function(models){
+        User.hasMany(models.Post, {foreignKey: 'user_id'});
+      }
+    },
+    underscored: true,
+    tableName: 'forum_user' // what should this be
   });
 
   return User;

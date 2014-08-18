@@ -16,6 +16,11 @@ var PostSequelize = function(sequelize){
       type: Sequelize.INTEGER
     }
   }, {
+    classMethods: {
+      associate: function(models){
+        Post.belongsTo(models.User);
+      }
+    },
     underscored: true,
     tableName: 'post',
     instanceMethods: {
