@@ -7,6 +7,8 @@ var moment = require('moment');
 var SOCKET_PORT = argv.socket_port || 5000;
 var io = require('socket.io').listen(SOCKET_PORT);
 
+require('./config/environments')(app);
+
 io.sockets.on('connection', function(socket){
   socket.on('post', function(data){
     io.sockets.emit('post', data);
@@ -17,7 +19,7 @@ io.sockets.on('connection', function(socket){
 var PORT = argv.port || 3000;
 
 var clientConstants = {
-    socketAddress: 'http://localhost:' + SOCKET_PORT
+    socketAddress: app.get('hostName') + ':' + SOCKET_PORT
 };
 app.locals.clientConstants = JSON.stringify(clientConstants);
 
