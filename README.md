@@ -59,3 +59,8 @@ Here's how the manual approach could work:
 
 1. Create a `.sql` file in `/db/`
 2. `psql -d {dbname} -a -f db/{filename}.sql`
+
+Compiling Client-side Templates:
+================================
+Some templates are used client-side too and currently must be
+compiled manually. e.g. `jade --client --no-debug app/views/posts/post.jade`
