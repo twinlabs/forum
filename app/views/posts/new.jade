@@ -8,7 +8,6 @@ script(src="/templates/post/post.js")
       var locals = {};
       locals.post = response;
       locals.post.date = moment(locals.post.date).fromNow();
-      locals.post.user = 'Jim';
       $('#main').append(anonymous(locals));
     });
 
@@ -18,6 +17,10 @@ script(src="/templates/post/post.js")
       if ($input.val() === "") return false;
 
       event.preventDefault();
-      socket.emit('post', {body: $input.val(), date: new Date()});
+      socket.emit('post', {
+        body: $input.val(),
+        date: new Date(),
+        user_id: 1
+      });
       $input.val('');
     });
