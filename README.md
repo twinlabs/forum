@@ -2,7 +2,7 @@
 
 Persistent Tests:
 =================
-`npm run-script test:watch`
+`npm run test:watch`
 
 Run App:
 ========
@@ -10,7 +10,7 @@ Run App:
 
 Debug App:
 ==========
-`npm run-script start:debug`
+`npm run start:debug`
 
 Run Test Suite:
 ===============
@@ -18,7 +18,7 @@ Run Test Suite:
 
 Run Test Suite in Debug Mode:
 =============================
-`npm run-script test:debug`
+`npm run test:debug`
 
 Proposed Directory Structure:
 =============================
