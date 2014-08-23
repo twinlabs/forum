@@ -10,9 +10,9 @@
     "node": "0.8.x"
   },
   "scripts": {
-    "test": "mocha --require test/test_helper.js --recursive ./test",
-    "test:watch": "mocha --require test/test_helper.js --recursive --watch --reporter min ./test",
-    "test:debug": "node-debug _mocha --require test/test_helper.js --recursive --watch --reporter min ./test",
+    "test": "DATABASE_URL=postgres://postgres@localhost/forum_test mocha --require test/test_helper.js --recursive ./test",
+    "test:watch": "DATABASE_URL=postgres://postgres@localhost/forum_test mocha --require test/test_helper.js --recursive --watch --reporter min ./test",
+    "test:debug": "DATABASE_URL=postgres://postgres@localhost/forum_test node-debug _mocha --require test/test_helper.js --recursive --watch --reporter min ./test",
     "start": "node app.js",
     "start:debug": "node-debug app.js"
   },
