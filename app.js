@@ -1,17 +1,19 @@
 require('./lib/helpers');
 
 var express = require('express');
+var http = require('http');
 var app = express();
 var lessMiddleware = require('less-middleware');
+var httpServer = http.createServer(app);
 
 
 rootRequire('config/environments')(app);
-app.set('io', require('socket.io').listen(app.get('SOCKET_PORT')));
+app.set('io', require('socket.io').listen(httpServer));
 
 rootRequire('config/routes')(app);
 
 var clientConstants = {
-    socketAddress: app.get('hostName') + ':' + app.get('SOCKET_PORT')
+    socketAddress: app.get('hostName') + ':' + app.get('PORT')
 };
 
 app.locals.clientConstants = JSON.stringify(clientConstants);
@@ -29,11 +31,10 @@ app.use(lessMiddleware({
 app.use(express.static(__dirname + '/app/assets'));
 
 module.exports = {
-  server: app.listen(app.get('PORT')),
+  server: httpServer.listen(app.get('PORT')),
   io: app.get('io'),
   app: app,
-  port: app.get('PORT'),
-  socket_port: app.get('SOCKET_PORT')
+  port: app.get('PORT')
 };
 
 console.log('listening on port ' + app.get('PORT'));
