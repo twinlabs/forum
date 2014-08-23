@@ -31,7 +31,7 @@ app.use(express.static(__dirname + '/app/assets'));
 module.exports = {
   server: app.listen(app.get('PORT')),
   io: app.get('io'),
-  express: app,
+  app: app,
   port: app.get('PORT'),
   socket_port: app.get('SOCKET_PORT')
 };

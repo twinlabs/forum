@@ -5,6 +5,7 @@ module.exports = function(app){
     app.set('hostName', 'http://localhost');
     app.set('PORT', argv.port || 3000);
     app.set('SOCKET_PORT', argv.socket_port || 5000);
+    app.set('db-test', 'forum_test');
   });
 
   app.configure('development', function(){

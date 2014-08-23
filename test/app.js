@@ -1,11 +1,11 @@
 var assert = require('assert');
 var sinon = require('sinon');
-var app = require('../app');
+var appModule = require('../app');
 var io = require('socket.io-client');
 var http = require('http');
 
-var socketAddress = 'http://localhost:' + app.socket_port;
-app.io.set('log level', 1);
+var socketAddress = 'http://localhost:' + appModule.socket_port;
+appModule.io.set('log level', 1);
 
 var options = {
   transports: ['websocket'],
@@ -25,7 +25,7 @@ describe('assets', function(){
   it('uses middleware to serve LESS assets as CSS', function(done){
     var request = http.request({
       path: '/stylesheets/normalize.css',
-      port: app.port
+      port: appModule.port
     }, function(response){
       assert(response.statusCode === 200, "status code not 200/OK");
       done();
@@ -41,15 +41,15 @@ describe('assets', function(){
 
 describe('rendering', function(){
   it('looks for views in the "app/views" subdirectory', function(){
-    assert(app.express.get('views') === rootDir + '/app/views', "this instance of express has a different 'views' default than expected.");
+    assert(appModule.app.get('views') === rootDir + '/app/views', "this instance of express has a different 'views' default than expected.");
   });
 
   it('registers jade as a templating engine', function(){
-    assert(app.express.engines['.jade'], "jade is not registered with this instance of express.");
+    assert(appModule.app.engines['.jade'], "jade is not registered with this instance of express.");
   });
 
   it('registers jade the default templating engine', function(){
-    assert(app.express.get('view engine') === 'jade', "jade is not the default view engine for this instance of express.");
+    assert(appModule.app.get('view engine') === 'jade', "jade is not the default view engine for this instance of express.");
   });
 });
 
@@ -57,9 +57,9 @@ describe('socket communication', function(){
   // this all requires server to be running. seems like an integration test suite.
 
   // set up a new event handler for our test event:
-  app.io.sockets.on('connection', function(socket){
+  appModule.io.sockets.on('connection', function(socket){
     socket.on('testEvent', function(data){
-      app.io.sockets.emit(data.message, data);
+      appModule.io.sockets.emit(data.message, data);
     });
   });
 
@@ -97,6 +97,6 @@ describe('socket communication', function(){
   });
 
   after(function(){
-    app.io.server.close();
+    appModule.io.server.close();
   });
 });

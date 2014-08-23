@@ -2,9 +2,7 @@ var assert = require('assert');
 
 var Sequelize = require('sequelize');
 
-// TODO: to avoid blowing away anything fun,
-// use a separate database for these tests.
-var sequelize = new Sequelize("postgres://postgres@localhost/forum");
+var sequelize = new Sequelize("postgres://postgres@localhost/" + rootRequire('app').app.get('db-test'));
 
 var Post = rootRequire('app/models/Post.orm')(sequelize);
 var User = rootRequire('app/models/User.orm')(sequelize);
