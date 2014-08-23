@@ -13,7 +13,7 @@ app.set('io', require('socket.io').listen(httpServer));
 rootRequire('config/routes')(app);
 
 var clientConstants = {
-    socketAddress: app.get('hostName') + ':' + app.get('PORT')
+    socketAddress: app.get('hostName')
 };
 
 app.locals.clientConstants = JSON.stringify(clientConstants);
