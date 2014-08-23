@@ -31,10 +31,10 @@ app.use(lessMiddleware({
 app.use(express.static(__dirname + '/app/assets'));
 
 module.exports = {
-  server: httpServer.listen(app.get('PORT')),
+  server: httpServer.listen(app.get('PORT'), function(){
+    console.log('listening on port ' + app.get('PORT'));
+  }),
   io: app.get('io'),
   app: app,
   port: app.get('PORT')
 };
-
-console.log('listening on port ' + app.get('PORT'));

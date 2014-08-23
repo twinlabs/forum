@@ -6,6 +6,9 @@
     "url": "https://github.com/twinlabs/forum.node/"
   },
   "main": "app.js",
+  "engines": {
+    "node": "0.8.x"
+  },
   "scripts": {
     "test": "mocha --require test/test_helper.js --recursive ./test",
     "test:watch": "mocha --require test/test_helper.js --recursive --watch --reporter min ./test",
