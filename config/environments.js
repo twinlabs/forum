@@ -4,7 +4,6 @@ module.exports = function(app){
   app.configure(function(){
     app.set('hostName', 'http://localhost');
     app.set('PORT', argv.port || 3000);
-    app.set('SOCKET_PORT', argv.socket_port || 5000);
     app.set('db-test', 'forum_test');
   });
 
