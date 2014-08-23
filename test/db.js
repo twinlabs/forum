@@ -2,6 +2,8 @@ var assert = require('assert');
 
 var Sequelize = require('sequelize');
 
+// TODO: to avoid blowing away anything fun,
+// use a separate database for these tests.
 var sequelize = new Sequelize("postgres://postgres@localhost/forum");
 
 var Post = rootRequire('app/models/Post.orm')(sequelize);
@@ -12,13 +14,18 @@ var models = {
   User: User
 };
 
-Post.sync({force: true});
-User.sync({force: true});
+describe("database (user and post tables) stuff", function(){
+  before(function(done){
+    Post.sync({force: true}).success(function(){
+      Post.associate(models);
 
+      User.sync({force: true}).success(function(){
+        User.associate(models);
+        done();
+      });
+    });
+  });
 
-describe("orm post stuff", function(){
-  // TODO: use a totally separate database for this stuff
-  // and tear it down every time, just like in travis.
   it("works, basically", function(done){
     Post.create({
       body: "it's happening",
@@ -27,13 +34,6 @@ describe("orm post stuff", function(){
       assert(post.body === "it's happening");
       done();
     });
-  });
-});
-
-describe("user-to-post association", function(){
-  before(function(){
-    Post.associate(models);
-    User.associate(models);
   });
 
   it('gets posts associated with a particular user', function(testDone){
