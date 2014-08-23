@@ -55,11 +55,35 @@ describe('rendering', function(){
 
 describe('socket communication', function(){
   // this all requires server to be running. seems like an integration test suite.
+  before(function(done){
+    // establish database connection:
+    var Sequelize = require('sequelize');
+    var sequelize = new Sequelize("postgres://postgres@localhost/" + appModule.app.get('db-test'));
 
-  // set up a new event handler for our test event:
-  appModule.io.sockets.on('connection', function(socket){
-    socket.on('testEvent', function(data){
-      appModule.io.sockets.emit(data.message, data);
+    // pending comment
+    var Post = rootRequire('app/models/Post.orm')(sequelize);
+    var User = rootRequire('app/models/User.orm')(sequelize);
+
+    var models = {
+      Post: Post,
+      User: User
+    };
+
+    // ensure that fresh database tables are created:
+    Post.sync({force: true}).success(function(){
+      Post.associate(models);
+
+      User.sync({force: true}).success(function(){
+        User.associate(models);
+        done();
+      });
+    });
+
+    // set up a new event handler for our test event:
+    appModule.io.sockets.on('connection', function(socket){
+      socket.on('testEvent', function(data){
+        appModule.io.sockets.emit(data.message, data);
+      });
     });
   });
 
