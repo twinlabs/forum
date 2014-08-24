@@ -1,6 +1,6 @@
 var assert = require('assert');
 var sinon = require('sinon');
-var appModule = require('../app');
+var appModule = rootRequire('app');
 var io = require('socket.io-client');
 var http = require('http');
 
