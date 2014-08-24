@@ -9,6 +9,12 @@ module.exports = function(app){
     // dev environment-specific stuff here:
   });
 
+  app.configure('test', function(){
+    process.env.DATABASE_URL = "postgres://postgres@localhost/forum_test";
+    // test environment-specific stuff here:
+  });
+
+
   app.configure('production', function(){
     app.set('hostName', 'http://ahfr-forum.herokuapp.com');
     // 'production' environment-specific stuff here:
