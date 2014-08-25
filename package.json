@@ -33,9 +33,9 @@
     "async": "0.2.8",
     "pg": "~2.11.1",
     "sequelize": "~1.7.8",
-    "passport": "0.1.17",
-    "passport-local": "0.1.6",
-    "bcrypt": "0.7.5"
+    "passport": "~0.2.0",
+    "passport-local": "~1.0.0",
+    "bcrypt": "~0.8.0"
   },
   "devDependencies": {
     "mocha": "~1.13.0",
