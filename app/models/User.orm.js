@@ -9,11 +9,14 @@ var UserSequelize = function(sequelize){
       autoIncrement: true
     },
     name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        validate: {
-          len:[1, 30]
-        }
+      type: Sequelize.STRING,
+      allowNull: false,
+      validate: {
+        len:[1, 30]
+      }
+    },
+    email: {
+      type: Sequelize.STRING
     }
   }, {
     // options go here:

@@ -5,12 +5,16 @@ var http = require('http');
 var app = express();
 var lessMiddleware = require('less-middleware');
 var httpServer = http.createServer(app);
-
+var passport = require('passport');
 
 rootRequire('config/environments')(app);
 app.set('io', require('socket.io').listen(httpServer));
 
-rootRequire('config/routes')(app);
+rootRequire('lib/authentication');
+app.use(passport.initialize());
+app.use(passport.session());
+
+rootRequire('config/routes')(app, passport);
 
 var clientConstants = {
     socketAddress: app.get('hostName')

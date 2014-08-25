@@ -1,6 +1,6 @@
 var PostsController = rootRequire('app/controllers/PostsController');
 
-var routes = function(app){
+var routes = function(app, passport){
   app.get('/', function(request, response){
     PostsController.index().done(function(error, posts){
       response.render('index', {
@@ -20,6 +20,10 @@ var routes = function(app){
       PostsController.add(data);
       app.get('io').sockets.emit('post', data);
     });
+  });
+
+  app.post('/signup', passport.authenticate('local-signup', {}), function(request, response, next){
+    response.send(200);
   });
 
   app.get('/uisandbox', function(request, response){
