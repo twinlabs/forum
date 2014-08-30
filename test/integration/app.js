@@ -121,6 +121,5 @@ describe('socket communication', function(){
   });
 
   after(function(){
-    appModule.io.server.close();
   });
 });
