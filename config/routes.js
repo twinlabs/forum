@@ -9,6 +9,10 @@ var routes = function(app){
     });
   });
 
+  // TODO: what follows isn't isn't a proper route,
+  // it's a socket/event binding.
+  // take some time to think about where this ought to live.
+  // probably in the PostsController module.
   app.get('io').sockets.on('connection', function(socket){
     socket.on('post', function(data){
 
