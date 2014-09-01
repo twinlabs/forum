@@ -10,7 +10,6 @@ module.exports = function(app){
   });
 
   app.configure('test', function(){
-    process.env.DATABASE_URL = "postgres://postgres@localhost/forum_test";
     // test environment-specific stuff here:
   });
 
