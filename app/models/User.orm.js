@@ -1,4 +1,5 @@
 var Sequelize = require('sequelize');
+var bcrypt = require('bcrypt');
 
 var UserSequelize = function(sequelize){
   var User = sequelize.define('User', {
@@ -26,6 +27,11 @@ var UserSequelize = function(sequelize){
     classMethods: {
       associate: function(models){
         User.hasMany(models.Post, {foreignKey: 'user_id'});
+      }
+    },
+    instanceMethods: {
+      isValidPassword: function(password, callback){
+        return bcrypt.compare(password, this.password, callback);
       }
     },
     underscored: true,

@@ -2,7 +2,6 @@ var assert = require('assert');
 var appModule = rootRequire('app');
 var http = require('http');
 var User = rootRequire('app/models/User');
-var bcrypt = require('bcrypt');
 
 describe('authentication', function(){
   before(function(done){
@@ -65,8 +64,8 @@ describe('authentication', function(){
             email: 'user@ahfr.org'
           }
         }).done(function(error,user){
-          bcrypt.compare('userpassword', user.password, function(error, bcryptResponse){
-            assert(bcryptResponse === true);
+          user.isValidPassword('userpassword', function(error, passwordResponse){
+            assert(passwordResponse === true);
 
             done();
           });
