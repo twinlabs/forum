@@ -3,7 +3,7 @@ var appModule = rootRequire('app');
 var http = require('http');
 var User = rootRequire('app/models/User');
 
-describe ('signup', function(){
+describe('signup', function(){
   before(function(done){
     User.sync({force: true}).success(function(){
       done();
