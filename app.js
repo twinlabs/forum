@@ -3,6 +3,7 @@ require('./lib/helpers');
 var express = require('express');
 var http = require('http');
 var app = express();
+var session = require('express-session');
 var lessMiddleware = require('less-middleware');
 var httpServer = http.createServer(app);
 var passport = require('passport');
