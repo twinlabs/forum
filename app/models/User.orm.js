@@ -17,6 +17,9 @@ var UserSequelize = function(sequelize){
     },
     email: {
       type: Sequelize.STRING
+    },
+    password: {
+      type: Sequelize.STRING
     }
   }, {
     // options go here:
