@@ -2,7 +2,6 @@ var assert = require('assert');
 var appModule = rootRequire('app');
 var http = require('http');
 var User = rootRequire('app/models/User');
-var bcrypt = require('bcrypt');
 
 describe('authentication', function(){
   before(function(done){
@@ -65,8 +64,8 @@ describe('authentication', function(){
             email: 'user@ahfr.org'
           }
         }).done(function(error,user){
-          bcrypt.compare('userpassword', user.password, function(error, bcryptResponse){
-            assert(bcryptResponse === true);
+          user.isValidPassword('userpassword', function(error, passwordResponse){
+            assert(passwordResponse === true);
 
             done();
           });
@@ -74,6 +73,41 @@ describe('authentication', function(){
       });
 
       request.end();
+    });
+  });
+
+  describe('login', function(){
+    it('retrieves stored users based on a given username and password', function(done){
+      var signupRequest = http.request({
+        method: 'POST',
+        path: '/signup?email=retrievableuser@ahfr.org&password=retrievableuserpassword&name=TheBestGuy',
+        port: appModule.port
+      }, function(response){
+        var userData = JSON.stringify({
+          email: 'retrievableuser@ahfr.org',
+          password: 'retrievableuserpassword'
+        });
+
+        var headers =  {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Content-Length': userData.length
+        };
+
+        var loginRequest = http.request({
+          method: 'POST',
+          path: '/login',
+          port: appModule.port,
+          headers: headers
+        }, function(response){
+          assert(response.statusCode === 200, "status code not 200/OK: " + response.statusCode);
+          done();
+        });
+
+        loginRequest.write(userData);
+        loginRequest.end();
+      });
+
+      signupRequest.end();
     });
   });
 });

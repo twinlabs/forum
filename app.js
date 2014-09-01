@@ -14,6 +14,8 @@ rootRequire('lib/authentication');
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(express.bodyParser());
+
 rootRequire('config/routes')(app, passport);
 
 var clientConstants = {
