@@ -32,9 +32,8 @@ app.set('views', process.cwd() + '/app/views');
 app.set('view engine', 'jade');
 app.use('/templates/post', express.static(__dirname + '/app/views/posts/'));
 
-app.use(lessMiddleware({
-  src: __dirname + '/app/assets'
-  //, compress: true
+app.use(lessMiddleware(__dirname + '/app/assets', {
+  // less-middleware options:
 }));
 
 app.use(express.static(__dirname + '/app/assets'));
