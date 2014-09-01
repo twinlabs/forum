@@ -5,6 +5,7 @@ var http = require('http');
 var app = express();
 var session = require('express-session');
 var lessMiddleware = require('less-middleware');
+var autoprefixer = require('autoprefixer-core');
 var httpServer = http.createServer(app);
 var passport = require('passport');
 
@@ -32,9 +33,12 @@ app.set('views', process.cwd() + '/app/views');
 app.set('view engine', 'jade');
 app.use('/templates/post', express.static(__dirname + '/app/views/posts/'));
 
-app.use(lessMiddleware({
-  src: __dirname + '/app/assets'
-  //, compress: true
+app.use(lessMiddleware(__dirname + '/app/assets', {
+  postprocess: {
+    css: function(css, request){
+      return autoprefixer.process(css).css;
+    }
+  }
 }));
 
 app.use(express.static(__dirname + '/app/assets'));
