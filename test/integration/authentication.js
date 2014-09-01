@@ -75,4 +75,39 @@ describe('authentication', function(){
       request.end();
     });
   });
+
+  describe('login', function(){
+    it('retrieves stored users based on a given username and password', function(done){
+      var signupRequest = http.request({
+        method: 'POST',
+        path: '/signup?email=retrievableuser@ahfr.org&password=retrievableuserpassword&name=TheBestGuy',
+        port: appModule.port
+      }, function(response){
+        var userData = JSON.stringify({
+          email: 'retrievableuser@ahfr.org',
+          password: 'retrievableuserpassword'
+        });
+
+        var headers =  {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Content-Length': userData.length
+        };
+
+        var loginRequest = http.request({
+          method: 'POST',
+          path: '/login',
+          port: appModule.port,
+          headers: headers
+        }, function(response){
+          assert(response.statusCode === 200, "status code not 200/OK: " + response.statusCode);
+          done();
+        });
+
+        loginRequest.write(userData);
+        loginRequest.end();
+      });
+
+      signupRequest.end();
+    });
+  });
 });
