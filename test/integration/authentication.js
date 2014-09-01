@@ -1,4 +1,5 @@
 var assert = require('assert');
+var _ = require('lodash');
 var appModule = rootRequire('app');
 var http = require('http');
 var User = rootRequire('app/models/User');

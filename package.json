@@ -21,6 +21,7 @@
     "underscore": "1.5.2",
     "optimist": "0.6.0",
     "less-middleware": "0.1.12",
+    "lodash": "2.4.1",
     "node-imagemagick": "0.1.8",
     "marked": "0.2.8",
     "socket.io": "~0.9.9",
