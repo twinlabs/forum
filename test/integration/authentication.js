@@ -1,4 +1,5 @@
 var assert = require('assert');
+var _ = require('lodash');
 var appModule = rootRequire('app');
 var http = require('http');
 var User = rootRequire('app/models/User');
@@ -100,6 +101,45 @@ describe('authentication', function(){
           headers: headers
         }, function(response){
           assert(response.statusCode === 200, "status code not 200/OK: " + response.statusCode);
+          done();
+        });
+
+        loginRequest.write(userData);
+        loginRequest.end();
+      });
+
+      signupRequest.end();
+    });
+
+    it('create a session for an authenticated user', function(done){
+      var signupRequest = http.request({
+        method: 'POST',
+        path: '/signup?email=sessioneduser@ahfr.org&password=password&name=CoolSessionedUser',
+        port: appModule.port
+      }, function(response){
+        var userData = JSON.stringify({
+          email: 'sessioneduser@ahfr.org',
+          password: 'password'
+        });
+
+        var headers =  {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Content-Length': userData.length
+        };
+
+        var loginRequest = http.request({
+          method: 'POST',
+          path: '/login',
+          port: appModule.port,
+          headers: headers
+        }, function(response){
+          assert(response.statusCode === 200, "status code not 200/OK: " + response.statusCode);
+          sessioncookie = response.headers['set-cookie'] && _.find(response.headers['set-cookie'], function(cookie){
+            return cookie.match(/^connect.sid/) !== null;
+          });
+
+          assert(sessioncookie !== undefined, 'session cookie not undefined: ' + sessioncookie);
+
           done();
         });
 
