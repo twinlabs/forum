@@ -17,6 +17,7 @@
     "start:debug": "node-debug app.js"
   },
   "dependencies": {
+    "autoprefixer-core": "~3.0.0",
     "express": "3.2.0",
     "express-session": "1.7.6",
     "underscore": "1.5.2",
