@@ -84,6 +84,8 @@ describe('authentication', function(){
         path: '/signup?email=retrievableuser@ahfr.org&password=retrievableuserpassword&name=TheBestGuy',
         port: appModule.port
       }, function(response){
+        response.resume();
+
         var userData = JSON.stringify({
           email: 'retrievableuser@ahfr.org',
           password: 'retrievableuserpassword'
@@ -100,6 +102,8 @@ describe('authentication', function(){
           port: appModule.port,
           headers: headers
         }, function(response){
+          response.resume();
+
           assert(response.statusCode === 200, "status code not 200/OK: " + response.statusCode);
           done();
         });
@@ -117,6 +121,8 @@ describe('authentication', function(){
         path: '/signup?email=sessioneduser@ahfr.org&password=password&name=CoolSessionedUser',
         port: appModule.port
       }, function(response){
+        response.resume();
+
         var userData = JSON.stringify({
           email: 'sessioneduser@ahfr.org',
           password: 'password'
