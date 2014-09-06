@@ -15,7 +15,9 @@ module.exports = function(app){
 
 
   app.configure('production', function(){
-    app.set('hostName', 'http://ahfr-forum.herokuapp.com');
-    // 'production' environment-specific stuff here:
+    var environment = rootRequire('config/environments/production');
+
+    app.set('hostName', environment.hostName);
+    app.set('sessionSecret', environment.sessionSecret);
   });
 };
