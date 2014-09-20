@@ -15,8 +15,11 @@ describe('authentication', function(){
     it('accepts signup requests with a username and password and creates new users', function(done){
       var request = http.request({
         method: 'POST',
-        path: '/signup?email=will@ahfr.org&password=Gargantuan1&name=Will',
-        port: appModule.port
+        path: '/signup',
+        port: appModule.port,
+        headers: {
+          'Content-Type': 'application/json'
+        }
       }, function(response){
         assert(response.statusCode === 200, "status code not 200/OK");
 
@@ -31,14 +34,23 @@ describe('authentication', function(){
         });
       });
 
+      request.write(JSON.stringify({
+        name: 'Will',
+        email: 'will@ahfr.org',
+        password: 'Gargantuan1'
+      }));
+
       request.end();
     });
 
     it('doesn\'t store the password in the clear', function(done){
       var request = http.request({
         method: 'POST',
-        path: '/signup?email=villain@ahfr.org&password=plaintextPassword&name=AnotherUser',
-        port: appModule.port
+        path: '/signup',
+        port: appModule.port,
+        headers: {
+          'Content-Type': 'application/json'
+        }
       }, function(response){
         User.find({
           where: {
@@ -51,14 +63,23 @@ describe('authentication', function(){
         });
       });
 
+      request.write(JSON.stringify({
+        name: 'AnotherUser',
+        email: 'villain@ahfr.org',
+        password: 'plaintextPassword'
+      }));
+
       request.end();
     });
 
     it('accepts plaintext passwords and matches them against hashed passwords', function(done){
       var request = http.request({
         method: 'POST',
-        path: '/signup?email=user@ahfr.org&password=userpassword&name=YetAnotherUser',
-        port: appModule.port
+        path: '/signup',
+        port: appModule.port,
+        headers: {
+          'Content-Type': 'application/json'
+        }
       }, function(response){
         User.find({
           where: {
@@ -73,6 +94,12 @@ describe('authentication', function(){
         });
       });
 
+      request.write(JSON.stringify({
+        name: 'YetAnotherUser',
+        email: 'user@ahfr.org',
+        password: 'userpassword'
+      }));
+
       request.end();
     });
   });
@@ -81,8 +108,11 @@ describe('authentication', function(){
     it('retrieves stored users based on a given username and password', function(done){
       var signupRequest = http.request({
         method: 'POST',
-        path: '/signup?email=retrievableuser@ahfr.org&password=retrievableuserpassword&name=TheBestGuy',
-        port: appModule.port
+        path: '/signup',
+        port: appModule.port,
+        headers: {
+          'Content-Type': 'application/json'
+        }
       }, function(response){
         response.resume();
 
@@ -112,14 +142,23 @@ describe('authentication', function(){
         loginRequest.end();
       });
 
+      signupRequest.write(JSON.stringify({
+        name: 'TheBestGuy',
+        email: 'retrievableuser@ahfr.org',
+        password: 'retrievableuserpassword'
+      }));
+
       signupRequest.end();
     });
 
     it('create a session for an authenticated user', function(done){
       var signupRequest = http.request({
         method: 'POST',
-        path: '/signup?email=sessioneduser@ahfr.org&password=password&name=CoolSessionedUser',
-        port: appModule.port
+        path: '/signup',
+        port: appModule.port,
+        headers: {
+          'Content-Type': 'application/json'
+        }
       }, function(response){
         response.resume();
 
@@ -152,6 +191,12 @@ describe('authentication', function(){
         loginRequest.write(userData);
         loginRequest.end();
       });
+
+      signupRequest.write(JSON.stringify({
+        name: 'CoolSessionedUser',
+        email: 'sessioneduser@ahfr.org',
+        password: 'password'
+      }));
 
       signupRequest.end();
     });

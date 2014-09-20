@@ -30,6 +30,16 @@ var routes = function(app, passport){
     response.send(200);
   });
 
+  app.get('/login', function(request, response){
+    response.render('login', {
+    });
+  });
+
+  app.get('/signup', function(request, response){
+    response.render('signup', {
+    });
+  });
+
   app.get('/uisandbox', function(request, response){
     response.render('posts/show', {
       posts: rootRequire('test/fixtures/posts')
