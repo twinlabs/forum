@@ -21,8 +21,8 @@ script(src="/templates/post/post.js")
         body: $input.val(),
         date: new Date(),
         user: {
-          id: '1',
-          name: 'Will of the Highlands'
+          id: forum.constants.user.id,
+          name: forum.constants.user.name
         }
       });
       $input.val('');
