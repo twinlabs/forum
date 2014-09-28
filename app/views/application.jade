@@ -1,64 +1,33 @@
 doctype 5
 html(lang="en")
   head
-    title ...
+    title Forum
     script.
       var forum = {};
       forum.constants = !{clientConstants};
-      forum.constants.user = !{user};
-    link(rel="stylesheet" href="/stylesheets/base.css")
-    link(rel="stylesheet" href="/stylesheets/post.css")
-    link(rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto")
-    link( rel="stylesheet"
+      forum.constants.user = !{JSON.stringify(user)};
+    link(
+      rel="stylesheet"
+      href="stylesheets/base.css"
+    )
+    link(
+      rel="stylesheet"
+      href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700,400"
+    )
+    link(
+      rel="stylesheet"
       href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"
     )
 
     block head
   body
-    h1 Forum
-    #menu
-      ul
-        li
-          a(href="#") links to
-        li
-          a(href="#") useradmin
-        li
-          a(href="#") forumadmin
-        li
-          a(href="#") and logout
-        li
-          a(href="#") ...etc
-    #controls
-      a.toggle(href="#")
-        span.handle
-    #main
-      block main
-    script(src="javascripts/socket.io.js")
+
+    block main
+
     script(src="javascripts/moment.js")
     script(src="javascripts/underscore.js")
-    script(src="javascripts/jade-runtime.js")
     script(src="javascripts/jquery.js")
-    #posts
-    script.
-      var socket = io.connect(forum.constants.socketAddress);
-    include posts/new
-    script.
-      $('#controls .toggle').on('click', function(event){
-        event.preventDefault();
-        if ($('#controls').hasClass('active')){
-          $('#menu').removeClass('active');
-        }
+    script(src="javascripts/socket.io.js")
+    script(src="javascripts/jade-runtime.js")
 
-        $('body').toggleClass('menu')
-
-        $('#controls').toggleClass('active');
-      });
-      $('#controls').on('transitionend webkitTransitionEnd oTransitionEnd otransitionend', function() {
-        setTimeout(function(){
-          if ($('body').hasClass('menu')) {
-            $('#menu').addClass('active');
-          }
-        }, 1);
-
-      });
     block script

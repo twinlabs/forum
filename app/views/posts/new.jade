@@ -8,7 +8,7 @@ script(src="/templates/post/post.js")
       var locals = {};
       locals.post = response;
       locals.post.date = moment(locals.post.date).fromNow();
-      $('#main').append(anonymous(locals));
+      $('body').append(anonymous(locals));
     });
 
     $('.new form').submit(function(event){

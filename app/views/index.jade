@@ -1,6 +1,20 @@
 extends application
 
 block main
-  h2 main
-  each post in posts
-    include posts/post
+  if (user && user.id !== 0)
+    h2 main
+    each post in posts
+      include posts/post
+  else
+    h1 The Forum
+    img(
+      class="logo",
+      src="images/logo.svg",
+      alt="Logo"
+    )
+
+block script
+  if (user && user.id !== 0)
+    script.
+      var socket = io.connect(forum.constants.socketAddress);
+    include posts/new

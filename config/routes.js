@@ -9,7 +9,7 @@ var routes = function(app, passport){
       };
     }
 
-    response.locals.user = JSON.stringify(request.session.user);
+    response.locals.user = request.session.user;
 
     next();
   });
