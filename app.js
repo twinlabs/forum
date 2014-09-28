@@ -51,3 +51,5 @@ module.exports = {
   app: app,
   port: app.get('PORT')
 };
+
+app.locals.moment = require('moment');
