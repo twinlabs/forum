@@ -1,16 +1,16 @@
 @import "variables";
 
-.post {
+.post,
+.new input {
   border: 3px solid @black;
+}
+
+.post {
   margin: 0.5em auto 1em;
 
   img {
     max-width: 100%;
   }
-}
-
-.meta,
-.content {
 }
 
 .meta {
@@ -26,12 +26,29 @@
   }
 }
 
-.content {
+.content,
+.new input {
   padding: 1em;
 }
 
+.new {
+  margin: 0 auto;
+  input {
+    width: 100%;
+
+    transition: border-color 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: #eee;
+    }
+  }
+}
+
 @media (min-width: 640px) {
-  .posts .main {
+  .posts .main,
+  .new,
+  .new input {
     max-width: 560px;
   }
 }

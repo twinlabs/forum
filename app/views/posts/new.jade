@@ -2,7 +2,7 @@ script(src="/templates/post/post.js")
 
 .new
   form
-    input(type="text")
+    input(type="text" placeholder="Type here...")
   script.
     socket.on('post', function(response){
       var locals = {};
