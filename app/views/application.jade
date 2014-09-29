@@ -20,9 +20,13 @@ html(lang="en")
     )
 
     block head
-  body
+    block vars
+  body(
+    class=bodyClass
+  )
 
-    block main
+    .main
+      block main
 
     script(src="javascripts/moment.js")
     script(src="javascripts/underscore.js")

@@ -1,5 +1,8 @@
 extends application
 
+block vars
+  - var bodyClass="index posts"
+
 block main
   if (user && user.id !== 0)
     h2 main
