@@ -9,7 +9,7 @@ script(src="/templates/post/post.js")
       locals.post = response;
       locals.post.created_at = moment(locals.post.created_at).fromNow();
       locals.moment = moment;
-      $('.main .posts').append(anonymous(locals));
+      $(anonymous(locals)).appendTo('.main .posts')[0].scrollIntoView();
     });
 
     $('.new form').submit(function(event){
