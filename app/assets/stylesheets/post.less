@@ -1,51 +1,37 @@
-// -- mixins:
-.ellipsify {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+@import "variables";
+
+.post {
+  border: 3px solid @black;
+  margin: 0.5em auto 1em;
+
+  img {
+    max-width: 100%;
+  }
 }
 
-// -- end mixins
-.post {
-  width: 100%;
-  .meta {
-    @height: 40px;
+.meta,
+.content {
+}
 
-    height: @height;
-    color: #fff;
-    background: #ff99ac;
-    border-radius: 3px;
+.meta {
+  padding: 0.5em 1em;
+  border-bottom: 1px solid @black;
 
-    .datum {
-      padding: 0 10px;
-      float: left;
-      height: 100%;
-      line-height: @height;
+  * {
+    display: inline-block;
 
-      &:first-child {
-        background: #00ce11;
-      }
-      &:nth-child(2){
-        background: #11c0cf;
-      }
+    &:not(:first-child) {
+      margin: 0 0.5em;
     }
+  }
+}
 
-    .username,
-    .time {
-      width: 25%;
+.content {
+  padding: 1em;
+}
 
-      .ellipsify();
-    }
-
-    .username {}
-    .time {
-      position: relative;
-      i {
-        padding-right: 4px;
-      }
-      &:after {
-        border-bottom: 1px dotted #fff;
-      }
-    }
+@media (min-width: 640px) {
+  .post {
+    max-width: 560px;
   }
 }
