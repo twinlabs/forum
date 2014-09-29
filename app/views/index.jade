@@ -6,8 +6,9 @@ block vars
 block main
   if (user && user.id !== 0)
     h2 main
-    each post in posts
-      include posts/post
+    .posts
+      each post in posts
+        include posts/post
   else
     h1 The Forum
     img(
