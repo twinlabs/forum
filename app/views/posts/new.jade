@@ -9,6 +9,13 @@ script(src="/templates/post/post.js")
       locals.post = response;
       locals.moment = moment;
       $(anonymous(locals)).appendTo('.main .posts')[0].scrollIntoView();
+
+      $('.post .distance').text(function(){
+        var postTime = moment($(this).data('timestamp'));
+        if (postTime.isSame(moment(), 'day') && postTime.fromNow() !== $(this).text()) {
+          return postTime.fromNow();
+        }
+      });
     });
 
     $('.new form').submit(function(event){
