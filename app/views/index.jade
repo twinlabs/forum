@@ -11,10 +11,11 @@ block main
         include posts/post
   else
     h1.logo
-      span.logo-prefix
-       | The
-      span.logo-main
-       | Forum
+      span.logo-inner
+        span.logo-prefix
+         | The
+        span.logo-main
+         | Forum
 
 block script
   if (user && user.id !== 0)
