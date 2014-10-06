@@ -11,6 +11,7 @@ module.exports = function(app){
 
   app.configure('test', function(){
     // test environment-specific stuff here:
+    app.set('PORT', process.env.PORT || 3099);
   });
 
 
