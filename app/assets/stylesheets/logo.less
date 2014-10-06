@@ -1,12 +1,24 @@
-h1 {
+@import "variables";
+
+.logo {
+  position: absolute;
+  top: 25%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  margin: auto;
   text-transform: uppercase;
   text-align: center;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto;
-  max-width: 100%;
+.logo-prefix,
+.logo-main {
+  display: inline-block;
 }
 
-
+.logo-main {
+  margin-left: 1.5em;
+  padding: 10px;
+  border: 5px solid @black;
+}
