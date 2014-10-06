@@ -7,7 +7,6 @@ script(src="/templates/post/post.js")
     socket.on('post', function(response){
       var locals = {};
       locals.post = response;
-      locals.post.created_at = moment(locals.post.created_at).fromNow();
       locals.moment = moment;
       $(anonymous(locals)).appendTo('.main .posts')[0].scrollIntoView();
     });
