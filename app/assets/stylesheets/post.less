@@ -6,7 +6,8 @@ p {
 }
 
 .post,
-.input-input {
+.input-input,
+.input-submit {
   border: 3px solid @black;
 }
 
@@ -44,7 +45,8 @@ p {
 
 .new {
   margin: 0 auto;
-  .input {
+  .input,
+  .input-submit {
     width: 100%;
   }
 }
@@ -57,8 +59,42 @@ p {
   }
 }
 
+.new form {
+  padding-bottom: 3em;
+}
+
 .input {
   position: relative;
+
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 1em;
+    height: 90%;
+  }
+
+  &:before {
+    left: 0.5em;
+
+    background: linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0.5) 40%,
+      rgba(255, 255, 255, 1) 100%
+    );
+  }
+
+  &:after {
+    right: 3.5em;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.5) 40%,
+      rgba(255, 255, 255, 1) 100%
+    );
+  }
 
   .input-text,
   .input-textarea {
@@ -81,6 +117,18 @@ p {
     margin: auto;
     height: 1em;
     cursor: pointer;
+  }
+
+  .input-submit {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 1em;
+    background-color: transparent;
+  }
+
+  .input.textarea {
+    margin-bottom: 4em;
   }
 }
 
