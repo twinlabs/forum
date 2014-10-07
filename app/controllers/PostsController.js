@@ -11,7 +11,10 @@ var PostsController = {
     Post.create(data);
   },
   index: function(){
-    return Post.findAll({include: [User]});
+    return Post.findAll({
+      include: [User],
+      order: 'created_at ASC'
+    });
   }
 };
 
