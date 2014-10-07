@@ -1,11 +1,17 @@
 @import "variables";
 
+// might want to normalize more than this:
+p {
+  margin: 0;
+}
+
 .post,
-.new input {
+.input-input {
   border: 3px solid @black;
 }
 
-.post {
+.post,
+.input {
   margin: 0.5em auto 1em;
 
   img {
@@ -27,14 +33,38 @@
 }
 
 .content,
-.new input {
+.input-text,
+.input-textarea {
   padding: 1em;
+}
+
+.input-textarea {
+  min-height: 10em;
 }
 
 .new {
   margin: 0 auto;
-  input {
+  .input {
     width: 100%;
+  }
+}
+
+@media (min-width: 640px) {
+  .posts .main,
+  .new,
+  .new .input {
+    max-width: 560px;
+  }
+}
+
+.input {
+  position: relative;
+
+  .input-text,
+  .input-textarea {
+    padding-right: 4em;
+    width: 100%;
+    height: 100%;
 
     transition: border-color 0.2s;
 
@@ -43,12 +73,17 @@
       border-color: #eee;
     }
   }
+
+  .toggle {
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    margin: auto;
+    height: 1em;
+    cursor: pointer;
+  }
 }
 
-@media (min-width: 640px) {
-  .posts .main,
-  .new,
-  .new input {
-    max-width: 560px;
-  }
+.input.hidden {
+  display: none;
 }
