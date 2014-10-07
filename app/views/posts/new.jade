@@ -18,6 +18,7 @@ script(src="/templates/post/post.js")
       var locals = {};
       locals.post = response;
       locals.moment = moment;
+      locals.marked = marked;
       $(anonymous(locals)).appendTo('.main .posts')[0].scrollIntoView();
 
       $('.post .distance').text(function(){
@@ -35,7 +36,7 @@ script(src="/templates/post/post.js")
 
       event.preventDefault();
       socket.emit('post', {
-        body: marked($input.find('.input-input').val()),
+        body: $input.find('.input-input').val(),
         created_at: new Date(),
         user: {
           id: forum.constants.user.id,
