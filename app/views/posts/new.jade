@@ -2,7 +2,17 @@ script(src="/templates/post/post.js")
 
 .new
   form
-    input(type="text" placeholder="Type here...")
+    .input
+      input(class="input-input input-text" type="text" placeholder="Type here...")
+      .toggle
+        | {...}
+    .input.hidden
+      textarea(class="input-input input-textarea" placeholder="Type here...")
+      .toggle
+        | { / }
+      button(type="submit")
+        | Submit
+
   script.
     socket.on('post', function(response){
       var locals = {};
@@ -19,18 +29,27 @@ script(src="/templates/post/post.js")
     });
 
     $('.new form').submit(function(event){
-      var $input = $(this).find('input');
+      var $input = $(this).find('.input').not('.hidden');
 
-      if ($input.val() === "") return false;
+      if ($input.find('.input-input').val() === "") return false;
 
       event.preventDefault();
       socket.emit('post', {
-        body: $input.val(),
+        body: marked($input.find('.input-input').val()),
         created_at: new Date(),
         user: {
           id: forum.constants.user.id,
           name: forum.constants.user.name
         }
       });
-      $input.val('');
+      $(this).find('.input-input').val('');
+    });
+
+    $('textarea, input').on('keydown', function(event){
+      $(this).closest('.input').siblings('.input').find('.input-input').val($(this).val());
+    });
+
+    $('.input .toggle').on('click', function(){
+      $(this).closest('.input').toggleClass('hidden');
+      $(this).closest('.input').siblings('.input').toggleClass('hidden');
     });

@@ -27,7 +27,7 @@
     "less-middleware": "1.0.4",
     "lodash": "2.4.1",
     "node-imagemagick": "0.1.8",
-    "marked": "0.2.8",
+    "marked": "0.3.2",
     "socket.io": "~0.9.9",
     "socket.io-client": "~0.9.9",
 
