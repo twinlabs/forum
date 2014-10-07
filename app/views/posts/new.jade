@@ -46,7 +46,7 @@ script(src="/templates/post/post.js")
       $(this).find('.input-input').val('');
     });
 
-    $('textarea, input').on('keydown', function(event){
+    $('textarea, input').on('keyup', function(event){
       $(this).closest('.input').siblings('.input').find('.input-input').val($(this).val());
     });
 
