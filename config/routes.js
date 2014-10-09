@@ -52,6 +52,18 @@ var routes = function(app, passport){
     response.redirect('/');
   });
 
+  app.get('/logout', function(request, response){
+    if (request.session.user) {
+      delete request.session.user;
+    }
+    if (request.session.passport) {
+      delete request.session.passport;
+    }
+
+    response.redirect('/');
+  });
+
+
   app.get('/login', function(request, response){
     response.render('login', {
     });
