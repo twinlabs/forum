@@ -16,6 +16,10 @@ block main
          | The
         span.logo-main
          | Forum
+      form(action="/login", method="POST").logo-backface
+        input(type="text" placeholder="email" name="email")
+        input(type="password" placeholder="password" name="password")
+        input(type="submit")
 
 block script
   if (user && user.id !== 0)
@@ -25,5 +29,5 @@ block script
   else
     script.
       $('.logo-inner').on('click', function(event){
-        $(this).toggleClass('rotate');
+        $(this).closest('.logo').toggleClass('rotate');
       });

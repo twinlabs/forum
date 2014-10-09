@@ -18,24 +18,50 @@
   display: inline-block;
 }
 
+.logo-backface,
 .logo-inner,
 .logo-main {
   border: solid @black;
 }
 
 .logo-inner {
+}
+
+.logo-backface {
+  visibility: hidden;
+  max-width: 40%;
+  transform: rotateY(180deg);
+}
+
+.logo-inner,
+.logo-backface {
+  display: inline-block;
+  vertical-align: top;
+  transition: transform 0.5s;
   padding: 0.9375em;
   border-width: 4px;
-  transition: transform 0.5s;
   backface-visibility: hidden;
 }
 
-.rotate {
-  transform: rotateY(180deg);
+.logo.rotate {
+  .logo-inner {
+    transform: rotateY(180deg);
+  }
+  .logo-backface {
+    visibility: visible;
+    transform: rotateY(0);
+  }
 }
 
 .logo-main {
   margin-left: 1.5em;
   padding: 0.3125em;
   border-width: 5px;
+}
+
+.logo-backface {
+  input {
+    display: inline-block;
+    width: 100%;
+  }
 }
