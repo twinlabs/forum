@@ -1,4 +1,5 @@
 script(src="/templates/post/post.js")
+script(src="javascripts/emoji.js")
 
 .new
   form
@@ -6,11 +7,11 @@ script(src="/templates/post/post.js")
       input(class="input-input input-text" type="text" placeholder="Type here...")
       .toggle
         | {...}
-    .input.hidden
+    .input.hidden.textarea
       textarea(class="input-input input-textarea" placeholder="Type here...")
       .toggle
         | { / }
-      button(type="submit")
+      button(class="input-submit" type="submit")
         | Submit
 
   script.
@@ -18,6 +19,7 @@ script(src="/templates/post/post.js")
       var locals = {};
       locals.post = response;
       locals.moment = moment;
+      locals.marked = marked;
       $(anonymous(locals)).appendTo('.main .posts')[0].scrollIntoView();
 
       $('.post .distance').text(function(){
@@ -28,6 +30,8 @@ script(src="/templates/post/post.js")
       });
     });
 
+    emoji.colons_mode = true;
+
     $('.new form').submit(function(event){
       var $input = $(this).find('.input').not('.hidden');
 
@@ -35,7 +39,7 @@ script(src="/templates/post/post.js")
 
       event.preventDefault();
       socket.emit('post', {
-        body: marked($input.find('.input-input').val()),
+        body: emoji.replace_unified($input.find('.input-input').val()),
         created_at: new Date(),
         user: {
           id: forum.constants.user.id,
@@ -45,7 +49,7 @@ script(src="/templates/post/post.js")
       $(this).find('.input-input').val('');
     });
 
-    $('textarea, input').on('keydown', function(event){
+    $('textarea, input').on('keyup', function(event){
       $(this).closest('.input').siblings('.input').find('.input-input').val($(this).val());
     });
 
