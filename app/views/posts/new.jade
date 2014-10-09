@@ -32,7 +32,7 @@ script.
       });
     });
 
-    $('.new form').submit(function(event){
+    $('.new form').on('submit', function(event){
       var $input = $(this).find('.input').not('.hidden');
 
       if ($input.find('.input-input').val() === "") return false;
