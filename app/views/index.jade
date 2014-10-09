@@ -16,9 +16,18 @@ block main
          | The
         span.logo-main
          | Forum
+      form(action="/login", method="POST").logo-backface
+        input(type="text" placeholder="email" name="email")
+        input(type="password" placeholder="password" name="password")
+        input(type="submit")
 
 block script
   if (user && user.id !== 0)
     script.
       var socket = io.connect(forum.constants.socketAddress);
     include posts/new
+  else
+    script.
+      $('.logo-inner').on('click', function(event){
+        $(this).closest('.logo').toggleClass('rotate');
+      });

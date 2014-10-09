@@ -18,18 +18,69 @@
   display: inline-block;
 }
 
+.logo-backface,
 .logo-inner,
 .logo-main {
   border: solid @black;
 }
 
 .logo-inner {
+  cursor: pointer;
+}
+
+.logo-backface {
+  visibility: hidden;
+  transform: rotateY(180deg);
+}
+
+.logo-inner,
+.logo-backface {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  transition: transform 0.5s;
   padding: 0.9375em;
   border-width: 4px;
+  backface-visibility: hidden;
+  max-width: 40%;
+}
+
+.logo.rotate {
+  .logo-inner {
+    transform: rotateY(180deg);
+  }
+  .logo-backface {
+    visibility: visible;
+    transform: rotateY(0);
+  }
 }
 
 .logo-main {
   margin-left: 1.5em;
   padding: 0.3125em;
   border-width: 5px;
+}
+
+.logo-backface {
+  input {
+    display: inline-block;
+    width: 100%;
+
+    margin: 0.2em 0;
+
+    &[type="text"],
+    &[type="password"] {
+      padding: 0.66em;
+      font-size: 0.66em;
+      border: 1px solid @black;
+      background-color: white;
+    }
+
+    &[type="submit"] {
+      background-color: transparent;
+      border: 3px solid @black;
+    }
+  }
 }
