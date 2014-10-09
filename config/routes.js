@@ -40,7 +40,7 @@ var routes = function(app, passport){
   });
 
   app.post('/signup', passport.authenticate('local-signup', {}), function(request, response, next){
-    response.send(200);
+    response.redirect('/login');
   });
 
   app.post('/login', passport.authenticate('local'), function(request, response, next){
@@ -49,7 +49,7 @@ var routes = function(app, passport){
       name: request.user && request.user.name || ''
     };
 
-    response.send(200);
+    response.redirect('/');
   });
 
   app.get('/login', function(request, response){
