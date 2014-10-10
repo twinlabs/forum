@@ -124,11 +124,17 @@ p {
   }
 
   .input-submit {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    margin-top: 1em;
     background-color: transparent;
+    width: 100%;
+  }
+
+  .new {
+    .input-submit {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: 1em;
+    }
   }
 
   .input.textarea {
@@ -138,4 +144,28 @@ p {
 
 .input.hidden {
   display: none;
+}
+
+.post {
+  .hidden {
+    display: none;
+  }
+}
+
+.actions {
+  margin-top: 1em;
+  padding: 1em;
+  border-top: 2px solid @black;
+  text-align: right;
+
+  .action {
+    margin-left: 0.33em;
+    color: inherit;
+    text-decoration: none;
+
+    &.edit {
+      vertical-align: -35%;
+    }
+  }
+
 }
