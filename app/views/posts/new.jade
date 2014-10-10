@@ -1,5 +1,7 @@
 script(src="/templates/post/post.js")
 script(src="javascripts/emoji.js")
+script.
+  emoji.colons_mode = true;
 
 .new
   form
@@ -30,9 +32,7 @@ script(src="javascripts/emoji.js")
       });
     });
 
-    emoji.colons_mode = true;
-
-    $('.new form').submit(function(event){
+    $('.new form').on('submit', function(event){
       var $input = $(this).find('.input').not('.hidden');
 
       if ($input.find('.input-input').val() === "") return false;

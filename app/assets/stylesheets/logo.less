@@ -44,7 +44,11 @@
   padding: 0.9375em;
   border-width: 4px;
   backface-visibility: hidden;
-  max-width: 40%;
+  width: 90%;
+
+  @media (min-width: 401px) {
+    width: 360px;
+  }
 }
 
 .logo.rotate {
