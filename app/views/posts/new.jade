@@ -17,6 +17,15 @@ script.
         | Submit
 
   script.
+    socket.on('edit', function(response){
+      var locals = {};
+      locals.post = response;
+      locals.moment = moment;
+      locals.marked = marked;
+
+      $('[data-id=' + response.id + ']').replaceWith(anonymous(locals));
+    });
+
     socket.on('post', function(response){
       var locals = {};
       locals.post = response;
@@ -30,6 +39,21 @@ script.
           return postTime.fromNow();
         }
       });
+    });
+
+    $('body').on('submit', '.post form.edit', function(event){
+      var $input = $(this).find('textarea');
+
+      socket.emit('edit', {
+        body: emoji.replace_unified($input.val()),
+        id: $(this).closest('.post').data('id'),
+        user: {
+          id: forum.constants.user.id,
+          name: forum.constants.user.name
+        }
+      });
+
+      event.preventDefault();
     });
 
     $('.new form').on('submit', function(event){

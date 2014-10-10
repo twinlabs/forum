@@ -9,6 +9,7 @@ block main
     .posts
       each post in posts
         include posts/post
+
   else
     h1.logo
       span.logo-inner
@@ -26,6 +27,16 @@ block script
     script.
       var socket = io.connect(forum.constants.socketAddress);
     include posts/new
+
+
+
+    script.
+      $('body').on('click', '.post .action.edit', function(event){
+        event.preventDefault();
+        $post = $(this).closest('.post');
+        $post.find('form.edit, .content').toggleClass('hidden')
+      });
+
   else
     script.
       $('.logo-inner').on('click', function(event){
