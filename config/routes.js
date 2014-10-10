@@ -37,6 +37,17 @@ var routes = function(app, passport){
 
       PostsController.add(data);
     });
+
+    socket.on('edit', function(data){
+      data.user_id = data.user.id;
+      app.get('io').sockets.emit('edit', data);
+
+      if (data.user_id === 0) {
+        return false;
+      }
+
+      PostsController.edit(data);
+    });
   });
 
   app.post('/signup', passport.authenticate('local-signup', {}), function(request, response, next){

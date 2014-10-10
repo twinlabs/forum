@@ -7,6 +7,13 @@ Post.associate(models);
 User.associate(models);
 
 var PostsController = {
+  edit: function(data){
+    Post.update({
+      body: data.body
+    },{
+      id: data.id
+    });
+  },
   add: function(data){
     Post.create(data);
   },

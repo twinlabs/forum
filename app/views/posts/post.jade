@@ -1,9 +1,17 @@
-.post
+.post(data-id=post.id)
   .meta.clearfix
     .username.datum=post.user.name
     .time.datum
       i.fa.fa-clock-o
       .distance(data-timestamp=post.created_at)= moment(post.created_at).fromNow()
   .content!=marked(post.body || '')
+  if (post.user.id === user.id)
+    form.edit.hidden(action="/edit", method="POST")
+      .input
+        textarea.input-textarea!=post.body
+        button(class="input-submit" type="submit")
+          | Submit
   .actions
+    if (post.user.id === user.id)
+      a.action.edit.fa.fa-edit.fa-lg(href="#edit")
     a.action.reply.fa.fa-reply.fa-flip-vertical.fa-lg(href="#reply")
