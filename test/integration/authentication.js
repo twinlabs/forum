@@ -21,7 +21,7 @@ describe('authentication', function(){
           'Content-Type': 'application/json'
         }
       }, function(response){
-        assert(response.statusCode === 200, "status code not 200/OK");
+        assert(response.statusCode === 302, "status code not 200/OK: " + response.statusCode);
 
         User.find({
           where: {
@@ -134,7 +134,7 @@ describe('authentication', function(){
         }, function(response){
           response.resume();
 
-          assert(response.statusCode === 200, "status code not 200/OK: " + response.statusCode);
+          assert(response.statusCode === 302, "status code not 200/OK: " + response.statusCode);
           done();
         });
 
@@ -178,7 +178,7 @@ describe('authentication', function(){
           port: appModule.port,
           headers: headers
         }, function(response){
-          assert(response.statusCode === 200, "status code not 200/OK: " + response.statusCode);
+          assert(response.statusCode === 302, "status code not 200/OK: " + response.statusCode);
           sessioncookie = response.headers['set-cookie'] && _.find(response.headers['set-cookie'], function(cookie){
             return cookie.match(/^connect.sid/) !== null;
           });
