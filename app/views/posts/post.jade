@@ -5,3 +5,5 @@
       i.fa.fa-clock-o
       .distance(data-timestamp=post.created_at)= moment(post.created_at).fromNow()
   .content!=marked(post.body || '')
+  .actions
+    a.action.fa.fa-reply.fa-flip-vertical.fa-lg(href="#reply")
