@@ -26,6 +26,7 @@ script.
       locals.post = response;
       locals.moment = moment;
       locals.marked = marked;
+      locals.user = forum.constants.user;
 
       $('[data-id=' + response.id + ']').replaceWith(anonymous(locals));
     });
