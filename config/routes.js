@@ -48,6 +48,17 @@ var routes = function(app, passport){
 
       PostsController.edit(data);
     });
+
+    socket.on('destroy', function(data){
+      data.user_id = data.user.id;
+      app.get('io').sockets.emit('destroy', data);
+
+      if (data.user_id === 0) {
+        return false;
+      }
+
+      PostsController.destroy(data);
+    });
   });
 
   app.post('/signup', passport.authenticate('local-signup', {}), function(request, response, next){
