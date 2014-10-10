@@ -53,3 +53,21 @@ module.exports = {
 };
 
 app.locals.moment = require('moment');
+app.locals.marked = require('marked');
+
+app.locals.marked.setOptions({
+  emoji: function (emoji) {
+    return '<img src="'
+        + 'http://cloud.ahfr.org/images/emoji/'
+        + encodeURIComponent(emoji)
+        + '.png"'
+        + ' alt=":'
+        + escape(emoji)
+        + ':"'
+        + ' title=":'
+        + escape(emoji)
+        + ':"'
+        + ' class="emoji" align="absmiddle" height="20" width="20">';
+
+  }
+});

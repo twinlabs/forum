@@ -28,6 +28,25 @@ html(lang="en")
     .main
       block main
 
+    script(src="javascripts/marked.js")
+    script.
+      marked.setOptions({
+        emoji: function (emoji) {
+          return '<img src="'
+              + 'http://cloud.ahfr.org/images/emoji/'
+              + encodeURIComponent(emoji)
+              + '.png"'
+              + ' alt=":'
+              + escape(emoji)
+              + ':"'
+              + ' title=":'
+              + escape(emoji)
+              + ':"'
+              + ' class="emoji" align="absmiddle" height="20" width="20">';
+
+        }
+      });
+
     script(src="javascripts/moment.js")
     script(src="javascripts/underscore.js")
     script(src="javascripts/jquery.js")
