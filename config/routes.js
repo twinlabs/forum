@@ -53,12 +53,7 @@ var routes = function(app, passport){
   });
 
   app.get('/logout', function(request, response){
-    if (request.session.user) {
-      delete request.session.user;
-    }
-    if (request.session.passport) {
-      delete request.session.passport;
-    }
+    request.session.destroy();
 
     response.redirect('/');
   });
