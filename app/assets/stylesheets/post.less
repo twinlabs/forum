@@ -158,10 +158,19 @@ p {
   border-top: 2px solid @black;
   text-align: right;
 
+  .advanced {
+    float: left;
+    text-align: left;
+  }
+
   .action {
     margin-left: 0.33em;
     color: inherit;
     text-decoration: none;
+
+    &.destroy {
+      vertical-align: -25%;
+    }
 
     &.edit {
       vertical-align: -35%;

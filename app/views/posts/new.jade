@@ -17,6 +17,10 @@ script.
         | Submit
 
   script.
+    socket.on('destroy', function(response){
+      $('[data-id=' + response.id + ']').remove();
+    });
+
     socket.on('edit', function(response){
       var locals = {};
       locals.post = response;
@@ -37,6 +41,18 @@ script.
         var postTime = moment($(this).data('timestamp'));
         if (postTime.isSame(moment(), 'day') && postTime.fromNow() !== $(this).text()) {
           return postTime.fromNow();
+        }
+      });
+    });
+
+    $('body').on('click', '.post .action.destroy', function(event){
+      event.preventDefault();
+
+      socket.emit('destroy', {
+        id: $(this).closest('.post').data('id'),
+        user: {
+          id: forum.constants.user.id,
+          name: forum.constants.user.name
         }
       });
     });

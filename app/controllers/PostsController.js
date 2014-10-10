@@ -17,6 +17,13 @@ var PostsController = {
   add: function(data){
     Post.create(data);
   },
+
+  destroy: function(data){
+    Post.destroy({
+      id: data.id
+    });
+  },
+
   index: function(){
     return Post.findAll({
       include: [User],
