@@ -36,6 +36,8 @@ script.
       locals.post = response;
       locals.moment = moment;
       locals.marked = marked;
+      locals.user = forum.constants.user;
+
       $(anonymous(locals)).appendTo('.main .posts')[0].scrollIntoView();
 
       $('.post .distance').text(function(){
