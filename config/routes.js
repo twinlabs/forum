@@ -29,13 +29,15 @@ var routes = function(app, passport){
   app.get('io').sockets.on('connection', function(socket){
     socket.on('post', function(data){
       data.user_id = data.user.id;
-      app.get('io').sockets.emit('post', data);
 
       if (data.user_id === 0) {
         return false;
       }
 
-      PostsController.add(data);
+      PostsController.add(data, function(error, result){
+        data.id = result.id;
+        app.get('io').sockets.emit('post', data);
+      });
     });
 
     socket.on('edit', function(data){

@@ -14,8 +14,8 @@ var PostsController = {
       id: data.id
     });
   },
-  add: function(data){
-    Post.create(data);
+  add: function(data, callback){
+    Post.create(data).done(callback);
   },
 
   destroy: function(data){
