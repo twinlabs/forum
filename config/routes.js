@@ -14,9 +14,9 @@ var routes = function(app, passport){
     next();
   });
 
-  app.get('/', function(request, response){
+  app.get('/all', function(request, response){
     PostsController.index().done(function(error, posts){
-      response.render('index', {
+      response.render('all', {
         posts: posts
       });
     });
