@@ -10,9 +10,11 @@ module.exports = [
     },
     title: 'New Topic',
     body: "..."
+    // get reply count from from database and burn it out into this query.
   },
   {
     id: '2',
+    parent: 1,
     date: moment('Wed Dec 25 2013 9:13:52 GMT-0500 (EST)').fromNow(),
     user: {
       id: 2,
@@ -23,6 +25,7 @@ module.exports = [
   },
   {
     id: '3',
+    parent: '1',
     date: moment('Wed Dec 25 2013 10:13:52 GMT-0500 (EST)').fromNow(),
     user: {
       id: 3,
