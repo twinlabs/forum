@@ -8,7 +8,7 @@ html(lang="en")
       forum.constants.user = !{JSON.stringify(user)};
     link(
       rel="stylesheet"
-      href="stylesheets/base.css"
+      href="/stylesheets/base.css"
     )
     link(
       rel="stylesheet"
@@ -28,7 +28,7 @@ html(lang="en")
     .main
       block main
 
-    script(src="javascripts/marked.js")
+    script(src="/javascripts/marked.js")
     script.
       marked.setOptions({
         emoji: function (emoji) {
@@ -47,10 +47,10 @@ html(lang="en")
         }
       });
 
-    script(src="javascripts/moment.js")
-    script(src="javascripts/underscore.js")
-    script(src="javascripts/jquery.js")
-    script(src="javascripts/socket.io.js")
-    script(src="javascripts/jade-runtime.js")
+    script(src="/javascripts/moment.js")
+    script(src="/javascripts/underscore.js")
+    script(src="/javascripts/jquery.js")
+    script(src="/javascripts/socket.io.js")
+    script(src="/javascripts/jade-runtime.js")
 
     block script
