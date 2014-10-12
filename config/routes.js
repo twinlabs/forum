@@ -93,8 +93,8 @@ var routes = function(app, passport){
     });
   });
 
-  app.get('/uisandbox', function(request, response){
-    response.render('posts/show', {
+  app.get('/sandbox/topic', function(request, response){
+    response.render('sandbox/topic', {
       posts: rootRequire('test/fixtures/posts')
     });
   });
