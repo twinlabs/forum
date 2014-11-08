@@ -84,6 +84,7 @@ script.
       socket.emit('post', {
         body: emoji.replace_unified($input.find('.input-input').val()),
         created_at: new Date(),
+        parent: forum.constants.parent,
         user: {
           id: forum.constants.user.id,
           name: forum.constants.user.name
