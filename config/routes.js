@@ -22,7 +22,6 @@ var routes = function(app, passport){
     if (request.session.user.id === 0){
       return response.send(404);
     }
-    console.log('200-ish');
 
     PostsController.index().done(function(error, posts){
       response.render('all', {
