@@ -15,7 +15,16 @@ var routes = function(app, passport){
   });
 
   app.get('/', function(request, response){
-    response.render('index', {});
+    if (request.session.user.id === 0){
+      return response.render('index', {});
+    }
+
+    PostsController.topics().done(function(error, posts){
+      response.render('index', {
+        posts: posts
+      });
+    });
+
   });
 
   app.get('/all', function(request, response){
