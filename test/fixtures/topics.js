@@ -8,7 +8,7 @@ module.exports = [
       id: 1,
       name: 'Willis'
     },
-    title: 'New Topic',
+    title: 'First Topic',
     body: "..."
     // get reply count from from database and burn it out into this query.
   },
