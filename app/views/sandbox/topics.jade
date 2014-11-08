@@ -1,19 +1,20 @@
 extends ../application
 
-block main
-  each post in posts
-    .topic(data-id=post.id)
-      .meta.clearfix
-        .title=post.title
-        .extra
-          .username.datum=post.user.name
-          .time.datum
-            i.fa.fa-clock-o
-            .distance(data-timestamp=post.created_at)= moment(post.created_at).fromNow()
-      .actions
-        .advanced
-          if (post.user.id === user.id)
-            a.action.destroy.fa.fa-trash-o.fa-lg(href="#destroy")
+.main
+  block main
+    each post in posts
+      .topic(data-id=post.id)
+        .meta.clearfix
+          .title=post.title
+          .extra
+            .username.datum=post.user.name
+            .time.datum
+              i.fa.fa-clock-o
+              .distance(data-timestamp=post.created_at)= moment(post.created_at).fromNow()
+        .actions
+          .advanced
+            if (post.user.id === user.id)
+              a.action.destroy.fa.fa-trash-o.fa-lg(href="#destroy")
 
-        if (post.user.id === user.id)
-          a.action.edit.fa.fa-edit.fa-lg(href="#edit")
+          if (post.user.id === user.id)
+            a.action.edit.fa.fa-edit.fa-lg(href="#edit")
