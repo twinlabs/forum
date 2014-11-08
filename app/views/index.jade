@@ -7,8 +7,11 @@ block main
   if (user && user.id !== 0)
     h2 main
     .posts
-      each post in posts
-        include posts/post
+      if(!posts.length)
+        | No posts. Why not contribute to the forum?
+      else
+        each post in posts
+          include posts/post
 
   else
     h1.logo
