@@ -14,6 +14,9 @@ var PostSequelize = function(sequelize){
     },
     parent: {
       type: Sequelize.INTEGER
+    },
+    title: {
+      type: Sequelize.TEXT
     }
   }, {
     classMethods: {
