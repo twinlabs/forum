@@ -4,44 +4,10 @@ block vars
   - var bodyClass="index posts"
 
 block main
-  if (user && user.id !== 0)
-    h2 main
-    .posts
-      if(!posts.length)
-        | No posts. Why not contribute to the forum?
-      else
-        each post in posts
-          include posts/post
-
-  else
-    h1.logo
-      span.logo-inner
-        span.logo-prefix
-         | The
-        span.logo-main
-         | Forum
-      form(action="/login", method="POST").logo-backface
-        input(type="text" placeholder="email" name="email")
-        input(type="password" placeholder="password" name="password")
-        input(type="submit")
+  include login.jade
 
 block script
-  if (user && user.id !== 0)
-    script.
-      var socket = io.connect(forum.constants.socketAddress);
-    include posts/new
-
-
-
-    script.
-      $('body').on('click', '.post .action.edit', function(event){
-        event.preventDefault();
-        $post = $(this).closest('.post');
-        $post.find('form.edit, .content').toggleClass('hidden')
-      });
-
-  else
-    script.
-      $('.logo-inner').on('click', function(event){
-        $(this).closest('.logo').toggleClass('rotate');
-      });
+  script.
+    $('.logo-inner').on('click', function(event){
+      $(this).closest('.logo').toggleClass('rotate');
+    });

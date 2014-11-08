@@ -15,8 +15,17 @@ var routes = function(app, passport){
   });
 
   app.get('/', function(request, response){
+    response.render('index', {});
+  });
+
+  app.get('/all', function(request, response){
+    if (request.session.user.id === 0){
+      return response.send(404);
+    }
+    console.log('200-ish');
+
     PostsController.index().done(function(error, posts){
-      response.render('index', {
+      response.render('all', {
         posts: posts
       });
     });
@@ -73,7 +82,7 @@ var routes = function(app, passport){
       name: request.user && request.user.name || ''
     };
 
-    response.redirect('/');
+    response.redirect('/all');
   });
 
   app.get('/logout', function(request, response){
@@ -93,8 +102,14 @@ var routes = function(app, passport){
     });
   });
 
-  app.get('/uisandbox', function(request, response){
-    response.render('posts/show', {
+  app.get('/sandbox/topics', function(request, response){
+    response.render('sandbox/topics', {
+      posts: rootRequire('test/fixtures/topics')
+    });
+  });
+
+  app.get('/sandbox/topic', function(request, response){
+    response.render('sandbox/topic', {
       posts: rootRequire('test/fixtures/posts')
     });
   });

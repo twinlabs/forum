@@ -6,12 +6,21 @@ p {
 }
 
 .post,
+.topic,
 .input-input,
 .input-submit {
-  border: 3px solid @black;
+  border-width: 3px;
+  border-style: solid;
 }
 
 .post,
+.input-input,
+.input-submit {
+  border-color: @black;
+}
+
+.post,
+.topic,
 .input {
   margin: 0.5em auto 1em;
 
@@ -65,7 +74,7 @@ p {
   .posts .main,
   .new,
   .new .input {
-    max-width: 560px;
+    max-width: 768px;
   }
 }
 

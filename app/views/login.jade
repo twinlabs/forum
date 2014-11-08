@@ -1,9 +1,10 @@
-extends application
-block main
-  h2 login
-  form(action="/login", method="POST")
+h1.logo
+  span.logo-inner
+    span.logo-prefix
+     | The
+    span.logo-main
+     | Forum
+  form(action="/login", method="POST").logo-backface
     input(type="text" placeholder="email" name="email")
     input(type="password" placeholder="password" name="password")
     input(type="submit")
-
-  br

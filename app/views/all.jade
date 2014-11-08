@@ -1,0 +1,28 @@
+extends application
+
+block vars
+  - var bodyClass="index posts"
+
+block main
+  h2 main
+  .posts
+    if(!posts.length)
+      | No posts. Why not contribute to the forum?
+    else
+      each post in posts
+        include posts/post
+
+block script
+  script.
+    var socket = io.connect(forum.constants.socketAddress);
+  include posts/new
+
+
+
+  script.
+    $('body').on('click', '.post .action.edit', function(event){
+      event.preventDefault();
+      $post = $(this).closest('.post');
+      $post.find('form.edit, .content').toggleClass('hidden')
+    });
+
