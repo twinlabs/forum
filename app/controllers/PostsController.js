@@ -1,5 +1,6 @@
 var Post = rootRequire('app/models/Post');
 var User = rootRequire('app/models/User');
+var Sequelize = require('sequelize');
 
 var models = {Post: Post, User: User};
 
@@ -43,7 +44,10 @@ var PostsController = {
 
   postsForTopic: function(topicID){
     return Post.findAll({
-      where: ["parent = ? or id = ?", topicID, topicID],
+      where: Sequelize.or(
+        {parent: topicID},
+        {id: topicID}
+      ),
       include: [User],
       order: 'created_at ASC'
     });
