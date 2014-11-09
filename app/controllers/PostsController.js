@@ -43,7 +43,7 @@ var PostsController = {
 
   postsForTopic: function(topicID){
     return Post.findAll({
-      where: ["parent = ?", topicID],
+      where: ["parent = ? or id = ?", topicID, topicID],
       include: [User],
       order: 'created_at ASC'
     });
