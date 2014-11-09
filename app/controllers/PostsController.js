@@ -29,6 +29,24 @@ var PostsController = {
       include: [User],
       order: 'created_at ASC'
     });
+  },
+
+  topics: function(){
+    // get posts without a parent.
+    // consider these as 'topics'
+    return Post.findAll({
+      where: ["parent isnull"],
+      include: [User],
+      order: 'created_at ASC'
+    });
+  },
+
+  postsForTopic: function(topicID){
+    return Post.findAll({
+      where: ["parent = ?", topicID],
+      include: [User],
+      order: 'created_at ASC'
+    });
   }
 };
 

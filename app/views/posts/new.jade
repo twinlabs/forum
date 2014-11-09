@@ -1,11 +1,11 @@
 script(src="/templates/post/post.js")
-script(src="javascripts/emoji.js")
+script(src="/javascripts/emoji.js")
 script.
   emoji.colons_mode = true;
 
 .new
   form
-    .input
+    .input#reply
       input(class="input-input input-text" type="text" placeholder="Type here...")
       .toggle
         | {...}
@@ -37,6 +37,10 @@ script.
       locals.moment = moment;
       locals.marked = marked;
       locals.user = forum.constants.user;
+
+      if (response.parent !== forum.constants.parent) {
+        return false;
+      }
 
       $(anonymous(locals)).appendTo('.main .posts')[0].scrollIntoView();
 
@@ -84,6 +88,7 @@ script.
       socket.emit('post', {
         body: emoji.replace_unified($input.find('.input-input').val()),
         created_at: new Date(),
+        parent: forum.constants.parent,
         user: {
           id: forum.constants.user.id,
           name: forum.constants.user.name

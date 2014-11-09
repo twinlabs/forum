@@ -1,10 +1,19 @@
-h1.logo
-  span.logo-inner
-    span.logo-prefix
-     | The
-    span.logo-main
-     | Forum
-  form(action="/login", method="POST").logo-backface
-    input(type="text" placeholder="email" name="email")
-    input(type="password" placeholder="password" name="password")
-    input(type="submit")
+extends application
+
+block main
+  h1.logo
+    span.logo-inner
+      span.logo-prefix
+       | The
+      span.logo-main
+       | Forum
+    form(action="/login", method="POST").logo-backface
+      input(type="text" placeholder="email" name="email")
+      input(type="password" placeholder="password" name="password")
+      input(type="submit")
+
+block script
+  script.
+    $('.logo-inner').on('click', function(event){
+      $(this).closest('.logo').toggleClass('rotate');
+    });

@@ -6,6 +6,10 @@
   .meta {
     width: 100%;
     border-color: @current-grey;
+
+    a {
+      color: inherit;
+    }
   }
 
   .title {
@@ -23,6 +27,10 @@
     display: inline-block;
     width: 50%;
     text-align: right;
+
+    *:last-child {
+      margin-right: 0;
+    }
   }
 
   .actions {

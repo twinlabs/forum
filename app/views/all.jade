@@ -1,5 +1,9 @@
 extends application
 
+block head
+  script.
+    forum.constants.parent = !{parent || 0};
+
 block vars
   - var bodyClass="index posts"
 

@@ -4,10 +4,17 @@ block vars
   - var bodyClass="index posts"
 
 block main
-  include login.jade
+  if (user && user.id === 0)
+    include login.jade
+
+  else
+
+    if (!posts)
+      | No threads. Why not contribute to the forum?
+
+    else
+      each post in posts
+        include posts/topic
 
 block script
-  script.
-    $('.logo-inner').on('click', function(event){
-      $(this).closest('.logo').toggleClass('rotate');
-    });
+  //- index-specific <script> tag(s) go here:

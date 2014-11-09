@@ -15,14 +15,39 @@ var routes = function(app, passport){
   });
 
   app.get('/', function(request, response){
-    response.render('index', {});
+    if (request.session.user.id === 0){
+      return response.render('index', {});
+    }
+
+    PostsController.topics().done(function(error, posts){
+      response.render('index', {
+        posts: posts
+      });
+    });
+
+  });
+
+  app.get('/topic/:id', function(request, response){
+    if (request.session.user.id === 0){
+      return response.render('index', {});
+    }
+
+    PostsController.postsForTopic(request.params.id).done(function(error, posts){
+      if (posts && posts.length < 1) {
+        return response.send(404);
+      }
+
+      response.render('all', {
+        posts: posts,
+        parent: request.params.id
+      });
+    });
   });
 
   app.get('/all', function(request, response){
     if (request.session.user.id === 0){
       return response.send(404);
     }
-    console.log('200-ish');
 
     PostsController.index().done(function(error, posts){
       response.render('all', {
