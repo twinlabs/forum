@@ -30,6 +30,10 @@ html(lang="en")
   )
 
     .main
+      if (user && user.id !== 0)
+        h2.breadcrumb
+          a(href='/') The Forum
+
       block main
 
     script(src="/javascripts/marked.js")
