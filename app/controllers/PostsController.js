@@ -39,6 +39,14 @@ var PostsController = {
       include: [User],
       order: 'created_at ASC'
     });
+  },
+
+  postsForTopic: function(topicID){
+    return Post.findAll({
+      where: ["parent = ?", topicID],
+      include: [User],
+      order: 'created_at ASC'
+    });
   }
 };
 

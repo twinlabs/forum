@@ -1,13 +1,14 @@
 .topic(data-id=post.id)
   .meta.clearfix
-    .title=post.title
+    .title
+      a(href='/topic/' + post.id)=post.title
     .extra
       .username.datum=post.user.name
       .time.datum
         i.fa.fa-clock-o
         .distance(data-timestamp=post.created_at)= moment(post.created_at).fromNow()
   .actions
-    a.action.reply.fa.fa-reply.fa-flip-vertical.fa-lg(href="#reply")
+    a.action.reply.fa.fa-reply.fa-flip-vertical.fa-lg(href='/topic/' + post.id + '#reply')
     .advanced
       if (post.user.id === user.id)
         a.action.destroy.fa.fa-trash-o.fa-lg(href="#destroy")

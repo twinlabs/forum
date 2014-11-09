@@ -5,7 +5,7 @@ script.
 
 .new
   form
-    .input
+    .input#reply
       input(class="input-input input-text" type="text" placeholder="Type here...")
       .toggle
         | {...}
@@ -37,6 +37,10 @@ script.
       locals.moment = moment;
       locals.marked = marked;
       locals.user = forum.constants.user;
+
+      if (response.parent !== forum.constants.parent) {
+        return false;
+      }
 
       $(anonymous(locals)).appendTo('.main .posts')[0].scrollIntoView();
 
