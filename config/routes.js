@@ -107,7 +107,7 @@ var routes = function(app, passport){
       name: request.user && request.user.name || ''
     };
 
-    response.redirect('/all');
+    response.redirect('/');
   });
 
   app.get('/logout', function(request, response){
