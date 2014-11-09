@@ -1,7 +1,7 @@
 extends application
 
 block vars
-  - var bodyClass="index posts"
+  - var bodyClass="index posts topics"
 
 block main
   if (user && user.id === 0)
@@ -13,8 +13,61 @@ block main
       | No threads. Why not contribute to the forum?
 
     else
-      each post in posts
-        include posts/topic
+      .topics
+        each post in posts
+          include posts/topic
+    a.action.new(href="#") new topic
+    form.new.hidden
+      .input
+        input(class="input-input input-text input-title" type="text" placeholder="Title")
+      .input.textarea
+        textarea(class="input-input input-textarea input-body" placeholder="Body")
+      button(class="input-submit" type="submit")
+        | Submit
 
 block script
   //- index-specific <script> tag(s) go here:
+  script(src="/javascripts/emoji.js")
+  script(src="/templates/post/topic.js")
+  script.
+    var socket = io.connect(forum.constants.socketAddress);
+
+    socket.on('post', function(response){
+      var locals = {};
+      locals.post = response;
+      locals.moment = moment;
+      locals.marked = marked;
+      locals.user = forum.constants.user;
+
+      $(anonymous(locals)).appendTo('.main .topics');
+
+      $('.post .distance').text(function(){
+        var postTime = moment($(this).data('timestamp'));
+        if (postTime.isSame(moment(), 'day') && postTime.fromNow() !== $(this).text()) {
+          return postTime.fromNow();
+        }
+      });
+    });
+
+
+    $('.action.new').on('click', function(event){
+      event.preventDefault();
+      $('form.new').removeClass('hidden');
+    });
+
+    $('form.new').on('submit', function(event){
+      if ($.trim($(this).find('.input-title').val()).length < 1) {
+        return false;
+      }
+      socket.emit('post', {
+        title: $(this).find('.input-title').val(),
+        body: emoji.replace_unified($(this).find('.input-body').val()),
+        created_at: new Date(),
+        user: {
+          id: forum.constants.user.id,
+          name: forum.constants.user.name
+        }
+      });
+
+      event.preventDefault();
+    });
