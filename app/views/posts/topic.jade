@@ -3,10 +3,13 @@
     .title
       a(href='/topic/' + post.id)=post.title
     .extra
+      .replies
+        span.count= post.children.length
+        |  Replies.
       .username.datum=post.user.name
       .time.datum
         i.fa.fa-clock-o
-        .distance(data-timestamp=post.created_at)= moment(post.created_at).fromNow()
+        .distance(data-timestamp=getPostDate(post))= moment(getPostDate(post)).fromNow()
   .actions
     a.action.reply.fa.fa-reply.fa-flip-vertical.fa-lg(href='/topic/' + post.id + '#reply')
     .advanced
