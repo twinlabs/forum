@@ -22,6 +22,10 @@ var PostSequelize = function(sequelize){
     classMethods: {
       associate: function(models){
         Post.belongsTo(models.User, {foreignKey: 'user_id'});
+        Post.hasMany(models.Post, {
+          as: 'Children',
+          foreignKey: 'parent'
+        });
       }
     },
     underscored: true,

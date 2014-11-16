@@ -36,8 +36,11 @@ var PostsController = {
     // get posts without a parent.
     // consider these as 'topics'
     return Post.findAll({
-      where: ["parent isnull"],
-      include: [User],
+      where: ['"post"."parent" isnull'],
+      include: [
+        User,
+        {model: Post, as: 'Children'}
+      ],
       order: 'created_at ASC'
     });
   },
