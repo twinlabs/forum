@@ -41,7 +41,10 @@ var PostsController = {
         User,
         {model: Post, as: 'Children'}
       ],
-      order: 'created_at ASC'
+      order: [
+        ['created_at', 'DESC'],
+        [{model: Post, as: 'Children'}, 'created_at', 'DESC']
+      ]
     });
   },
 

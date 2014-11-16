@@ -1,4 +1,4 @@
-require('./lib/helpers');
+var application_helper = require('./lib/helpers');
 
 var express = require('express');
 var http = require('http');
@@ -55,6 +55,7 @@ module.exports = {
 
 app.locals.moment = require('moment');
 app.locals.marked = require('marked');
+app.locals.getPostDate = application_helper.getPostDate;
 
 app.locals.marked.setOptions({
   emoji: function (emoji) {
