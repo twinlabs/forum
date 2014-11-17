@@ -11,6 +11,7 @@ module.exports = [
     title: 'First Topic',
     body: "..."
     // get reply count from from database and burn it out into this query.
+    // we also need the most recent reply's created_at timestamp and username.
   },
   {
     id: '2',
