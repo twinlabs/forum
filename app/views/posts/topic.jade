@@ -6,7 +6,7 @@
       .replies
         span.count= post.children.length
         |  Replies.
-      .username.datum=post.user.name
+      .username.datum=post.children[0] && post.children[0].user && post.children[0].user.name || post.user.name
       .time.datum
         i.fa.fa-clock-o
         .distance(data-timestamp=getPostDate(post))= moment(getPostDate(post)).fromNow()
