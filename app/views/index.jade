@@ -50,6 +50,8 @@ block script
       locals.moment = moment;
       locals.marked = marked;
       locals.user = forum.constants.user;
+      locals.post.children = [];
+      locals.getPostDate = function(){};
 
       $(anonymous(locals)).appendTo('.main .topics');
 

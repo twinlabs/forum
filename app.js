@@ -55,7 +55,7 @@ module.exports = {
 
 app.locals.moment = require('moment');
 app.locals.marked = require('marked');
-app.locals.getDate = application_helper.getPostDate;
+app.locals.getPostDate = application_helper.getPostDate;
 
 app.locals.marked.setOptions({
   emoji: function (emoji) {
