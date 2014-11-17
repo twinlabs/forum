@@ -41,7 +41,7 @@ block script
     var socket = io.connect(forum.constants.socketAddress);
 
     socket.on('post', function(response){
-      if (typeof response.parent !== undefined) {
+      if (typeof response.parent !== "undefined") {
         return updateThreadMetadata(response);
       }
 
