@@ -39,7 +39,11 @@ var PostsController = {
       where: ['"post"."parent" isnull'],
       include: [
         User,
-        {model: Post, as: 'Children'}
+        {
+          model: Post,
+          as: 'Children',
+          include: [User]
+        }
       ],
       order: [
         ['created_at', 'DESC'],

@@ -36,6 +36,8 @@ block script
       $topicNode.find('.replies .count').text(parseInt($topicNode.find('.replies .count').text()) + 1);
 
       $topicNode.find('.time .distance').text(moment(response.created_at).fromNow())
+
+      $topicNode.find('.datum.username').text(response.user.name);
     }
 
     var socket = io.connect(forum.constants.socketAddress);
