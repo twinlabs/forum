@@ -10,12 +10,29 @@
   margin: auto;
   text-transform: uppercase;
   text-align: center;
+  font-size: 1.6875em;
+
+  @media (min-width: 22em) {
+    font-size: 2em;
+  }
 }
 
 .logo-inner,
 .logo-prefix,
 .logo-main {
   display: inline-block;
+}
+
+.logo-prefix,
+.logo-main,
+.login-context {
+  opacity: 0;
+}
+
+
+.login-context {
+  margin-top: 32px;
+  font-size: 12px;
 }
 
 .logo-backface,
