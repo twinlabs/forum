@@ -11,10 +11,8 @@
         i.fa.fa-clock-o
         .distance(data-timestamp=getPostDate(post))= moment(getPostDate(post)).fromNow()
   .actions
-    a.action.reply.fa.fa-reply.fa-flip-vertical.fa-lg(href='/topic/' + post.id + '#reply')
+    a.action.reply(href='/topic/' + post.id + '#reply')
+      .context
+        |reply
+      .fa.fa-reply.fa-flip-vertical.fa-md
     .advanced
-      if (post.user.id === user.id)
-        a.action.destroy.fa.fa-trash-o.fa-lg(href="#destroy")
-
-    if (post.user.id === user.id)
-      a.action.edit.fa.fa-edit.fa-lg(href="#edit")
