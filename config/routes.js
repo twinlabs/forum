@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var PostsController = rootRequire('app/controllers/PostsController');
+var authentication = rootRequire('lib/authentication');
 
 var routes = function(app, passport){
   app.all('*', function(request, response, next){
@@ -106,7 +107,7 @@ var routes = function(app, passport){
     });
   });
 
-  app.post('/signup', passport.authenticate('local-signup', {}), function(request, response, next){
+  app.post('/signup', tokenValidation, passport.authenticate('local-signup', {}), function(request, response, next){
     response.redirect('/login');
   });
 
@@ -148,5 +149,34 @@ var routes = function(app, passport){
     });
   });
 };
+
+function tokenValidation(request, response, next){
+  // this function is middleware for the '/signup' endpoint.
+  var token;
+
+  if (!request.files || !request.body) {
+    // if there's a mis-match, respond with something elegant:
+    return response.send(401);
+  }
+
+  // start with the assumption that the token's file is on request.body:
+  token = request.body.token;
+
+  // if it's not on body, we're probably dealing with a file descriptor.
+  // grab the file at the given path of the file:
+  if (typeof token === "undefined") {
+    token = require('fs').readFileSync(request.files.token.path);
+  }
+
+  // whatever the file turned out to be,
+  // test it against our token:
+  if (!authentication.validateSignupToken(token)) {
+    return response.send(401);
+  }
+
+  // otherwise, the token must have matched.
+  // it's safe to pass it along to the next request.
+  return next();
+}
 
 module.exports = routes;

@@ -44,6 +44,7 @@
   },
   "devDependencies": {
     "mocha": "~1.13.0",
+    "request": "^2.49.0",
     "sinon": "~1.7.3",
     "nodemon": "~0.7.10"
   }

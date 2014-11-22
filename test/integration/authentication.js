@@ -1,7 +1,10 @@
 var assert = require('assert');
+var fs = require('fs');
 var _ = require('lodash');
 var appModule = rootRequire('app');
 var http = require('http');
+var request = require('request');
+var url = require('url');
 var User = rootRequire('app/models/User');
 
 describe('authentication', function(){
@@ -12,15 +15,20 @@ describe('authentication', function(){
   });
 
   describe('signup', function(){
-    it('accepts signup requests with a username and password and creates new users', function(done){
-      var request = http.request({
-        method: 'POST',
-        path: '/signup',
-        port: appModule.port,
-        headers: {
-          'Content-Type': 'application/json'
+    it('accepts signup requests with a username and password and correct token, resulting in the creation of a new user', function(done){
+      request.post({
+        url: 'http://localhost:' + appModule.port + '/signup',
+        formData: {
+          name: 'Will',
+          email: 'will@ahfr.org',
+          password: 'Gargantuan1',
+          token: fs.readFileSync(__dirname + '/../fixtures/duck.jpg')
         }
-      }, function(response){
+      }, function(error, response, body){
+        if (error) {
+          return console.error('upload failed: ', error);
+        }
+
         assert(response.statusCode === 302, "status code not 200/OK: " + response.statusCode);
 
         User.find({
@@ -33,25 +41,38 @@ describe('authentication', function(){
           done();
         });
       });
+    });
 
-      request.write(JSON.stringify({
-        name: 'Will',
-        email: 'will@ahfr.org',
-        password: 'Gargantuan1'
-      }));
+    it('blocks signup when the token is wrong or not passed, given the environment has configured a particular signup token', function(done){
+      request.post({
+        url: 'http://localhost:' + appModule.port + '/signup',
+        formData: {
+          name: 'improperly tokened user',
+          email: 'untokeneduser@ahfr.org',
+          password: 'userpassword',
+          token: fs.readFileSync(__dirname + '/../fixtures/boredcat.jpg')
+        }
+      }, function(error, response, body){
+        if (error) {
+          return console.error('upload failed: ', error);
+        }
 
-      request.end();
+        assert(response.statusCode === 401, 'expected 401, but response was actually ' + response.statusCode);
+
+        done();
+      });
     });
 
     it('doesn\'t store the password in the clear', function(done){
-      var request = http.request({
-        method: 'POST',
-        path: '/signup',
-        port: appModule.port,
-        headers: {
-          'Content-Type': 'application/json'
+      request.post({
+        url: 'http://localhost:' + appModule.port + '/signup',
+        formData: {
+          name: 'AnotherUser',
+          email: 'villain@ahfr.org',
+          password: 'plaintextPassword',
+          token: fs.readFileSync(__dirname + '/../fixtures/duck.jpg')
         }
-      }, function(response){
+      }, function(error, response, body){
         User.find({
           where: {
             email: 'villain@ahfr.org'
@@ -62,25 +83,18 @@ describe('authentication', function(){
           done();
         });
       });
-
-      request.write(JSON.stringify({
-        name: 'AnotherUser',
-        email: 'villain@ahfr.org',
-        password: 'plaintextPassword'
-      }));
-
-      request.end();
     });
 
     it('accepts plaintext passwords and matches them against hashed passwords', function(done){
-      var request = http.request({
-        method: 'POST',
-        path: '/signup',
-        port: appModule.port,
-        headers: {
-          'Content-Type': 'application/json'
+      request.post({
+        url: 'http://localhost:' + appModule.port + '/signup',
+        formData: {
+          name: 'YetAnotherUser',
+          email: 'user@ahfr.org',
+          password: 'userpassword',
+          token: fs.readFileSync(__dirname + '/../fixtures/duck.jpg')
         }
-      }, function(response){
+      }, function(error, response, body){
         User.find({
           where: {
             email: 'user@ahfr.org'
@@ -93,29 +107,20 @@ describe('authentication', function(){
           });
         });
       });
-
-      request.write(JSON.stringify({
-        name: 'YetAnotherUser',
-        email: 'user@ahfr.org',
-        password: 'userpassword'
-      }));
-
-      request.end();
     });
   });
 
   describe('login', function(){
     it('retrieves stored users based on a given username and password', function(done){
-      var signupRequest = http.request({
-        method: 'POST',
-        path: '/signup',
-        port: appModule.port,
-        headers: {
-          'Content-Type': 'application/json'
+      request.post({
+        url: 'http://localhost:' + appModule.port + '/signup',
+        formData: {
+          name: 'TheBestGuy',
+          email: 'retrievableuser@ahfr.org',
+          password: 'retrievableuserpassword',
+          token: fs.readFileSync(__dirname + '/../fixtures/duck.jpg')
         }
-      }, function(response){
-        response.resume();
-
+      }, function(error, response, body){
         var userData = JSON.stringify({
           email: 'retrievableuser@ahfr.org',
           password: 'retrievableuserpassword'
@@ -141,27 +146,18 @@ describe('authentication', function(){
         loginRequest.write(userData);
         loginRequest.end();
       });
-
-      signupRequest.write(JSON.stringify({
-        name: 'TheBestGuy',
-        email: 'retrievableuser@ahfr.org',
-        password: 'retrievableuserpassword'
-      }));
-
-      signupRequest.end();
     });
 
     it('create a session for an authenticated user', function(done){
-      var signupRequest = http.request({
-        method: 'POST',
-        path: '/signup',
-        port: appModule.port,
-        headers: {
-          'Content-Type': 'application/json'
+      request.post({
+        url: 'http://localhost:' + appModule.port + '/signup',
+        formData: {
+          name: 'CoolSessionedUser',
+          email: 'sessioneduser@ahfr.org',
+          password: 'password',
+          token: fs.readFileSync(__dirname + '/../fixtures/duck.jpg')
         }
-      }, function(response){
-        response.resume();
-
+      }, function(error, response, body){
         var userData = JSON.stringify({
           email: 'sessioneduser@ahfr.org',
           password: 'password'
@@ -191,14 +187,6 @@ describe('authentication', function(){
         loginRequest.write(userData);
         loginRequest.end();
       });
-
-      signupRequest.write(JSON.stringify({
-        name: 'CoolSessionedUser',
-        email: 'sessioneduser@ahfr.org',
-        password: 'password'
-      }));
-
-      signupRequest.end();
     });
   });
 });
