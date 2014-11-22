@@ -7,6 +7,8 @@ block main
        | The
       span.logo-main
        | Forum
+      div.login-context
+       | Click
     form(action="/login", method="POST").logo-backface
       input(type="text" placeholder="email" name="email")
       input(type="password" placeholder="password" name="password")
@@ -17,3 +19,12 @@ block script
     $('.logo-inner').on('click', function(event){
       $(this).closest('.logo').toggleClass('rotate');
     });
+  script.
+    $('.logo-inner span').velocity(
+      'forum.slideFromLeft', {
+        stagger: 1000,
+        complete: function() {
+          $('.logo-inner .login-context').velocity('forum.fadeIn');
+        }
+      }
+    );
