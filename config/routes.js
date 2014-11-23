@@ -1,3 +1,4 @@
+var _ = require('lodash');
 var PostsController = rootRequire('app/controllers/PostsController');
 
 var routes = function(app, passport){
@@ -20,6 +21,14 @@ var routes = function(app, passport){
     }
 
     PostsController.topics().done(function(error, posts){
+      posts = _.sortBy(posts, function(post) {
+        if (post.children[0]) {
+          return post.children[0].created_at;
+        }
+
+        return post.created_at;
+      }).reverse();
+
       response.render('index', {
         posts: posts
       });
