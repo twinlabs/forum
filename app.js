@@ -12,6 +12,7 @@ var passport = require('passport');
 rootRequire('config/environments')(app);
 app.set('io', require('socket.io').listen(httpServer));
 
+app.use(express.compress());
 app.use(express.cookieParser());
 app.use(express.session({secret: app.get('sessionSecret') || 'w!** *1*h'}));
 rootRequire('lib/authentication');
