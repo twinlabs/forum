@@ -103,6 +103,7 @@ script.
         }
       });
       $(this).find('.input-input').val('');
+      $(this).find('> .input').not('.hidden').find('.input-input').trigger('focus');
     });
 
     $('textarea, input').on('keyup', function(event){
