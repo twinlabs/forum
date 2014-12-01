@@ -17,6 +17,9 @@ script.
         | Submit
 
   script.
+    forum.title = document.title;
+    forum.replyCount = 0;
+
     socket.on('destroy', function(response){
       $('[data-id=' + response.id + ']').remove();
     });
@@ -40,6 +43,11 @@ script.
 
       if (response.parent !== forum.constants.parent) {
         return false;
+      }
+
+      if (forum.focus === false) {
+        forum.replyCount++;
+        document.title = '(' + forum.replyCount + ') ' + forum.title;
       }
 
       $(anonymous(locals)).appendTo('.main .posts')[0].scrollIntoView();
@@ -104,4 +112,14 @@ script.
     $('.input .toggle').on('click', function(){
       $(this).closest('.input').toggleClass('hidden');
       $(this).closest('.input').siblings('.input').toggleClass('hidden');
+    });
+
+    $(window).focus(function(){
+      forum.focus = true;
+      forum.replyCount = 0;
+      document.title = forum.title;
+    });
+
+    $(window).blur(function(){
+      forum.focus = false;
     });
