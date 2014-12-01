@@ -58,6 +58,13 @@ app.locals.moment = require('moment');
 app.locals.marked = require('marked');
 app.locals.getPostDate = application_helper.getPostDate;
 
+var markedRenderer = new app.locals.marked.Renderer();
+markedRenderer.link = function(href, title, text) {
+  return '<a target="_blank"' +
+      'href="' + href + '"' +
+      (title ? 'title="' + title + '"' : '') +
+    '>' + text + "</a>";
+};
 app.locals.marked.setOptions({
   emoji: function (emoji) {
     return '<img src="'
@@ -72,5 +79,6 @@ app.locals.marked.setOptions({
         + ':"'
         + ' class="emoji" align="absmiddle" height="20" width="20">';
 
-  }
+  },
+  renderer: markedRenderer
 });
