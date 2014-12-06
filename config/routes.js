@@ -54,6 +54,15 @@ var routes = function(app, passport){
     });
   });
 
+  app.get('/post/:id', function(request, response){
+    //look up post id based on get request
+    //return post data using response.send which should return the markdown you need to quote the post in a more organic fashion
+    PostsController.get(request.params.id).done(function(err, post){
+      response.send(post);
+    });
+    //then (probably somewhere else) insert the post data into the input field on the page.
+  });
+
   app.get('/all', function(request, response){
     if (request.session.user.id === 0){
       return response.send(404);
