@@ -55,6 +55,11 @@ var routes = function(app, passport){
   });
 
   app.get('/post/:id', function(request, response){
+    // if the user isn't logged in, return a 404:
+    if (request.session.user.id === 0) {
+      response.send(404);
+    }
+
     //look up post id based on get request
     //return post data using response.send which should return the markdown you need to quote the post
     PostsController.get(request.params.id).done(function(err, post){
