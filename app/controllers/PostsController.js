@@ -64,7 +64,12 @@ var PostsController = {
   },
 
   get: function(id){
-    return Post.find(id);
+    return Post.find({
+      where: {
+        id: id
+      },
+      include: [User]
+    });
   }
 };
 
