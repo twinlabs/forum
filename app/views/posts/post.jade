@@ -12,9 +12,11 @@
         button(class="input-submit" type="submit")
           | Submit
   .actions
+    a.action.quote.fa.fa-quote-left.fa-lg(href="#quote")
     .advanced
       if (post.user.id === user.id)
         a.action.destroy.fa.fa-trash-o.fa-lg(href="#destroy")
 
     if (post.user.id === user.id)
       a.action.edit.fa.fa-edit.fa-lg(href="#edit")
+

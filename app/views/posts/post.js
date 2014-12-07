@@ -5,7 +5,7 @@ if ( (post.user.id === user.id))
 {
 buf.push("<form action=\"/edit\" method=\"POST\" class=\"edit hidden\"><div class=\"input\"><textarea class=\"input-textarea\">" + (null == (jade.interp = post.body) ? "" : jade.interp) + "</textarea><button type=\"submit\" class=\"input-submit\">Submit</button></div></form>");
 }
-buf.push("<div class=\"actions\"><div class=\"advanced\">");
+buf.push("<div class=\"actions\"><a href=\"#quote\" class=\"action quote fa fa-quote-left fa-lg\"></a><div class=\"advanced\">");
 if ( (post.user.id === user.id))
 {
 buf.push("<a href=\"#destroy\" class=\"action destroy fa fa-trash-o fa-lg\"></a>");

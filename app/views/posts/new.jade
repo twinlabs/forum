@@ -72,6 +72,19 @@ script.
       });
     });
 
+    $('body').on('click', '.post .action.quote', function(event){
+      event.preventDefault();
+      var quoted = $.ajax({
+        url:'/post/' + $(this).closest('.post').data('id'),
+        dataType: "json",
+        success: function(data){
+          $('#reply.input').addClass('hidden');
+          $('.input.textarea').removeClass('hidden');
+          $('.input.textarea textarea').val('>' + data.body);
+        }
+      });
+    });
+
     $('body').on('submit', '.post form.edit', function(event){
       var $input = $(this).find('textarea');
 
