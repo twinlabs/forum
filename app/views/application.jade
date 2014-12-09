@@ -30,12 +30,8 @@ html(lang="en")
   )
 
     .main
-      if (user && user.id !== 0)
-        h2.breadcrumb
-          a(href='/') The Forum
-          if (bodyClass.match('topics') === null && posts[0] && posts[0].title)
-            | &nbsp;&mdash;&nbsp;
-            = posts[0].title
+
+      include breadcrumb.jade
 
       block main
 
