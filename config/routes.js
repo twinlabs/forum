@@ -78,6 +78,8 @@ var routes = function(app, passport){
         return false;
       }
 
+      data.created_at = new Date();
+
       PostsController.add(data, function(error, result){
         data.id = result.id;
         app.get('io').sockets.emit('post', data);

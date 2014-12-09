@@ -78,7 +78,6 @@ block script
       socket.emit('post', {
         title: $(this).find('.input-title').val(),
         body: emoji.replace_unified($(this).find('.input-body').val()),
-        created_at: new Date(),
         user: {
           id: forum.constants.user.id,
           name: forum.constants.user.name
