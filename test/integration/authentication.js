@@ -29,7 +29,7 @@ describe('authentication', function(){
           return console.error('upload failed: ', error);
         }
 
-        assert(response.statusCode === 302, "status code not 200/OK: " + response.statusCode);
+        assert(response.statusCode === 302, "status code not 302: " + response.statusCode);
 
         User.find({
           where: {
