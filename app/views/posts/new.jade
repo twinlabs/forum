@@ -84,9 +84,9 @@ script.
 
           newBody = data.body.replace(/^/, "> ").replace(/\n/g, "\n> ");
           $('.input.textarea textarea').val('> ' +
-            data.user.name + ' wrote: ' + '\n\n' + newBody
+            data.user.name + ' wrote: ' + '\n\n' + newBody + '\n\n'
           );
-          $('.input.textarea textarea')[0].scrollIntoView();
+          $('.input.textarea textarea').trigger('focus');
         }
       });
     });
