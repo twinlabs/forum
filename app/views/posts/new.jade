@@ -74,6 +74,25 @@ script.
       });
     });
 
+    $('body').on('click', '.post .action.quote', function(event){
+      event.preventDefault();
+      var quoted = $.ajax({
+        url:'/post/' + $(this).closest('.post').data('id'),
+        dataType: "json",
+        success: function(data){
+          var newBody;
+          $('#reply.input').addClass('hidden');
+          $('.input.textarea').removeClass('hidden');
+
+          newBody = data.body.replace(/^/, "> ").replace(/\n/g, "\n> ");
+          $('.input.textarea textarea').val('> ' +
+            data.user.name + ' wrote: ' + '\n\n' + newBody + '\n\n'
+          );
+          $('.input.textarea textarea').trigger('focus');
+        }
+      });
+    });
+
     $('body').on('submit', '.post form.edit', function(event){
       var $input = $(this).find('textarea');
 

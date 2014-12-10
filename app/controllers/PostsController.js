@@ -61,6 +61,15 @@ var PostsController = {
       include: [User],
       order: 'created_at ASC'
     });
+  },
+
+  get: function(id){
+    return Post.find({
+      where: {
+        id: id
+      },
+      include: [User]
+    });
   }
 };
 
