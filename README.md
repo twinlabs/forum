@@ -60,6 +60,10 @@ Here's how the manual approach could work:
 1. Create a `.sql` file in `/db/`
 2. `psql -d {dbname} -a -f db/{filename}.sql`
 
+Currently, you must set up the session table manually:
+
+`psql -d {dbname} -a -f node_modules/connect-pg-simple/table.sql`
+
 Compiling Client-side Templates:
 ================================
 Some templates are used client-side too and currently must be
