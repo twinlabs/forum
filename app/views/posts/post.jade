@@ -3,7 +3,7 @@
     .username.datum=post.user.name
     .time.datum
       i.fa.fa-clock-o
-      .distance(data-timestamp=post.created_at)= moment(post.created_at).fromNow()
+      a.distance(data-timestamp=post.created_at, href="#" + post.id, name=post.id)= moment(post.created_at).fromNow()
   .content!=marked(post.body || '')
   if (post.user.id === user.id)
     form.edit.hidden(action="/edit", method="POST")
