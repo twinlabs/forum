@@ -8,13 +8,25 @@ var lessMiddleware = require('less-middleware');
 var autoprefixer = require('autoprefixer-core');
 var httpServer = http.createServer(app);
 var passport = require('passport');
+var pg = require('pg');
+var pgSession = require('connect-pg-simple')(session);
 
 rootRequire('config/environments')(app);
 app.set('io', require('socket.io').listen(httpServer));
 
+var conString = process.env.DATABASE_URL || "postgres://postgres@localhost/forum";
+
 app.use(express.compress());
 app.use(express.cookieParser());
-app.use(express.session({secret: app.get('sessionSecret') || 'w!** *1*h'}));
+app.use(session({
+  store: new pgSession({
+    pg: pg,
+    conString: conString,
+    tableName: 'session'
+  }),
+  secret: app.get('sessionSecret') || 'w!** *1*h',
+  cookie: { maxAge: 365 * 24 * 60 * 60 * 1000 } // 1 year
+}));
 rootRequire('lib/authentication');
 app.use(passport.initialize());
 app.use(passport.session());
