@@ -1,37 +1,26 @@
 @import "variables";
 
-// might want to normalize more than this:
-p {
-  margin: 0;
-}
-
-.post,
-.topic,
-.input-input,
-.input-submit {
-  border-width: 3px;
-  border-style: solid;
-}
-
-.post,
-.input-input,
-.input-submit {
-  border-color: @black;
-}
-
 .post,
 .topic,
 .input {
-  margin: 0.5em auto 1em;
+  margin: 1.5em auto 2em;
+}
 
-  img {
-    max-width: 100%;
-  }
+
+.meta,
+.content,
+.actions {
+  background-color: #fff;
+}
+
+.meta,
+.content {
+  margin: 0.4em 0;
+  box-shadow: 0 0 1px hsla(0, 0%, 0%, 1);
 }
 
 .meta {
   padding: 0.5em 1em;
-  border-bottom: 1px solid @black;
 
   * {
     display: inline-block;
@@ -43,41 +32,8 @@ p {
   }
 }
 
-.content,
 .input-text,
 .input-textarea {
-  padding: 1em;
-}
-
-.content {
-  word-wrap: break-word;
-
-  p:not(:last-child) {
-    margin-bottom: 1.2em
-  }
-
-  a {
-    font-weight: bold;
-    color: #010101;
-    text-decoration: underline;
-
-    &:visited {
-      color: #7C7C7C;
-      text-decoration: none;
-    }
-  }
-  blockquote {
-    margin: 0.5em;
-    padding-left: 1em;
-    border-left: 2px solid #E0E0E0;
-  }
-  iframe {
-    width: 100%;
-  }
-  ul,
-  ol {
-    margin: 1em;
-  }
 }
 
 .input-textarea {
@@ -92,41 +48,20 @@ p {
   }
 }
 
+.new .input-submit {
+  background: transparent;
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 4px;
+  }
+}
+
 .input {
   position: relative;
 
-  &:before,
-  &:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    width: 1em;
-    height: 90%;
-  }
-
-  &:before {
-    left: 0.5em;
-
-    background: linear-gradient(
-      to left,
-      rgba(255, 255, 255, 0.5) 40%,
-      rgba(255, 255, 255, 1) 100%
-    );
-  }
-
-  &:after {
-    right: 3.5em;
-    background: linear-gradient(
-      to right,
-      rgba(255, 255, 255, 0.5) 40%,
-      rgba(255, 255, 255, 1) 100%
-    );
-  }
-
   .input-text,
   .input-textarea {
+    padding: 1em;
     padding-right: 4em;
     width: 100%;
     height: 100%;
@@ -136,6 +71,7 @@ p {
     &:focus {
       outline: none;
       border-color: #eee;
+      box-shadow: inset 0 0 5px hsl(0, 0%, 0%);
     }
   }
 
@@ -149,8 +85,15 @@ p {
   }
 
   .input-submit {
+    margin-top: 1em;
     background-color: transparent;
     width: 100%;
+
+    &:focus {
+      outline: none;
+      border-color: #eee;
+      box-shadow: 0 0 4px;
+    }
   }
 
   .new {
@@ -178,9 +121,8 @@ p {
 }
 
 .actions {
-  margin-top: 1em;
   padding: 1em;
-  border-top: 2px solid @black;
+  box-shadow: 0 0 1px hsl(0, 0%, 0%);
   text-align: right;
 
   .advanced {
