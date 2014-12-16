@@ -52,7 +52,15 @@ var PostsController = {
     });
   },
 
+  countPostsForTopic: function(topicID) {
+    return Post.countPosts(topicID);
+  },
+
   postsForTopic: function(topicID){
+    return Post.getLimitedPosts(topicID);
+  },
+
+  postsForTopicAll: function(topicID) {
     return Post.findAll({
       where: Sequelize.or(
         {parent: topicID},

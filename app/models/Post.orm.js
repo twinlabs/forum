@@ -26,6 +26,31 @@ var PostSequelize = function(sequelize){
           as: 'Children',
           foreignKey: 'parent'
         });
+      },
+
+      countPosts: function(topicID) {
+        return sequelize.query(
+            'select count(*) from ' +
+              '(select "post".*, "User"."name" as "user.name", "User"."id" as "user.id" from' +
+                 '"post" left outer join "forum_user" AS "User" ON "User"."id" = "post"."user_id" ' +
+                 'where ("post"."parent" = \'' + topicID + '\' OR "post"."id" = \'' + topicID + '\')) as results'
+        );
+      },
+
+      getLimitedPosts: function(topicID, limit) {
+        limit = limit || 20;
+
+        return sequelize.query(
+          'select * from ' +
+            '(select * from ' +
+              '(select "post".*, "User"."name" as "user.name", "User"."id" as "user.id" from' +
+                 '"post" left outer join "forum_user" AS "User" ON "User"."id" = "post"."user_id" ' +
+                 'where ("post"."parent" = \'' + topicID + '\' OR "post"."id" = \'' + topicID + '\')' +
+                 'ORDER BY "post".created_at ASC' +
+              ') as subresults order by created_at desc limit ' + limit +
+          ') as results order by created_at asc'
+        );
+
       }
     },
     underscored: true,
