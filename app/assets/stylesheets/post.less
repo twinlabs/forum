@@ -11,6 +11,13 @@ p {
   margin: 1.5em auto 2em;
 }
 
+
+.meta,
+.content,
+.actions {
+  background-color: #fff;
+}
+
 .meta,
 .content {
   margin: 0.4em 0;
@@ -49,38 +56,9 @@ p {
 .input {
   position: relative;
 
-  &:before,
-  &:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    width: 1em;
-    height: 90%;
-  }
-
-  &:before {
-    left: 0.5em;
-
-    background: linear-gradient(
-      to left,
-      rgba(255, 255, 255, 0.5) 40%,
-      rgba(255, 255, 255, 1) 100%
-    );
-  }
-
-  &:after {
-    right: 3.5em;
-    background: linear-gradient(
-      to right,
-      rgba(255, 255, 255, 0.5) 40%,
-      rgba(255, 255, 255, 1) 100%
-    );
-  }
-
   .input-text,
   .input-textarea {
+    padding: 1em;
     padding-right: 4em;
     width: 100%;
     height: 100%;
@@ -90,6 +68,7 @@ p {
     &:focus {
       outline: none;
       border-color: #eee;
+      box-shadow: inset 0 0 5px hsl(0, 0%, 0%);
     }
   }
 
@@ -103,8 +82,15 @@ p {
   }
 
   .input-submit {
+    margin-top: 1em;
     background-color: transparent;
     width: 100%;
+
+    &:focus {
+      outline: none;
+      border-color: #eee;
+      box-shadow: 0 0 4px;
+    }
   }
 
   .new {
