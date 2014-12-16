@@ -7,28 +7,18 @@ p {
 
 .post,
 .topic,
-.input-input,
-.input-submit {
-  border-width: 3px;
-  border-style: solid;
-}
-
-.post,
-.input-input,
-.input-submit {
-  border-color: @black;
-}
-
-.post,
-.topic,
 .input {
-  margin: 0.5em auto 1em;
+  margin: 1.5em auto 2em;
+}
 
+.meta,
+.content {
+  margin: 0.4em 0;
+  box-shadow: 0 0 1px hsla(0, 0%, 0%, 1);
 }
 
 .meta {
   padding: 0.5em 1em;
-  border-bottom: 1px solid @black;
 
   * {
     display: inline-block;
@@ -142,9 +132,8 @@ p {
 }
 
 .actions {
-  margin-top: 1em;
   padding: 1em;
-  border-top: 2px solid @black;
+  box-shadow: 0 0 1px hsl(0, 0%, 0%);
   text-align: right;
 
   .advanced {
