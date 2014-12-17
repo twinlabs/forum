@@ -13,6 +13,15 @@ var routes = function(app, passport){
 
     response.locals.user = request.session.user;
 
+    if (
+      app.get('hostName')
+        .match(request.get('host')
+          .split(':')[0]
+       ) === null
+    ) {
+      return response.redirect(301, app.get('hostName') + request.url);
+    }
+
     next();
   });
 
