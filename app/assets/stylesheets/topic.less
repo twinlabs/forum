@@ -7,17 +7,27 @@
     width: 100%;
     border-color: @current-grey;
 
-    a {
+    .title a {
       width: 100%;
+    }
+
+    a {
       white-space: inherit;
       text-overflow: inherit;
       overflow: inherit;
       color: inherit;
 
+      &:not(.time) {
+        * {
+          text-decoration: inherit;
+        }
+      }
+
       &.time {
         width: auto;
+
         &:hover {
-          border-bottom: 1px solid currentColor;
+          color: @highlight;
         }
       }
     }

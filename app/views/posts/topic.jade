@@ -3,7 +3,7 @@
     .title
       a(href='/topic/' + post.id)=post.title
     .extra
-      .replies
+      a.replies(href='/topic/' + post.id)
         span.count= post.children.length
         |  Replies.
       .username.datum=post.children[0] && post.children[0].user && post.children[0].user.name || post.user.name
