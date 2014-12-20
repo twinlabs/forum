@@ -82,7 +82,9 @@ var routes = function(app, passport){
       response.send(404);
     }
     UserController.get(request.session.user.id).done(function(err, user){
-      response.send(user);
+      response.render('profile', {
+        user: user
+      });
     });
   });
 

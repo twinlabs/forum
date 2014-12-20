@@ -1,2 +1,6 @@
 .profile
-  .signature=user.signature
+  form.edit.hidden(action="/profile", method="POST")
+    .input
+      textarea.signature=user.signature
+      button(class="input-submit" type="submit")
+        | Submit
