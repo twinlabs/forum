@@ -21,6 +21,12 @@ var UserSequelize = function(sequelize){
     },
     password: {
       type: Sequelize.STRING
+    },
+    signature: {
+      type: Sequelize.STRING,
+      validate: {
+        len:[0, 294]
+      }
     }
   }, {
     // options go here:

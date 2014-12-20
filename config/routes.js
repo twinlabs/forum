@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var PostsController = rootRequire('app/controllers/PostsController');
+var UserController = rootRequire('app/controllers/UserController');
 var authentication = rootRequire('lib/authentication');
 
 var routes = function(app, passport){
@@ -73,6 +74,15 @@ var routes = function(app, passport){
     //return post data using response.send which should return the markdown you need to quote the post
     PostsController.get(request.params.id).done(function(err, post){
       response.send(post);
+    });
+  });
+
+  app.get('/profile', function(request, response){
+    if (request.session.user.id === 0) {
+      response.send(404);
+    }
+    UserController.get(request.session.user.id).done(function(err, user){
+      response.send(user);
     });
   });
 
