@@ -5,6 +5,8 @@
       i.fa.fa-clock-o
       a.distance(data-timestamp=post.created_at, href="#" + post.id, name=post.id)= moment(post.created_at).fromNow()
   .content!=marked(post.body || '')
+  if (post.user.signature)
+    .signature=post.user.signature
   if (post.user.id === user.id)
     form.edit.hidden(action="/edit", method="POST")
       .input
