@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var PostsController = rootRequire('app/controllers/PostsController');
+var UserController = rootRequire('app/controllers/UserController');
 var authentication = rootRequire('lib/authentication');
 
 var routes = function(app, passport){
@@ -76,6 +77,7 @@ var routes = function(app, passport){
     });
   });
 
+
   app.get('/all', function(request, response){
     if (request.session.user.id === 0){
       return response.send(404);
@@ -142,6 +144,28 @@ var routes = function(app, passport){
     };
 
     response.redirect('/');
+  });
+
+  app.get('/profile', function(request, response){
+    if (request.session.user.id === 0) {
+      response.send(404);
+    }
+    UserController.get(request.session.user.id).done(function(err, user){
+      response.render('profile', {
+        user: user
+      });
+    });
+  });
+
+  app.post('/profile', function(request, response){
+    UserController.get(request.session.user.id)
+    .done(function(err, user){
+      user.updateAttributes(request.body).success(function(){
+        response.render('profile', {
+          user: user
+        });
+      });
+    });
   });
 
   app.get('/logout', function(request, response){
