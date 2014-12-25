@@ -32,7 +32,11 @@ var PostsController = {
     });
   },
 
-  topics: function(){
+  countTopics: function() {
+    return Post.countTopics();
+  },
+
+  topics: function(limit){
     // get posts without a parent.
     // consider these as 'topics'
     return Post.findAll({
