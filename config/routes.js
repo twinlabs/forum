@@ -113,7 +113,7 @@ var routes = function(app, passport){
   // take some time to think about where this ought to live.
   // probably in the PostsController module.
   app.get('io').sockets.on('connection', function(socket){
-    socket.on('post', function(data, callback){
+    socket.on('post', function(data, callback) {
       data.user_id = data.user.id;
 
       if (data.user_id === 0) {
