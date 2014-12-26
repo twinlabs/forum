@@ -43,7 +43,7 @@ var PostSequelize = function(sequelize){
         return sequelize.query(
           'select * from ' +
             '(select * from ' +
-              '(select "post".*, "User"."name" as "user.name", "User"."id" as "user.id" from' +
+              '(select "post".*, "User"."name" as "user.name", "User"."id" as "user.id", "User"."signature" as "user.signature" from' +
                  '"post" left outer join "forum_user" AS "User" ON "User"."id" = "post"."user_id" ' +
                  'where ("post"."parent" = \'' + topicID + '\' OR "post"."id" = \'' + topicID + '\')' +
                  'ORDER BY "post".created_at ASC' +
