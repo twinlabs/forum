@@ -82,6 +82,8 @@ block script
           id: forum.constants.user.id,
           name: forum.constants.user.name
         }
+      }, function(){
+        $('form.new, .action.new').remove();
       });
 
       event.preventDefault();
