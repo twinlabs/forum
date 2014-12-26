@@ -47,12 +47,12 @@ var routes = function(app, passport){
 
   });
 
-  app.get('/topic/:id', function(request, response){
-    if (request.session.user.id === 0){
-      return response.render('index', {});
+  app.get('/topic/:id', function(request, response, next) {
+    if (!request.query.all) {
+      return next();
     }
 
-    PostsController.postsForTopic(request.params.id).done(function(error, posts){
+    PostsController.postsForTopicAll(request.params.id).done(function(error, posts){
       if (posts && posts.length < 1) {
         return response.send(404);
       }
@@ -60,6 +60,24 @@ var routes = function(app, passport){
       response.render('all', {
         posts: posts,
         parent: request.params.id
+      });
+    });
+  }, function(request, response) {
+    if (request.session.user.id === 0){
+      return response.render('index', {});
+    }
+
+    PostsController.countPostsForTopic(request.params.id).done(function(error, countResult) {
+      PostsController.postsForTopic(request.params.id).done(function(error, posts){
+        if (posts && posts.length < 1) {
+          return response.send(404);
+        }
+
+        response.render('all', {
+          posts: posts,
+          parent: request.params.id,
+          count: countResult[0].count
+        });
       });
     });
   });

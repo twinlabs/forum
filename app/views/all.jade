@@ -8,6 +8,12 @@ block vars
   - var bodyClass="index posts"
 
 block main
+  if(count > 20)
+    form(action='/topic/' + parent + '#' + posts[0].id, class="loadall")
+      input(type="hidden", name="all", value="true")
+      button(type="submit")
+        | Load all posts
+
   .posts
     if(!posts.length)
       | No posts. Why not contribute to the forum?
