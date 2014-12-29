@@ -51,6 +51,12 @@ var PostSequelize = function(sequelize){
           ') as results order by created_at asc'
         );
 
+      },
+
+      countTopics: function() {
+        return sequelize.query(
+          'select count(*) from post where parent isnull'
+        );
       }
     },
     underscored: true,

@@ -9,13 +9,19 @@ block main
 
   else
 
-    if (!posts)
+    if (!posts || posts.length === 0)
       | No threads. Why not contribute to the forum?
 
     else
       .topics
         each post in posts
           include posts/topic
+
+      if (count > 7 && showFetchButton)
+        form(action='/', class="loadall")
+          input(type="hidden", name="all", value="true")
+          button(type="submit")
+            | Load all topics
     a.action.new(href="#") new topic
     form.new.hidden
       .input

@@ -31,17 +31,23 @@ var routes = function(app, passport){
       return response.render('index', {});
     }
 
-    PostsController.topics().done(function(error, posts){
-      posts = _.sortBy(posts, function(post) {
-        if (post.children[0]) {
-          return post.children[0].created_at;
-        }
+    PostsController.countTopics().done(function(error, countResult) {
+      var limit = request.query.all ? 'ALL' : 7;
 
-        return post.created_at;
-      }).reverse();
+      PostsController.topics().done(function(error, posts){
+        posts = _.first(_.sortBy(posts, function(post) {
+          if (post.children[0]) {
+            return post.children[0].created_at;
+          }
 
-      response.render('index', {
-        posts: posts
+          return post.created_at;
+        }).reverse(), limit === 'ALL' ? posts.length : limit);
+
+        response.render('index', {
+          posts: posts,
+          count: countResult[0].count,
+          showFetchButton: !request.query.all
+        });
       });
     });
 

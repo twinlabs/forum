@@ -15,7 +15,7 @@ block main
         | Load all posts
 
   .posts
-    if(!posts.length)
+    if(!posts || posts.length === 0)
       | No posts. Why not contribute to the forum?
     else
       each post in posts
