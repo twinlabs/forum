@@ -25,7 +25,9 @@ app.use(session({
     tableName: 'session'
   }),
   secret: app.get('sessionSecret') || 'w!** *1*h',
-  cookie: { maxAge: 365 * 24 * 60 * 60 * 1000 } // 1 year
+  cookie: { maxAge: 365 * 24 * 60 * 60 * 1000 }, // 1 year
+  resave: false,
+  saveUninitialized: false
 }));
 rootRequire('lib/authentication');
 app.use(passport.initialize());
