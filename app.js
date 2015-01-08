@@ -107,7 +107,16 @@ rest.initialize({
   sequelize: sequelize
 });
 
-rootRequire('app/controllers/UserApi')(rest);
-rootRequire('app/controllers/TopicApi')(rest);
-rootRequire('app/controllers/PostApi')(rest);
+var checkAuth = function(req, res, context) {
+  if (req.session.user.id) {
+    context.continue();
+  } else {
+    res.json(403, { error: "Not logged in" });
+    context.stop();
+  }
+};
+
+rootRequire('app/controllers/UserApi')(rest, checkAuth);
+rootRequire('app/controllers/TopicApi')(rest, checkAuth);
+rootRequire('app/controllers/PostApi')(rest, checkAuth);
 

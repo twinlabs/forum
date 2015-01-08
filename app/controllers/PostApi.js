@@ -1,12 +1,14 @@
 var Sequelize = require('sequelize');
 
-var postApi = function(rest) {
+var postApi = function(rest, checkAuth) {
   var Post = rootRequire('app/models/Post.orm')(rest.sequelize);
 
   var posts = rest.resource({
     model: Post,
     endpoints: ['/api/posts', '/api/posts/:id']
   });
+
+  posts.all.auth(checkAuth);
 
   posts.read.send.before(function(req, res, context) {
     context.instance = { post: context.instance };

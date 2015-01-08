@@ -1,4 +1,4 @@
-var userApi = function(rest) {
+var userApi = function(rest, checkAuth) {
   var User = rootRequire('app/models/User.orm')(rest.sequelize);
 
   var users = rest.resource({
@@ -6,6 +6,8 @@ var userApi = function(rest) {
     endpoints: ['/api/users', '/api/users/:id'],
     actions: ['read', 'list']
   });
+
+  users.all.auth(checkAuth);
 
   users.list.send.before(function(req, res, context) {
     context.instance.forEach(function(user) {
