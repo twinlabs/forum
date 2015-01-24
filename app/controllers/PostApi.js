@@ -5,7 +5,8 @@ var postApi = function(rest, checkAuth) {
 
   var posts = rest.resource({
     model: Post,
-    endpoints: ['/api/posts', '/api/posts/:id']
+    endpoints: ['/api/posts', '/api/posts/:id'],
+    actions: ['read', 'list', 'create']
   });
 
   posts.all.auth(checkAuth);
@@ -26,6 +27,12 @@ var postApi = function(rest, checkAuth) {
 
   posts.list.send.before(function(req, res, context) {
     context.instance = { posts: context.instance };
+    context.continue();
+  });
+
+  posts.create.write.before(function(req, res, context) {
+    console.log("transforming reply " + context.attributes);
+    context.attributes.user_id = req.session.user.id;
     context.continue();
   });
 
