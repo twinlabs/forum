@@ -29,6 +29,7 @@
     "marked": "git://github.com/twinlabs/marked.git",
     "socket.io": "~0.9.9",
     "socket.io-client": "~0.9.9",
+    "epilogue": "0.3.2",
 
     "jade": "~0.35.0",
     "moment": "~2.5.0",
