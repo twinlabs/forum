@@ -16,6 +16,9 @@ app.set('io', require('socket.io').listen(httpServer));
 
 var conString = process.env.DATABASE_URL || "postgres://postgres@localhost/forum";
 
+var Sequelize = require('sequelize');
+var sequelize = new Sequelize(conString);
+
 app.use(express.compress());
 app.use(express.cookieParser());
 app.use(session({
@@ -96,3 +99,11 @@ app.locals.marked.setOptions({
   },
   renderer: markedRenderer
 });
+
+var rest = require('epilogue');
+
+rest.initialize({
+  app: app,
+  sequelize: sequelize
+});
+
