@@ -107,5 +107,6 @@ rest.initialize({
   sequelize: sequelize
 });
 
+rootRequire('app/controllers/TopicApi')(rest);
 rootRequire('app/controllers/PostApi')(rest);
 
