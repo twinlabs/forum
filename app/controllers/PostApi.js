@@ -31,9 +31,24 @@ var postApi = function(rest, checkAuth) {
   });
 
   posts.create.write.before(function(req, res, context) {
-    console.log("transforming reply " + context.attributes);
     context.attributes.user_id = req.session.user.id;
     context.continue();
+  });
+
+  posts.create.send.after(function(req, res, context) {
+    data = {
+      id: context.instance.id,
+      user_id: context.instance.user_id,
+      body: context.instance.body,
+      title: null,
+      parent: context.instance.parent,
+      created_at: context.instance.created_at,
+      user: {
+        id: req.session.user.id,
+        name: req.session.user.name
+      }
+    };
+    rest.app.get('io').sockets.emit('post', data);
   });
 
   return posts;
