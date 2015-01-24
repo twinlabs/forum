@@ -3,7 +3,8 @@ var topicApi = function(rest, checkAuth) {
 
   var topics = rest.resource({
     model: Post,
-    endpoints: ['/api/topics', '/api/topics/:id']
+    endpoints: ['/api/topics', '/api/topics/:id'],
+    actions: ['read', 'list']
   });
 
   topics.all.auth(checkAuth);
@@ -17,7 +18,7 @@ var topicApi = function(rest, checkAuth) {
     context.criteria = { parent: null };
     context.continue();
   });
-  
+
   return topics;
 };
 
