@@ -36,18 +36,22 @@ block script
   script(src="/javascripts/emoji.js")
   script(src="/templates/post/topic.js")
   script.
-    var $topics = $('.topics .topic');
+    var checkUnread = function() {
+      var $topics = $('.topics .topic');
 
-    $topics.each(function(index, element) {
-      var $topic = $(this);
-      var topicTimestamp = parseInt(+new Date($topic.find('[data-timestamp]').data('timestamp')), 10);
-      var lastVisitedTimestamp = parseInt(localStorage.getItem('topic-' + this.getAttribute('data-id') + '-lastvisited') || 0, 10);
+      $topics.each(function(index, element) {
+        var $topic = $(this);
+        var topicTimestamp = parseInt(+new Date($topic.find('[data-timestamp]').data('timestamp')), 10);
+        var lastVisitedTimestamp = parseInt(localStorage.getItem('topic-' + this.getAttribute('data-id') + '-lastvisited') || 0, 10);
 
-      if (topicTimestamp > lastVisitedTimestamp) {
-        $topic.addClass('unread');
-        $topic.find('.title a').attr('href', ($topic.find('.title a').attr('href') + '#reply'));
-      }
-    });
+        if (topicTimestamp > lastVisitedTimestamp) {
+          $topic.addClass('unread');
+          $topic.find('.title a').attr('href', ($topic.find('.title a').attr('href') + '#reply'));
+        }
+      });
+    }
+
+    checkUnread();
 
     var updateThreadMetadata = function(response){
       var $topicNode = $('.topic').filter('[data-id=' + response.parent + ']');
@@ -57,6 +61,10 @@ block script
       $topicNode.find('.time .distance').text(moment(response.created_at).fromNow())
 
       $topicNode.find('.datum.username').text(response.user.name);
+
+      $topicNode.find('[data-timestamp]').data('timestamp', response.created_at)
+
+      checkUnread();
     }
 
     var socket = io.connect(forum.constants.socketAddress);
@@ -82,6 +90,8 @@ block script
           return postTime.fromNow();
         }
       });
+
+      checkUnread();
     });
 
 
