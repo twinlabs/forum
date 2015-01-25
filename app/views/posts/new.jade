@@ -109,21 +109,26 @@ script.
     });
 
     $('.new form').on('submit', function(event){
+      var self = this;
       var $input = $(this).find('.input').not('.hidden');
 
       if ($input.find('.input-input').val() === "") return false;
 
       event.preventDefault();
-      socket.emit('post', {
-        body: emoji.replace_unified($input.find('.input-input').val()),
-        parent: forum.constants.parent,
-        user: {
-          id: forum.constants.user.id,
-          name: forum.constants.user.name
+      $.ajax({
+        type: 'POST',
+        contentType: 'application/json;charset=UTF-8',
+        dataType: 'json',
+        url: '/api/posts',
+        data: JSON.stringify({
+          parent: forum.constants.parent,
+          body: emoji.replace_unified($input.find('.input-input').val())
+        }),
+        success: function(result) {
+          $(self).find('.input-input').val('');
+          $(self).find('> .input').not('.hidden').find('.input-input').trigger('focus');
         }
       });
-      $(this).find('.input-input').val('');
-      $(this).find('> .input').not('.hidden').find('.input-input').trigger('focus');
     });
 
     $('textarea, input').on('keyup', function(event){
