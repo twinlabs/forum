@@ -80,7 +80,7 @@ block script
       locals.marked = marked;
       locals.user = forum.constants.user;
       locals.post.children = [];
-      locals.getPostDate = function(){};
+      locals.getPostDate = function(post){ return post.created_at; };
 
       $(anonymous(locals)).appendTo('.main .topics');
 
