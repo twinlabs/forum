@@ -1,7 +1,10 @@
 .topic(data-id=post.id)
   .meta.clearfix
     .title
-      a(href='/topic/' + post.id)=post.title
+      a(href='/topic/' + post.id)
+        =post.title
+        .unread
+          i.fa.fa-file-o
     .extra
       a.replies(href='/topic/' + post.id)
         span.count= post.children.length

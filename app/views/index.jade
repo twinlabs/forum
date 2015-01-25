@@ -36,6 +36,18 @@ block script
   script(src="/javascripts/emoji.js")
   script(src="/templates/post/topic.js")
   script.
+    var $topics = $('.topics .topic');
+
+    $topics.each(function(index, element) {
+      var $topic = $(this);
+      var topicTimestamp = parseInt(+new Date($topic.find('[data-timestamp]').data('timestamp')), 10);
+      var lastVisitedTimestamp = parseInt(localStorage.getItem('topic-' + this.getAttribute('data-id') + '-lastvisited') || 0, 10);
+
+      if (topicTimestamp > lastVisitedTimestamp) {
+        $topic.addClass('unread');
+      }
+    });
+
     var updateThreadMetadata = function(response){
       var $topicNode = $('.topic').filter('[data-id=' + response.parent + ']');
 

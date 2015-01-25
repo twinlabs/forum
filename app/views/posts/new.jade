@@ -1,3 +1,6 @@
+script.
+  forum.constants.topicStorageVisitedID = 'topic-' + forum.constants.parent + '-lastvisited';
+
 script(src="/templates/post/post.js")
 script(src="/javascripts/emoji.js")
 script.
@@ -21,6 +24,22 @@ script.
   script.
     forum.title = document.title;
     forum.replyCount = 0;
+
+    var $posts = $('.posts .post');
+
+    $posts.each(function(index, element) {
+      var $post = $(this);
+      var postTimestamp = parseInt(+new Date($post.find('[data-timestamp]').data('timestamp')), 10);
+      var lastVisitedTimestamp = parseInt(localStorage.getItem(forum.constants.topicStorageVisitedID) || 0, 10);
+
+      if (postTimestamp > lastVisitedTimestamp) {
+        $post.addClass('unread');
+      }
+
+      if (index >= ($posts.length - 1)) {
+        localStorage.setItem(forum.constants.topicStorageVisitedID, +new Date());
+      }
+    });
 
     socket.on('destroy', function(response){
       $('[data-id=' + response.id + ']').remove();
@@ -149,3 +168,4 @@ script.
     $(window).blur(function(){
       forum.focus = false;
     });
+
