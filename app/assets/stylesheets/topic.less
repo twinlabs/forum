@@ -5,7 +5,8 @@
 
   .meta {
     width: 100%;
-    border-color: @current-grey;
+    border: 0 solid @highlight;
+    transition: border-width 0.2s;
 
     .title a {
       width: 100%;
@@ -65,6 +66,12 @@
     @media (min-width: 35em) {
       display: inline-block;
     }
+  }
+}
+
+.topic.unread {
+  .meta {
+    border-left-width: 0.2em;
   }
 }
 
