@@ -75,7 +75,7 @@ script.
         document.title = '(' + forum.replyCount + ') ' + forum.title;
       }
 
-      $(anonymous(locals)).appendTo('.main .posts')[0].scrollIntoView();
+      $(anonymous(locals)).appendTo('.main .posts');
 
       $('.post .distance').text(function(){
         var postTime = moment($(this).data('timestamp'));
