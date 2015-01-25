@@ -13,6 +13,9 @@ block main
       | No threads. Why not contribute to the forum?
 
     else
+      .layout-meta
+        a.action.read-all
+          | mark all topics read
       .topics
         each post in posts
           include posts/topic
@@ -47,6 +50,8 @@ block script
         if (topicTimestamp > lastVisitedTimestamp) {
           $topic.addClass('unread');
           $topic.find('.title a').attr('href', ($topic.find('.title a').attr('href') + '#reply'));
+        } else {
+          $topic.removeClass('unread');
         }
       });
     }
@@ -65,6 +70,18 @@ block script
       $topicNode.find('[data-timestamp]').data('timestamp', response.created_at)
 
       checkUnread();
+    }
+
+    var markAllRead = function() {
+      var $topics = $('.topics .topic');
+
+      $topics.each(function(index, element) {
+        localStorage.setItem('topic-' + this.getAttribute('data-id') + '-lastvisited', +new Date());
+
+        if (index >= ($topics.length - 1)) {
+          checkUnread();
+        }
+      });
     }
 
     var socket = io.connect(forum.constants.socketAddress);
@@ -116,4 +133,10 @@ block script
       });
 
       event.preventDefault();
+    });
+
+    $('.action.read-all').on('click', function(event) {
+      event.preventDefault();
+
+      markAllRead();
     });
