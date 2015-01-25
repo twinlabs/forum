@@ -25,21 +25,25 @@ script.
     forum.title = document.title;
     forum.replyCount = 0;
 
-    var $posts = $('.posts .post');
+    var checkUnread = function() {
+      var $posts = $('.posts .post');
 
-    $posts.each(function(index, element) {
-      var $post = $(this);
-      var postTimestamp = parseInt(+new Date($post.find('[data-timestamp]').data('timestamp')), 10);
-      var lastVisitedTimestamp = parseInt(localStorage.getItem(forum.constants.topicStorageVisitedID) || 0, 10);
+      $posts.each(function(index, element) {
+        var $post = $(this);
+        var postTimestamp = parseInt(+new Date($post.find('[data-timestamp]').data('timestamp')), 10);
+        var lastVisitedTimestamp = parseInt(localStorage.getItem(forum.constants.topicStorageVisitedID) || 0, 10);
 
-      if (postTimestamp > lastVisitedTimestamp) {
-        $post.addClass('unread');
-      }
+        if (postTimestamp > lastVisitedTimestamp) {
+          $post.addClass('unread');
+        }
 
-      if (index >= ($posts.length - 1)) {
-        localStorage.setItem(forum.constants.topicStorageVisitedID, +new Date());
-      }
-    });
+        if (index >= ($posts.length - 1)) {
+          localStorage.setItem(forum.constants.topicStorageVisitedID, +new Date());
+        }
+      });
+    }
+
+    checkUnread();
 
     socket.on('destroy', function(response){
       $('[data-id=' + response.id + ']').remove();
@@ -79,6 +83,8 @@ script.
           return postTime.fromNow();
         }
       });
+
+      checkUnread();
     });
 
     $('body').on('click', '.post .action.destroy', function(event){
