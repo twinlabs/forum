@@ -9,7 +9,7 @@
       .username.datum=post.children[0] && post.children[0].user && post.children[0].user.name || post.user.name
       a.time.datum(href='/topic/' + post.id + '#reply')
         i.fa.fa-clock-o
-        .distance(data-timestamp=getPostDate(post))= moment(getPostDate(post)).fromNow()
+        .distance(data-timestamp=getPostDate(post).toString())= moment(getPostDate(post)).fromNow()
   .actions
     a.action.reply(href='/topic/' + post.id + '#reply')
       .context
