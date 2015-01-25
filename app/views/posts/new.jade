@@ -55,6 +55,7 @@ script.
       locals.moment = moment;
       locals.marked = marked;
       locals.user = forum.constants.user;
+      locals.post.created_at = '';
 
       $('[data-id=' + response.id + ']').replaceWith(anonymous(locals));
     });
