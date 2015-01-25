@@ -1,3 +1,6 @@
+script.
+  forum.constants.topicStorageVisitedID = 'topic-' + forum.constants.parent + '-lastvisited';
+
 script(src="/templates/post/post.js")
 script(src="/javascripts/emoji.js")
 script.
@@ -22,6 +25,26 @@ script.
     forum.title = document.title;
     forum.replyCount = 0;
 
+    var checkUnread = function() {
+      var $posts = $('.posts .post');
+
+      $posts.each(function(index, element) {
+        var $post = $(this);
+        var postTimestamp = parseInt(+new Date($post.find('[data-timestamp]').data('timestamp')), 10);
+        var lastVisitedTimestamp = parseInt(localStorage.getItem(forum.constants.topicStorageVisitedID) || 0, 10);
+
+        if (postTimestamp > lastVisitedTimestamp) {
+          $post.addClass('unread');
+        }
+
+        if (index >= ($posts.length - 1)) {
+          localStorage.setItem(forum.constants.topicStorageVisitedID, +new Date());
+        }
+      });
+    }
+
+    checkUnread();
+
     socket.on('destroy', function(response){
       $('[data-id=' + response.id + ']').remove();
     });
@@ -32,6 +55,7 @@ script.
       locals.moment = moment;
       locals.marked = marked;
       locals.user = forum.constants.user;
+      locals.post.created_at = '';
 
       $('[data-id=' + response.id + ']').replaceWith(anonymous(locals));
     });
@@ -52,7 +76,7 @@ script.
         document.title = '(' + forum.replyCount + ') ' + forum.title;
       }
 
-      $(anonymous(locals)).appendTo('.main .posts')[0].scrollIntoView();
+      $(anonymous(locals)).appendTo('.main .posts');
 
       $('.post .distance').text(function(){
         var postTime = moment($(this).data('timestamp'));
@@ -60,6 +84,8 @@ script.
           return postTime.fromNow();
         }
       });
+
+      checkUnread();
     });
 
     $('body').on('click', '.post .action.destroy', function(event){
@@ -127,6 +153,8 @@ script.
         success: function(result) {
           $(self).find('.input-input').val('');
           $(self).find('> .input').not('.hidden').find('.input-input').trigger('focus');
+
+          localStorage.setItem(forum.constants.topicStorageVisitedID, +new Date());
         }
       });
     });
@@ -149,3 +177,4 @@ script.
     $(window).blur(function(){
       forum.focus = false;
     });
+
