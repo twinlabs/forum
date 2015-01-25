@@ -45,6 +45,7 @@ block script
 
       if (topicTimestamp > lastVisitedTimestamp) {
         $topic.addClass('unread');
+        $topic.find('.title a').attr('href', ($topic.find('.title a').attr('href') + '#reply'));
       }
     });
 
