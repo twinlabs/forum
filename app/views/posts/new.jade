@@ -146,6 +146,8 @@ script.
         success: function(result) {
           $(self).find('.input-input').val('');
           $(self).find('> .input').not('.hidden').find('.input-input').trigger('focus');
+
+          localStorage.setItem(forum.constants.topicStorageVisitedID, +new Date());
         }
       });
     });
