@@ -121,17 +121,19 @@ block script
       if ($.trim($(this).find('.input-title').val()).length < 1) {
         return false;
       }
-      socket.emit('post', {
-        title: $(this).find('.input-title').val(),
-        body: emoji.replace_unified($(this).find('.input-body').val()),
-        user: {
-          id: forum.constants.user.id,
-          name: forum.constants.user.name
+      $.ajax({
+        type: 'POST',
+        contentType: 'application/json;charset=UTF-8',
+        dataType: 'json',
+        url: '/api/topics',
+        data: JSON.stringify({
+          title: $(this).find('.input-title').val(),
+          body: emoji.replace_unified($(this).find('.input-body').val())
+        }),
+        success: function() {
+          $('form.new, .action.new').remove();
         }
-      }, function(){
-        $('form.new, .action.new').remove();
       });
-
       event.preventDefault();
     });
 
