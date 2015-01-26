@@ -49,6 +49,7 @@ var postApi = function(rest, checkAuth) {
       }
     };
     rest.app.get('io').sockets.emit('post', data);
+    context.continue();
   });
 
   return posts;
