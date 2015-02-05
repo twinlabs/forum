@@ -12,7 +12,9 @@ var PostsController = {
     post.update({
       body: data.body
     },{
-      id: data.id
+      where: {
+        id: data.id
+      }
     });
   },
   add: function(data, callback){
