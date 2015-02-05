@@ -45,7 +45,7 @@ block script
       $topics.each(function(index, element) {
         var $topic = $(this);
         var topicTimestamp = parseInt(+new Date($topic.find('[data-timestamp]').data('timestamp')), 10);
-        var lastVisitedTimestamp = parseInt(localStorage.getItem('topic-' + this.getAttribute('data-id') + '-lastvisited') || 0, 10);
+        var lastVisitedTimestamp = parseInt(forum.constants.lastVisited[this.getAttribute('data-id')] || 0, 10);
 
         if (topicTimestamp > lastVisitedTimestamp) {
           $topic.addClass('unread');

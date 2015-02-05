@@ -1,6 +1,3 @@
-script.
-  forum.constants.topicStorageVisitedID = 'topic-' + forum.constants.parent + '-lastvisited';
-
 script(src="/templates/post/post.js")
 script(src="/javascripts/emoji.js")
 script.
@@ -31,14 +28,10 @@ script.
       $posts.each(function(index, element) {
         var $post = $(this);
         var postTimestamp = parseInt(+new Date($post.find('[data-timestamp]').data('timestamp')), 10);
-        var lastVisitedTimestamp = parseInt(localStorage.getItem(forum.constants.topicStorageVisitedID) || 0, 10);
+        var lastVisitedTimestamp = parseInt(forum.constants.lastVisited[forum.constants.parent] || 0, 10);
 
         if (postTimestamp > lastVisitedTimestamp) {
           $post.addClass('unread');
-        }
-
-        if (index >= ($posts.length - 1)) {
-          localStorage.setItem(forum.constants.topicStorageVisitedID, +new Date());
         }
       });
     }

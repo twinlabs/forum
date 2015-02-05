@@ -24,6 +24,16 @@ var routes = function(app, passport){
     }
 
     next();
+  }, function(request, response, next) {
+    if (request.session.user.id === 0){
+      return next();
+    }
+
+    UserController.getLastVisited(request.session.user.id).then(function(lastVisited) {
+      response.locals.lastVisited = lastVisited || {};
+
+      next();
+    });
   });
 
   app.get('/', function(request, response){
