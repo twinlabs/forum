@@ -2,7 +2,7 @@ var Sequelize = require('sequelize');
 var bcrypt = require('bcrypt');
 
 var UserSequelize = function(sequelize){
-  var User = sequelize.define('User', {
+  var user = sequelize.define('user', {
     // attributes of data model go here:
     id: {
       type: Sequelize.INTEGER,
@@ -32,7 +32,7 @@ var UserSequelize = function(sequelize){
     // options go here:
     classMethods: {
       associate: function(models){
-        User.hasMany(models.Post, {foreignKey: 'user_id'});
+        user.hasMany(models.post, {foreignKey: 'user_id'});
       }
     },
     instanceMethods: {
@@ -44,7 +44,7 @@ var UserSequelize = function(sequelize){
     tableName: 'forum_user' // what should this be
   });
 
-  return User;
+  return user;
 };
 
 // nodejs modules usually export something

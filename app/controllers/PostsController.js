@@ -1,86 +1,86 @@
-var Post = rootRequire('app/models/Post');
-var User = rootRequire('app/models/User');
+var post = rootRequire('app/models/Post');
+var user = rootRequire('app/models/User');
 var Sequelize = require('sequelize');
 
-var models = {Post: Post, User: User};
+var models = {post: post, user: user};
 
-Post.associate(models);
-User.associate(models);
+post.associate(models);
+user.associate(models);
 
 var PostsController = {
   edit: function(data){
-    Post.update({
+    post.update({
       body: data.body
     },{
       id: data.id
     });
   },
   add: function(data, callback){
-    Post.create(data).done(callback);
+    post.create(data).done(callback);
   },
 
   destroy: function(data){
-    Post.destroy({
+    post.destroy({
       id: data.id
     });
   },
 
   index: function(){
-    return Post.findAll({
-      include: [User],
+    return post.findAll({
+      include: [user],
       order: 'created_at ASC'
     });
   },
 
   countTopics: function() {
-    return Post.countTopics();
+    return post.countTopics();
   },
 
   topics: function(limit){
     // get posts without a parent.
     // consider these as 'topics'
-    return Post.findAll({
+    return post.findAll({
       where: ['"post"."parent" isnull'],
       include: [
-        User,
+        user,
         {
-          model: Post,
-          as: 'Children',
-          include: [User]
+          model: post,
+          as: 'children',
+          include: [user]
         }
       ],
       order: [
         ['created_at', 'DESC'],
-        [{model: Post, as: 'Children'}, 'created_at', 'DESC']
+        [{model: post, as: 'children'}, 'created_at', 'DESC']
       ]
     });
   },
 
   countPostsForTopic: function(topicID) {
-    return Post.countPosts(topicID);
+    return post.countPosts(topicID);
   },
 
   postsForTopic: function(topicID){
-    return Post.getLimitedPosts(topicID);
+    return post.getLimitedPosts(topicID);
   },
 
   postsForTopicAll: function(topicID) {
-    return Post.findAll({
+    return post.findAll({
       where: Sequelize.or(
         {parent: topicID},
         {id: topicID}
       ),
-      include: [User],
+      include: [user],
       order: 'created_at ASC'
     });
   },
 
   get: function(id){
-    return Post.find({
+    return post.find({
       where: {
         id: id
       },
-      include: [User]
+      include: [user]
     });
   }
 };
