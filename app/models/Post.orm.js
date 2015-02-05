@@ -48,8 +48,8 @@ var PostSequelize = function(sequelize){
                  'where ("post"."parent" = \'' + topicID + '\' OR "post"."id" = \'' + topicID + '\')' +
                  'ORDER BY "post".created_at ASC' +
               ') as subresults order by created_at desc limit ' + limit +
-          ') as results order by created_at asc'
-        );
+          ') as results order by created_at asc',
+        null, {raw: true, nest: true});
 
       },
 
