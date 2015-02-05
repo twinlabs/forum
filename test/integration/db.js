@@ -4,28 +4,28 @@ var Sequelize = require('sequelize');
 
 var sequelize = new Sequelize("postgres://postgres@localhost/" + rootRequire('app').app.get('db-test'));
 
-var Post = rootRequire('app/models/Post.orm')(sequelize);
-var User = rootRequire('app/models/User.orm')(sequelize);
+var post = rootRequire('app/models/Post.orm')(sequelize);
+var user = rootRequire('app/models/User.orm')(sequelize);
 
 var models = {
-  Post: Post,
-  User: User
+  post: post,
+  user: user
 };
 
 describe("database (user and post tables) stuff", function(){
   before(function(done){
-    Post.sync({force: true}).success(function(){
-      Post.associate(models);
+    post.sync({force: true}).success(function(){
+      post.associate(models);
 
-      User.sync({force: true}).success(function(){
-        User.associate(models);
+      user.sync({force: true}).success(function(){
+        user.associate(models);
         done();
       });
     });
   });
 
   it("works, basically", function(done){
-    Post.create({
+    post.create({
       body: "it's happening",
       user_id: 1
     }).success(function(post){
@@ -35,14 +35,14 @@ describe("database (user and post tables) stuff", function(){
   });
 
   it('gets posts associated with a particular user', function(testDone){
-    var user = User.build({
+    var userInstance = user.build({
       name: 'Ty',
       id: 7
     });
 
-    var userDeferred = user.save();
+    var userDeferred = userInstance.save();
 
-    var first_post = Post.build({
+    var first_post = post.build({
       id: 77,
       body: 'hello world. i am ty.',
       user_id: 7
@@ -50,7 +50,7 @@ describe("database (user and post tables) stuff", function(){
 
     var firstPostDeferred = first_post.save();
 
-    var second_post = Post.build({
+    var second_post = post.build({
       id: 78,
       body: 'anyone want to post with me?',
       user_id: 7
@@ -71,7 +71,7 @@ describe("database (user and post tables) stuff", function(){
             return console.log(error);
           }
 
-          user.getPosts().done(function(error, data){
+          userInstance.getPosts().done(function(error, data){
             if (error) {
               console.log(error);
             }

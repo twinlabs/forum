@@ -61,20 +61,20 @@ describe('socket communication', function(){
     var sequelize = new Sequelize("postgres://postgres@localhost/" + appModule.app.get('db-test'));
 
     // pending comment
-    var Post = rootRequire('app/models/Post.orm')(sequelize);
-    var User = rootRequire('app/models/User.orm')(sequelize);
+    var post = rootRequire('app/models/Post.orm')(sequelize);
+    var user = rootRequire('app/models/User.orm')(sequelize);
 
     var models = {
-      Post: Post,
-      User: User
+      post: post,
+      user: user
     };
 
     // ensure that fresh database tables are created:
-    Post.sync({force: true}).success(function(){
-      Post.associate(models);
+    post.sync({force: true}).success(function(){
+      post.associate(models);
 
-      User.sync({force: true}).success(function(){
-        User.associate(models);
+      user.sync({force: true}).success(function(){
+        user.associate(models);
         done();
       });
     });

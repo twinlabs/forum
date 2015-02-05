@@ -1,4 +1,4 @@
-var User = rootRequire('app/models/User');
+var user = rootRequire('app/models/User');
 var Sequelize = require('sequelize');
 
 var UserController = {
