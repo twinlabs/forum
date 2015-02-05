@@ -3,7 +3,7 @@ var Sequelize = require('sequelize');
 
 var UserController = {
   get: function(id) {
-    return User.find(id);
+    return user.find(id);
   }
 };
 
