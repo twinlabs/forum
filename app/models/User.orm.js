@@ -27,6 +27,9 @@ var UserSequelize = function(sequelize){
       validate: {
         len:[0, 294]
       }
+    },
+    last_visited: {
+      type: Sequelize.JSON
     }
   }, {
     // options go here:

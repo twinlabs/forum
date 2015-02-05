@@ -68,6 +68,14 @@ var routes = function(app, passport){
         parent: request.params.id
       });
     });
+  }, function(request, response, next) {
+    if (request.session.user.id === 0){
+      return response.render('index', {});
+    }
+
+    UserController.updateLastVisited(request.session.user.id, request.params.id);
+
+    next();
   }, function(request, response) {
     if (request.session.user.id === 0){
       return response.render('index', {});
