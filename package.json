@@ -9,6 +9,9 @@
   "engines": {
     "node": "0.10.x"
   },
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org/"
+  },
   "scripts": {
     "db:seed": "node db/seed.js",
     "deploy": "git push heroku deploy:master",
