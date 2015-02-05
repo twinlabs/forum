@@ -72,18 +72,6 @@ block script
       checkUnread();
     }
 
-    var markAllRead = function() {
-      var $topics = $('.topics .topic');
-
-      $topics.each(function(index, element) {
-        localStorage.setItem('topic-' + this.getAttribute('data-id') + '-lastvisited', +new Date());
-
-        if (index >= ($topics.length - 1)) {
-          checkUnread();
-        }
-      });
-    }
-
     var socket = io.connect(forum.constants.socketAddress);
 
     socket.on('post', function(response){
@@ -138,5 +126,12 @@ block script
     $('.action.read-all').on('click', function(event) {
       event.preventDefault();
 
-      markAllRead();
+      socket.emit('markallread', {
+        user: {
+          id: forum.constants.user.id,
+          name: forum.constants.user.name
+        }
+      });
+
+      $('.topics .topic').removeClass('unread');
     });

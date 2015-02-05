@@ -177,6 +177,16 @@ var routes = function(app, passport){
 
       PostsController.destroy(data);
     });
+
+    socket.on('markallread', function(data, callback) {
+      data.user_id = data.user.id;
+
+      if (data.user_id === 0) {
+        return false;
+      }
+
+      UserController.markAllRead(data);
+    });
   });
 
   app.post('/signup', tokenValidation, passport.authenticate('local-signup', {}), function(request, response, next){
