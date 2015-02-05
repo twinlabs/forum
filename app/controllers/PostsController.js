@@ -23,7 +23,9 @@ var PostsController = {
 
   destroy: function(data){
     post.destroy({
-      id: data.id
+      where: {
+        id: data.id
+      }
     });
   },
 
