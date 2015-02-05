@@ -41,7 +41,7 @@
 
     "async": "0.2.8",
     "pg": "~2.11.1",
-    "sequelize": "~1.7.8",
+    "sequelize": "2.0.0-rc7",
     "connect-pg-simple": "^2.1.1",
     "passport": "~0.2.0",
     "passport-local": "~1.0.0",
