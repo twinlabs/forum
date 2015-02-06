@@ -24,6 +24,16 @@ var routes = function(app, passport){
     }
 
     next();
+  }, function(request, response, next) {
+    if (request.session.user.id === 0){
+      return next();
+    }
+
+    UserController.getLastVisited(request.session.user.id).then(function(lastVisited) {
+      response.locals.lastVisited = lastVisited || {};
+
+      next();
+    });
   });
 
   app.get('/', function(request, response){
@@ -68,6 +78,14 @@ var routes = function(app, passport){
         parent: request.params.id
       });
     });
+  }, function(request, response, next) {
+    if (request.session.user.id === 0){
+      return response.render('index', {});
+    }
+
+    UserController.updateLastVisited(request.session.user.id, request.params.id);
+
+    next();
   }, function(request, response) {
     if (request.session.user.id === 0){
       return response.render('index', {});
@@ -158,6 +176,16 @@ var routes = function(app, passport){
       }
 
       PostsController.destroy(data);
+    });
+
+    socket.on('markallread', function(data, callback) {
+      data.user_id = data.user.id;
+
+      if (data.user_id === 0) {
+        return false;
+      }
+
+      UserController.markAllRead(data);
     });
   });
 
