@@ -1,4 +1,5 @@
 var Sequelize = require('sequelize');
+var UserController = rootRequire('app/controllers/UserController');
 
 var postApi = function(rest, checkAuth) {
   var Post = rootRequire('app/models/Post.orm')(rest.sequelize);
@@ -49,6 +50,8 @@ var postApi = function(rest, checkAuth) {
       }
     };
     rest.app.get('io').sockets.emit('post', data);
+
+    UserController.updateLastVisited(data.user_id, data.parent);
   });
 
   return posts;
