@@ -89,6 +89,9 @@ block script
 
       $(anonymous(locals)).appendTo('.main .topics');
 
+      embedTwitter($('.main .posts .post:last a'));
+      embedInstagram($('.main .posts .post:last a'));
+
       $('.post .distance').text(function(){
         var postTime = moment($(this).data('timestamp'));
         if (postTime.isSame(moment(), 'day') && postTime.fromNow() !== $(this).text()) {

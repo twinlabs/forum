@@ -51,6 +51,9 @@ script.
       locals.post.created_at = '';
 
       $('[data-id=' + response.id + ']').replaceWith(anonymous(locals));
+
+      embedTwitter($('.main .posts .post:last a'));
+      embedInstagram($('.main .posts .post:last a'));
     });
 
     socket.on('post', function(response){
@@ -70,6 +73,9 @@ script.
       }
 
       $(anonymous(locals)).appendTo('.main .posts');
+
+      embedTwitter($('.main .posts .post:last a'));
+      embedInstagram($('.main .posts .post:last a'));
 
       $('.post .distance').text(function(){
         var postTime = moment($(this).data('timestamp'));
