@@ -92,7 +92,7 @@ var routes = function(app, passport){
     }
 
     PostsController.countPostsForTopic(request.params.id).spread(function(countResult) {
-      PostsController.postsForTopic(response.locals.lastVisited[request.params.id], request.params.id).then(function(posts){
+      PostsController.postsForTopic(response.locals.lastVisited[request.params.id] || +new Date(null), request.params.id).then(function(posts){
         if (posts && posts.length < 1) {
           return response.send(404);
         }
