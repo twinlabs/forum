@@ -28,15 +28,6 @@ var PostSequelize = function(sequelize){
         });
       },
 
-      countPosts: function(topicID) {
-        return sequelize.query(
-            'select count(*) from ' +
-              '(select "post".*, "user"."name" as "user.name", "user"."id" as "user.id" from' +
-                 '"post" left outer join "forum_user" AS "user" ON "user"."id" = "post"."user_id" ' +
-                 'where ("post"."parent" = \'' + topicID + '\' OR "post"."id" = \'' + topicID + '\')) as results'
-        );
-      },
-
       countTopics: function() {
         return sequelize.query(
           'select count(*) from post where parent isnull'
