@@ -41,7 +41,7 @@ var routes = function(app, passport){
       return response.render('index', {});
     }
 
-    PostsController.countTopics().done(function(error, countResult) {
+    PostsController.countTopics().spread(function(countResult) {
       var limit = request.query.all ? 'ALL' : 7;
 
       PostsController.topics().done(function(error, posts){
@@ -91,7 +91,7 @@ var routes = function(app, passport){
       return response.render('index', {});
     }
 
-    PostsController.countPostsForTopic(request.params.id).done(function(error, countResult) {
+    PostsController.countPostsForTopic(request.params.id).spread(function(countResult) {
       PostsController.postsForTopic(request.params.id).done(function(error, posts){
         if (posts && posts.length < 1) {
           return response.send(404);
