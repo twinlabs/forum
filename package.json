@@ -36,7 +36,7 @@
     "jquery": "2.1.3",
     "velocity-animate": "~1.1.0",
     "pg": "~2.11.1",
-    "sequelize": "2.0.0-rc7",
+    "sequelize": "^2.0.3",
     "connect-pg-simple": "^2.1.1",
     "passport": "~0.2.0",
     "passport-local": "~1.0.0",
