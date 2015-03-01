@@ -25,10 +25,8 @@
     "autoprefixer-core": "~3.0.0",
     "express": "3.2.0",
     "express-session": "1.7.6",
-    "optimist": "0.6.0",
     "less-middleware": "1.0.4",
     "lodash": "2.4.1",
-    "node-imagemagick": "0.1.8",
     "marked": "git://github.com/twinlabs/marked.git",
     "socket.io": "~0.9.9",
     "socket.io-client": "~0.9.9",
@@ -39,7 +37,6 @@
     "jquery": "2.1.0-beta2",
     "velocity-animate": "~1.1.0",
 
-    "async": "0.2.8",
     "pg": "~2.11.1",
     "sequelize": "2.0.0-rc7",
     "connect-pg-simple": "^2.1.1",
@@ -51,7 +48,6 @@
     "mocha": "~1.13.0",
     "request": "^2.49.0",
     "sinon": "~1.7.3",
-    "node-inspector": "^0.8.1",
-    "nodemon": "~0.7.10"
+    "node-inspector": "^0.8.1"
   }
 }
