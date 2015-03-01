@@ -1,6 +1,6 @@
 {
   "name": "f.orum",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/twinlabs/forum/"
@@ -31,12 +31,10 @@
     "socket.io": "~0.9.9",
     "socket.io-client": "~0.9.9",
     "epilogue": "0.3.2",
-
     "jade": "~0.35.0",
     "moment": "~2.5.0",
     "jquery": "2.1.3",
     "velocity-animate": "~1.1.0",
-
     "pg": "~2.11.1",
     "sequelize": "2.0.0-rc7",
     "connect-pg-simple": "^2.1.1",
