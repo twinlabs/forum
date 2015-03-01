@@ -37,22 +37,6 @@ var PostSequelize = function(sequelize){
         );
       },
 
-      getLimitedPosts: function(topicID, limit) {
-        limit = limit || 20;
-
-        return sequelize.query(
-          'select * from ' +
-            '(select * from ' +
-              '(select "post".*, "user"."name" as "user.name", "user"."id" as "user.id", "user"."signature" as "user.signature" from' +
-                 '"post" left outer join "forum_user" AS "user" ON "user"."id" = "post"."user_id" ' +
-                 'where ("post"."parent" = \'' + topicID + '\' OR "post"."id" = \'' + topicID + '\')' +
-                 'ORDER BY "post".created_at ASC' +
-              ') as subresults order by created_at desc limit ' + limit +
-          ') as results order by created_at asc',
-        null, {raw: true, nest: true});
-
-      },
-
       countTopics: function() {
         return sequelize.query(
           'select count(*) from post where parent isnull'
