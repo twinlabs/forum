@@ -1,9 +1,9 @@
 {
-  "name": "forum.node",
+  "name": "f.orum",
   "version": "0.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/twinlabs/forum.node/"
+    "url": "https://github.com/twinlabs/forum/"
   },
   "main": "app.js",
   "engines": {
