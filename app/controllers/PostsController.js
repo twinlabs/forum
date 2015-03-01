@@ -64,8 +64,63 @@ var PostsController = {
     return post.countPosts(topicID);
   },
 
-  postsForTopic: function(topicID){
-    return post.getLimitedPosts(topicID);
+  postsForTopic: function(lastVisited, topicID){
+    var LAST_HOUR = 60* 60 * 0.5 * (1/24);
+
+    if (lastVisited >= (+new Date() - LAST_HOUR)) {
+      return post.findAll({
+        where: Sequelize.or(
+          { parent: topicID },
+          { id: topicID }
+        ),
+        include: [user],
+        order: 'created_at DESC',
+        limit: 20
+      });
+    }
+
+    return post.count({
+      where: Sequelize.and(
+        {
+          created_at: {
+            gt: new Date(lastVisited)
+          }
+        },
+        Sequelize.or(
+          { parent: topicID },
+          { id: topicID }
+        )
+      ),
+      include: [user]
+    }).then(function(countResult) {
+      if (countResult < 20) {
+        return post.findAll({
+          where: Sequelize.or(
+            { parent: topicID },
+            { id: topicID }
+          ),
+          include: [user],
+          order: 'created_at DESC',
+          limit: 20
+        });
+      } else {
+        return post.findAll({
+          where: Sequelize.and(
+            {
+              created_at: {
+                gt: new Date(lastVisited)
+              }
+            },
+            Sequelize.or(
+              { parent: topicID },
+              { id: topicID }
+            )
+          ),
+          include: [user],
+          order: 'created_at DESC'
+        });
+      }
+    });
   },
 
   postsForTopicAll: function(topicID) {
