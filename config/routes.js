@@ -64,20 +64,41 @@ var routes = function(app, passport){
   });
 
   app.get('/topic/:id', function(request, response, next) {
-    if (!request.query.all) {
-      return next();
+    if (request.session.user.id === 0){
+      return response.render('index', {});
     }
 
-    PostsController.postsForTopicAll(request.params.id).done(function(error, posts){
-      if (posts && posts.length < 1) {
-        return response.send(404);
-      }
+    if (request.query.all) {
+      return PostsController.postsForTopicAll(request.params.id).done(function(error, posts) {
+        if (posts && posts.length < 1) {
+          return response.send(404);
+        }
 
-      response.render('all', {
-        posts: posts,
-        parent: request.params.id
+        response.render('all', {
+          posts: posts,
+          parent: request.params.id
+        });
       });
-    });
+    }
+    if (request.query.limit) {
+      return PostsController.postsForTopic(response.locals.lastVisited[request.params.id] || +new Date(null), request.params.id, request.query.limit).then(function(posts){
+
+        if (posts.rows && posts.rows.length < 1) {
+          return response.send(404);
+        }
+
+        response.render('all', {
+          posts: posts.rows.reverse(),
+          parent: request.params.id,
+          count: posts.count,
+          limit: parseInt(request.query.limit, 10) || 20
+        });
+      });
+
+    }
+
+    return next();
+
   }, function(request, response, next) {
     if (request.session.user.id === 0){
       return response.render('index', {});

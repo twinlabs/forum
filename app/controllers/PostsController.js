@@ -60,8 +60,9 @@ var PostsController = {
     });
   },
 
-  postsForTopic: function(lastVisited, topicID){
+  postsForTopic: function(lastVisited, topicID, limit){
     var LAST_HOUR = 60* 60 * 0.5 * (1/24);
+    limit = limit || 20;
 
     if (lastVisited >= (+new Date() - LAST_HOUR)) {
       return post.findAndCountAll({
@@ -71,7 +72,7 @@ var PostsController = {
         ),
         include: [user],
         order: 'created_at DESC',
-        limit: 20
+        limit: limit
       });
     }
 
@@ -89,7 +90,7 @@ var PostsController = {
       ),
       include: [user]
     }).then(function(countResult) {
-      if (countResult < 20) {
+      if (countResult < limit) {
         return post.findAndCountAll({
           where: Sequelize.or(
             { parent: topicID },
@@ -97,7 +98,7 @@ var PostsController = {
           ),
           include: [user],
           order: 'created_at DESC',
-          limit: 20
+          limit: limit
         });
       } else {
         return post.findAndCountAll({
