@@ -60,15 +60,11 @@ var PostsController = {
     });
   },
 
-  countPostsForTopic: function(topicID) {
-    return post.countPosts(topicID);
-  },
-
   postsForTopic: function(lastVisited, topicID){
     var LAST_HOUR = 60* 60 * 0.5 * (1/24);
 
     if (lastVisited >= (+new Date() - LAST_HOUR)) {
-      return post.findAll({
+      return post.findAndCountAll({
         where: Sequelize.or(
           { parent: topicID },
           { id: topicID }
@@ -94,7 +90,7 @@ var PostsController = {
       include: [user]
     }).then(function(countResult) {
       if (countResult < 20) {
-        return post.findAll({
+        return post.findAndCountAll({
           where: Sequelize.or(
             { parent: topicID },
             { id: topicID }
@@ -104,7 +100,7 @@ var PostsController = {
           limit: 20
         });
       } else {
-        return post.findAll({
+        return post.findAndCountAll({
           where: Sequelize.and(
             {
               created_at: {

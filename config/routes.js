@@ -91,17 +91,16 @@ var routes = function(app, passport){
       return response.render('index', {});
     }
 
-    PostsController.countPostsForTopic(request.params.id).spread(function(countResult) {
-      PostsController.postsForTopic(response.locals.lastVisited[request.params.id] || +new Date(null), request.params.id).then(function(posts){
-        if (posts && posts.length < 1) {
-          return response.send(404);
-        }
+    PostsController.postsForTopic(response.locals.lastVisited[request.params.id] || +new Date(null), request.params.id).then(function(posts){
 
-        response.render('all', {
-          posts: posts.reverse(),
-          parent: request.params.id,
-          count: countResult[0].count
-        });
+      if (posts.rows && posts.rows.length < 1) {
+        return response.send(404);
+      }
+
+      response.render('all', {
+        posts: posts.rows.reverse(),
+        parent: request.params.id,
+        count: posts.count
       });
     });
   });
