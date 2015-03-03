@@ -151,11 +151,21 @@ script.
           parent: forum.constants.parent,
           body: emoji.replace_unified($input.find('.input-input').val())
         }),
+        beforeSend: function() {
+          $input.find('.input-input').attr('disabled', true);
+          $input.find('.input-submit').attr('disabled', true);
+          $input.find('.input-input').val('Submitting Post...');
+        },
         success: function(result) {
           $(self).find('.input-input').val('');
           $(self).find('> .input').not('.hidden').find('.input-input').trigger('focus');
 
           localStorage.setItem(forum.constants.topicStorageVisitedID, +new Date());
+        },
+        complete: function() {
+          $input.find('.input-input').attr('disabled', false);
+          $input.find('.input-submit').attr('disabled', false);
+          $input.find('.input-input').val('');
         }
       });
     });
