@@ -29,6 +29,17 @@ var routes = function(app, passport){
       return next();
     }
 
+
+    var assetPaths = ['stylesheets', 'javascripts', 'templates', 'fonts', 'images'];
+
+    // skip "last visited" lookup if the request is obviously just for an asset:
+    for (var i = 0; i < assetPaths.length; i++) {
+      if (request.originalUrl.indexOf(assetPaths[i]) !== -1) {
+        return next();
+      }
+    }
+
+
     UserController.getLastVisited(request.session.user.id).then(function(lastVisited) {
       response.locals.lastVisited = lastVisited || {};
 
