@@ -56,14 +56,6 @@ var routes = function(app, passport){
       var limit = request.query.all ? 'ALL' : 7;
 
       PostsController.topics().done(function(error, posts){
-        posts = _.first(_.sortBy(posts, function(post) {
-          if (post.children[0]) {
-            return post.children[0].created_at;
-          }
-
-          return post.created_at;
-        }).reverse(), limit === 'ALL' ? posts.length : limit);
-
         response.render('index', {
           posts: posts,
           count: countResult[0].count,

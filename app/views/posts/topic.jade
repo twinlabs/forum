@@ -7,12 +7,12 @@
           i.fa.fa-file-o
     .extra
       a.replies(href='/topic/' + post.id)
-        span.count= post.children.length
+        span.count= post.replycount
         |  Replies.
-      .username.datum=post.children[0] && post.children[0].user && post.children[0].user.name || post.user.name
+      .username.datum=post.lastreply && post.lastreply.user.name
       a.time.datum(href='/topic/' + post.id + '#reply')
         i.fa.fa-clock-o
-        .distance(data-timestamp=getPostDate(post).toString())= moment(getPostDate(post)).fromNow()
+        .distance(data-timestamp=post.lastreply.created_at)= moment(post.lastreply.created_at).fromNow()
   .actions
     a.action.reply(href='/topic/' + post.id + '#reply')
       .context

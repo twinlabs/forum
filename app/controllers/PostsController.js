@@ -41,23 +41,7 @@ var PostsController = {
   },
 
   topics: function(limit){
-    // get posts without a parent.
-    // consider these as 'topics'
-    return post.findAll({
-      where: ['"post"."parent" isnull'],
-      include: [
-        user,
-        {
-          model: post,
-          as: 'children',
-          include: [user]
-        }
-      ],
-      order: [
-        ['created_at', 'DESC'],
-        [{model: post, as: 'children'}, 'created_at', 'DESC']
-      ]
-    });
+    return post.findTopicsAndMetadata();
   },
 
   postsForTopic: function(lastVisited, topicID, limit){
