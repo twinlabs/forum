@@ -47,6 +47,10 @@ var routes = function(app, passport){
     });
   });
 
+  app.get('/lastVisited', function(request, response) {
+    response.send(response.locals.lastVisited);
+  });
+
   app.get('/', function(request, response){
     if (request.session.user.id === 0){
       return response.render('index', {});

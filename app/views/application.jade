@@ -11,7 +11,6 @@ html(lang="en")
       var forum = {};
       forum.constants = !{clientConstants};
       forum.constants.user = !{JSON.stringify(user)};
-      forum.constants.lastVisited = !{JSON.stringify(lastVisited)};
     link(
       rel="stylesheet"
       href="/stylesheets/base.css"
@@ -73,6 +72,15 @@ html(lang="en")
     script(src="/javascripts/moment.js")
     script(src="/javascripts/underscore.js")
     script(src="/javascripts/jquery.js")
+    script.
+      var lastVisitedPromise = $.ajax({
+        url: '/lastVisited',
+        dataType: 'json',
+        success: function(data) {
+          forum.constants.lastVisited = data
+        }
+      });
+
     script(src="/javascripts/velocity.min.js")
     script(src="/javascripts/velocity.ui.min.js")
     script(src="/javascripts/animations.js")
