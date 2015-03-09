@@ -56,7 +56,9 @@ block script
       });
     }
 
-    checkUnread();
+    lastVisitedPromise.then(function() {
+      checkUnread();
+    });
 
     var updateThreadMetadata = function(response){
       var $topicNode = $('.topic').filter('[data-id=' + response.parent + ']');

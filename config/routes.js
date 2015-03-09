@@ -47,9 +47,30 @@ var routes = function(app, passport){
     });
   });
 
+  app.get('/lastVisited', function(request, response) {
+    response.send(response.locals.lastVisited);
+  });
+
   app.get('/', function(request, response){
     if (request.session.user.id === 0){
       return response.render('index', {});
+    }
+
+    if (app.get('lastModifiedIndex') && request.get('If-Modified-Since') &&
+      (new Date(request.get('If-Modified-Since')).getTime() >= new Date(app.get('lastModifiedIndex')).getTime())
+    ) {
+
+      return response.send(304);
+    }
+
+
+    if (app.get('lastModifiedIndex')) {
+      response.set('Last-Modified', app.get('lastModifiedIndex'));
+    }
+
+
+    if (typeof app.get('lastModifiedIndex') === "undefined") {
+      app.set('lastModifiedIndex', new Date().toString());
     }
 
     PostsController.countTopics().spread(function(countResult) {
@@ -180,6 +201,8 @@ var routes = function(app, passport){
       PostsController.add(data, function(error, result){
         data.id = result.id;
         app.get('io').sockets.emit('post', data);
+
+        app.set('lastModifiedIndex', new Date());
 
         if (typeof callback === "function") {
           callback();
