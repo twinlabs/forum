@@ -73,16 +73,8 @@ var routes = function(app, passport){
       app.set('lastModifiedIndex', new Date().toString());
     }
 
-    PostsController.countTopics().spread(function(countResult) {
-      var limit = request.query.all ? 'ALL' : 7;
-
-      PostsController.topics().done(function(error, posts){
-        response.render('index', {
-          posts: posts,
-          count: countResult[0].count,
-          showFetchButton: !request.query.all
-        });
-      });
+    PostsController.topics().done(function(error, posts){
+      response.render('index', { posts: posts });
     });
 
   });
