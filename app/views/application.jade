@@ -81,6 +81,16 @@ html(lang="en")
         }
       });
 
+      function tickPosts() {
+        $('.distance[data-timestamp]').each(function() {
+          $(this).text(moment(this.dataset.timestamp).fromNow());
+        });
+
+        setInterval(tickPosts, 1000 * 60);
+      }
+
+      tickPosts();
+
     script(src="/javascripts/velocity.min.js")
     script(src="/javascripts/velocity.ui.min.js")
     script(src="/javascripts/animations.js")
