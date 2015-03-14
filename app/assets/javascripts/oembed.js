@@ -2,6 +2,7 @@ $(function() {
   embedTwitter($('.content a'));
   embedInstagram($('.content a'));
   embedYouTube($('.content a'));
+  embedSoundCloud($('.content a'));
 });
 
 function embedTwitter($selector) {
@@ -82,5 +83,34 @@ function embedYouTube($selector) {
 
     var matchID = element.getAttribute('href').match(YOUTUBE)[1];
     $(element).replaceWith('<iframe style="min-height: 350px" src="https://www.youtube.com/embed/'  + matchID + '"' +  ' frameborder="0" allowfullscreen></iframe>');
+  });
+}
+
+function embedSoundCloud($selector) {
+  var SOUNDCLOUD = /https?:\/\/(www\.)?(m.)?soundcloud.com\/.+?/i;
+
+  $selector.filter(function(index, element) {
+    var match = false;
+
+    if (this.getAttribute('href').match(SOUNDCLOUD) !== null) {
+      match = true;
+    }
+
+    return match;
+  }).each(function(index, element) {
+    var requestUrl = element.getAttribute('href');
+
+    $.ajax({
+      url: 'http://soundcloud.com/oembed',
+      dataType: 'jsonp',
+      data: {
+        url: requestUrl,
+        format: 'js',
+        maxheight: 166
+      },
+      success: function(data) {
+        $(element).replaceWith(data.html);
+      }
+    });
   });
 }
