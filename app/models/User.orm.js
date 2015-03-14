@@ -23,10 +23,7 @@ var UserSequelize = function(sequelize){
       type: Sequelize.STRING
     },
     signature: {
-      type: Sequelize.STRING,
-      validate: {
-        len:[0, 294]
-      }
+      type: Sequelize.STRING
     },
     last_visited: {
       type: Sequelize.JSON
