@@ -105,7 +105,7 @@ script.
       });
     });
 
-    $('body').on('click', '.post .action.quote', function(event){
+    $('body').on('click touchstart', '.post .action.quote', function(event){
       event.preventDefault();
       var quoted = $.ajax({
         url:'/post/' + $(this).closest('.post').data('id'),
