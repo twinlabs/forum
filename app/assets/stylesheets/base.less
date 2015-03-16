@@ -1,4 +1,5 @@
 @import "normalize";
+@import "variables";
 
 @font-face {
   font-family: 'Avenir';
@@ -22,6 +23,12 @@ a {
   &:hover {
     text-decoration: underline;
   }
+}
+
+:focus:not(input):not(textarea),
+a:focus {
+  outline: none;
+  text-shadow: 0 1px 3px @highlight;
 }
 
 @import "layout";
