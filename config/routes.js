@@ -103,11 +103,14 @@ var routes = function(app, passport){
           return response.send(404);
         }
 
-        response.render('all', {
-          posts: posts.rows.reverse(),
-          parent: request.params.id,
-          count: posts.count,
-          limit: parseInt(request.query.limit, 10) || 20
+        PostsController.findTopicTitle(request.params.id).spread(function(topic) {
+          response.render('all', {
+            posts: posts.rows.reverse(),
+            parent: request.params.id,
+            count: posts.count,
+            topic: topic[0],
+            limit: parseInt(request.query.limit, 10) || 20
+          });
         });
       });
 
@@ -134,10 +137,13 @@ var routes = function(app, passport){
         return response.send(404);
       }
 
-      response.render('all', {
-        posts: posts.rows.reverse(),
-        parent: request.params.id,
-        count: posts.count
+      PostsController.findTopicTitle(request.params.id).spread(function(topic) {
+        response.render('all', {
+          posts: posts.rows.reverse(),
+          parent: request.params.id,
+          topic: topic[0],
+          count: posts.count
+        });
       });
     });
   });
