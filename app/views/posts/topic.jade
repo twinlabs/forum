@@ -1,18 +1,18 @@
 .topic(data-id=post.id)
   .meta.clearfix
-    .title
-      a(href='/topic/' + post.id)
+    a(href='/topic/' + post.id)
+      span.title
         =post.title
-        .unread
+        span.unread
           i.fa.fa-file-o
-    .extra
-      a.replies(href='/topic/' + post.id)
-        span.count= post.replycount
-        |  Replies.
-      .username.datum=post.lastreply && post.lastreply.user.name
-      a.time.datum(href='/topic/' + post.id + '#reply')
-        i.fa.fa-clock-o
-        .distance(data-timestamp=post.lastreply.created_at)= moment(post.lastreply.created_at).fromNow()
+      span.extra
+        span.replies
+          span.count= post.replycount
+          |  Replies.
+        span.username.datum=post.lastreply && post.lastreply.user.name
+        span.time.datum
+          i.fa.fa-clock-o
+          span.distance(data-timestamp=post.lastreply.created_at)= moment(post.lastreply.created_at).fromNow()
   .actions
     a.action.reply(href='/topic/' + post.id + '#reply')
       .context

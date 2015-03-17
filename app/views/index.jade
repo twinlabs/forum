@@ -80,6 +80,10 @@ block script
       locals.moment = moment;
       locals.marked = marked;
       locals.user = forum.constants.user;
+      locals.post.lastreply = {};
+      locals.post.lastreply.user = forum.constants.user;
+      locals.post.lastreply.created_at = new Date();
+      locals.post.replycount = 0;
       locals.post.children = [];
       locals.getPostDate = function(post){ return post.created_at; };
 
