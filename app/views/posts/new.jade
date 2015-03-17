@@ -170,6 +170,7 @@ script.
           $input.find('.input-input').attr('disabled', false);
           $input.find('.input-submit').attr('disabled', false);
           $input.find('.input-input').val('');
+          $(self).find('> .input').not('.hidden').find('.input-input').trigger('focus');
         }
       });
     });
