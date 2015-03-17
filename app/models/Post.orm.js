@@ -50,6 +50,10 @@ var PostSequelize = function(sequelize){
         return sequelize.query(
           'select count(*) from post where parent isnull'
         );
+      },
+
+      findTopicTitle: function(topicID) {
+        return sequelize.query('select title from post where id=' + topicID, {raw: true});
       }
     },
     underscored: true,

@@ -40,6 +40,10 @@ var PostsController = {
     return post.countTopics();
   },
 
+  findTopicTitle: function(topicID) {
+    return post.findTopicTitle(topicID);
+  },
+
   topics: function(limit){
     return post.findTopicsAndMetadata();
   },
