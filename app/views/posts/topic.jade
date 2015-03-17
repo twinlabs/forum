@@ -12,7 +12,7 @@
         span.username.datum=post.lastreply && post.lastreply.user.name
         span.time.datum
           i.fa.fa-clock-o
-          span.distance(data-timestamp=post.lastreply.created_at)= moment(post.lastreply.created_at).fromNow()
+          span.distance(data-timestamp=post.lastreply.created_at.toString())= moment(post.lastreply.created_at).fromNow()
   .actions
     a.action.reply(href='/topic/' + post.id + '#reply')
       .context
