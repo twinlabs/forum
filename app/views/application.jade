@@ -73,6 +73,7 @@ html(lang="en")
     script(src="/javascripts/underscore.js")
     script(src="/javascripts/jquery.js")
     script.
+      var tickIntervalID = 0;
       var lastVisitedPromise = $.ajax({
         url: '/lastVisited',
         dataType: 'json',
@@ -86,7 +87,8 @@ html(lang="en")
           $(this).text(moment(this.dataset.timestamp).fromNow());
         });
 
-        setInterval(tickPosts, 1000 * 60);
+        clearInterval(tickIntervalID);
+        tickIntervalID = setInterval(tickPosts, 1000 * 60);
       }
 
       tickPosts();
