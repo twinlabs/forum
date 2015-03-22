@@ -62,7 +62,7 @@ block script
 
       $topicNode.find('.datum.username').text(response.user.name);
 
-      $topicNode.find('[data-timestamp]').data('timestamp', response.created_at)
+      $topicNode.find('[data-timestamp]')[0].dataset.timestamp = response.created_at;
 
       checkUnread();
     }
