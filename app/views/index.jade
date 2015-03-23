@@ -38,7 +38,7 @@ block script
 
       $topics.each(function(index, element) {
         var $topic = $(this);
-        var topicTimestamp = parseInt(+new Date($topic.find('[data-timestamp]').data('timestamp')), 10);
+        var topicTimestamp = parseInt(+new Date($topic.find('[data-timestamp]')[0].dataset.timestamp), 10);
         var lastVisitedTimestamp = parseInt(forum.constants.lastVisited[this.getAttribute('data-id')] || 0, 10);
 
         if (topicTimestamp > lastVisitedTimestamp) {
@@ -94,7 +94,7 @@ block script
       embedSoundCloud($('.main .posts .post:last a'));
 
       $('.post .distance').text(function(){
-        var postTime = moment($(this).data('timestamp'));
+        var postTime = moment(this.dataset.timestamp);
         if (postTime.isSame(moment(), 'day') && postTime.fromNow() !== $(this).text()) {
           return postTime.fromNow();
         }
