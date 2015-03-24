@@ -1,6 +1,6 @@
 if (user && user.id !== 0)
-  h2.titlebar
-    a(href='/') The Forum
+  h2.app-titlebar
+    a.app-titlebar-title(href='/') The Forum
     if (bodyClass.match('topics') === null)
       | &nbsp;&mdash;&nbsp;
       = topic.title
