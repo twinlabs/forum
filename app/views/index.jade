@@ -86,12 +86,12 @@ block script
       locals.post.children = [];
       locals.getPostDate = function(post){ return post.created_at; };
 
-      $(anonymous(locals)).appendTo('.main .topics');
+      $(anonymous(locals)).appendTo('.root .topics');
 
-      embedTwitter($('.main .posts .post:last a'));
-      embedInstagram($('.main .posts .post:last a'));
-      embedYouTube($('.main .posts .post:last a'));
-      embedSoundCloud($('.main .posts .post:last a'));
+      embedTwitter($('.root .posts .post:last a'));
+      embedInstagram($('.root .posts .post:last a'));
+      embedYouTube($('.root .posts .post:last a'));
+      embedSoundCloud($('.root .posts .post:last a'));
 
       $('.post .distance').text(function(){
         var postTime = moment(this.dataset.timestamp);

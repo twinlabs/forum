@@ -52,10 +52,10 @@ script.
 
       $('[data-id=' + response.id + ']').replaceWith(anonymous(locals));
 
-      embedTwitter($('.main .posts .post:last a'));
-      embedInstagram($('.main .posts .post:last a'));
-      embedYouTube($('.main .posts .post:last a'));
-      embedSoundCloud($('.main .posts .post:last a'));
+      embedTwitter($('.root .posts .post:last a'));
+      embedInstagram($('.root .posts .post:last a'));
+      embedYouTube($('.root .posts .post:last a'));
+      embedSoundCloud($('.root .posts .post:last a'));
     });
 
     socket.on('post', function(response){
@@ -74,12 +74,12 @@ script.
         document.title = '(' + forum.replyCount + ') ' + forum.title;
       }
 
-      $(anonymous(locals)).appendTo('.main .posts');
+      $(anonymous(locals)).appendTo('.root .posts');
 
-      embedTwitter($('.main .posts .post:last a'));
-      embedInstagram($('.main .posts .post:last a'));
-      embedYouTube($('.main .posts .post:last a'));
-      embedSoundCloud($('.main .posts .post:last a'));
+      embedTwitter($('.root .posts .post:last a'));
+      embedInstagram($('.root .posts .post:last a'));
+      embedYouTube($('.root .posts .post:last a'));
+      embedSoundCloud($('.root .posts .post:last a'));
 
       $('.post .distance').text(function(){
         var postTime = moment($(this).data('timestamp'));
