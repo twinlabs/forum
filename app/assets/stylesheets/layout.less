@@ -9,38 +9,6 @@
   box-sizing: border-box;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-:focus:not(input):not(textarea) {
-  outline: none;
-  text-shadow: 0 -1px @highlight;
-  color: average(@text, @highlight);
-  animation-name: pulse;
-  animation-duration: 1500ms;
-  animation-iteration-count: infinite;
-}
-
-@keyframes pulse {
-  0% {
-    text-shadow: none;
-  }
-
-  50% {
-    text-shadow: 0 1px @highlight;
-  }
-
-  75% {
-    text-shadow: 0 -1px @highlight;
-  }
-}
-
 .root {
   margin: 0 auto;
   padding: 1em 0;
