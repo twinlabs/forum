@@ -1,53 +1,6 @@
 @import "normalize";
 @import "variables";
 
-@font-face {
-  font-family: 'Avenir';
-  src: url('/fonts/avenir-medium-webfont.woff') format('woff');
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Avenir, Helvetica, sans-serif;
-  padding: 1em;
-  background-attachment: fixed;
-  background-image: url(/images/background.png);
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-:focus:not(input):not(textarea) {
-  outline: none;
-  text-shadow: 0 -1px @highlight;
-  color: average(@text, @highlight);
-  animation-name: pulse;
-  animation-duration: 1500ms;
-  animation-iteration-count: infinite;
-}
-
-@keyframes pulse {
-  0% {
-    text-shadow: none;
-  }
-
-  50% {
-    text-shadow: 0 1px @highlight;
-  }
-
-  75% {
-    text-shadow: 0 -1px @highlight;
-  }
-}
 
 @import "layout";
 @import "logo";
