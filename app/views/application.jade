@@ -31,15 +31,13 @@ html(lang="en")
 
     block head
     block vars
-  body(
+  body.root(
     class=bodyClass
   )
 
-    .main
+    include titlebar.jade
 
-      include breadcrumb.jade
-
-      block main
+    block main
 
     script(src="/javascripts/marked.js")
     script.

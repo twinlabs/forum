@@ -1,18 +1,28 @@
 @import "variables";
 
-.main {
-  margin: 0 auto;
+@font-face {
+  font-family: 'Avenir';
+  src: url('/fonts/avenir-medium-webfont.woff') format('woff');
 }
 
-.breadcrumb a {
-  color: inherit;
+* {
+  box-sizing: border-box;
+}
+
+.root {
+  margin: 0 auto;
+  padding: 1em 0;
+  font-family: Avenir, Helvetica, sans-serif;
+  background-attachment: fixed;
+  background-image: url(/images/background.png);
+}
+
+.titlebar a {
   text-transform: uppercase;
 }
 
 @media (min-width: 48em) {
-  .main,
-  .new,
-  .new .input {
+  .root {
     max-width: 768px;
   }
 }
