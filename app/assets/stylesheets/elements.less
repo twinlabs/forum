@@ -11,8 +11,7 @@ a {
 
 :focus:not(input):not(textarea) {
   outline: none;
-  text-shadow: 0 -1px @highlight;
-  color: average(@text, @highlight);
+  text-shadow: 0 2px transparent;
   animation-name: pulse;
   animation-duration: 1500ms;
   animation-iteration-count: infinite;
@@ -20,14 +19,14 @@ a {
 
 @keyframes pulse {
   0% {
-    text-shadow: none;
+    text-shadow: 0 2px transparent;
   }
 
   50% {
-    text-shadow: 0 1px @highlight;
+    text-shadow: 0 2px @highlight;
   }
 
   75% {
-    text-shadow: 0 -1px @highlight;
+    text-shadow: 0 2px @highlight;
   }
 }
