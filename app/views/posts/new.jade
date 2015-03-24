@@ -16,6 +16,13 @@ script.
       button(class="input-submit" type="submit")
         | Submit
 
+  if (user && user.id !== 0)
+    h2
+      a(href='/' style="text-transform: uppercase;") The Forum
+      if (bodyClass.match('topics') === null)
+        | &nbsp;&mdash;&nbsp;
+        = topic.title
+
   script.
     forum.title = document.title;
     forum.replyCount = 0;
