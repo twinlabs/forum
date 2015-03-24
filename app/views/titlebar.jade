@@ -1,6 +1,26 @@
 if (user && user.id !== 0)
-  h2.app-titlebar
-    a.app-titlebar-title(href='/') The Forum
-    if (bodyClass.match('topics') === null)
-      | &nbsp;&mdash;&nbsp;
-      = topic.title
+  .app-titlebar
+    .app-titlebar-inner
+      h2.app-titlebar-title
+        a.app-titlebar-rootlink(href='/')
+          | The Forum
+          if (bodyClass.match('topics') === null)
+            | :
+
+        if (bodyClass.match('topics') === null)
+          .app-titlebar-topictitle
+            &nbsp;
+            = topic.title
+
+      .app-titlebar-controls
+        .app-titlebar-controls-control.app-titlebar-controls-control--settings
+          a.app-titlebar-controls-action.app-titlebar-controls-action--settings(href='/profile')
+            | Settings
+        if (bodyClass.match('topics') === null)
+          .app-titlebar-controls-control.app-titlebar-controls-control--reply
+            a.app-titlebar-controls-action.app-titlebar-controls-action--reply(href='#reply')
+              | Reply
+        if (bodyClass.match('topics') !== null)
+          .app-titlebar-controls-control.app-titlebar-controls-control--markallread
+            a.app-titlebar-controls-action.app-titlebar-controls-action--markallread#markallread
+              | Mark All Read

@@ -15,17 +15,16 @@ html {
 
 .root {
   margin: 0 auto;
+  padding-top: 8em;
   font-family: Avenir, Helvetica, sans-serif;
   background-attachment: fixed;
   background-image: url(/images/background.png);
-}
-
-.app-titlebar .app-titlebar-title {
-  text-transform: uppercase;
+  background-color: @offwhite;
 }
 
 @media (min-width: 48em) {
   .root {
+    padding-top: 4em;
     max-width: 768px;
   }
 }
@@ -54,9 +53,4 @@ html {
 .layout-meta {
   margin-top: 0.5em;
   text-align: left;
-}
-
-.read-all {
-  display: inline-block;
-  cursor: pointer;
 }

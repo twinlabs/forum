@@ -91,6 +91,17 @@ html(lang="en")
 
       tickPosts();
 
+
+      document.addEventListener('focusin', function(event) {
+        if (event.target.tagName.toLowerCase() === 'input' || event.target.tagName.toLowerCase() === 'textarea') {
+          document.getElementsByTagName('body')[0].classList.add('killfixed');
+        }
+      });
+
+      document.addEventListener('focusout', function() {
+        document.getElementsByTagName('body')[0].classList.remove('killfixed');
+      });
+
     script(src="/javascripts/velocity.min.js")
     script(src="/javascripts/velocity.ui.min.js")
     script(src="/javascripts/animations.js")
