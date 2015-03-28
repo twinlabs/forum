@@ -45,6 +45,7 @@
     "bcrypt": "~0.8.0"
   },
   "devDependencies": {
+    "jshint": "^2.6.3",
     "mocha": "~1.13.0",
     "request": "^2.49.0",
     "sinon": "~1.7.3",
