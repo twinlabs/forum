@@ -174,7 +174,7 @@ describe('authentication', function(){
           headers: headers
         }, function(response){
           assert(response.statusCode === 302, "status code not 200/OK: " + response.statusCode);
-          sessioncookie = response.headers['set-cookie'] && _.find(response.headers['set-cookie'], function(cookie){
+          var sessioncookie = response.headers['set-cookie'] && _.find(response.headers['set-cookie'], function(cookie){
             return cookie.match(/^connect.sid/) !== null;
           });
 
