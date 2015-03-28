@@ -1,0 +1,10 @@
+{
+  "strict": false,
+  "latedef": false,
+  "unused": "vars",
+
+  "global": {
+    "$": true
+  }
+}
+
