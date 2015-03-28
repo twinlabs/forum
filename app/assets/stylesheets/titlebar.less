@@ -1,0 +1,108 @@
+@import "variables";
+
+.app-titlebar {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  padding: 1em;
+  width: 100%;
+  background: inherit;
+  border-bottom: 1px solid @slate;
+}
+
+@media (min-width: 48em) {
+  .app-titlebar {
+    position: fixed;
+  }
+}
+
+.app-titlebar-inner {
+  margin: 0 auto;
+}
+
+@media (min-width: 48em) {
+  .app-titlebar-inner {
+    max-width: 768px;
+  }
+}
+
+
+.app-titlebar-title {
+  text-align: center;
+}
+
+@media (min-width: 48em) {
+  .app-titlebar-title {
+    display: inline-block;
+    vertical-align: top;
+    text-align: left;
+  }
+}
+
+.app-titlebar-rootlink {
+  text-transform: uppercase;
+}
+
+@media (min-width: 48em) {
+  .app-titlebar-rootlink {
+    display: inline-block;
+  }
+}
+
+@media (min-width: 48em) {
+  .app-titlebar-topictitle {
+    display: inline-block;
+  }
+}
+
+.app-titlebar-controls {
+  display: table;
+  table-layout: fixed;
+  margin-top: 1em;
+  width: 100%;
+}
+
+
+@media (min-width: 48em) {
+  .app-titlebar-controls {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 0;
+    margin-left: 2em;
+    width: auto;
+  }
+}
+
+.app-titlebar-controls-control {
+  display: table-cell;
+  text-align: center;
+}
+
+.app-titlebar-controls-control:nth-child(even) {
+  border-left: 2px solid @black;
+}
+
+@media (min-width: 48em) {
+  .app-titlebar-controls-control:nth-child(even) {
+    border-left: none;
+  }
+}
+
+
+.app-titlebar-controls-action {
+  display: block;
+  padding: 0.5em 0;
+  cursor: pointer;
+}
+
+
+@media (min-width: 48em) {
+  .app-titlebar-controls-action {
+    display: inline-block;
+    margin: 0 1em;
+    padding: 0.25em 1em;
+    border: 2px solid @black;
+    border-radius: 999em;
+  }
+}

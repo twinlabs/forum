@@ -13,9 +13,6 @@ block main
       | No threads. Why not contribute to the forum?
 
     else
-      .layout-meta
-        a.action.read-all
-          | mark all topics read
       .topics
         each post in posts
           include posts/topic
@@ -127,7 +124,7 @@ block script
       event.preventDefault();
     });
 
-    $('.action.read-all').on('click', function(event) {
+    $('#markallread').on('click', function(event) {
       event.preventDefault();
 
       socket.emit('markallread', {
