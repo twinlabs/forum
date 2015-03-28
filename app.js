@@ -1,6 +1,7 @@
 var application_helper = require('./lib/helpers');
 
 var express = require('express');
+var compression = require('compression');
 var http = require('http');
 var app = express();
 var session = require('express-session');
@@ -19,7 +20,7 @@ var conString = process.env.DATABASE_URL || "postgres://postgres@localhost/forum
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize(conString);
 
-app.use(express.compress());
+app.use(compression());
 app.use(express.cookieParser());
 app.use(session({
   store: new pgSession({
