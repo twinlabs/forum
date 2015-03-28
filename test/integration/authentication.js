@@ -4,7 +4,6 @@ var _ = require('lodash');
 var appModule = rootRequire('app');
 var http = require('http');
 var request = require('request');
-var url = require('url');
 var User = rootRequire('app/models/User');
 
 describe('authentication', function(){
@@ -175,7 +174,7 @@ describe('authentication', function(){
           headers: headers
         }, function(response){
           assert(response.statusCode === 302, "status code not 200/OK: " + response.statusCode);
-          sessioncookie = response.headers['set-cookie'] && _.find(response.headers['set-cookie'], function(cookie){
+          var sessioncookie = response.headers['set-cookie'] && _.find(response.headers['set-cookie'], function(cookie){
             return cookie.match(/^connect.sid/) !== null;
           });
 

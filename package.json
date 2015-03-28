@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "autoprefixer-core": "~3.0.0",
+    "babel": "^4.7.16",
     "express": "3.2.0",
     "express-session": "1.7.6",
     "less-middleware": "1.0.4",
