@@ -2,6 +2,7 @@ var application_helper = require('./lib/helpers');
 
 var express = require('express');
 var compression = require('compression');
+var cookieParser = require('cookie-parser');
 var http = require('http');
 var app = express();
 var session = require('express-session');
@@ -21,7 +22,7 @@ var Sequelize = require('sequelize');
 var sequelize = new Sequelize(conString);
 
 app.use(compression());
-app.use(express.cookieParser());
+app.use(cookieParser());
 app.use(session({
   store: new pgSession({
     pg: pg,
