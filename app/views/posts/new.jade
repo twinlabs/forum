@@ -24,7 +24,6 @@ script.
         = topic.title
 
   script.
-    forum.title = document.title;
     forum.replyCount = 0;
 
     var checkUnread = function() {
@@ -78,7 +77,7 @@ script.
 
       if (forum.focus === false) {
         forum.replyCount++;
-        document.title = '(' + forum.replyCount + ') ' + forum.title;
+        favicon.badge(forum.replyCount);
       }
 
       $(anonymous(locals)).appendTo('.root .posts');
@@ -192,7 +191,7 @@ script.
     $(window).focus(function(){
       forum.focus = true;
       forum.replyCount = 0;
-      document.title = forum.title;
+      favicon.reset();
     });
 
     $(window).blur(function(){
