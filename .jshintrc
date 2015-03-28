@@ -3,7 +3,7 @@
   "latedef": false,
   "unused": "vars",
 
-  "global": {
+  "globals": {
     "$": true
   }
 }
