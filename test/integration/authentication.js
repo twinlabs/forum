@@ -4,7 +4,6 @@ var _ = require('lodash');
 var appModule = rootRequire('app');
 var http = require('http');
 var request = require('request');
-var url = require('url');
 var User = rootRequire('app/models/User');
 
 describe('authentication', function(){
