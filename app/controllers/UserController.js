@@ -1,6 +1,5 @@
 var user = rootRequire('app/models/User');
 var PostsController = rootRequire('app/controllers/PostsController');
-var Sequelize = require('sequelize');
 
 var UserController = {
   get: function(id) {

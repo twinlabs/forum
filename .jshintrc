@@ -1,10 +1,18 @@
 {
-  "strict": false,
   "latedef": false,
+  "laxbreak": false,
+  "undef": true,
   "unused": "vars",
 
-  "global": {
-    "$": true
+  "browser": true,
+  "esnext": true,
+  "jquery": true,
+  "mocha": true,
+  "node": true,
+
+  "globals": {
+    "rootDir": true,
+    "rootRequire": true
   }
 }
 
