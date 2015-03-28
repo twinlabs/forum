@@ -1,4 +1,3 @@
-var _ = require('lodash');
 var PostsController = rootRequire('app/controllers/PostsController');
 var UserController = rootRequire('app/controllers/UserController');
 var authentication = rootRequire('lib/authentication');
