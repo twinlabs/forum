@@ -13,10 +13,11 @@ if (user && user.id !== 0)
             = topic.title
 
       .app-titlebar-controls
-        .app-titlebar-controls-control.app-titlebar-controls-control--settings
-          a.app-titlebar-controls-action.app-titlebar-controls-action--settings(href='/profile')
-            | Settings
-        if (bodyClass.match('topics') === null)
+        if (bodyClass.match('settings') === null)
+          .app-titlebar-controls-control.app-titlebar-controls-control--settings
+            a.app-titlebar-controls-action.app-titlebar-controls-action--settings(href='/settings')
+              | Settings
+        if (bodyClass.match('topics') === null && bodyClass.match('settings') === null)
           .app-titlebar-controls-control.app-titlebar-controls-control--reply
             a.app-titlebar-controls-action.app-titlebar-controls-action--reply(href='#reply')
               | Reply

@@ -246,22 +246,22 @@ var routes = function(app, passport){
     response.redirect('/');
   });
 
-  app.get('/profile', function(request, response){
+  app.get('/settings', function(request, response){
     if (request.session.user.id === 0) {
       response.send(404);
     }
     UserController.get(request.session.user.id).done(function(err, user){
-      response.render('profile', {
+      response.render('settings', {
         user: user
       });
     });
   });
 
-  app.post('/profile', function(request, response){
+  app.post('/settings', function(request, response){
     UserController.get(request.session.user.id)
     .done(function(err, user){
       user.updateAttributes(request.body).success(function(){
-        response.render('profile', {
+        response.render('settings', {
           user: user
         });
       });

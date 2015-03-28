@@ -1,0 +1,14 @@
+extends application
+
+block vars
+  - var bodyClass="settings"
+  - var topic = {title: 'Settings'}
+
+block main
+  .profile
+    form.edit.hidden(action="/settings", method="POST")
+      label Signature:
+      .input.textarea
+        textarea.input-input.input-textarea(name="signature")=user.signature
+        button(class="input-submit" type="submit")
+          | Submit
