@@ -30,6 +30,8 @@ block script
   script(src="/javascripts/emoji.js")
   script(src="/templates/post/topic.js")
   script.
+    forum.title = document.title;
+
     var checkUnread = function() {
       var $topics = $('.topics .topic');
 
@@ -67,6 +69,11 @@ block script
     var socket = io.connect(forum.constants.socketAddress);
 
     socket.on('post', function(response){
+      if (forum.focus === false) {
+        forum.replyCount++;
+        document.title = '(' + forum.replyCount + ') ' + forum.title;
+      }
+
       if (typeof response.parent !== "undefined") {
         return updateThreadMetadata(response);
       }
@@ -135,4 +142,14 @@ block script
       });
 
       $('.topics .topic').removeClass('unread');
+    });
+
+    $(window).focus(function(){
+      forum.focus = true;
+      forum.replyCount = 0;
+      document.title = forum.title;
+    });
+
+    $(window).blur(function(){
+      forum.focus = false;
     });
