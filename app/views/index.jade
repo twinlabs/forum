@@ -31,6 +31,7 @@ block script
   script(src="/templates/post/topic.js")
   script.
     forum.title = document.title;
+    forum.replyCount = 0;
 
     var checkUnread = function() {
       var $topics = $('.topics .topic');
