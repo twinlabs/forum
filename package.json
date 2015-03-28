@@ -16,7 +16,7 @@
     "check": "./node_modules/jshint/bin/jshint **/*/*.js",
     "db:seed": "node db/seed.js",
     "deploy": "git push heroku deploy:master",
-    "test": "NODE_ENV=test mocha --require test/test_helper.js --recursive ./test",
+    "test": "npm run check && NODE_ENV=test mocha --require test/test_helper.js --recursive ./test",
     "test:watch": "NODE_ENV=test mocha --require test/test_helper.js --recursive --watch --reporter min ./test",
     "test:debug": "NODE_ENV=test node-debug _mocha --require test/test_helper.js --recursive --watch --reporter min ./test",
     "start": "node app.js",
