@@ -13,6 +13,7 @@
     "registry": "http://registry.npmjs.org/"
   },
   "scripts": {
+    "check": "./node_modules/jshint/bin/jshint **/*/*.js",
     "db:seed": "node db/seed.js",
     "deploy": "git push heroku deploy:master",
     "test": "NODE_ENV=test mocha --require test/test_helper.js --recursive ./test",
