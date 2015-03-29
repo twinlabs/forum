@@ -1,10 +1,14 @@
 var application_helper = require('./lib/helpers');
 
 var express = require('express');
+var bodyParser = require('body-parser');
+var compression = require('compression');
+var cookieParser = require('cookie-parser');
 var http = require('http');
 var app = express();
 var session = require('express-session');
 var lessMiddleware = require('less-middleware');
+var multer = require('multer');
 var autoprefixer = require('autoprefixer-core');
 var httpServer = http.createServer(app);
 var passport = require('passport');
@@ -19,8 +23,8 @@ var conString = process.env.DATABASE_URL || "postgres://postgres@localhost/forum
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize(conString);
 
-app.use(express.compress());
-app.use(express.cookieParser());
+app.use(compression());
+app.use(cookieParser());
 app.use(session({
   store: new pgSession({
     pg: pg,
@@ -36,7 +40,9 @@ rootRequire('lib/authentication');
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.bodyParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(multer());
 
 rootRequire('config/routes')(app, passport);
 

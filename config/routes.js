@@ -59,7 +59,7 @@ var routes = function(app, passport){
       (new Date(request.get('If-Modified-Since')).getTime() >= new Date(app.get('lastModifiedIndex')).getTime())
     ) {
 
-      return response.send(304);
+      return response.sendStatus(304);
     }
 
 
@@ -86,7 +86,7 @@ var routes = function(app, passport){
     if (request.query.all) {
       return PostsController.postsForTopicAll(request.params.id).done(function(error, posts) {
         if (posts && posts.length < 1) {
-          return response.send(404);
+          return response.sendStatus(404);
         }
 
         response.render('all', {
@@ -99,7 +99,7 @@ var routes = function(app, passport){
       return PostsController.postsForTopic(response.locals.lastVisited[request.params.id] || +new Date(null), request.params.id, request.query.limit).then(function(posts){
 
         if (posts.rows && posts.rows.length < 1) {
-          return response.send(404);
+          return response.sendStatus(404);
         }
 
         PostsController.findTopicTitle(request.params.id).spread(function(topic) {
@@ -133,7 +133,7 @@ var routes = function(app, passport){
     PostsController.postsForTopic(response.locals.lastVisited[request.params.id] || +new Date(null), request.params.id).then(function(posts){
 
       if (posts.rows && posts.rows.length < 1) {
-        return response.send(404);
+        return response.sendStatus(404);
       }
 
       PostsController.findTopicTitle(request.params.id).spread(function(topic) {
@@ -150,7 +150,7 @@ var routes = function(app, passport){
   app.get('/post/:id', function(request, response){
     // if the user isn't logged in, return a 404:
     if (request.session.user.id === 0) {
-      response.send(404);
+      response.sendStatus(404);
     }
 
     //look up post id based on get request
@@ -163,7 +163,7 @@ var routes = function(app, passport){
 
   app.get('/all', function(request, response){
     if (request.session.user.id === 0){
-      return response.send(404);
+      return response.sendStatus(404);
     }
 
     PostsController.index().done(function(error, posts){
@@ -247,7 +247,7 @@ var routes = function(app, passport){
 
   app.get('/settings', function(request, response){
     if (request.session.user.id === 0) {
-      response.send(404);
+      response.sendStatus(404);
     }
     UserController.get(request.session.user.id).done(function(err, user){
       response.render('settings', {
@@ -303,7 +303,7 @@ function tokenValidation(request, response, next){
 
   if (!request.files || !request.body) {
     // if there's a mis-match, respond with something elegant:
-    return response.send(401);
+    return response.sendStatus(401);
   }
 
   // start with the assumption that the token's file is on request.body:
@@ -318,7 +318,7 @@ function tokenValidation(request, response, next){
   // whatever the file turned out to be,
   // test it against our token:
   if (!authentication.validateSignupToken(token)) {
-    return response.send(401);
+    return response.sendStatus(401);
   }
 
   // otherwise, the token must have matched.
