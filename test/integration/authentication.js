@@ -21,7 +21,7 @@ describe('authentication', function(){
           name: 'Will',
           email: 'will@ahfr.org',
           password: 'Gargantuan1',
-          token: fs.readFileSync(__dirname + '/../fixtures/duck.jpg')
+          token: fs.createReadStream(__dirname + '/../fixtures/duck.jpg')
         }
       }, function(error, response, body){
         if (error) {
@@ -49,7 +49,7 @@ describe('authentication', function(){
           name: 'improperly tokened user',
           email: 'untokeneduser@ahfr.org',
           password: 'userpassword',
-          token: fs.readFileSync(__dirname + '/../fixtures/boredcat.jpg')
+          token: fs.createReadStream(__dirname + '/../fixtures/boredcat.jpg')
         }
       }, function(error, response, body){
         if (error) {
@@ -69,7 +69,7 @@ describe('authentication', function(){
           name: 'AnotherUser',
           email: 'villain@ahfr.org',
           password: 'plaintextPassword',
-          token: fs.readFileSync(__dirname + '/../fixtures/duck.jpg')
+          token: fs.createReadStream(__dirname + '/../fixtures/duck.jpg')
         }
       }, function(error, response, body){
         User.find({
@@ -91,7 +91,7 @@ describe('authentication', function(){
           name: 'YetAnotherUser',
           email: 'user@ahfr.org',
           password: 'userpassword',
-          token: fs.readFileSync(__dirname + '/../fixtures/duck.jpg')
+          token: fs.createReadStream(__dirname + '/../fixtures/duck.jpg')
         }
       }, function(error, response, body){
         User.find({
@@ -117,7 +117,7 @@ describe('authentication', function(){
           name: 'TheBestGuy',
           email: 'retrievableuser@ahfr.org',
           password: 'retrievableuserpassword',
-          token: fs.readFileSync(__dirname + '/../fixtures/duck.jpg')
+          token: fs.createReadStream(__dirname + '/../fixtures/duck.jpg')
         }
       }, function(error, response, body){
         var userData = JSON.stringify({
@@ -154,7 +154,7 @@ describe('authentication', function(){
           name: 'CoolSessionedUser',
           email: 'sessioneduser@ahfr.org',
           password: 'password',
-          token: fs.readFileSync(__dirname + '/../fixtures/duck.jpg')
+          token: fs.createReadStream(__dirname + '/../fixtures/duck.jpg')
         }
       }, function(error, response, body){
         var userData = JSON.stringify({
