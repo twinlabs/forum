@@ -89,9 +89,12 @@ var routes = function(app, passport){
           return response.sendStatus(404);
         }
 
-        response.render('all', {
-          posts: posts,
-          parent: request.params.id
+        PostsController.findTopicTitle(request.params.id).spread(function(topic) {
+          response.render('all', {
+            posts: posts,
+            parent: request.params.id,
+            topic: topic[0]
+          });
         });
       });
     }
