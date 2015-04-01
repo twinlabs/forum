@@ -59,8 +59,8 @@
 .app-titlebar-controls {
   display: table;
   table-layout: fixed;
-  margin-top: 1em;
-  width: 100%;
+  margin: 1em -5% 0;
+  width: 110%;
 }
 
 
@@ -79,12 +79,12 @@
   text-align: center;
 }
 
-.app-titlebar-controls-control:nth-child(even) {
+.app-titlebar-controls-control:nth-child(n+2) {
   border-left: 2px solid @black;
 }
 
 @media (min-width: 48em) {
-  .app-titlebar-controls-control:nth-child(even) {
+  .app-titlebar-controls-control:nth-child(n+2) {
     border-left: none;
   }
 }

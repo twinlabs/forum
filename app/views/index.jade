@@ -16,11 +16,10 @@ block main
       .topics
         each post in posts
           include posts/topic
-    a.action.new(href="#") new topic
     form.new.hidden
-      .input
+      .input#newtopic-title
         input(class="input-input input-text input-title" type="text" placeholder="Title")
-      .input.textarea
+      .input.textarea#newtopic-content
         textarea(class="input-input input-textarea input-body" placeholder="Body")
       button(class="input-submit" type="submit")
         | Submit
@@ -108,9 +107,10 @@ block script
     });
 
 
-    $('.action.new').on('click', function(event){
+    $('[href="#newtopic-content"]').on('click', function(event){
       event.preventDefault();
       $('form.new').removeClass('hidden');
+      $('#newtopic-title input').trigger('focus');
     });
 
     $('form.new').on('submit', function(event){
