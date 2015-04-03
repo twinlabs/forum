@@ -106,6 +106,9 @@ html(lang="en")
     script(src="/javascripts/velocity.ui.min.js")
     script(src="/javascripts/animations.js")
     script(src="/javascripts/socket.io.js")
+    script.
+      var socket = io.connect(forum.constants.socketAddress);
+
     script(src="/javascripts/jade-runtime.js")
     script(src="/javascripts/oembed.js")
     script(src="/javascripts/favico.js")
