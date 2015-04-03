@@ -107,7 +107,11 @@ html(lang="en")
     script(src="/javascripts/animations.js")
     script(src="/javascripts/socket.io.js")
     script.
-      var socket = io.connect(forum.constants.socketAddress);
+      var socket = io.connect(forum.constants.socketAddress, {
+        query: {
+          user: JSON.stringify(forum.constants.user)
+        }
+      });
 
     script(src="/javascripts/jade-runtime.js")
     script(src="/javascripts/oembed.js")
@@ -119,4 +123,14 @@ html(lang="en")
         color: '#fff'
       });
 
+      socket.on('updateuserlist', function(userlist) {
+        $('.activity-users').empty();
+        _.forEach(userlist, function(user) {
+          $('.activity-users').append($('<div class="activity-users-user" />').text(user.name));
+        });
+      });
+
     block script
+
+    if (user && user.id !== 0)
+      include activity.jade
