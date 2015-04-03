@@ -47,7 +47,7 @@ app.use(multer());
 rootRequire('config/routes')(app, passport);
 
 var clientConstants = {
-    socketAddress: app.get('hostName')
+    socketAddress: ''
 };
 
 app.locals.clientConstants = JSON.stringify(clientConstants);
