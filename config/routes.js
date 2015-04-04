@@ -2,6 +2,8 @@ var PostsController = rootRequire('app/controllers/PostsController');
 var UserController = rootRequire('app/controllers/UserController');
 var authentication = rootRequire('lib/authentication');
 
+var userlist = {};
+
 var routes = function(app, passport){
   app.all('*', function(request, response, next){
     if (typeof request.session.user === "undefined") {
@@ -181,6 +183,24 @@ var routes = function(app, passport){
   // take some time to think about where this ought to live.
   // probably in the PostsController module.
   app.get('io').sockets.on('connection', function(socket){
+    if (typeof socket.handshake.query.user === "undefined") {
+      socket.handshake.query.user = "{}";
+    }
+
+    var user = JSON.parse(socket.handshake.query.user);
+
+    if (user.id && user.id !== 0) {
+      UserController.get(user.id).then(function(userData) {
+        if (!userData.hide_connected) {
+          userlist[user.name] = {
+            name: user.name
+          }
+        }
+
+        app.get('io').sockets.emit('updateuserlist', userlist);
+      });
+    }
+
     socket.on('post', function(data, callback) {
       data.user_id = data.user.id;
 
@@ -233,6 +253,13 @@ var routes = function(app, passport){
 
       UserController.markAllRead(data);
     });
+
+    socket.on('disconnect', function() {
+      if (user.name) {
+        delete userlist[user.name];
+        app.get('io').sockets.emit('updateuserlist', userlist);
+      }
+    });
   });
 
   app.post('/signup', tokenValidation, passport.authenticate('local-signup', {}), function(request, response, next){
@@ -262,6 +289,7 @@ var routes = function(app, passport){
   app.post('/settings', function(request, response){
     UserController.get(request.session.user.id)
     .done(function(err, user){
+      request.body.hide_connected = (request.body.hide_connected === 'true');
       user.updateAttributes(request.body).success(function(){
         response.render('settings', {
           user: user

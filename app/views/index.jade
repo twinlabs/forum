@@ -65,8 +65,6 @@ block script
       checkUnread();
     }
 
-    var socket = io.connect(forum.constants.socketAddress);
-
     socket.on('post', function(response){
       if (forum.focus === false) {
         forum.replyCount++;

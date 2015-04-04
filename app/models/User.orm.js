@@ -22,6 +22,9 @@ var UserSequelize = function(sequelize){
     password: {
       type: Sequelize.STRING
     },
+    hide_connected: {
+      type: Sequelize.BOOLEAN,
+    },
     signature: {
       type: Sequelize.STRING
     },
