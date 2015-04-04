@@ -10,5 +10,15 @@ block main
       label Signature:
       .input.textarea
         textarea.input-input.input-textarea(name="signature")=user.signature
+      | Hide Connected Status: &nbsp;
+
+      label
+        input(type="radio" name="hide_connected" checked=user.hide_connected value="true")
+        | &nbsp; True &nbsp;
+      label
+        input(type="radio" name="hide_connected" checked=!user.hide_connected value="false")
+        | &nbsp; False &nbsp;
+
+      .input
         button(class="input-submit" type="submit")
           | Submit

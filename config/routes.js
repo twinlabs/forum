@@ -190,11 +190,15 @@ var routes = function(app, passport){
     var user = JSON.parse(socket.handshake.query.user);
 
     if (user.id && user.id !== 0) {
-      userlist[user.name] = {
-        name: user.name
-      }
+      UserController.get(user.id).then(function(userData) {
+        if (!userData.hide_connected) {
+          userlist[user.name] = {
+            name: user.name
+          }
+        }
 
-      app.get('io').sockets.emit('updateuserlist', userlist);
+        app.get('io').sockets.emit('updateuserlist', userlist);
+      });
     }
 
     socket.on('post', function(data, callback) {
@@ -285,6 +289,7 @@ var routes = function(app, passport){
   app.post('/settings', function(request, response){
     UserController.get(request.session.user.id)
     .done(function(err, user){
+      request.body.hide_connected = (request.body.hide_connected === 'true');
       user.updateAttributes(request.body).success(function(){
         response.render('settings', {
           user: user
