@@ -93,6 +93,7 @@
 
 .app-titlebar-controls-action {
   display: block;
+  margin: 0 0.5em;
   padding: 0.5em 0;
   cursor: pointer;
 }
@@ -105,5 +106,17 @@
     padding: 0.25em 1em;
     border: 2px solid @black;
     border-radius: 999em;
+    transition: color 100ms, border-color 100ms;
+
+    // override default link experience (pseudo + border-bottom):
+    &:after {
+      display: none;
+    }
+
+    &:hover,
+    &:focus {
+      color: @blue;
+      border-color: @blue;
+    }
   }
 }

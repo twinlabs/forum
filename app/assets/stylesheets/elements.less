@@ -1,20 +1,32 @@
 @import "variables";
 
+:focus:after,
+a:after {
+  content: '';
+  position: absolute;
+  left: -1%;
+  bottom: -1px;
+  width: 0;
+  border-bottom: 2px solid @blue;
+  transition: width 100ms;
+}
+
 a {
   color: inherit;
+  position: relative;
   text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
-
-  &:hover:focus {
-    color: inherit;
-  }
 }
 
-:focus:not(input):not(textarea) {
+:focus {
   outline: none;
-  text-shadow: 0 2px @highlight;
-  transition: text-shadow 500ms;
 }
+
+a:hover:after,
+:focus:after {
+  width: 102%;
+}
+
+// note that none of the :after styles can affect
+// <input /> or <textarea> because they're 'replaced' elements.
+//
+// https://developer.mozilla.org/en-US/docs/Web/CSS/Replaced_element
