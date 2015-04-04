@@ -22,6 +22,6 @@ if (user && user.id !== 0)
             a.app-titlebar-controls-action.app-titlebar-controls-action--reply(href='#reply')
               | Reply
         if (bodyClass.match('topics') !== null)
-          .app-titlebar-controls-control.app-titlebar-controls-control--markallread
-            a.app-titlebar-controls-action.app-titlebar-controls-action--markallread#markallread
-              | Mark All Read
+          .app-titlebar-controls-control.app-titlebar-controls-control--newtopic
+            a.app-titlebar-controls-action.app-titlebar-controls-action--newtopic(href="#newtopic-content")
+              | New Topic
