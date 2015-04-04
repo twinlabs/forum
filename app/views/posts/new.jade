@@ -17,7 +17,7 @@ script.
         | Submit
 
   if (user && user.id !== 0)
-    h2
+    h2(style="font-weight: normal;")
       a(href='/' style="text-transform: uppercase;") The Forum
       if (bodyClass.match('topics') === null)
         | &nbsp;&mdash;&nbsp;
