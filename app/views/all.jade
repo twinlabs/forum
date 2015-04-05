@@ -12,7 +12,7 @@ block main
     form(action='/topic/' + parent + '#' + posts[0].id)
       input(type="hidden", name="limit", value=(limit + 20 || 40))
       button(type="submit" class="atom-loadall")
-        | Load more posts
+        | Load earlier posts
 
   .posts
     if(!posts || posts.length === 0)
