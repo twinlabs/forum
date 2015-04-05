@@ -1,21 +1,19 @@
-.topic(data-id=post.id)
-  .meta.clearfix
-    a(href='/topic/' + post.id)
-      span.title
+.atom(data-id=post.id)
+  .atom-meta.clearfix
+    a.atom-meta-main.atom-meta-title(href='/topic/' + post.id)
+      span.atom-meta-main-inner
         =post.title
-        span.unread
+        span.unread-icon
           i.fa.fa-file-o
-      span.extra
-        span.replies
-          span.count= post.replycount
+      span.atom-meta-extra
+        span.atom-replies
+          span.atom-replies-count= post.replycount
           |  Replies.
-        span.username.datum=post.lastreply && post.lastreply.user.name
-        span.time.datum
+        span.atom-username=post.lastreply && post.lastreply.user.name
+        span.atom-meta-extra-time
           i.fa.fa-clock-o
           span.distance(data-timestamp=post.lastreply.created_at.toString())= moment(post.lastreply.created_at).fromNow()
-  .actions
-    a.action.reply(href='/topic/' + post.id + '#reply')
-      .context
-        |reply
+  .atom-actions
+    a.atom-actions-action.atom-actions-action--reply(href='/topic/' + post.id + '#reply')
+      | reply &nbsp;
       .fa.fa-reply.fa-flip-vertical.fa-md
-    .advanced

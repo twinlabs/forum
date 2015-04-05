@@ -27,9 +27,9 @@ block script
 
 
   script.
-    $('body').on('click', '.post .action.edit', function(event){
+    $('body').on('click', '.atom-actions-action--edit', function(event){
       event.preventDefault();
-      $post = $(this).closest('.post');
+      $post = $(this).closest('.atom');
       $post.find('form.edit, .content').toggleClass('is-hidden')
     });
 
