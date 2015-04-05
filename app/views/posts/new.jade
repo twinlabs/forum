@@ -27,7 +27,7 @@ script.
     forum.replyCount = 0;
 
     var checkUnread = function() {
-      var $posts = $('.posts .post');
+      var $posts = $('.atom');
 
       $posts.each(function(index, element) {
         var $post = $(this);
@@ -35,7 +35,7 @@ script.
         var lastVisitedTimestamp = parseInt(forum.constants.lastVisited[forum.constants.parent] || 0, 10);
 
         if (postTimestamp > lastVisitedTimestamp) {
-          $post.addClass('unread');
+          $post.addClass('is-unread');
         }
       });
     }
@@ -58,10 +58,10 @@ script.
 
       $('[data-id=' + response.id + ']').replaceWith(anonymous(locals));
 
-      embedTwitter($('.root .posts .post:last a'));
-      embedInstagram($('.root .posts .post:last a'));
-      embedYouTube($('.root .posts .post:last a'));
-      embedSoundCloud($('.root .posts .post:last a'));
+      embedTwitter($('.atom:last a'));
+      embedInstagram($('.atom:last a'));
+      embedYouTube($('.atom:last a'));
+      embedSoundCloud($('.atom:last a'));
     });
 
     socket.on('post', function(response){
@@ -82,12 +82,12 @@ script.
 
       $(anonymous(locals)).appendTo('.root .posts');
 
-      embedTwitter($('.root .posts .post:last a'));
-      embedInstagram($('.root .posts .post:last a'));
-      embedYouTube($('.root .posts .post:last a'));
-      embedSoundCloud($('.root .posts .post:last a'));
+      embedTwitter($('.atom:last a'));
+      embedInstagram($('.atom:last a'));
+      embedYouTube($('.atom:last a'));
+      embedSoundCloud($('.atom:last a'));
 
-      $('.post .distance').text(function(){
+      $('.distance').text(function(){
         var postTime = moment($(this).data('timestamp'));
         if (postTime.isSame(moment(), 'day') && postTime.fromNow() !== $(this).text()) {
           return postTime.fromNow();
@@ -97,11 +97,11 @@ script.
       checkUnread();
     });
 
-    $('body').on('click', '.post .action.destroy', function(event){
+    $('body').on('click', '.atom-actions-action--destroy', function(event){
       event.preventDefault();
 
       socket.emit('destroy', {
-        id: $(this).closest('.post').data('id'),
+        id: $(this).closest('.atom').data('id'),
         user: {
           id: forum.constants.user.id,
           name: forum.constants.user.name
@@ -109,10 +109,10 @@ script.
       });
     });
 
-    $('body').on('click touchstart', '.post .action.quote', function(event){
+    $('body').on('click touchstart', '.atom-actions-action--quote', function(event){
       event.preventDefault();
       var quoted = $.ajax({
-        url:'/post/' + $(this).closest('.post').data('id'),
+        url:'/post/' + $(this).closest('.atom').data('id'),
         dataType: "json",
         success: function(data){
           var newBody;
@@ -128,12 +128,12 @@ script.
       });
     });
 
-    $('body').on('submit', '.post form.edit', function(event){
+    $('body').on('submit', '.atom form.edit', function(event){
       var $input = $(this).find('textarea');
 
       socket.emit('edit', {
         body: emoji.replace_unified($input.val()),
-        id: $(this).closest('.post').data('id'),
+        id: $(this).closest('.atom').data('id'),
         user: {
           id: forum.constants.user.id,
           name: forum.constants.user.name

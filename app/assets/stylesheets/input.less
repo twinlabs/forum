@@ -1,41 +1,7 @@
 @import "variables";
 
-.post,
-.topic,
 .input {
   margin: 1.5em auto 2em;
-}
-
-
-.meta,
-.content,
-.actions {
-  background-color: @white;
-}
-
-.meta,
-.content {
-  margin: 0.4em 0;
-  box-shadow: 0 0 1px @black;
-}
-
-.meta {
-  padding: 0.5em 1em;
-
-  * {
-    display: inline-block;
-    color: inherit;
-    vertical-align: top;
-
-    &:not(:first-child) {
-      margin: 0 0.5em;
-    }
-  }
-}
-
-.signature {
-  padding-top: 1em;
-  border-top: 1px solid #cfcfcf;
 }
 
 .input-text,
@@ -114,36 +80,4 @@
   .input.textarea {
     margin-bottom: 4em;
   }
-}
-
-.actions {
-  padding: 1em;
-  box-shadow: 0 0 1px @black;
-  text-align: right;
-
-  .advanced {
-    float: left;
-    text-align: left;
-  }
-
-  .action {
-    margin-left: 0.33em;
-    text-decoration: none;
-
-    &.destroy {
-      vertical-align: -25%;
-    }
-
-    &.edit,
-    &.quote {
-      vertical-align: -35%;
-    }
-  }
-
-  .context {
-    display: inline-block;
-    margin-right: 6px;
-    font-size: 12px;
-  }
-
 }

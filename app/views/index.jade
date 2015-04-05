@@ -32,7 +32,7 @@ block script
     forum.replyCount = 0;
 
     var checkUnread = function() {
-      var $topics = $('.topics .topic');
+      var $topics = $('.atom');
 
       $topics.each(function(index, element) {
         var $topic = $(this);
@@ -40,9 +40,9 @@ block script
         var lastVisitedTimestamp = parseInt(forum.constants.lastVisited[this.getAttribute('data-id')] || 0, 10);
 
         if (topicTimestamp > lastVisitedTimestamp) {
-          $topic.addClass('unread');
+          $topic.addClass('is-unread');
         } else {
-          $topic.removeClass('unread');
+          $topic.removeClass('is-unread');
         }
       });
     }
@@ -52,13 +52,13 @@ block script
     });
 
     var updateThreadMetadata = function(response){
-      var $topicNode = $('.topic').filter('[data-id=' + response.parent + ']');
+      var $topicNode = $('.atom').filter('[data-id=' + response.parent + ']');
 
-      $topicNode.find('.replies .count').text(parseInt($topicNode.find('.replies .count').text()) + 1);
+      $topicNode.find('.atom-replies-count').text(parseInt($topicNode.find('.atom-replies-count').text()) + 1);
 
-      $topicNode.find('.time .distance').text(moment(response.created_at).fromNow())
+      $topicNode.find('.distance').text(moment(response.created_at).fromNow())
 
-      $topicNode.find('.datum.username').text(response.user.name);
+      $topicNode.find('.atom-username').text(response.user.name);
 
       $topicNode.find('[data-timestamp]')[0].dataset.timestamp = response.created_at;
 
@@ -89,12 +89,12 @@ block script
 
       $(anonymous(locals)).appendTo('.root .topics');
 
-      embedTwitter($('.root .posts .post:last a'));
-      embedInstagram($('.root .posts .post:last a'));
-      embedYouTube($('.root .posts .post:last a'));
-      embedSoundCloud($('.root .posts .post:last a'));
+      embedTwitter($('.atom:last a'));
+      embedInstagram($('.atom:last a'));
+      embedYouTube($('.atom:last a'));
+      embedSoundCloud($('.atom:last a'));
 
-      $('.post .distance').text(function(){
+      $('.atom .distance').text(function(){
         var postTime = moment(this.dataset.timestamp);
         if (postTime.isSame(moment(), 'day') && postTime.fromNow() !== $(this).text()) {
           return postTime.fromNow();
@@ -139,7 +139,7 @@ block script
         }
       });
 
-      $('.topics .topic').removeClass('unread');
+      $('.atom').removeClass('is-unread');
     });
 
     $(window).focus(function(){

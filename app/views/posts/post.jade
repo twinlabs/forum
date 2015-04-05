@@ -1,12 +1,14 @@
-.post(data-id=post.id)
-  .meta.clearfix
-    .username.datum=post.user.name
-    .time.datum
-      i.fa.fa-clock-o
-      a.distance(data-timestamp=post.created_at.toString(), href="?all=true#" + post.id, name=post.id)
-        = moment(post.created_at).fromNow()
-        .unread
-          i.fa.fa-file-o
+.atom(data-id=post.id)
+  .atom-meta.meta.clearfix
+    .atom-meta-main
+      .atom-meta-main-inner.username.datum=post.user.name
+      .atom-meta-extra
+        .atom-meta-extra-time.time.datum
+          i.fa.fa-clock-o
+          a.distance(data-timestamp=post.created_at.toString(), href="?all=true#" + post.id, name=post.id)
+            = moment(post.created_at).fromNow()
+            span.unread-icon
+              i.fa.fa-file-o
   .content!=marked(post.body || '')
     if (post.user.signature)
       .signature!=post.user.signature
@@ -16,12 +18,12 @@
         textarea.input-textarea!=post.body
         button(class="input-submit" type="submit")
           | Submit
-  .actions
-    a.action.quote.fa.fa-quote-left.fa-lg(href="#quote")
-    .advanced
+  .atom-actions
+    a.atom-actions-action.atom-actions-action--quote.fa.fa-quote-left.fa-lg(href="#quote")
+    .atom-actions-advanced
       if (post.user.id === user.id)
-        a.action.destroy.fa.fa-trash-o.fa-lg(href="#destroy")
+        a.atom-actions-action.atom-actions-action--destroy.fa.fa-trash-o.fa-lg(href="#destroy")
 
     if (post.user.id === user.id)
-      a.action.edit.fa.fa-edit.fa-lg(href="#edit")
+      a.atom-actions-action.atom-actions-action--edit.fa.fa-edit.fa-lg(href="#edit")
 

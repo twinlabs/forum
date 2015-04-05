@@ -1,6 +1,11 @@
+@import "variables";
+
 .content {
+  margin: 0.4em 0;
   padding: 1em;
   word-wrap: break-word;
+  background-color: @white;
+  box-shadow: 0 0 1px @black;
 
   p {
     &:not(:last-child) {
@@ -68,3 +73,7 @@
   }
 }
 
+.signature {
+  padding-top: 1em;
+  border-top: 1px solid #cfcfcf;
+}
