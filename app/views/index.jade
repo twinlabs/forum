@@ -16,7 +16,7 @@ block main
       .topics
         each post in posts
           include posts/topic
-    form.new.hidden
+    form.new.is-hidden
       .input#newtopic-title
         input(class="input-input input-text input-title" type="text" placeholder="Title")
       .input.textarea#newtopic-content
@@ -107,7 +107,7 @@ block script
 
     $('[href="#newtopic-content"]').on('click', function(event){
       event.preventDefault();
-      $('form.new').removeClass('hidden');
+      $('form.new').removeClass('is-hidden');
       $('#newtopic-title input').trigger('focus');
     });
 

@@ -9,7 +9,7 @@ script.
       input(class="input-input input-text" type="text" placeholder="Type here...")
       .toggle
         | {...}
-    .input.hidden.textarea
+    .input.is-hidden.textarea
       textarea(class="input-input input-textarea" placeholder="Type here...")
       .toggle
         | { / }
@@ -116,8 +116,8 @@ script.
         dataType: "json",
         success: function(data){
           var newBody;
-          $('#reply.input').addClass('hidden');
-          $('.input.textarea').removeClass('hidden');
+          $('#reply.input').addClass('is-hidden');
+          $('.input.textarea').removeClass('is-hidden');
 
           newBody = data.body.replace(/^/, "> ").replace(/\n/g, "\n> ");
           $('.input.textarea textarea').val('> ' +
@@ -145,7 +145,7 @@ script.
 
     $('.new form').on('submit', function(event){
       var self = this;
-      var $input = $(this).find('.input').not('.hidden');
+      var $input = $(this).find('.input').not('.is-hidden');
 
       if ($input.find('.input-input').val() === "") return false;
 
@@ -166,7 +166,7 @@ script.
         },
         success: function(result) {
           $(self).find('.input-input').val('');
-          $(self).find('> .input').not('.hidden').find('.input-input').trigger('focus');
+          $(self).find('> .input').not('.is-hidden').find('.input-input').trigger('focus');
 
           localStorage.setItem(forum.constants.topicStorageVisitedID, +new Date());
         },
@@ -174,7 +174,7 @@ script.
           $input.find('.input-input').attr('disabled', false);
           $input.find('.input-submit').attr('disabled', false);
           $input.find('.input-input').val('');
-          $(self).find('> .input').not('.hidden').find('.input-input').trigger('focus');
+          $(self).find('> .input').not('.is-hidden').find('.input-input').trigger('focus');
         }
       });
     });
@@ -184,8 +184,8 @@ script.
     });
 
     $('.input .toggle').on('click', function(){
-      $(this).closest('.input').toggleClass('hidden');
-      $(this).closest('.input').siblings('.input').toggleClass('hidden');
+      $(this).closest('.input').toggleClass('is-hidden');
+      $(this).closest('.input').siblings('.input').toggleClass('is-hidden');
     });
 
     $(window).focus(function(){

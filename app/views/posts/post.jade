@@ -11,7 +11,7 @@
     if (post.user.signature)
       .signature!=post.user.signature
   if (post.user.id === user.id)
-    form.edit.hidden(action="/edit", method="POST")
+    form.edit.is-hidden(action="/edit", method="POST")
       .input
         textarea.input-textarea!=post.body
         button(class="input-submit" type="submit")

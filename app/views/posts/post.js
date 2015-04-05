@@ -8,7 +8,7 @@ buf.push("<div class=\"signature\">" + (null == (jade.interp = post.user.signatu
 buf.push("</div>");
 if ( (post.user.id === user.id))
 {
-buf.push("<form action=\"/edit\" method=\"POST\" class=\"edit hidden\"><div class=\"input\"><textarea class=\"input-textarea\">" + (null == (jade.interp = post.body) ? "" : jade.interp) + "</textarea><button type=\"submit\" class=\"input-submit\">Submit</button></div></form>");
+buf.push("<form action=\"/edit\" method=\"POST\" class=\"edit is-hidden\"><div class=\"input\"><textarea class=\"input-textarea\">" + (null == (jade.interp = post.body) ? "" : jade.interp) + "</textarea><button type=\"submit\" class=\"input-submit\">Submit</button></div></form>");
 }
 buf.push("<div class=\"actions\"><a href=\"#quote\" class=\"action quote fa fa-quote-left fa-lg\"></a><div class=\"advanced\">");
 if ( (post.user.id === user.id))

@@ -30,6 +30,6 @@ block script
     $('body').on('click', '.post .action.edit', function(event){
       event.preventDefault();
       $post = $(this).closest('.post');
-      $post.find('form.edit, .content').toggleClass('hidden')
+      $post.find('form.edit, .content').toggleClass('is-hidden')
     });
 
