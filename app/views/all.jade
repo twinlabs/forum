@@ -9,9 +9,9 @@ block vars
 
 block main
   if(count > 20)
-    form(action='/topic/' + parent + '#' + posts[0].id, class="loadall")
+    form(action='/topic/' + parent + '#' + posts[0].id)
       input(type="hidden", name="limit", value=(limit + 20 || 40))
-      button(type="submit")
+      button(type="submit" class="atom-loadall")
         | Load more posts
 
   .posts
