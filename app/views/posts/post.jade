@@ -19,11 +19,11 @@
         button(class="input-submit" type="submit")
           | Submit
   .atom-actions
-    a.atom-actions-action.atom-actions-action--quote.fa.fa-quote-left.fa-lg(href="#quote")
     .atom-actions-advanced
       if (post.user.id === user.id)
         a.atom-actions-action.atom-actions-action--destroy.fa.fa-trash-o.fa-lg(href="#destroy")
 
+    a.atom-actions-action.atom-actions-action--quote.fa.fa-quote-left.fa-lg(href="#quote")
     if (post.user.id === user.id)
       a.atom-actions-action.atom-actions-action--edit.fa.fa-edit.fa-lg(href="#edit")
 
