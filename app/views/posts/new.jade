@@ -62,6 +62,7 @@ script.
       embedInstagram($('.atom:last a'));
       embedYouTube($('.atom:last a'));
       embedSoundCloud($('.atom:last a'));
+      embedVine($('.atom:last a'));
     });
 
     socket.on('post', function(response){
@@ -86,6 +87,7 @@ script.
       embedInstagram($('.atom:last a'));
       embedYouTube($('.atom:last a'));
       embedSoundCloud($('.atom:last a'));
+      embedVine($('.atom:last a'));
 
       $('.distance').text(function(){
         var postTime = moment($(this).data('timestamp'));
