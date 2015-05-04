@@ -210,7 +210,7 @@ var routes = function(app, passport){
 
       data.created_at = new Date();
 
-      PostsController.add(data, function(error, result){
+      PostsController.add(data, function(result){
         data.id = result.id;
         app.get('io').sockets.emit('post', data);
 
@@ -290,7 +290,7 @@ var routes = function(app, passport){
     UserController.get(request.session.user.id)
     .done(function(err, user){
       request.body.hide_connected = (request.body.hide_connected === 'true');
-      user.updateAttributes(request.body).success(function(){
+      user.updateAttributes(request.body).then(function(){
         response.render('settings', {
           user: user
         });

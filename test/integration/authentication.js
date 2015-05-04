@@ -8,7 +8,7 @@ var User = rootRequire('app/models/User');
 
 describe('authentication', function(){
   before(function(done){
-    User.sync({force: true}).success(function(){
+    User.sync({force: true}).then(function(){
       done();
     });
   });
@@ -34,7 +34,7 @@ describe('authentication', function(){
           where: {
             email: 'will@ahfr.org'
           }
-        }).done(function(error,user){
+        }).done(function(user){
           assert(user.name === "Will");
 
           done();
@@ -76,7 +76,7 @@ describe('authentication', function(){
           where: {
             email: 'villain@ahfr.org'
           }
-        }).done(function(error,user){
+        }).done(function(user){
           assert(user.password && user.password !== "plaintextPassword");
 
           done();
@@ -98,7 +98,7 @@ describe('authentication', function(){
           where: {
             email: 'user@ahfr.org'
           }
-        }).done(function(error,user){
+        }).done(function(user){
           user.isValidPassword('userpassword', function(error, passwordResponse){
             assert(passwordResponse === true);
 
