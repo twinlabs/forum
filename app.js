@@ -88,6 +88,12 @@ markedRenderer.link = function(href, title, text) {
       (title ? 'title="' + title + '"' : '') +
     '>' + text + "</a>";
 };
+
+var lexer = new app.locals.marked.Lexer();
+lexer.rules.heading = { exec: function() {} };
+
+app.locals.marked.lexer = lexer;
+
 app.locals.marked.setOptions({
   emoji: function (emoji) {
     return '<img src="'
