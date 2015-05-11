@@ -14,10 +14,10 @@ var models = {
 
 describe("database (user and post tables) stuff", function(){
   before(function(done){
-    post.sync({force: true}).then(function(){
+    post.sync({force: true}).success(function(){
       post.associate(models);
 
-      user.sync({force: true}).then(function(){
+      user.sync({force: true}).success(function(){
         user.associate(models);
         done();
       });
@@ -28,7 +28,7 @@ describe("database (user and post tables) stuff", function(){
     post.create({
       body: "it's happening",
       user_id: 1
-    }).then(function(post){
+    }).success(function(post){
       assert(post.body === "it's happening");
       done();
     });
@@ -59,9 +59,23 @@ describe("database (user and post tables) stuff", function(){
     var secondPostDeferred = second_post.save();
 
     userDeferred.done(function(){
-      firstPostDeferred.done(function(){
-        secondPostDeferred.done(function(){
-          userInstance.getPosts().done(function(data){
+      firstPostDeferred.done(function(error){
+        if (error) {
+          testDone();
+          return console.log(error);
+        }
+
+        secondPostDeferred.done(function(error){
+          if (error) {
+            testDone();
+            return console.log(error);
+          }
+
+          userInstance.getPosts().done(function(error, data){
+            if (error) {
+              console.log(error);
+            }
+
             assert(data.length === 2);
             testDone();
           });
