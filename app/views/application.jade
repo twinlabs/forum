@@ -51,6 +51,11 @@ html(lang="en")
           '>' + text + "</a>";
       };
 
+      var lexer = new marked.Lexer();
+      lexer.rules.heading = { exec: function() {} };
+
+      marked.lexer = lexer;
+
       marked.setOptions({
         emoji: function (emoji) {
           return '<img src="'
