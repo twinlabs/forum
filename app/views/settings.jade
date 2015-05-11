@@ -19,6 +19,13 @@ block main
         input(type="radio" name="hide_connected" checked=!user.hide_connected value="false")
         | &nbsp; False &nbsp;
 
+      br
+      br
+
+      label Custom Code:
+      .input.textarea
+        textarea.input-input.input-textarea(name="custom_code")=user.custom_code
+
       .input
         button(class="input-submit" type="submit")
           | Submit

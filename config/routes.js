@@ -41,10 +41,15 @@ var routes = function(app, passport){
     }
 
 
-    UserController.getLastVisited(request.session.user.id).then(function(lastVisited) {
-      response.locals.lastVisited = lastVisited || {};
 
-      next();
+    UserController.get(request.session.user.id).then(function(userData) {
+      response.locals.user.custom_code = userData.custom_code;
+
+      UserController.getLastVisited(request.session.user.id).then(function(lastVisited) {
+        response.locals.lastVisited = lastVisited || {};
+
+        next();
+      });
     });
   });
 

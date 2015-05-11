@@ -31,6 +31,8 @@ html(lang="en")
 
     block head
     block vars
+    if (user && user.id !== 0)
+      !=user.custom_code
   body.root(
     class=bodyClass
   )
