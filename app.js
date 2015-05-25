@@ -109,6 +109,7 @@ app.locals.marked.setOptions({
         + ' class="emoji" align="absmiddle" height="20" width="20">';
 
   },
+  breaks: true,
   renderer: markedRenderer
 });
 
