@@ -6,6 +6,16 @@ block vars
 
 block main
   .profile
+    form.edit.hidden(action="/settings/markAllUnread", method="POST")
+      .input
+        button(class="input-submit" type="submit")
+          | Mark All Unread
+
+    form.edit.hidden(action="/settings/markAllRead", method="POST")
+      .input
+        button(class="input-submit" type="submit")
+          | Mark All Read
+
     form.edit.hidden(action="/settings", method="POST")
       label Signature:
       .input.textarea
