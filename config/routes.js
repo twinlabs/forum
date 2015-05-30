@@ -303,6 +303,26 @@ var routes = function(app, passport){
     });
   });
 
+  app.post('/settings/markAllUnread', function(request, response) {
+    if (request.session.user.id === 0) {
+      response.sendStatus(404);
+    }
+
+    UserController.markAllUnread({user: {id: request.session.user.id}}).then(function(){
+      response.redirect('/');
+    });
+  });
+
+  app.post('/settings/markAllRead', function(request, response) {
+    if (request.session.user.id === 0) {
+      response.sendStatus(404);
+    }
+
+    UserController.markAllRead({user: {id: request.session.user.id}}).then(function(){
+      response.redirect('/');
+    });
+  });
+
   app.get('/logout', function(request, response){
     request.session.destroy();
 

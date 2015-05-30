@@ -27,8 +27,20 @@ var UserController = {
 
   },
 
+  markAllUnread: function(data) {
+    return PostsController.topics().then(function(topics) {
+      user.update({
+        last_visited: null
+      }, {
+        where: {
+          id: data.user.id
+        }
+      });
+    });
+  },
+
   markAllRead: function(data) {
-    PostsController.topics().then(function(topics) {
+    return PostsController.topics().then(function(topics) {
       var date = + new Date();
       var lastVisited = {};
 
