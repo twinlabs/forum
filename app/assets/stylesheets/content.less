@@ -9,7 +9,9 @@
   box-shadow: 0 0 1px @black;
 
   p {
-    margin: 0 0 1em;
+    &:not(:last-child) {
+      margin: 0 0 1em
+    }
   }
 
   a {
