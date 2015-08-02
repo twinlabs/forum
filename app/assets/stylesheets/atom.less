@@ -27,14 +27,14 @@
 }
 
 .atom-meta-main {
+  display: flex;
   width: 100%;
   white-space: inherit;
   text-overflow: inherit;
 }
 
 .atom-meta-main-inner {
-  display: inline-block;
-  width: 50%;
+  flex: 1;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -43,24 +43,33 @@
 
 .atom-meta-extra {
   margin: 0;
-  display: inline-block;
-  width: 50%;
+  flex: 1;
+  max-width: 50%;
   text-align: right;
   overflow: inherit;
   text-overflow: inherit;
   white-space: inherit;
-
-  @media (min-width: 48em) {
-    overflow: visible;
-    text-overflow: clip;
-    white-space: normal;
-  }
 }
 
 .atom-meta-extra > * {
   margin-left: 0.5em;
 }
 
+.root.topics .atom-username {
+  display: inline-block;
+  max-width: 33%;
+  overflow: hidden;
+  vertical-align: top;
+  text-overflow: ellipsis;
+
+  @media (min-width: 38em) {
+    max-width: none;
+  }
+
+  @media (min-width: 48em) {
+    max-width: 33%;
+  }
+}
 .root.topics .atom-meta-extra-time {
   display: none;
 
