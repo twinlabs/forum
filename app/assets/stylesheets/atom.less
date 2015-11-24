@@ -9,7 +9,6 @@
   margin: 0 0 1em;
   padding: 0.5em 1em;
   width: 100%;
-  max-height: 40px;
   border: 0 solid @highlight;
   transition: border-width 0.2s;
   white-space: nowrap;
@@ -29,15 +28,13 @@
 .atom-meta-main {
   display: flex;
   width: 100%;
-  white-space: inherit;
+  white-space: normal;
   text-overflow: inherit;
 }
 
 .atom-meta-main-inner {
   flex: 1;
   text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
   vertical-align: top;
 }
 
@@ -58,9 +55,7 @@
 .root.topics .atom-username {
   display: inline-block;
   max-width: 33%;
-  overflow: hidden;
   vertical-align: top;
-  text-overflow: ellipsis;
 
   @media (min-width: 38em) {
     max-width: none;
