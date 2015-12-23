@@ -48,8 +48,8 @@ describe('rendering', function(){
     assert(appModule.app.engines['.jade'], "jade is not registered with this instance of express.");
   });
 
-  it('registers jade the default templating engine', function(){
-    assert(appModule.app.get('view engine') === 'jade', "jade is not the default view engine for this instance of express.");
+  it('registers ejs.html as the default templating engine', function(){
+    assert(appModule.app.get('view engine') === 'ejs.html', "ejs (with ejs.html) is not the default view engine for this instance of express.");
   });
 });
 

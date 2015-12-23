@@ -1,0 +1,57 @@
+<% if (user && user.id !== 0) { %>
+  <div class="app-titlebar">
+    <div class="app-titlebar-inner">
+      <h2 class="app-titlebar-title">
+        <a
+          href="/"
+          class="app-titlebar-rootlink"
+        >
+          The Forum
+        </a>
+
+        <% if (bodyClass.match('topics') === null) { %>
+          :
+        <% } %>
+
+        <% if (bodyClass.match('topics') === null) { %>
+          <span class="app-titlebar-topictitle">
+            &nbsp;
+            <%= topic.title %>
+          </span>
+        <% } %>
+      </h2>
+
+      <div class="app-titlebar-controls">
+        <% if (bodyClass.match('settings') === null) { %>
+          <div class="app-titlebar-controls-control app-titlebar-controls-control--settings">
+            <a
+             href="/settings"
+             class="app-titlebar-controls-action app-titlebar-controls-action--settings"
+            >
+              Settings
+            </a>
+           </div>
+          <% if (bodyClass.match('topics') === null && bodyClass.match('settings') === null) { %>
+            <div class="app-titlebar-controls-control app-titlebar-controls-control--reply">
+              <a
+                href="#reply"
+                class="app-titlebar-controls-action app-titlebar-controls-action--reply"
+              >
+                Reply
+              </a>
+            </div>
+          <% } %>
+          <% if (bodyClass.match('topics') !== null) { %>
+            <div class="app-titlebar-controls-control app-titlebar-controls-control--newtopic">
+              <a class="app-titlebar-controls-action" href="#newtopic-content">
+                New Topic
+              </a>
+            </div>
+          <% } %>
+        <% } %>
+      </div>
+    </div>
+  </div>
+
+  <%- include('activity.ejs.html') %>
+<% } %>
