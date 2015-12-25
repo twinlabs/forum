@@ -36,7 +36,7 @@
 
     <!-- block head -->
     <% if (user && user.id !== 0) { %>
-      <%= user.custom_code %>
+      <%- user.custom_code %>
     <% } %>
   </head>
   <body class="root <%=bodyClass%>" >
