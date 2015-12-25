@@ -1,29 +1,45 @@
-script(src="/templates/post/post.js")
-script(src="/javascripts/emoji.js")
-script.
+<script src="/templates/post/post.js"></script>
+<script src="/javascripts/emoji.js"></script>
+<script>
   emoji.colons_mode = true;
+</script>
 
-.new
-  form
-    .input#reply
-      input(class="input-input input-text" type="text" placeholder="Type here...")
-      .toggle
-        | {...}
-    .input.is-hidden.textarea
-      textarea(class="input-input input-textarea" placeholder="Type here...")
-      .toggle
-        | { / }
-      button(class="input-submit" type="submit")
-        | Submit
+<div class="new">
+  <form>
+    <div class="input" id="reply">
+      <input
+        class="input-input input-text"
+        type="text"
+        placeholder="Type here..."
+      />
+      <div class="toggle"> {...} </div>
+    </div>
+    <div class="input is-hidden textarea">
+      <textarea
+         class="input-input input-textarea"
+         placeholder="Type here..."
+      >
+      </textarea>
+      <div class="toggle"> { / } </div>
+      <button class="input-submit" type="submit">
+        Submit
+      </button>
+    </div>
+  </form>
 
-  if (user && user.id !== 0)
-    h2(style="font-weight: normal;")
-      a(href='/' style="text-transform: uppercase;") The Forum
-      if (bodyClass.match('topics') === null)
-        | &nbsp;&mdash;&nbsp;
-        = topic.title
+  <% if (user && user.id !== 0) { %>
+    <h2 style="font-weight: normal;">
+      <a href="/" style="text-transform: uppercase;">
+        The Forum
+      </a>
+      <% if (bodyClass.match('topics') === null) { %>
+        &nbsp;&mdash;&nbsp;
+        <%= topic.title %>
+      <% } %>
+    </h2>
+  <% } %>
 
-  script.
+  <script>
     forum.replyCount = 0;
 
     var checkUnread = function() {
@@ -199,4 +215,5 @@ script.
     $(window).blur(function(){
       forum.focus = false;
     });
-
+  </script>
+</div>

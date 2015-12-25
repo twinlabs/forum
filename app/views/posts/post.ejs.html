@@ -1,0 +1,73 @@
+<div
+  class="atom"
+  data-id=<%= post.id %>
+  data-user-id=<%= post.user.id %>
+>
+  <div class="atom-meta meta clearfix">
+    <div class="atom-meta-main">
+      <div class="atom-meta-main-inner username datum">
+        <%= post.user.name %>
+      </div>
+      <div class="atom-meta-extra">
+        <div class="atom-meta-extra-time time datum">
+          <i class="fa fa-clock-o"></i>
+          <a
+            class="distance"
+            data-timestamp="<%= post.created_at.toString() %>"
+            href=<%= "?all=true#" + post.id %>
+            name=<%= post.id %>
+          >
+            <%= moment(post.created_at).fromNow() %>
+            <span class="unread-icon">
+              <i class="fa fa-file-o"></i>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content">
+    <%- marked(post.body || '') %>
+    <% if (post.user.signature) { %>
+      <div class="signature">
+        <%- post.user.signature %>
+      </div>
+    <% } %>
+  </div>
+  <% if (post.user.id === user.id) { %>
+    <form
+     class="edit is-hidden"
+     action="/edit"
+     method="POST"
+    >
+      <div class="input">
+        <textarea class="input-textarea">
+          <%- post.body %>
+        </textarea>
+        <button class="input-submit" type="submit">
+          Submit
+        </button>
+      </div>
+    </form>
+  <% } %>
+  <div class="atom-actions">
+    <div class="atom-actions-advanced">
+      <% if (post.user.id === user.id) { %>
+        <a
+          href="#destroy"
+          class="atom-actions-action atom-actions-action--destroy fa fa-trash-o fa-lg">
+        </a>
+      <% } %>
+    </div>
+    <a
+      class="atom-actions-action atom-actions-action--quote fa fa-quote-left fa-lg"
+      href="#quote"
+    ></a>
+    <% if (post.user.id === user.id) { %>
+      <a
+        class="atom-actions-action atom-actions-action--edit fa fa-edit fa-lg"
+        href="#edit"
+      ></a>
+    <% } %>
+  </div>
+</div>

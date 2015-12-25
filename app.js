@@ -53,8 +53,10 @@ var clientConstants = {
 app.locals.clientConstants = JSON.stringify(clientConstants);
 
 app.engine('jade', require('jade').__express);
+app.engine('ejs.html', require('ejs').renderFile);
+app.engine('html', require('ejs').renderFile);
 app.set('views', process.cwd() + '/app/views');
-app.set('view engine', 'jade');
+app.set('view engine', 'ejs.html');
 app.locals.basedir = process.cwd() + '/app/views';
 app.use('/templates/post', express.static(__dirname + '/app/views/posts/'));
 

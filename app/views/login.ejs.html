@@ -1,0 +1,39 @@
+<%- include('header.ejs.html', { bodyClass: '', constants: '' }) %>
+
+<h1 class="logo">
+  <span class="logo-inner">
+    <span class="logo-prefix">
+      The
+    </span>
+    <span class="logo-main">
+      Forum
+    </span>
+    <div class="logo-context">
+      Click
+    </div>
+  </span>
+  <form action="/login" method="POST" class="logo-backface">
+    <input type="text" placeholder="email" name="email" />
+    <input type="password" placeholder="password" name="password" />
+    <input type="submit" />
+  </form>
+</h1>
+
+<%- include('footer.ejs.html') %>
+
+<script>
+  $('.logo-inner').on('click', function(event){
+    $(this).closest('.logo').toggleClass('rotate');
+  });
+
+  $('.logo-inner span').velocity(
+    'forum.slideFromLeft', {
+      stagger: 1000,
+      complete: function() {
+        $('.logo-inner .login-context').velocity('forum.fadeIn');
+      }
+    }
+  );
+</script>
+
+<%- include('endbody.ejs.html') %>

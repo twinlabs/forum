@@ -1,0 +1,47 @@
+<% var bodyClass = "index posts" %>
+<% var constants = "forum.constants.parent = " + (parent || 0) %>
+
+<%- include('header.ejs.html', { bodyClass: bodyClass, constants: constants }) %>
+<%- include('titlebar.ejs.html', { bodyClass: bodyClass}) %>
+
+<% var limit = typeof limit !== "undefined" ? limit + 20 : 40 %>
+
+<% if (count > 20) { %>
+  <form action=<% "/topic" + parent + "#" + posts[0].id %>>
+    <input
+      type="hidden"
+      name="limit"
+      value=<%= limit %>
+    />
+    <button type="submit" class="atom-loadall">
+      Load earlier posts
+    </button>
+  </form>
+<% } %>
+
+<div class="posts">
+  <% if (!posts || posts.length === 0) { %>
+    No posts. Why not contribute to the forum
+  <% } else { %>
+    <% posts.forEach(function(post) { %>
+      <%- include('posts/post.ejs.html', {post: post}) %>
+    <% }) %>
+  <% } %>
+</div>
+
+<%- include('footer.ejs.html') %>
+<%- include('posts/new.ejs.html', { bodyClass: bodyClass }) %>
+
+<script>
+  $('body').on('click', '.atom-actions-action--edit', function(event){
+    event.preventDefault();
+    $post = $(this).closest('.atom');
+    $post.find('form.edit, .content').toggleClass('is-hidden')
+  });
+</script>
+
+
+<%- include('endbody.ejs.html') %>
+
+
+
