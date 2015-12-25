@@ -6,16 +6,11 @@
           href="/"
           class="app-titlebar-rootlink"
         >
-          The Forum
+          The Forum<%= !bodyClass.match('topics') ? ':' : '' %>
         </a>
 
         <% if (bodyClass.match('topics') === null) { %>
-          :
-        <% } %>
-
-        <% if (bodyClass.match('topics') === null) { %>
           <span class="app-titlebar-topictitle">
-            &nbsp;
             <%= topic.title %>
           </span>
         <% } %>
