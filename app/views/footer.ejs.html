@@ -100,6 +100,7 @@
 </script>
 
 <script src="/javascripts/emoji.js"></script>
+<script src="/javascripts/emojimap.js"></script>
 <script src="/templates/post/topic.js"></script>
 <script>
   forum.replyCount = 0;
@@ -229,6 +230,49 @@
   });
 </script>
 
+<script src="/javascripts/horsey.js"></script>
+<script>
+  window.emojiSuggestions = window.emojimap.keys;
+
+  function textNormalizer(text) {
+    return ':' + text + ':'
+  }
+
+  function emojiRenderer(li, suggestion) {
+     li.innerHTML = '<img src='
+          + 'http://cloud.ahfr.org/images/emoji/'
+          + suggestion
+          + '.png'
+          + ' alt=":'
+          + escape(suggestion)
+          + ':"'
+          + ' title=":'
+          + escape(suggestion)
+          + ':"'
+          + ' class="emoji" align="absmiddle" height="20" width="20">'
+          + '&nbsp;'
+          + textNormalizer(suggestion);
+
+  }
+
+  $(function(){
+    horsey(document.querySelector('.new .input-text'), {
+      anchor: ':',
+      getText: textNormalizer,
+      getValue: textNormalizer,
+      render: emojiRenderer,
+      suggestions: window.emojiSuggestions
+    });
+
+    horsey(document.querySelector('.new .input-textarea'), {
+      anchor: ':',
+      getText: textNormalizer,
+      getValue: textNormalizer,
+      render: emojiRenderer,
+      suggestions: window.emojiSuggestions
+    });
+  });
+</script>
 
 <% if (user && user.id !== 0) { %>
   <%- include('activity.ejs.html') %>
