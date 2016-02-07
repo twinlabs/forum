@@ -256,7 +256,7 @@
   }
 
   $(function(){
-    horsey(document.querySelector('.new .input-text'), {
+    window.horseyTextInputInstance = horsey(document.querySelector('.new .input-text'), {
       anchor: ':',
       getText: textNormalizer,
       getValue: textNormalizer,
@@ -264,7 +264,7 @@
       suggestions: window.emojiSuggestions
     });
 
-    horsey(document.querySelector('.new .input-textarea'), {
+    window.horseyTextAreaInstance = horsey(document.querySelector('.new .input-textarea'), {
       anchor: ':',
       getText: textNormalizer,
       getValue: textNormalizer,
