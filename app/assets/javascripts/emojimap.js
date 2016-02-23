@@ -4314,7 +4314,6 @@ var emojimap = {
     "lol",
     "nod",
     "noey",
-    "shrug"
     "thumbsup",
     "thumbsdown",
     "grinning",
