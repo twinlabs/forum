@@ -7,7 +7,7 @@
   },
   "main": "app.js",
   "engines": {
-    "node": "0.10.x"
+    "node": "4.x.x"
   },
   "publishConfig": {
     "registry": "http://registry.npmjs.org/"
@@ -60,7 +60,7 @@
     "browserify": "^13.0.0",
     "jshint": "^2.6.3",
     "mocha": "~1.13.0",
-    "node-inspector": "^0.8.1",
+    "node-inspector": "^0.12.8",
     "request": "^2.49.0",
     "sinon": "~1.7.3"
   }
