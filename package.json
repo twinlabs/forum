@@ -60,7 +60,7 @@
     "browserify": "^13.0.0",
     "jshint": "^2.6.3",
     "mocha": "~1.13.0",
-    "node-inspector": "^0.12.8",
+    "node-inspector": "^0.8.1",
     "request": "^2.49.0",
     "sinon": "~1.7.3"
   }
