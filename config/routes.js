@@ -85,6 +85,10 @@ var routes = function(app, passport){
 
   });
 
+  app.get('/react', function(request, response) {
+    response.render('react');
+  });
+
   app.get('/topic/:id', function(request, response, next) {
     if (request.session.user.id === 0){
       return response.render('index', {});
