@@ -31,7 +31,7 @@ var routes = function(app, passport){
     }
 
 
-    var assetPaths = ['stylesheets', 'javascripts', 'templates', 'fonts', 'images'];
+    var assetPaths = ['stylesheets', 'javascripts', 'templates', 'fonts', 'images', 'react'];
 
     // skip "last visited" lookup if the request is obviously just for an asset:
     for (var i = 0; i < assetPaths.length; i++) {
@@ -355,6 +355,33 @@ var routes = function(app, passport){
       posts: rootRequire('test/fixtures/posts')
     });
   });
+
+  app.get('/javascripts/bundle.js', function (req, res, next) {
+    if (process.env.ENV === 'production') {
+      return false;
+    }
+
+    var browserify = require('browserify')('./app/assets/javascripts/app.js', {
+      bundleExternal: false,
+      debug: true,
+      transform: 'babelify'
+    });
+
+    res.set('Content-Type', 'text/javascript');
+
+    browserify.bundle(function(error, buffer) {
+      if (error) {
+        res.set('Content-Type', 'text/json');
+        res.set('Stacktrace', error);
+        console.log('error generating bundle.');
+        return res.status('500').end();
+      }
+
+      console.log(`client bundle regenerated: ${buffer.length} bytes.`);
+      res.send(buffer);
+    });
+  });
+
 };
 
 function tokenValidation(request, response, next){
