@@ -5,15 +5,13 @@ var ControlBar = require('./app/ControlBar.jsx');
 function etc() {
   return (
     <div>
-      <h1>
-        The Forum,
-        now in <kbd>react</kbd>
-      </h1>
       <ControlBar
-        imagine={'Tupac.'}
+        appName={'The Forum'}
       />
     </div>
   )
 }
 
-ReactDOM.render(etc(), document.getElementById('app'));
+ReactDOM.render(etc(), document.getElementById('app'), function() {
+  document.getElementsByClassName('body')[0].classList.remove('is-loading');
+});

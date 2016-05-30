@@ -4,10 +4,9 @@ var ReactDOM = require('react-dom');
 var ControlBar = React.createClass({
   render: function() {
     return (
-      <div>
-        Imagine...A Control Bar.
-        {this.props.imagine}
-        Whatever!
+      <div className="controlBar">
+        {this.props.appName},
+        now in <kbd>React</kbd>.
       </div>
     )
   }
