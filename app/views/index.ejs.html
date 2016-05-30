@@ -14,21 +14,21 @@
         <%- include posts/topic.ejs.html %>
       <% }); %>
     </div>
-    <form class="new is-hidden">
-      <div class="input" id="newtopic-title">
-        <input
-          class="input-input input-text input-title"
-          placeholder="title"
-        />
-      </div>
-      <div class="input textarea" id="newtopic-content">
-        <textarea class="input-input input-textarea input-body" placeholder="Body"></textarea>
-      </div>
-      <button class="input-submit" type="submit">
-        Submit
-      </button>
-    </form>
   <% } %>
+  <form class="new is-hidden">
+    <div class="input" id="newtopic-title">
+      <input
+        class="input-input input-text input-title"
+        placeholder="title"
+      />
+    </div>
+    <div class="input textarea" id="newtopic-content">
+      <textarea class="input-input input-textarea input-body" placeholder="Body"></textarea>
+    </div>
+    <button class="input-submit" type="submit">
+      Submit
+    </button>
+  </form>
 <% } %>
 <%- include('footer.ejs.html') %>
 <%- include('endbody.ejs.html') %>
