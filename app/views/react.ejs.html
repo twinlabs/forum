@@ -24,7 +24,8 @@
     </div>
 
     <script>
-      window.postData = <%- postData %>
+      window.__INITIAL_STATE__ = <%- initialState %>;
+      window.postData = <%- postData %>;
     </script>
     <script src="/javascripts/lib.js"></script>
     <script src="/javascripts/bundle.js"></script>

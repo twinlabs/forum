@@ -87,8 +87,15 @@ var routes = function(app, passport){
 
   app.get('/react', function(request, response) {
     PostsController.topics().done(function(error, posts){
-      response.render('react', {
-        postData: JSON.stringify(posts)
+      UserController.get(request.session.user.id).done(function(err, userData){
+        response.render('react', {
+          postData: JSON.stringify(posts),
+          settings: JSON.stringify(userData),
+          initialState: JSON.stringify({
+            postData: posts,
+            settings: userData,
+          })
+        });
       });
     });
   });

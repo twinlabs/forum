@@ -18,11 +18,16 @@ function nameChange(state, action) {
 }
 
 function getPosts(state, action) {
-  return window.postData;
+  return window.__INITIAL_STATE__.postData;
+}
+
+function getSettings(state, action) {
+  return window.__INITIAL_STATE__.settings;
 }
 
 
 module.exports = redux.combineReducers({
   appName: nameChange,
-  posts: getPosts
+  posts: getPosts,
+  settings: getSettings
 });
