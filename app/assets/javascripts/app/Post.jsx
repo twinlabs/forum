@@ -17,6 +17,7 @@ var Post = React.createClass({
 module.exports = function(postData) {
   return (
     <Post
+      key={postData.id}
       {...postData}
     />
   );
