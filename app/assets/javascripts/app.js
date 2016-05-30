@@ -2,7 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var ControlBar = require('./app/ControlBar.jsx');
 
-function etc() {
+function rootNode() {
   return (
     <div>
       <ControlBar
@@ -12,6 +12,6 @@ function etc() {
   )
 }
 
-ReactDOM.render(etc(), document.getElementById('app'), function() {
+ReactDOM.render(rootNode(), document.getElementById('app'), function() {
   document.getElementsByClassName('body')[0].classList.remove('is-loading');
 });
