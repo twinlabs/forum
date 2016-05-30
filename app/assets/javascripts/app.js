@@ -3,33 +3,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var redux = require('redux');
 var Root = require('./Root.jsx')
-
-var initialState = {
-  appName: 'The Forum'
-}
-
-
-var names = [
-  'The Forum',
-  'Jason Gloss War Tribunal',
-  'Will High Observatory'
-]
-
-function nameChange(state, action) {
-  if (state === 'undefined') {
-    return names[0];
-  }
-
-  return names[Math.floor(Math.random() * names.length)];
-}
-
-function reducer(state, action) {
-  return redux.combineReducers({
-    appName: nameChange
-  })();
-
-  return state;
-}
+var forumReducer = require('./reducer');
 
 function render() {
   ReactDOM.render(
@@ -41,7 +15,7 @@ function render() {
   );
 }
 
-var store = redux.createStore(reducer);
+var store = redux.createStore(forumReducer);
 
 store.subscribe(render);
 
