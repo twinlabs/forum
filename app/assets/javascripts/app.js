@@ -15,6 +15,11 @@ var names = [
   'The Forum'
 ]
 
+function nameChange(state, action) {
+  return Object.assign({}, state, {
+    appName: names[Math.floor(Math.random() * names.length)]
+  });
+}
 
 function reducer(state, action) {
   if (typeof state === 'undefined') {
@@ -22,9 +27,7 @@ function reducer(state, action) {
   }
 
   if (action.type === 'NAMECHANGE') {
-    return Object.assign({}, state, {
-      appName: names[Math.floor(Math.random() * names.length)]
-    });
+    return nameChange(state, action);
   }
 
   return state;
@@ -45,5 +48,7 @@ var store = redux.createStore(reducer);
 store.subscribe(render);
 
 setInterval(function() {
-  store.dispatch({type: 'NAMECHANGE'});
+  store.dispatch({
+    type: 'NAMECHANGE'
+  });
 }, 1000)
