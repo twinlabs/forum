@@ -10,25 +10,23 @@ var initialState = {
 
 
 var names = [
+  'The Forum',
   'Jason Gloss War Tribunal',
-  'Will High Observatory',
-  'The Forum'
+  'Will High Observatory'
 ]
 
 function nameChange(state, action) {
-  return Object.assign({}, state, {
-    appName: names[Math.floor(Math.random() * names.length)]
-  });
+  if (state === 'undefined') {
+    return names[0];
+  }
+
+  return names[Math.floor(Math.random() * names.length)];
 }
 
 function reducer(state, action) {
-  if (typeof state === 'undefined') {
-    return initialState;
-  }
-
-  if (action.type === 'NAMECHANGE') {
-    return nameChange(state, action);
-  }
+  return {
+    appName: nameChange(state, action)
+  };
 
   return state;
 }
