@@ -86,7 +86,11 @@ var routes = function(app, passport){
   });
 
   app.get('/react', function(request, response) {
-    response.render('react');
+    PostsController.topics().done(function(error, posts){
+      response.render('react', {
+        postData: JSON.stringify(posts)
+      });
+    });
   });
 
   app.get('/topic/:id', function(request, response, next) {
