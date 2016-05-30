@@ -15,12 +15,14 @@ function render() {
   );
 }
 
-var store = redux.createStore(forumReducer);
+window.store = redux.createStore(forumReducer);
 
 store.subscribe(render);
 
-setInterval(function() {
-  store.dispatch({
-    type: 'NAMECHANGE'
-  });
-}, 1000)
+render();
+
+//setInterval(function() {
+//  store.dispatch({
+//    type: 'NAMECHANGE'
+//  });
+//}, 1000)

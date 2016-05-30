@@ -1,4 +1,5 @@
 var redux = require('redux');
+var doPosts = require('./reducer-posts');
 
 var names = [
   'The Forum',
@@ -17,12 +18,13 @@ function nameChange(state, action) {
   return names[Math.floor(Math.random() * names.length)];
 }
 
-function getPosts(state, action) {
-  return window.postData;
+function getSettings(state, action) {
+  return window.__INITIAL_STATE__.settings;
 }
 
 
 module.exports = redux.combineReducers({
   appName: nameChange,
-  posts: getPosts
+  posts: doPosts,
+  settings: getSettings
 });

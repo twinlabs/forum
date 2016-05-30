@@ -1,14 +1,14 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var Preify = require('./Preify.jsx');
 
 var Post = React.createClass({
   render: function() {
     return (
       <div className="post">
-        {this.props.title}
-        {this.props.replyCount} Replies
-        {this.props.lastreply.user.name}
-        {this.props.lastreply.created_at}!!!
+        <Preify>
+          {JSON.stringify(this.props)}
+        </Preify>
       </div>
     )
   }
@@ -17,7 +17,7 @@ var Post = React.createClass({
 module.exports = function(postData) {
   return (
     <Post
-      key={postData.id}
+      key={postData && (postData.id + postData.title)}
       {...postData}
     />
   );
