@@ -48,21 +48,14 @@ https://gist.github.com/viatropos/1398757 for more
 
 ```
 
-Migrations:
-===========
+Database
+========
 
-Sequelize _might_ give us the tools that we need to
-[set up a database in code](http://sequelizejs.com/docs/1.7.8/models#database-synchronization),
-but it's possible that we'll need to do migrations manually.
+The example database here is simple, iterative, and focused on being fast.
 
-Here's how the manual approach could work:
-
-1. Create a `.sql` file in `/db/`
-2. `psql -d {dbname} -a -f db/{filename}.sql`
-
-Currently, you must set up the session table manually:
-
-`psql -d {dbname} -a -f node_modules/connect-pg-simple/table.sql`
+```
+psql --command="create database forum;" && psql --echo-all --dbname=forum --file=tables.sql
+```
 
 Compiling Client-side Templates:
 ================================
