@@ -360,7 +360,7 @@ var routes = function(app, passport){
     });
   });
 
-  app.get('/javascripts/bundle.js', function (req, res, next) {
+  app.get('/javascripts/bundle-static.js', function (req, res, next) {
     if (process.env.ENV === 'production') {
       return false;
     }

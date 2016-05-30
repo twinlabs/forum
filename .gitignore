@@ -3,4 +3,5 @@ node_modules
 app/assets/stylesheets/*.css
 app/assets/javascripts/lib.js
 app/assets/javascripts/bundle.js
+app/assets/javascripts/bundle-static.js
 config/environments/production.js

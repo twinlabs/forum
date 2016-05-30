@@ -8,7 +8,7 @@ var Post = React.createClass({
         {this.props.title}
         {this.props.replyCount} Replies
         {this.props.lastreply.user.name}
-        {this.props.lastreply.created_at}
+        {this.props.lastreply.created_at}!!!
       </div>
     )
   }
