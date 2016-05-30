@@ -8,30 +8,41 @@ var initialState = {
   appName: 'The Forum'
 }
 
+
+var names = [
+  'Jason Gloss War Tribunal',
+  'Will High Observatory',
+  'The Forum'
+]
+
+
 function reducer(state, action) {
   if (typeof state === 'undefined') {
-    console.log(initialState);
     return initialState;
   }
 
   if (action.type === 'NAMECHANGE') {
-
+    return Object.assign({}, state, {
+      appName: names[Math.floor(Math.random() * names.length)]
+    });
   }
 
-  console.log(state);
-  return Object.assign({}, state, {
-  });
+  return state;
 }
 
-var store = window.store = redux.createStore(reducer);
+function render() {
+  ReactDOM.render(
+    <Root value={store.getState()} />,
+    document.getElementById('app'),
+    function() {
+      document.getElementsByClassName('body')[0].classList.remove('is-loading');
+    }
+  );
+}
 
-ReactDOM.render(
-  <Root value={store.getState()} />,
-  document.getElementById('app'),
-  function() {
-    document.getElementsByClassName('body')[0].classList.remove('is-loading');
-  }
-);
+var store = redux.createStore(reducer);
+
+store.subscribe(render);
 
 setInterval(function() {
   store.dispatch({type: 'NAMECHANGE'});
