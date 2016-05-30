@@ -2,6 +2,9 @@ var redux = require('redux');
 
 var names = [
   'The Forum',
+  'Ethix Skeptro Viewpoint Simulator',
+  'Masked Terror #3 Hatchery',
+  'Funk Docta Bombay Mortuary',
   'Jason Gloss War Tribunal',
   'Will High Observatory'
 ]
