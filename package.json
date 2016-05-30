@@ -13,7 +13,7 @@
     "registry": "http://registry.npmjs.org/"
   },
   "scripts": {
-    "bundle:lib": "browserify --require react --require react-dom --require redux > ./app/assets/javascripts/lib.js",
+    "bundle:lib": "browserify --require react --require react-dom --require redux --require \"lodash/core\" > ./app/assets/javascripts/lib.js",
     "check": "./node_modules/jshint/bin/jshint **/*/*.js",
     "db:seed": "node db/seed.js",
     "deploy": "git push heroku deploy:master",
