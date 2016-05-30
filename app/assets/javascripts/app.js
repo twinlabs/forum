@@ -24,9 +24,9 @@ function nameChange(state, action) {
 }
 
 function reducer(state, action) {
-  return {
-    appName: nameChange(state, action)
-  };
+  return redux.combineReducers({
+    appName: nameChange
+  })();
 
   return state;
 }
