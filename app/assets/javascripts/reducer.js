@@ -17,7 +17,12 @@ function nameChange(state, action) {
   return names[Math.floor(Math.random() * names.length)];
 }
 
+function getPosts(state, action) {
+  return window.postData;
+}
+
 
 module.exports = redux.combineReducers({
-  appName: nameChange
+  appName: nameChange,
+  posts: getPosts
 });
