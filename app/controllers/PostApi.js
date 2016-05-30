@@ -1,5 +1,6 @@
 var Sequelize = require('sequelize');
 var UserController = rootRequire('app/controllers/UserController');
+var _ = require('lodash');
 
 var postApi = function(rest, checkAuth) {
   var Post = rootRequire('app/models/Post.orm')(rest.sequelize);
@@ -32,6 +33,7 @@ var postApi = function(rest, checkAuth) {
   });
 
   posts.create.write.before(function(req, res, context) {
+    context.attributes = _.assign({}, context.attributes, req.body);
     context.attributes.user_id = req.session.user.id;
     context.continue();
   });

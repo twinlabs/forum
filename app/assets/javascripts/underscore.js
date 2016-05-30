@@ -1,1 +1,1 @@
-../../../node_modules/lodash/dist/lodash.underscore.js
+../../../node_modules/lodash/core.js
