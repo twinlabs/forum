@@ -19,6 +19,8 @@ var store = redux.createStore(forumReducer);
 
 store.subscribe(render);
 
+render();
+
 setInterval(function() {
   store.dispatch({
     type: 'NAMECHANGE'

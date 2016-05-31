@@ -5,11 +5,20 @@ var Post = React.createClass({
   render: function() {
     return (
       <div className="post">
-        {this.props.title}
-        {this.props.replyCount} Replies
-        {this.props.lastreply.user.name}
-        {this.props.lastreply.created_at}
+        <Preify>
+          {JSON.stringify(this.props)}
+        </Preify>
       </div>
+    )
+  }
+});
+
+var Preify = React.createClass({
+  render: function() {
+    return (
+      <pre className="preify">
+        {this.props.children}
+      </pre>
     )
   }
 });
