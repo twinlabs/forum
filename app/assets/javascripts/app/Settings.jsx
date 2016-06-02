@@ -2,7 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Preify = require('./Preify.jsx');
 
-var Post = React.createClass({
+module.exports = React.createClass({
   render: function() {
     return (
       <div className="post">
@@ -13,12 +13,3 @@ var Post = React.createClass({
     )
   }
 });
-
-module.exports = function(postData) {
-  return (
-    <Post
-      key={postData.id}
-      {...postData}
-    />
-  );
-}
