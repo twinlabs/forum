@@ -61,3 +61,7 @@ Compiling Client-side Templates:
 ================================
 Some templates are used client-side too and currently must be
 compiled manually. e.g. `jade --client --no-debug app/views/posts/post.jade`
+
+Hot Reload
+==========
+`npm run start` does 'hot reloading' by default. This is subject to change.
