@@ -1,5 +1,5 @@
 var ControlBar = require('./app/ControlBar.jsx');
-var Posts = require('./app/Posts.jsx');
+var Topics = require('./app/Topics.jsx');
 var NewTopic = require('./app/NewTopic.jsx');
 var Settings = require('./app/Settings.jsx');
 var React = require('react');
@@ -12,8 +12,8 @@ module.exports = React.createClass({
         <ControlBar
           appName={this.props.value.appName}
         />
-        <Posts
-          posts={this.props.value.posts}
+        <Topics
+          topics={this.props.value.topics}
         />
         <Settings
           settings={this.props.value.settings}

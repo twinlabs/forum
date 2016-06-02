@@ -4,9 +4,11 @@ var ReactDOM = require('react-dom');
 module.exports = React.createClass({
   render: function() {
     return (
-      <pre className="preify" style={{outline: '1px solid orange'}}>
+      <div
+        className="preify"
+      >
         {this.props.children}
-      </pre>
+      </div>
     )
   }
 });

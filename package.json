@@ -13,7 +13,7 @@
     "registry": "http://registry.npmjs.org/"
   },
   "scripts": {
-    "bundle:lib": "./node_modules/.bin/browserify --require react --require react-dom --require redux --require \"lodash/core\" --require superagent > ./app/assets/javascripts/react/lib.js",
+    "bundle:lib": "./node_modules/.bin/browserify --require react --require react-dom --require redux --require \"lodash/core\" --require superagent --require socket.io-client > ./app/assets/javascripts/react/lib.js",
     "bundle:app:watch": "node_modules/.bin/watchify app/assets/javascripts/react/app.js -t babelify -p livereactload -o app/assets/javascripts/react/bundle.js",
     "check": "./node_modules/jshint/bin/jshint **/*/*.js",
     "db:seed": "node db/seed.js",
