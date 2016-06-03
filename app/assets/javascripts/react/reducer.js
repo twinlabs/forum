@@ -25,6 +25,6 @@ function getSettings(state, action) {
 
 module.exports = redux.combineReducers({
   appName: nameChange,
-  posts: doPosts,
+  topics: doPosts,
   settings: getSettings
 });

@@ -20,3 +20,20 @@ window.store = redux.createStore(forumReducer);
 store.subscribe(render);
 
 render();
+
+// set up sockets
+
+var io = require('socket.io-client');
+
+window.socket = io.connect(forum.constants.socketAddress, {
+  query: {
+    user: JSON.stringify(forum.constants.user)
+  }
+});
+
+socket.on('destroy', function(response){
+  window.store.dispatch({
+    type: 'REMOVE',
+    value: response.id
+  });
+});

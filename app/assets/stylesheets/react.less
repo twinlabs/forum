@@ -1,8 +1,13 @@
+* {
+  box-sizing: border-box;
+}
+
 html {
   height: 100%;
 }
 
 body {
+  margin: 1em;
   min-height: 100%;
   font-size: 16px;
   font-family: 'Open Sans', sans-serif;
@@ -32,4 +37,26 @@ body {
   display: table-cell;
   vertical-align: middle;
   text-align: center;
+}
+
+.inputGroup {
+  display: flex;
+}
+
+.input {
+  display: block;
+  width: 100%;
+  font-family: inherit;
+  margin: 1em 0;
+  background: transparent;
+  border: 1px solid currentColor;
+  padding: 1em;
+}
+
+.preify {
+  font-family: monospace;
+  outline: 1px solid orange;
+  margin: 1em 0;
+  padding: 0.5em;
+  word-wrap: break-word;
 }

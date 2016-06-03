@@ -22,19 +22,22 @@ module.exports = React.createClass({
   render: function() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <div className="input">
-          <input
-            type="text"
-            placeholder="Title"
-            ref="title"
-          />
-          <input
-            type="text"
-            placeholder="Body"
-            ref="body"
-          />
-        </div>
-        <button type="submit">
+        <input
+          className="input"
+          type="text"
+          placeholder="Title"
+          ref="title"
+        />
+        <input
+          className="input"
+          type="text"
+          placeholder="Body"
+          ref="body"
+        />
+        <button
+          className="input"
+          type="submit"
+        >
           Submit
         </button>
       </form>
