@@ -1,7 +1,8 @@
 @import "variables";
 
 :focus:after,
-a:after {
+a:after,
+button:after {
   content: '';
   position: absolute;
   left: -1%;
@@ -12,7 +13,8 @@ a:after {
   transition: width 100ms;
 }
 
-a {
+a,
+button {
   color: inherit;
   position: relative;
   text-decoration: none;
@@ -23,7 +25,8 @@ a {
 }
 
 a:hover:after,
-:focus:after {
+:focus:after,
+button:hover:after {
   width: 102%;
 }
 
