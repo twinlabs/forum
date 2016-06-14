@@ -4313,6 +4313,8 @@ var emojimap = {
     "dang",
     "lol",
     "nod",
-    "noey"
+    "noey",
+    "thumbsup",
+    "thumbsdown"
   ]
 };
