@@ -4315,6 +4315,7 @@ var emojimap = {
     "nod",
     "noey",
     "thumbsup",
-    "thumbsdown"
+    "thumbsdown",
+    "rocky"
   ]
 };
