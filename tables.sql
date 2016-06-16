@@ -26,7 +26,8 @@ CREATE TABLE forum_user (
     signature text,
     last_visited json,
     hide_connected boolean,
-    custom_code text
+    custom_code text,
+    is_supporter timestamp with time zone
 );
 
 CREATE SEQUENCE forum_user_id_seq

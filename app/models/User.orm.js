@@ -31,6 +31,9 @@ var UserSequelize = function(sequelize){
     signature: {
       type: Sequelize.STRING
     },
+    is_supporter: {
+      type: Sequelize.DATE
+    },
     last_visited: {
       type: Sequelize.JSON
     }

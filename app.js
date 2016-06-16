@@ -82,6 +82,7 @@ module.exports = {
 app.locals.moment = require('moment');
 app.locals.marked = require('marked');
 app.locals.getPostDate = application_helper.getPostDate;
+app.locals.isSupporter = application_helper.isSupporter;
 
 var markedRenderer = new app.locals.marked.Renderer();
 markedRenderer.link = function(href, title, text) {
