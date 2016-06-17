@@ -102,7 +102,7 @@ function embedSoundCloud($selector) {
     var requestUrl = element.getAttribute('href');
 
     $.ajax({
-      url: 'http://soundcloud.com/oembed',
+      url: 'https://soundcloud.com/oembed',
       dataType: 'jsonp',
       data: {
         url: requestUrl,
