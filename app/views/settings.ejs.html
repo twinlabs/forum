@@ -42,6 +42,19 @@
          name="signature"
       ><%= user.signature %></textarea>
     </div>
+    <label style="display: block; margin-bottom: 1em;">
+      Signature Preview:
+    </label>
+    <div
+      class="atom"
+      data-user-id=<%= user.id %>
+    >
+      <div class="content">
+        <div class="signature--preview signature">
+          <%- user.signature %>
+        </div>
+      </div>
+    </div>
 
     Hide Connected Status: &nbsp;
 
@@ -85,4 +98,11 @@
 </div>
 
 <%- include('footer.ejs.html') %>
+
+<script>
+  $('[name="signature"]').on('input', function(event) {
+    $('.signature--preview').html(event.target.value);
+  });
+</script>
+
 <%- include('endbody.ejs.html') %>
