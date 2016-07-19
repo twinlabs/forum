@@ -121,8 +121,33 @@
     });
   }
 
+  function showUnreadMode() {
+    if (!document.body.classList.contains('topics')) {
+      return false;
+    }
+
+    var unreadMode = getUnreadMode();
+
+    $('.toggleUnread').toggleClass('unreadMode', unreadMode);
+    return $('.atom').not('.is-unread').toggleClass('is-hidden', unreadMode);
+  }
+
+  function changeUnreadMode() {
+    var unreadMode = getUnreadMode();
+
+    localStorage.setItem('unreadMode', !unreadMode)
+    return showUnreadMode();
+  }
+
+  function getUnreadMode() {
+    return localStorage.getItem('unreadMode') === 'true';
+  }
+
+  $('.toggleUnread').on('click', changeUnreadMode);
+
   lastVisitedPromise.then(function() {
     checkUnread();
+    showUnreadMode();
   });
 
   var updateThreadMetadata = function(response){

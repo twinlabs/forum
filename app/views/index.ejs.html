@@ -1,6 +1,11 @@
 <% var bodyClass = "index posts topics" %>
 
 <%- include('header.ejs.html', { bodyClass: bodyClass, constants: '' }) %>
+
+<div class="toggleUnread">
+  Toggle 'Only Unread'
+</div>
+
 <%- include('titlebar.ejs.html', { bodyClass: bodyClass}) %>
 
 <% if (user && user.id === 0) { %>
