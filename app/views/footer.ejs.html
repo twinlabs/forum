@@ -128,7 +128,7 @@
 
     var unreadMode = getUnreadMode();
 
-    $('.toggleUnread').toggleClass('unreadMode', unreadMode);
+    $('.toggleUnread').toggleClass('mode-unread', unreadMode);
     return $('.atom').not('.is-unread').toggleClass('is-hidden', unreadMode);
   }
 
