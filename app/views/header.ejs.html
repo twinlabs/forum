@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" class="is-loading">
+<% if (user && user.id === 0 || !bodyClass.match('index')) { %>
+  <html lang="en">
+<% } else { %>
+  <html lang="en" class="is-loading">
+<% } %>
   <head>
     <title>
       Forum

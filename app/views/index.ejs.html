@@ -2,9 +2,11 @@
 
 <%- include('header.ejs.html', { bodyClass: bodyClass, constants: '' }) %>
 
-<div class="toggleUnread">
-  Toggle 'Only Unread'
-</div>
+<% if (user && user.id !== 0) { %>
+  <div class="toggleUnread">
+    Toggle 'Only Unread'
+  </div>
+<% } %>
 
 <%- include('titlebar.ejs.html', { bodyClass: bodyClass}) %>
 
