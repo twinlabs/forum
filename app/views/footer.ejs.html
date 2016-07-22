@@ -145,9 +145,14 @@
 
   $('.toggleUnread').on('click', changeUnreadMode);
 
+  function showContent() {
+    $('html').removeClass('is-loading');
+  }
+
   lastVisitedPromise.then(function() {
     checkUnread();
     showUnreadMode();
+    showContent();
   });
 
   var updateThreadMetadata = function(response){

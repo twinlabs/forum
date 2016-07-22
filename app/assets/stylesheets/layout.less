@@ -20,6 +20,7 @@ html {
   background-attachment: fixed;
   background-image: url(/images/background.png);
   background-color: @offwhite;
+  transition: opacity 250ms;
 }
 
 @media (min-width: 48em) {
@@ -58,4 +59,8 @@ html {
   color: @blue;
   background-color: #fff;
   border-color: @blue;
+}
+
+.is-loading .root {
+  opacity: 0;
 }
