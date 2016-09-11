@@ -33,7 +33,11 @@ module.exports = React.createClass({
             <textarea
               defaultValue={this.props.settings.signature}
               onChange={this.handleSigChange}
-              style={{"display": "block", "width": "100%"}}
+              style={{
+                "display": "block",
+                "width": "100%",
+                "minHeight": "400px"
+              }}
             />
           </label>
         </div>
