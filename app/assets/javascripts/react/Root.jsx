@@ -18,7 +18,9 @@ module.exports = React.createClass({
         <Settings
           settings={this.props.value.settings}
         />
-        <NewTopic />
+        <NewTopic
+          store={window.store}
+        />
       </div>
     )
   }

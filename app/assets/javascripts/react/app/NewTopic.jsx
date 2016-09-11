@@ -15,8 +15,8 @@ module.exports = React.createClass({
     request.post('/api/posts')
       .send(postState)
       .end(function(error, response) {
-        window.store.dispatch({type: 'NEW', value: response.body});
-      });
+        this.props.store.dispatch({type: 'NEW', value: response.body});
+      }.bind(this));
   },
 
   render: function() {
