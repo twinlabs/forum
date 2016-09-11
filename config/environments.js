@@ -2,7 +2,7 @@ module.exports = function(app){
   app.set('hostName', 'http://localhost');
   app.set('PORT', process.env.PORT || 3000);
   app.set('db-test', 'forum_test');
-  app.set('signupToken', '0f660e0fde3fcfcb6ed3c142dece32e8');
+  app.set('signupToken', 'e4baa79988b55b8f73affa415a0a7163');
 
 
   if (process.env.NODE_ENV === 'test') {
