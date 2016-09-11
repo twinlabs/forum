@@ -55,9 +55,6 @@ module.exports = React.createClass({
             />
           </label>
         </div>
-        <Preify>
-          {JSON.stringify(this.props.settings)}
-        </Preify>
         <button>Submit</button>
         <div data-user-id={this.props.settings.id}>
           <div
