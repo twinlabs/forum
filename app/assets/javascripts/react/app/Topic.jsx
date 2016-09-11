@@ -44,9 +44,6 @@ var Topic = React.createClass({
             >
               Delete
             </button>
-            <button className="input">
-              Upvote
-            </button>
           </div>
           <button
             className="input"
