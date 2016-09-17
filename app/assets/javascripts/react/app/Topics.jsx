@@ -6,7 +6,7 @@ var Topics = React.createClass({
   render: function() {
     return (
       <div className="topicsContainer">
-        {this.props.topics.map(Topic)}
+        {this.props.value.topics.map(Topic)}
       </div>
     );
   }

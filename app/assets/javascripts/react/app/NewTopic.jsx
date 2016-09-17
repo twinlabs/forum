@@ -3,7 +3,7 @@ var ReactDOM = require('react-dom');
 var request = require('superagent');
 var doPosts = require('../reducer-posts');
 
-module.exports = React.createClass({
+var NewTopic = React.createClass({
   handleSubmit: function(event) {
     event.preventDefault();
 
@@ -35,12 +35,33 @@ module.exports = React.createClass({
           ref="body"
         />
         <button
-          className="input"
+          className="newInput"
           type="submit"
+          style={{
+            textAlign: "center",
+            display: "block",
+            margin: "auto"
+          }}
         >
-          Submit
+          <span className="accent">
+            {'{'}
+          </span>
+          Submit Post
+          <span className="accent">
+            {'}'}
+          </span>
         </button>
       </form>
     )
+  }
+});
+
+module.exports = React.createClass({
+  render: function() {
+    return (
+      <NewTopic
+        store={window.store}
+      />
+    );
   }
 });

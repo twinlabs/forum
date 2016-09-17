@@ -3,7 +3,7 @@ var ReactDOM = require('react-dom');
 var Preify = require('./Preify.jsx');
 var request = require('superagent');
 
-module.exports = React.createClass({
+var Settings = React.createClass({
   handleSubmit: function(event) {
     event.preventDefault();
 
@@ -72,3 +72,14 @@ module.exports = React.createClass({
     )
   }
 });
+
+module.exports = React.createClass({
+  render: function() {
+    return (
+      <Settings
+        settings={this.props.value.settings}
+        store={window.store}
+      />
+    );
+  }
+})
