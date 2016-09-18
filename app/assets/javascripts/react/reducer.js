@@ -11,20 +11,30 @@ var names = [
 ]
 
 function nameChange(state, action) {
-  if (state === 'undefined') {
+  if (typeof state === 'undefined') {
     return names[0];
   }
 
   return names[Math.floor(Math.random() * names.length)];
 }
 
-function getSettings(state, action) {
-  return window.__INITIAL_STATE__.settings;
+function handleSettings(state, action) {
+  if (typeof state === 'undefined') {
+    return window.__INITIAL_STATE__.settings;
+  }
+
+  if (action.type === 'SIGCHANGE') {
+    return Object.assign({}, state, {
+      signature: action.value
+    });
+  }
+
+  return state;
 }
 
 
 module.exports = redux.combineReducers({
   appName: nameChange,
   topics: doPosts,
-  settings: getSettings
+  settings: handleSettings
 });

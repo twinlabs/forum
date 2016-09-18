@@ -3,6 +3,8 @@ var ReactDOM = require('react-dom');
 var request = require('superagent');
 var Preify = require('./Preify.jsx');
 var TopicControls = require('./PostControls.jsx');
+var moment = require('moment');
+var Link = require('react-router').Link;
 
 var Topic = React.createClass({
   getInitialState: function() {
@@ -44,9 +46,6 @@ var Topic = React.createClass({
             >
               Delete
             </button>
-            <button className="input">
-              Upvote
-            </button>
           </div>
           <button
             className="input"
@@ -69,14 +68,20 @@ var Topic = React.createClass({
 
   render: function() {
     return (
-      <div className="post">
-        <a href={`/react/${this.props.id}`}>
-          <Preify>
-            {JSON.stringify(this.props)}
-          </Preify>
-        </a>
-        {this.showControls()}
-      </div>
+      <Link
+        to={`/topic/${this.props.id}`}
+        className="post"
+      >
+        <div className="" style={{fontSize: "20px"}}>{this.props.title}</div>
+        <div
+          className="data"
+        >
+          {this.props.replycount} Replies,
+          last by <span className="data-callout">
+            {this.props.lastreply.user.name}
+          </span> {moment(this.props.lastreply.created_at).fromNow()}.
+        </div>
+      </Link>
     )
   }
 });

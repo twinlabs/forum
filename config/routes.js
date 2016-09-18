@@ -85,7 +85,7 @@ var routes = function(app, passport){
 
   });
 
-  app.get('/react', function(request, response) {
+  app.get('/react*', function(request, response) {
     PostsController.topics().done(function(error, posts){
       UserController.get(request.session.user.id).done(function(err, userData){
         response.render('react', {
