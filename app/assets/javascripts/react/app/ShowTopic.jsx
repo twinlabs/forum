@@ -1,7 +1,7 @@
 var _ = require('lodash/core');
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Topic = require('./Topic.jsx');
+var Thread = require('./Thread.jsx');
 
 module.exports = React.createClass({
   render: function() {
@@ -10,7 +10,14 @@ module.exports = React.createClass({
     });
 
     return (
-      <Topic {...topicData} />
+      <Thread
+        {...topicData}
+        posts={_.filter(this.props.value.topics,
+          {
+            parent: parseInt(this.props.routeParams.id, 10)
+          }
+        ).reverse()}
+      />
     );
   }
 });

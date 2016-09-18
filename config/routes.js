@@ -79,10 +79,15 @@ var routes = function(app, passport){
       app.set('lastModifiedIndex', new Date().toString());
     }
 
-    PostsController.topics().done(function(error, posts){
-      response.render('index', { posts: posts });
-    });
+    UserController.get(request.session.user.id).done(function(error, userData) {
+      if (userData && userData.is_v2 && !request.query.force) {
+        return response.redirect('/react');
+      }
 
+      PostsController.topics().done(function(error, posts){
+        response.render('index', { posts: posts });
+      });
+    });
   });
 
   app.get('/react*', function(request, response) {
@@ -159,6 +164,10 @@ var routes = function(app, passport){
 
       if (posts.rows && posts.rows.length < 1) {
         return response.sendStatus(404);
+      }
+
+      if (request.header('Accept') === 'application/json') {
+        return response.json(posts.rows.reverse())
       }
 
       PostsController.findTopicTitle(request.params.id).spread(function(topic) {

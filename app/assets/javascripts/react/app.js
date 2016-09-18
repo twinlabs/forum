@@ -3,19 +3,19 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var redux = require('redux');
 var Root = require('./Root.jsx')
-var forumReducer = require('./reducer');
+var rootReducer = require('./reducer-root');
 
 function render() {
   ReactDOM.render(
     <Root value={store.getState()} />,
     document.getElementById('app'),
     function() {
-      document.getElementsByClassName('body')[0].classList.remove('is-loading');
+      document.body.classList.remove('is-loading');
     }
   );
 }
 
-window.store = redux.createStore(forumReducer);
+window.store = redux.createStore(rootReducer);
 
 store.subscribe(render);
 

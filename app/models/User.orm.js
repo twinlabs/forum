@@ -34,6 +34,9 @@ var UserSequelize = function(sequelize){
     is_supporter: {
       type: Sequelize.DATE
     },
+    is_v2: {
+      type: Sequelize.BOOLEAN,
+    },
     last_visited: {
       type: Sequelize.JSON
     }

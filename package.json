@@ -55,6 +55,7 @@
     "marked": "git://github.com/twinlabs/marked.git",
     "moment": "~2.5.0",
     "multer": "^0.1.8",
+    "normalize.css": "^4.2.0",
     "passport": "~0.2.0",
     "passport-local": "~1.0.0",
     "pg": "^4.5.5",
