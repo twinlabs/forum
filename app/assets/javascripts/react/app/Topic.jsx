@@ -13,6 +13,16 @@ var Topic = React.createClass({
     };
   },
 
+  getDefaultProps: function() {
+    return {
+      replycount: 0,
+      lastreply: {
+        created_at: {},
+        user: {}
+      }
+    }
+  },
+
   handleDelete: function() {
     window.socket.emit('destroy', {
       id: this.props.id,

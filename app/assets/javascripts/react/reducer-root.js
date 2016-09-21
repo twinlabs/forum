@@ -1,5 +1,4 @@
 var redux = require('redux');
-var doPosts = require('./reducer-posts');
 
 var names = [
   'The Forum',
@@ -35,6 +34,6 @@ function handleSettings(state, action) {
 
 module.exports = redux.combineReducers({
   appName: nameChange,
-  topics: doPosts,
+  topics: require('./reducer-topics'),
   settings: handleSettings
 });
