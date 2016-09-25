@@ -31,6 +31,13 @@ window.socket = io.connect(forum.constants.socketAddress, {
   }
 });
 
+socket.on('post', function(response) {
+  window.store.dispatch({
+    type: 'NEW',
+    value: response
+  });
+});
+
 socket.on('destroy', function(response){
   window.store.dispatch({
     type: 'REMOVE',

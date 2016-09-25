@@ -1,6 +1,5 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var request = require('superagent');
 var Preify = require('./Preify.jsx');
 var TopicControls = require('./PostControls.jsx');
 var moment = require('moment');
@@ -76,11 +75,24 @@ var Topic = React.createClass({
     );
   },
 
+  isNew: function() {
+    return this.props.lastreply &&
+      this.props.lastreply.isNew;
+  },
+
+  markRead: function() {
+    window.store.dispatch({
+      type: 'MARKREAD',
+      value: this.props
+    });
+  },
+
   render: function() {
     return (
       <Link
         to={`/topic/${this.props.id}`}
-        className="post"
+        className={`post ${this.isNew() ? 'isNew':null}`}
+        onClick={this.markRead}
       >
         <div className="" style={{fontSize: "20px"}}>{this.props.title}</div>
         <div
