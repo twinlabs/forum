@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var request = require('superagent');
+var browserHistory = require('react-router').browserHistory;
 
 var NewTopic = React.createClass({
   animateSubmission: function() {
@@ -9,7 +9,10 @@ var NewTopic = React.createClass({
     });
 
     setTimeout(function() {
-      this.refs.body.value = '';
+      if (this.refs.body) {
+        this.refs.body.value = '';
+      }
+
       this.setState({
         animatedHeight: null
       });
@@ -54,20 +57,27 @@ var NewTopic = React.createClass({
       restrictSubmit: true
     });
 
-    request.post('/api/posts')
-      .send(postState)
-      .end(function(error, response) {
-        this.props.store.dispatch({
-          type: 'NEW',
-          value: response.body
-        });
+    socket.emit('post', {
+      parent: this.props.parent,
+      title: this.refs.title && this.refs.title.value,
+      body: this.refs.body && this.refs.body.value,
+      user: {
+        id: forum.constants.user.id,
+        name: forum.constants.user.name
+      }
+    }, function() {
+      this.setState({
+        restrictSubmit: false
+      });
 
-        this.setState({
-          restrictSubmit: false
-        });
+      this.animateSubmission();
 
-        this.animateSubmission();
-      }.bind(this));
+      if (this.props.route && this.props.route.path === 'topic/new') {
+        setTimeout(function() {
+          browserHistory.push('/react');
+        }, 1);
+      }
+    }.bind(this))
   },
 
   renderTitle: function() {
@@ -129,6 +139,7 @@ module.exports = React.createClass({
         receivedQuote={this.props.receivedQuote}
         store={window.store}
         parent={this.props.parent}
+        route={this.props.route}
       />
     );
   }

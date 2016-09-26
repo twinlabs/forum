@@ -1,13 +1,13 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Preify = require('./Preify.jsx');
-var request = require('superagent');
+var superagent = require('superagent');
 
 var Settings = React.createClass({
   handleSubmit: function(event) {
     event.preventDefault();
 
-    request.post('/settings')
+    superagent.post('/settings')
       .send(this.props.settings)
       .end(function(error, response) {
         this.props.store.dispatch({

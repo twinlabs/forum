@@ -1,6 +1,5 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var request = require('superagent');
 var marked = require('marked');
 var moment = require('moment');
 var Link = require('react-router').Link;
@@ -57,20 +56,6 @@ var Thread = React.createClass({
     return {
       posts: []
     }
-  },
-  componentWillMount: function() {
-    request.get(`/topic/${this.props.id}`)
-      .set('Accept', 'application/json')
-      .then(function(response){
-        for (var i=0; i<response.body.length; i++){
-          window.store.dispatch({
-            type: 'NEW',
-            value: response.body[i]
-          });
-        }
-      }.bind(this), function(error){
-        throw new Error(error);
-      });
   },
 
   handleQuote: function(data) {
