@@ -11,19 +11,19 @@ var ControlBar = React.createClass({
       >
         <a
           className="settingsControl"
-          href="/react/settings"
+          href="/v2/settings"
           onClick={function(event){
             event.preventDefault();
-            browserHistory.push('/react/settings');
+            browserHistory.push('/v2/settings');
           }}
         >
           &hellip;
         </a>
         <a
-          href="/react"
+          href="/v2"
           onClick={function(event){
             event.preventDefault();
-            browserHistory.push('/react');
+            browserHistory.push('/v2');
           }}
           className="controlBar-title"
           style={{
@@ -35,7 +35,7 @@ var ControlBar = React.createClass({
         </a>
         <a
           className="newPostControl"
-          href="/react/topic/new"
+          href="/v2/topic/new"
           onClick={handleRightControl.bind(this)}
         >
           +
@@ -52,7 +52,7 @@ function handleRightControl(event) {
     return scroll(0, document.body.scrollHeight);
   }
 
-  return browserHistory.push('/react/topic/new');
+  return browserHistory.push('/v2/topic/new');
 }
 
 module.exports = ControlBar;

@@ -74,7 +74,7 @@ var NewTopic = React.createClass({
 
       if (this.props.route && this.props.route.path === 'topic/new') {
         setTimeout(function() {
-          browserHistory.push('/react');
+          browserHistory.push('/v2');
         }, 1);
       }
     }.bind(this))

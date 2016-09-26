@@ -17,7 +17,7 @@ var useBasename = require('history/lib/useBasename');
 function withBasename(history, dirname) {
   return useBasename(function() {
     return history;
-  })({ basename: '/react' });
+  })({ basename: '/v2' });
 }
 
 function createElement(originalProps) {
@@ -50,7 +50,7 @@ module.exports = React.createClass({
     return (
       <div className="app">
         <Router
-          history={withBasename(browserHistory, '/react')}
+          history={withBasename(browserHistory, '/v2')}
           createElement={createElement(this.props)}
         >
           <Route path="/" component={Root}>

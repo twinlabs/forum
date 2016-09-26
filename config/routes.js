@@ -81,7 +81,7 @@ var routes = function(app, passport){
 
     UserController.get(request.session.user.id).done(function(error, userData) {
       if (userData && userData.is_v2 && !request.query.force) {
-        return response.redirect('/react');
+        return response.redirect('/v2');
       }
 
       PostsController.topics().done(function(error, posts){
@@ -90,7 +90,7 @@ var routes = function(app, passport){
     });
   });
 
-  app.get('/react*', function(request, response) {
+  app.get('/v2*', function(request, response) {
     PostsController.topics().done(function(error, posts){
       UserController.get(request.session.user.id).done(function(err, userData){
         response.render('react', {
