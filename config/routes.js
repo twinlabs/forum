@@ -90,6 +90,10 @@ var routes = function(app, passport){
     });
   });
 
+  app.get('/react*', function(request, response) {
+    return response.redirect(`/v2${request.path.replace('/react', '')}`);
+  });
+
   app.get('/v2*', function(request, response) {
     PostsController.topics().done(function(error, posts){
       UserController.get(request.session.user.id).done(function(err, userData){
