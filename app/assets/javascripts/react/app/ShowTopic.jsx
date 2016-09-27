@@ -60,7 +60,6 @@ module.exports = React.createClass({
         <button className="input input--secondary" onClick={this.handleLoadMore}>
           Load More
         </button>
-        <Loader />
       </div>
     );
   },
@@ -71,16 +70,19 @@ module.exports = React.createClass({
     });
 
     return (
-      <Thread
-        {...topicData}
-        loadMore={this.loadMore}
-        renderLoadMore={this.renderLoadMore}
-        posts={_.filter(this.props.value.topics,
-          {
-            parent: parseInt(this.props.routeParams.id, 10)
-          }
-        )}
-      />
+      <div>
+        <Thread
+          {...topicData}
+          loadMore={this.loadMore}
+          renderLoadMore={this.renderLoadMore}
+          posts={_.filter(this.props.value.topics,
+            {
+              parent: parseInt(this.props.routeParams.id, 10)
+            }
+          )}
+        />
+        <Loader />
+      </div>
     );
   }
 });
