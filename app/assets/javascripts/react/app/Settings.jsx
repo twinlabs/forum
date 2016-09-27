@@ -31,7 +31,7 @@ var Settings = React.createClass({
           <label>
             Signature
             <textarea
-              className="preify"
+              className="preify input"
               defaultValue={this.props.settings.signature}
               onChange={this.handleSigChange}
               style={{
