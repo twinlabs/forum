@@ -13,6 +13,7 @@ var Link = require('react-router').Link;
 var browserHistory = require('react-router').browserHistory;
 var withRouter = require('react-router').withRouter;
 var useBasename = require('history/lib/useBasename');
+var superagent = require('superagent');
 
 function withBasename(history, dirname) {
   return useBasename(function() {
@@ -27,6 +28,29 @@ function createElement(originalProps) {
 }
 
 var Root = React.createClass({
+  handleRootNavigation: function(event) {
+    event.preventDefault();
+
+    browserHistory.push('/v2');
+  },
+
+  handleRootRefresh: function(event) {
+    event.preventDefault();
+
+    document.body.classList.add('is-loading');
+    superagent.get(`/topics`)
+      .set('Accept', 'application/json')
+        .then(function(response){
+          window.store.dispatch({
+            type: 'REINITIALIZE',
+            value: response.body
+          });
+          document.body.classList.remove('is-loading');
+        }.bind(this), function(error){
+         throw new Error(error);
+       });
+  },
+
   render: function() {
     if (this.props.params.id) {
       var threadTitle = _.find(this.props.value.topics, {
@@ -38,6 +62,8 @@ var Root = React.createClass({
       <div className="app">
         <ControlBar
           title={threadTitle || this.props.value.appName}
+          handleRootNavigation={this.handleRootNavigation}
+          handleRootRefresh={this.handleRootRefresh}
         />
         {this.props.children}
       </div>

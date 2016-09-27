@@ -21,10 +21,8 @@ var ControlBar = React.createClass({
         </a>
         <a
           href="/v2"
-          onClick={function(event){
-            event.preventDefault();
-            browserHistory.push('/v2');
-          }}
+          onClick={this.props.handleRootNavigation}
+          onDoubleClick={this.props.handleRootRefresh}
           className="controlBar-title"
           style={{
             fontSize: "32px",

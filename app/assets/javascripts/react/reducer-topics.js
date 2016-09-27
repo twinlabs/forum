@@ -5,6 +5,10 @@ module.exports = function doPosts(state, action) {
     return window.__INITIAL_STATE__.postData;
   }
 
+  if (action.type === 'REINITIALIZE') {
+    return action.value;
+  }
+
   if (action.type === 'REMOVE') {
     var removableIndex = _.map(state, function(post) {
       return post.id;
@@ -15,7 +19,7 @@ module.exports = function doPosts(state, action) {
     return posts;
   }
 
-  if (action.type ==='INITIALIZE') {
+  if (action.type ==='GETTHREAD') {
     return action.value.concat(state);
   }
 

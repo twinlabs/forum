@@ -109,6 +109,16 @@ var routes = function(app, passport){
     });
   });
 
+  app.get('/topics', function(request, response) {
+    PostsController.topics().done(function(error, posts){
+      UserController.get(request.session.user.id).done(function(err, userData){
+        if (request.header('Accept') === 'application/json') {
+          return response.json(posts)
+        }
+      });
+    });
+  });
+
   app.get('/topic/:id', function(request, response, next) {
     if (request.session.user.id === 0){
       return response.render('index', {});

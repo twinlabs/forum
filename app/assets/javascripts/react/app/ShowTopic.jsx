@@ -26,7 +26,7 @@ module.exports = React.createClass({
       .set('Accept', 'application/json')
       .then(function(response){
         window.store.dispatch({
-          type: 'INITIALIZE',
+          type: 'GETTHREAD',
           value: response.body
         });
       }.bind(this), function(error){
