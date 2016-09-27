@@ -35,6 +35,10 @@ module.exports = function doPosts(state, action) {
     return topics;
   }
 
+  if (action.type === 'BACKFILL') {
+    return action.value.concat(state);
+  }
+
   if (action.type === 'NEW') {
     let newPost = Object.assign({}, action.value, {isNew: true});
     let newState = [].concat(state, newPost);
