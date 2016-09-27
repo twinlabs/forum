@@ -56,8 +56,8 @@ module.exports = React.createClass({
 
   renderLoadMore: function() {
     return (
-      <div style={{margin: '0 0 1em', padding: '0.5em'}}>
-        <button style={{width: '100%', borderRadius: '0'}} onClick={this.handleLoadMore}>
+      <div style={{margin: '0 0 3em'}}>
+        <button className="input input--secondary" onClick={this.handleLoadMore}>
           Load More
         </button>
         <Loader />
