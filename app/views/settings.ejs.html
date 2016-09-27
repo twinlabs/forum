@@ -80,6 +80,30 @@
     <br />
     <br />
 
+    Default to v2: &nbsp;
+
+    <label>
+      <input
+        type="radio"
+        name="is_v2"
+        <%= user.is_v2? 'checked':null%>
+        value="true"
+      />
+      &nbsp; True &nbsp;
+    </label>
+    <label>
+      <input
+        type="radio"
+        name="is_v2"
+        <%= !user.is_v2? 'checked':null%>
+        value="false"
+      />
+      &nbsp; False &nbsp;
+    </label>
+
+    <br />
+    <br />
+
     <label>
       Custom Code:
     </label>

@@ -338,6 +338,8 @@ var routes = function(app, passport){
     UserController.get(request.session.user.id)
     .done(function(err, user){
       request.body.hide_connected = (request.body.hide_connected === 'true');
+      request.body.is_v2 = (request.body.is_v2 === 'true');
+
       user.updateAttributes(request.body).success(function(){
         response.render('settings', {
           user: user

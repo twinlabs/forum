@@ -24,6 +24,13 @@ var Settings = React.createClass({
     })
   },
 
+  handleVersionChange: function(event) {
+    this.props.store.dispatch({
+      type: 'VERSION',
+      value: event.target.dataset.value === "true"
+    })
+  },
+
   render: function() {
     return (
       <form className="settings" onSubmit={this.handleSubmit}>
@@ -56,6 +63,28 @@ var Settings = React.createClass({
             <input
               defaultChecked={!this.props.settings.hide_connected}
               name="hide_connected"
+              type="radio"
+            />
+          </label>
+        </div>
+        <div className="field">
+          <label>
+            Use v1:
+            <input
+              defaultChecked={!this.props.settings.is_v2}
+              onChange={this.handleVersionChange}
+              data-value="false"
+              name="is_v2"
+              type="radio"
+            />
+          </label>
+          <label>
+            Use v2
+            <input
+              defaultChecked={this.props.settings.is_v2}
+              onChange={this.handleVersionChange}
+              data-value="true"
+              name="is_v2"
               type="radio"
             />
           </label>

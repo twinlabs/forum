@@ -28,6 +28,12 @@ function handleSettings(state, action) {
     });
   }
 
+  if (action.type === 'VERSION') {
+    return Object.assign({}, state, {
+      is_v2: action.value
+    });
+  }
+
   return state;
 }
 
