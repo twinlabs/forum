@@ -70,6 +70,7 @@ var Thread = React.createClass({
         className="thread"
         data-id={this.props.id}
       >
+        {this.props.renderLoadMore()}
         {this.props.posts.map(ThreadPostWrapper.bind(this))}
         <NewPost
           parent={this.props.id}

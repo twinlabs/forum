@@ -48,7 +48,7 @@ var PostsController = {
     return post.findTopicsAndMetadata();
   },
 
-  postsForTopic: function(lastVisited, topicID, limit){
+  postsForTopic: function(lastVisited, topicID, limit, offset){
     var LAST_HOUR = 60* 60 * 0.5 * (1/24);
     limit = limit || 20;
 
@@ -60,7 +60,8 @@ var PostsController = {
         ),
         include: [user],
         order: 'created_at DESC',
-        limit: limit
+        limit: limit,
+        offset: offset
       });
     }
 
@@ -86,7 +87,8 @@ var PostsController = {
           ),
           include: [user],
           order: 'created_at DESC',
-          limit: limit
+          limit: limit,
+          offset: offset
         });
       } else {
         return post.findAndCountAll({

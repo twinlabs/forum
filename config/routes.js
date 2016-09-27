@@ -130,19 +130,24 @@ var routes = function(app, passport){
       });
     }
     if (request.query.limit) {
-      return PostsController.postsForTopic(response.locals.lastVisited[request.params.id] || +new Date(null), request.params.id, request.query.limit).then(function(posts){
+      return PostsController.postsForTopic(response.locals.lastVisited[request.params.id] || +new Date(null), request.params.id, request.query.limit, request.query.offset).then(function(posts){
 
         if (posts.rows && posts.rows.length < 1) {
           return response.sendStatus(404);
         }
 
         PostsController.findTopicTitle(request.params.id).spread(function(topic) {
+          if (request.header('Accept') === 'application/json') {
+            return response.json(posts.rows.reverse())
+          }
+
           response.render('all', {
             posts: posts.rows.reverse(),
             parent: request.params.id,
             count: posts.count,
             topic: topic[0],
-            limit: parseInt(request.query.limit, 10) || 20
+            limit: parseInt(request.query.limit, 10) || 20,
+            offset: parseInt(request.query.offset, 10) || 0
           });
         });
       });
