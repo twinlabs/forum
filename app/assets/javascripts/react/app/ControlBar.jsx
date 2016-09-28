@@ -4,6 +4,24 @@ var Link = require('react-router').Link;
 var browserHistory = require('react-router').browserHistory;
 
 var ControlBar = React.createClass({
+  getInitialState: function() {
+    return {
+      lastTapped: +new Date()
+    }
+  },
+
+  detectDoubleTap: function(event) {
+    const delay = (+new Date()) - this.state.lastTapped;
+
+    if (delay < 300) {
+      this.props.handleRootRefresh(event)
+    }
+
+    this.setState({
+      lastTapped: +new Date()
+    });
+  },
+
   render: function() {
     return (
       <div
@@ -23,6 +41,7 @@ var ControlBar = React.createClass({
           href="/v2"
           onClick={this.props.handleRootNavigation}
           onDoubleClick={this.props.handleRootRefresh}
+          onTouchStart={this.detectDoubleTap}
           className="controlBar-title"
           style={{
             fontSize: "32px",
