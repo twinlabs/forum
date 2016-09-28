@@ -1,7 +1,12 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var oembed = require('./oembed');
 
 module.exports = React.createClass({
+  getInitialState: function() {
+    return {};
+  },
+
   sendQuote: function(event) {
     event.preventDefault();
 
@@ -11,7 +16,25 @@ module.exports = React.createClass({
     });
   },
 
+  // we can try the same routine as before.
+  // this time, use the flag
+  // to control shouldComponentUpdate.
+  shouldComponentUpdate: function() {
+    if (this.state.flushableHTML) {
+      this.
+    }
+    return !this.state.flushableHTML;
+  },
+
   renderAsHTML: function(input) {
+    var maybe = oembed(input)
+
+    if (maybe.then) maybe.then(function(data){
+      this.setState({
+        flushableHTML: data.html
+      });
+    }.bind(this));
+
     return {
       __html: this.props.marked(input)
     };
@@ -33,6 +56,7 @@ module.exports = React.createClass({
         </div>
         <div
           className="body content"
+          ref="content"
           dangerouslySetInnerHTML={this.renderAsHTML(this.props.body)}
         />
         <div
