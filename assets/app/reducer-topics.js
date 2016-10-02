@@ -1,6 +1,7 @@
 var _ = require('lodash/core');
 
 module.exports = function doPosts(state, action) {
+  var removableIndex;
   if (typeof state ==='undefined') {
     return window.__INITIAL_STATE__.postData;
   }
@@ -10,11 +11,11 @@ module.exports = function doPosts(state, action) {
   }
 
   if (action.type === 'REMOVE') {
-    var removableIndex = _.map(state, function(post) {
+    removableIndex = _.map(state, function(post) {
       return post.id;
     }).indexOf(action.value);
 
-    var posts = state.slice(0, removableIndex).concat(state.slice(removableIndex + 1))
+    var posts = state.slice(0, removableIndex).concat(state.slice(removableIndex + 1));
 
     return posts;
   }
@@ -27,6 +28,10 @@ module.exports = function doPosts(state, action) {
     // find topic by ID, replace topic entirely,
     // return list of topics.
 
+    removableIndex = _.map(state, function(post) {
+      return post.id;
+    }).indexOf(action.value);
+
     const topicIndex = state.findIndex(function(element) {
       return element.id === action.value.id;
     });
@@ -34,7 +39,7 @@ module.exports = function doPosts(state, action) {
     var newTopic = Object.assign({}, action.value);
     newTopic.lastreply.isNew = false;
     var topics = state.slice(0, topicIndex)
-      .concat(newTopic, state.slice(removableIndex + 1))
+      .concat(newTopic, state.slice(removableIndex + 1));
 
     return topics;
   }
@@ -50,7 +55,7 @@ module.exports = function doPosts(state, action) {
     if (newPost.parent) {
       let parentPost = _.find(state, {
         id: newPost.parent
-      })
+      });
       parentPost.lastreply = newPost;
       parentPost.replycount = parseInt(parentPost.replycount, 10) + 1;
     }
@@ -60,8 +65,3 @@ module.exports = function doPosts(state, action) {
 
   return state;
 };
-
-function replaceAtIndex(collection, index, value) {
-  return collection.slice(0, index)
-    .concat(Object.assign({}, action.value, {isNew: false}), state.slice(removableIndex + 1))
-}

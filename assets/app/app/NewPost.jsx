@@ -1,5 +1,4 @@
 var React = require('react');
-var ReactDOM = require('react-dom');
 var browserHistory = require('react-router').browserHistory;
 
 var NewPost = React.createClass({
@@ -40,30 +39,24 @@ var NewPost = React.createClass({
     this.handleFocus();
   },
 
-  handleFocus: function(event) {
+  handleFocus: function() {
     scroll(0, document.body.scrollHeight);
   },
 
   handleSubmit: function(event) {
     event.preventDefault();
 
-    var postState = {
-      parent: this.props.parent,
-      title: this.refs.title && this.refs.title.value,
-      body: this.refs.body.value
-    };
-
     this.setState({
       restrictSubmit: true
     });
 
-    socket.emit('post', {
+    window.socket.emit('post', {
       parent: this.props.parent,
       title: this.refs.title && this.refs.title.value,
       body: this.refs.body && this.refs.body.value,
       user: {
-        id: forum.constants.user.id,
-        name: forum.constants.user.name
+        id: window.forum.constants.user.id,
+        name: window.forum.constants.user.name
       }
     }, function() {
       this.setState({

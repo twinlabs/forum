@@ -1,6 +1,4 @@
 var React = require('react');
-var ReactDOM = require('react-dom');
-var Link = require('react-router').Link;
 var browserHistory = require('react-router').browserHistory;
 
 var ControlBar = React.createClass({

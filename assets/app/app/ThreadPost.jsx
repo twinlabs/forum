@@ -1,5 +1,5 @@
 var React = require('react');
-var ReactDOM = require('react-dom');
+var moment = require('moment');
 var oembed = require('./oembed');
 
 module.exports = React.createClass({

@@ -1,5 +1,4 @@
 var React = require('react');
-var ReactDOM = require('react-dom');
 var Preify = require('./Preify.jsx');
 var PostControls = require('./PostControls.jsx');
 

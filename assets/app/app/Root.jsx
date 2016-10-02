@@ -1,5 +1,4 @@
 var React = require('react');
-var ReactDOM = require('react-dom');
 var browserHistory = require('react-router').browserHistory;
 var superagent = require('superagent');
 var _ = require('lodash/core');

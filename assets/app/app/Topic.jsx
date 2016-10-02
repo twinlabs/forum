@@ -1,5 +1,4 @@
 var React = require('react');
-var ReactDOM = require('react-dom');
 var TopicControls = require('./PostControls.jsx');
 var moment = require('moment');
 var Link = require('react-router').Link;
@@ -25,8 +24,8 @@ var Topic = React.createClass({
     window.socket.emit('destroy', {
       id: this.props.id,
       user: {
-        id: forum.constants.user.id,
-        name: forum.constants.user.name
+        id: window.forum.constants.user.id,
+        name: window.forum.constants.user.name
       }
     });
   },

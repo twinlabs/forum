@@ -1,0 +1,26 @@
+{
+ "parserOptions": {
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "extends": "eslint:recommended",
+  "env": {
+    "browser": true,
+    "node": true,
+    "mocha": true
+  },
+  "plugins": [
+    "react"
+  ],
+  rules: {
+    "jsx-quotes": ["error", "prefer-double"],
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2,
+    "no-unused-vars": ["error", {
+      "vars": "all",
+      "args": "none"
+    }]
+  }
+}

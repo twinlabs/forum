@@ -1,8 +1,5 @@
 var React = require('react');
-var ReactDOM = require('react-dom');
 var marked = require('marked');
-var moment = require('moment');
-var Link = require('react-router').Link;
 var NewPost = require('./NewPost.jsx');
 var ThreadPost = require('./ThreadPost.jsx');
 

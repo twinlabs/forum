@@ -1,10 +1,8 @@
 var React = require('react');
-var ReactDOM = require('react-dom');
 var Router = require('react-router').Router;
 var IndexRoute = require('react-router').IndexRoute;
 var Route = require('react-router').Route;
 var browserHistory = require('react-router').browserHistory;
-var withRouter = require('react-router').withRouter;
 var useBasename = require('history/lib/useBasename');
 
 var Root = require('./Root.jsx');
@@ -13,7 +11,7 @@ var ShowTopic = require('./ShowTopic.jsx');
 var NewPost = require('./NewPost.jsx');
 var Settings = require('./Settings.jsx');
 
-function withBasename(history, dirname) {
+function withBasename(history/*, dirname*/) {
   return useBasename(function() {
     return history;
   })({ basename: '/v2' });

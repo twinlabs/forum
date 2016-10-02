@@ -7,7 +7,7 @@ var names = [
   'Funk Docta Bombay Mortuary',
   'Jason Gloss War Tribunal',
   'Will High Observatory'
-]
+];
 
 function nameChange(state, action) {
   if (typeof state === 'undefined') {
