@@ -4,6 +4,7 @@ var marked = require('marked');
 var moment = require('moment');
 var Link = require('react-router').Link;
 var NewPost = require('./NewPost.jsx');
+var ThreadPost = require('./ThreadPost.jsx');
 
 function setupMarked() {
   var markedRenderer = new marked.Renderer();
@@ -41,12 +42,6 @@ function setupMarked() {
     breaks: true,
     renderer: markedRenderer
   });
-}
-
-function renderAsHTML(input) {
-  return {
-    __html: marked(input)
-  };
 }
 
 setupMarked();
@@ -87,55 +82,10 @@ var ThreadPostWrapper = function(postData) {
     <ThreadPost
       handleQuote={this.handleQuote}
       key={postData.id}
+      marked={marked}
       {...postData}
     />
   );
 }
-
-var ThreadPost = React.createClass({
-  sendQuote: function(event) {
-    event.preventDefault();
-
-    return this.props.handleQuote({
-      author: this.props.user.name,
-      body: this.props.body
-    });
-  },
-
-  render: function() {
-    return (
-      <div
-        className="post"
-        data-id={this.props.id}
-        key={this.props.id}
-      >
-        <div
-          className="data"
-        >
-          <span className="data-callout">
-            {this.props.user && this.props.user.name}
-          </span> {moment(this.props.updated_at).fromNow()}.
-        </div>
-        <div
-          className="body content"
-          dangerouslySetInnerHTML={renderAsHTML(this.props.body)}
-        />
-        <div
-          className="actionContainer"
-          onClick={function(event){
-            event.preventDefault();
-          }}
-        >
-          <div
-            className="action"
-            onClick={this.sendQuote}
-          >
-            Quote
-          </div>
-        </div>
-      </div>
-    )
-  }
-});
 
 module.exports = Thread;

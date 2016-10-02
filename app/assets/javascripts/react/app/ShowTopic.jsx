@@ -4,6 +4,7 @@ var ReactDOM = require('react-dom');
 var Thread = require('./Thread.jsx');
 var Loader = require('./Loader.jsx');
 var superagent = require('superagent');
+var oembed = require('./oembed');
 
 module.exports = React.createClass({
   getInitialState: function() {
@@ -19,6 +20,7 @@ module.exports = React.createClass({
     });
 
     if (receivedTopicChildren) {
+      oembed();
       return false
     }
 
@@ -29,6 +31,8 @@ module.exports = React.createClass({
           type: 'GETTHREAD',
           value: response.body
         });
+
+        oembed();
       }.bind(this), function(error){
         throw new Error(error);
       });
@@ -47,6 +51,8 @@ module.exports = React.createClass({
         this.setState({
           offset: this.state.offset + 20
         });
+
+        oembed();
 
         document.body.classList.remove('is-loading');
       }.bind(this), function(error) {
