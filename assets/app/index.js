@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var redux = require('redux');
-var Root = require('./app/index.jsx')
+var Root = require('./components/index.jsx')
 var rootReducer = require('./reducer-root');
 
 function render() {
