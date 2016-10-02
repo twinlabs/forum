@@ -28,18 +28,15 @@ module.exports = function doPosts(state, action) {
     // find topic by ID, replace topic entirely,
     // return list of topics.
 
-    removableIndex = _.map(state, function(post) {
-      return post.id;
-    }).indexOf(action.value);
-
     const topicIndex = state.findIndex(function(element) {
       return element.id === action.value.id;
     });
 
     var newTopic = Object.assign({}, action.value);
     newTopic.lastreply.isNew = false;
+
     var topics = state.slice(0, topicIndex)
-      .concat(newTopic, state.slice(removableIndex + 1));
+      .concat(newTopic, state.slice(topicIndex + 1));
 
     return topics;
   }
