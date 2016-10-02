@@ -20,9 +20,6 @@ module.exports = React.createClass({
   // this time, use the flag
   // to control shouldComponentUpdate.
   shouldComponentUpdate: function() {
-    if (this.state.flushableHTML) {
-      this.
-    }
     return !this.state.flushableHTML;
   },
 

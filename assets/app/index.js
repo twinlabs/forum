@@ -2,7 +2,7 @@ var _ = require('lodash/core');
 var React = require('react');
 var ReactDOM = require('react-dom');
 var redux = require('redux');
-var Root = require('./Root.jsx')
+var Root = require('./app/index.jsx')
 var rootReducer = require('./reducer-root');
 
 function render() {
