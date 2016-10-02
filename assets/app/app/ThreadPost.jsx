@@ -1,5 +1,5 @@
 var React = require('react');
-var ReactDOM = require('react-dom');
+var moment = require('moment');
 var oembed = require('./oembed');
 
 module.exports = React.createClass({
@@ -20,9 +20,6 @@ module.exports = React.createClass({
   // this time, use the flag
   // to control shouldComponentUpdate.
   shouldComponentUpdate: function() {
-    if (this.state.flushableHTML) {
-      this.
-    }
     return !this.state.flushableHTML;
   },
 

@@ -1,7 +1,8 @@
 npm-debug.log
 node_modules
 app/assets/stylesheets/*.css
-app/assets/javascripts/react/lib.js
-app/assets/javascripts/react/bundle.js
-app/assets/javascripts/react/bundle-static.js
+assets/stylesheets/*.css
+assets/app/lib.js
+assets/app/bundle.js
+assets/app/bundle-static.js
 config/environments/production.js

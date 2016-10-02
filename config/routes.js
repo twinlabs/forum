@@ -31,7 +31,7 @@ var routes = function(app, passport){
     }
 
 
-    var assetPaths = ['stylesheets', 'javascripts', 'templates', 'fonts', 'images', 'react'];
+    var assetPaths = ['stylesheets', 'javascripts', 'fonts', 'images', 'react', '.js'];
 
     // skip "last visited" lookup if the request is obviously just for an asset:
     for (var i = 0; i < assetPaths.length; i++) {
@@ -97,7 +97,7 @@ var routes = function(app, passport){
   app.get('/v2*', function(request, response) {
     PostsController.topics().done(function(error, posts){
       UserController.get(request.session.user.id).done(function(err, userData){
-        response.render('react', {
+        response.render(`${__dirname}/../templates/react.ejs.html`, {
           postData: JSON.stringify(posts),
           settings: JSON.stringify(userData),
           initialState: JSON.stringify({
@@ -402,7 +402,7 @@ var routes = function(app, passport){
       return false;
     }
 
-    var browserify = require('browserify')('./app/assets/javascripts/react/app.js', {
+    var browserify = require('browserify')('./assets/app/index.js', {
       bundleExternal: false,
       debug: true,
       transform: 'babelify'

@@ -1,6 +1,5 @@
 var _ = require('lodash/core');
 var React = require('react');
-var ReactDOM = require('react-dom');
 var Thread = require('./Thread.jsx');
 var Loader = require('./Loader.jsx');
 var superagent = require('superagent');

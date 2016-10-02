@@ -1,6 +1,4 @@
 var React = require('react');
-var ReactDOM = require('react-dom');
-var Link = require('react-router').Link;
 var browserHistory = require('react-router').browserHistory;
 
 var ControlBar = React.createClass({
@@ -20,6 +18,16 @@ var ControlBar = React.createClass({
     this.setState({
       lastTapped: +new Date()
     });
+  },
+
+  handleRightControl: function(event) {
+    event.preventDefault();
+
+    if (window.location.pathname.match('/topic/') !== null) {
+      return scroll(0, document.body.scrollHeight);
+    }
+
+    return browserHistory.push('/v2/topic/new');
   },
 
   render: function() {
@@ -53,7 +61,7 @@ var ControlBar = React.createClass({
         <a
           className="newPostControl"
           href="/v2/topic/new"
-          onClick={handleRightControl.bind(this)}
+          onClick={this.handleRightControl}
         >
           +
         </a>
@@ -61,15 +69,5 @@ var ControlBar = React.createClass({
     )
   }
 });
-
-function handleRightControl(event) {
-  event.preventDefault();
-
-  if (window.location.pathname.match('/topic/') !== null) {
-    return scroll(0, document.body.scrollHeight);
-  }
-
-  return browserHistory.push('/v2/topic/new');
-}
 
 module.exports = ControlBar;

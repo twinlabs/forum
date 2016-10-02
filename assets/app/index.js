@@ -1,13 +1,12 @@
-var _ = require('lodash/core');
 var React = require('react');
 var ReactDOM = require('react-dom');
 var redux = require('redux');
-var Root = require('./Root.jsx')
+var Root = require('./app/index.jsx')
 var rootReducer = require('./reducer-root');
 
 function render() {
   ReactDOM.render(
-    <Root value={store.getState()} />,
+    <Root value={window.store.getState()} />,
     document.getElementById('app'),
     function() {
       document.body.classList.remove('is-loading');
@@ -17,7 +16,7 @@ function render() {
 
 window.store = redux.createStore(rootReducer);
 
-store.subscribe(render);
+window.store.subscribe(render);
 
 render();
 
@@ -25,20 +24,20 @@ render();
 
 var io = require('socket.io-client');
 
-window.socket = io.connect(forum.constants.socketAddress, {
+window.socket = io.connect(window.forum.constants.socketAddress, {
   query: {
-    user: JSON.stringify(forum.constants.user)
+    user: JSON.stringify(window.forum.constants.user)
   }
 });
 
-socket.on('post', function(response) {
+window.socket.on('post', function(response) {
   window.store.dispatch({
     type: 'NEW',
     value: response
   });
 });
 
-socket.on('destroy', function(response){
+window.socket.on('destroy', function(response){
   window.store.dispatch({
     type: 'REMOVE',
     value: response.id
