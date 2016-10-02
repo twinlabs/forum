@@ -22,6 +22,16 @@ var ControlBar = React.createClass({
     });
   },
 
+  handleRightControl: function(event) {
+    event.preventDefault();
+
+    if (window.location.pathname.match('/topic/') !== null) {
+      return scroll(0, document.body.scrollHeight);
+    }
+
+    return browserHistory.push('/v2/topic/new');
+  },
+
   render: function() {
     return (
       <div
@@ -53,7 +63,7 @@ var ControlBar = React.createClass({
         <a
           className="newPostControl"
           href="/v2/topic/new"
-          onClick={handleRightControl.bind(this)}
+          onClick={this.handleRightControl}
         >
           +
         </a>
@@ -61,15 +71,5 @@ var ControlBar = React.createClass({
     )
   }
 });
-
-function handleRightControl(event) {
-  event.preventDefault();
-
-  if (window.location.pathname.match('/topic/') !== null) {
-    return scroll(0, document.body.scrollHeight);
-  }
-
-  return browserHistory.push('/v2/topic/new');
-}
 
 module.exports = ControlBar;
