@@ -2,7 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var browserHistory = require('react-router').browserHistory;
 
-var NewTopic = React.createClass({
+var NewPost = React.createClass({
   animateSubmission: function() {
     this.setState({
       animatedHeight: '0'
@@ -135,7 +135,7 @@ var NewTopic = React.createClass({
 module.exports = React.createClass({
   render: function() {
     return (
-      <NewTopic
+      <NewPost
         receivedQuote={this.props.receivedQuote}
         store={window.store}
         parent={this.props.parent}
