@@ -106,10 +106,10 @@ var Topic = React.createClass({
   }
 });
 
-module.exports = function(topicData) {
+module.exports = function(topicData, index) {
   return (
     <Topic
-      key={topicData && (topicData.id + topicData.title)}
+      key={index}
       {...topicData}
     />
   );

@@ -74,11 +74,11 @@ var Thread = React.createClass({
   }
 });
 
-var ThreadPostWrapper = function(postData) {
+var ThreadPostWrapper = function(postData, index) {
   return (
     <ThreadPost
       handleQuote={this.handleQuote}
-      key={postData.id}
+      key={index}
       marked={marked}
       {...postData}
     />
