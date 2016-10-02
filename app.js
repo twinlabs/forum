@@ -68,7 +68,7 @@ app.use(lessMiddleware(__dirname + '/app/assets', {
   }
 }));
 
-app.use(lessMiddleware(__dirname + '/assets', {
+app.use(lessMiddleware(__dirname + '/v2', {
   postprocess: {
     css: function(css, request){
       return autoprefixer.process(css).css;
@@ -77,7 +77,7 @@ app.use(lessMiddleware(__dirname + '/assets', {
 }));
 
 app.use(express.static(__dirname + '/app/assets'));
-app.use(express.static(__dirname + '/assets'));
+app.use(express.static(__dirname + '/v2'));
 
 module.exports = {
   server: httpServer.listen(app.get('PORT'), function(){

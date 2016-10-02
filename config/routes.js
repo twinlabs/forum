@@ -402,7 +402,7 @@ var routes = function(app, passport){
       return false;
     }
 
-    var browserify = require('browserify')('./assets/app/index.js', {
+    var browserify = require('browserify')('./v2/app/index.js', {
       bundleExternal: false,
       debug: true,
       transform: 'babelify'
