@@ -2,7 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var redux = require('redux');
 var Root = require('./components/index.jsx')
-var rootReducer = require('./reducer-root');
+var reducerRoot = require('./reducer-root');
 
 function render() {
   ReactDOM.render(
@@ -14,7 +14,7 @@ function render() {
   );
 }
 
-window.store = redux.createStore(rootReducer);
+window.store = redux.createStore(reducerRoot);
 
 window.store.subscribe(render);
 
