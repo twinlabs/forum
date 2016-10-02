@@ -1,6 +1,5 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Preify = require('./Preify.jsx');
 var superagent = require('superagent');
 
 var Settings = React.createClass({

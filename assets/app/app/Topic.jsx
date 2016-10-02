@@ -1,6 +1,5 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Preify = require('./Preify.jsx');
 var TopicControls = require('./PostControls.jsx');
 var moment = require('moment');
 var Link = require('react-router').Link;
