@@ -16,21 +16,27 @@ module.exports = React.createClass({
     });
   },
 
-  // we can try the same routine as before.
-  // this time, use the flag
-  // to control shouldComponentUpdate.
-  shouldComponentUpdate: function() {
-    return !this.state.flushableHTML;
+  componentDidMount: function() {
+    return this.transformContent(this.props.body);
+  },
+
+  componentWillReceiveProps: function() {
+    return this.transformContent(this.state.transformedContent);
+  },
+
+  transformContent: function(transformableContent) {
+    oembed(transformableContent, function(transformedContent) {
+      this.setState({
+        transformedContent: transformedContent
+      });
+
+      window.twttr.widgets.load();
+      window.instgrm.Embeds.process();
+    }.bind(this));
   },
 
   renderAsHTML: function(input) {
-    var maybe = oembed(input)
-
-    if (maybe.then) maybe.then(function(data){
-      this.setState({
-        flushableHTML: data.html
-      });
-    }.bind(this));
+    input = input || '';
 
     return {
       __html: this.props.marked(input)
@@ -54,7 +60,7 @@ module.exports = React.createClass({
         <div
           className="body content"
           ref="content"
-          dangerouslySetInnerHTML={this.renderAsHTML(this.props.body)}
+          dangerouslySetInnerHTML={this.renderAsHTML(this.state.transformedContent)}
         />
         <div
           className="actionContainer"

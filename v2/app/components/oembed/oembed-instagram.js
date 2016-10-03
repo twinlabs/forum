@@ -1,34 +1,24 @@
 var $ = require('jquery');
 
-module.exports = function embedInstagram(selector) {
-  var $selector = $(selector);
+module.exports = function embedInstagram(input, done) {
+  const INSTAGRAM = /(.*)?(https?:\/\/(www\.)?(instagram\.com|instagr\.am)\/p\/.*)(\s.*)?/i;
 
-  var INSTAGRAM = /https?:\/\/(www\.)?(instagram\.com|instagr\.am)\/p\/.*/i;
+  const captured = INSTAGRAM.exec(input);
 
-  $selector.filter(function(index, element) {
-    var match = false;
+  if (!input || input.match(INSTAGRAM) === null) {
+    return done(input);
+  }
 
-    if (this.getAttribute('href').match(INSTAGRAM) !== null) {
-      match = true;
-    }
-
-    if ($(this).closest('.instagram-media').length) {
-      match = false;
-    }
-
-    return match;
-  }).each(function(index, element) {
-    var requestUrl = element.getAttribute('href');
-
-    requestUrl = requestUrl.replace('mobile.', '');
-
-    $.ajax({
-      url: 'https://api.instagram.com/oembed?url=' + encodeURIComponent(requestUrl),
-      dataType: 'jsonp',
-      success: function(data) {
-        $(element).replaceWith(data.html);
+  return $.ajax({
+    url: `//api.instagram.com/oembed?url=${encodeURIComponent(captured[2].replace('mobile.', ''))}&omitscript`,
+    dataType: 'jsonp',
+    success: function(data) {
+      if (typeof captured[1] === 'undefined') {
+        return done(input.replace(INSTAGRAM, data.html));
       }
-    });
+
+      return done(input.replace(INSTAGRAM, captured[1] + data.html));
+    }
   });
 }
 

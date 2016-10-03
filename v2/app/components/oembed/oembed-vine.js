@@ -1,22 +1,14 @@
-var $ = require('jquery');
+module.exports = function embedVine(input, done) {
+  const VINE = /(?:https?:\/\/)vine.co\/v\/(.+)/;
 
-module.exports = function embedVine(selector) {
-  var $selector = $(selector);
+  if (!input || input.match(VINE) === null) {
+    return done(input);
+  }
 
-  var VINE = /(?:https?:\/\/)vine.co\/v\/(.+)/;
+  const captured = VINE.exec(input);
 
-  $selector.filter(function(index, element) {
-    var match = false;
+  const matchID = captured[1];
 
-    if (this.getAttribute('href').match(VINE) !== null) {
-      match = true;
-    }
-
-    return match;
-  }).each(function(index, element) {
-    var matchID = element.getAttribute('href').match(VINE)[1];
-
-    $(element).replaceWith('<iframe src="https://www.vine.co/v/'  + matchID + '/embed/simple"' +  ' width="600" height="600" frameborder="0"></iframe><script src="https://platform.vine.co/static/scripts/embed.js"></script>');
-  });
+  return done(input.replace(VINE, `<iframe src="//www.vine.co/v/${matchID}/embed/simple" width="600" height="600" frameborder="0"></iframe><script src="//platform.vine.co/static/scripts/embed.js"></script>`));
 }
 

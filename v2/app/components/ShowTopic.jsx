@@ -19,7 +19,6 @@ module.exports = React.createClass({
     });
 
     if (receivedTopicChildren) {
-      oembed();
       return false
     }
 
@@ -30,8 +29,6 @@ module.exports = React.createClass({
           type: 'GETTHREAD',
           value: response.body
         });
-
-        oembed();
       }.bind(this), function(error){
         throw new Error(error);
       });

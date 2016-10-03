@@ -1,21 +1,13 @@
-var $ = require('jquery');
+module.exports = function embedYouTube(input, done) {
+  const YOUTUBE = /(?:https?:\/\/)?(?:m\.)?(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/;
 
-module.exports = function embedYouTube(selector) {
-  var $selector = $(selector);
+  if (!input || input.match(YOUTUBE) === null) {
+    return done(input);
+  }
 
-  var YOUTUBE = /(?:https?:\/\/)?(?:m\.)?(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/;
+  const captured = YOUTUBE.exec(input);
 
-  $selector.filter(function(index, element) {
-    var match = false;
+  const matchID = captured[1];
 
-    if (this.getAttribute('href').match(YOUTUBE) !== null) {
-      match = true;
-    }
-
-    return match;
-  }).each(function(index, element) {
-
-    var matchID = element.getAttribute('href').match(YOUTUBE)[1];
-    $(element).replaceWith('<iframe style="min-height: 350px" src="https://www.youtube.com/embed/'  + matchID + '"' +  ' frameborder="0" allowfullscreen></iframe>');
-  });
+  return done(input.replace(YOUTUBE, `<iframe style="min-height: 350px" src="//www.youtube.com/embed/${matchID}" frameborder="0" allowfullscreen></iframe>`));
 }
