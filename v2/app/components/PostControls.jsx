@@ -8,7 +8,7 @@ module.exports = React.createClass({
   render: function() {
     return (
       <button
-        className="input"
+        className="input clickable"
         onClick={this.showEdit}
       >
         Edit
