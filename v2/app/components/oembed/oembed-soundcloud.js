@@ -1,33 +1,29 @@
 var $ = require('jquery');
 
-module.exports = function embedSoundCloud(selector) {
-  var $selector = $(selector);
+module.exports = function embedSoundCloud(input, done) {
+  const SOUNDCLOUD = /(.*)?(https?:\/\/(www\.)?(m.)?soundcloud.com\/[^\s]+)(\s*.*)?/i
 
-  var SOUNDCLOUD = /https?:\/\/(www\.)?(m.)?soundcloud.com\/.+?/i;
+  if (!input || input.match(SOUNDCLOUD) === null) {
+    return done(input);
+  }
 
-  $selector.filter(function(index, element) {
-    var match = false;
+  const captured = SOUNDCLOUD.exec(input);
 
-    if (this.getAttribute('href').match(SOUNDCLOUD) !== null) {
-      match = true;
-    }
-
-    return match;
-  }).each(function(index, element) {
-    var requestUrl = element.getAttribute('href');
-
-    $.ajax({
-      url: 'https://soundcloud.com/oembed',
-      dataType: 'jsonp',
-      data: {
-        url: requestUrl,
-        format: 'js',
-        maxheight: 166
-      },
-      success: function(data) {
-        $(element).replaceWith(data.html);
+  return $.ajax({
+    url: '//soundcloud.com/oembed',
+    dataType: 'jsonp',
+    data: {
+      url: captured[2],
+      format: 'js',
+      maxheight: 166
+    },
+    success: function(data) {
+      if (typeof captured[1] === 'undefined') {
+        return done(input.replace(SOUNDCLOUD, data.html));
       }
-    });
+
+      return done(input.replace(SOUNDCLOUD, captured[1] + data.html));
+    }
   });
 }
 
