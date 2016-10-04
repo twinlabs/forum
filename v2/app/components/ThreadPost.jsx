@@ -18,6 +18,21 @@ module.exports = React.createClass({
     });
   },
 
+  renderDelete: function() {
+    if (this.props.user_id !== window.forum.constants.user.id) {
+      return null;
+    }
+
+    return (
+      <div
+        className="action"
+        onClick={this.handleDelete}
+      >
+        Delete
+      </div>
+    );
+  },
+
   renderEdit: function() {
     if (this.props.user_id !== window.forum.constants.user.id) {
       return null;
@@ -42,6 +57,16 @@ module.exports = React.createClass({
         Edit
       </div>
     );
+  },
+
+  handleDelete: function() {
+    window.socket.emit('destroy', {
+      id: this.props.id,
+      user: {
+        id: window.forum.constants.user.id,
+        name: window.forum.constants.user.name
+      }
+    });
   },
 
   handleSave: function() {
@@ -147,6 +172,7 @@ module.exports = React.createClass({
             Quote
           </div>
           {this.renderEdit()}
+          {this.renderDelete()}
         </div>
       </div>
     )
