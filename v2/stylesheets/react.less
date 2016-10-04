@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+*:focus {
+  outline: 2px solid hsla(3, 100%, 50%, 0.75);
+}
+
 html {
   height: 100%;
 }
@@ -137,6 +141,9 @@ body {
   background: transparent;
   border: none;
   cursor: pointer;
+}
+.focusAction:focus {
+  outline: none;
 }
 .focusAction:before,
 .focusAction:after {
