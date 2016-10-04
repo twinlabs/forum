@@ -4,7 +4,9 @@ var oembed = require('./oembed');
 
 module.exports = React.createClass({
   getInitialState: function() {
-    return {};
+    return {
+      isEditing: false
+    };
   },
 
   sendQuote: function(event) {
@@ -16,11 +18,85 @@ module.exports = React.createClass({
     });
   },
 
+  renderEdit: function() {
+    if (this.props.user_id !== window.forum.constants.user.id) {
+      return null;
+    }
+
+    if (this.state.isEditing) {
+      return (
+        <div
+          className="action"
+          onClick={this.handleSave}
+        >
+          Save
+        </div>
+      );
+    }
+
+    return (
+      <div
+        className="action"
+        onClick={this.showEdit}
+      >
+        Edit
+      </div>
+    );
+  },
+
+  handleSave: function() {
+    window.socket.emit('edit', {
+      body: this.refs.body.value,
+      id: this.props.id,
+      parent: this.props.parent,
+      user: {
+        id: window.forum.constants.user.id,
+        name: window.forum.constants.user.name
+      }
+    });
+
+    this.setState({
+      isEditing: false
+    });
+  },
+
+  showEdit: function(event) {
+    event.preventDefault();
+
+    this.setState({
+      isEditing: true
+    });
+  },
+
+  renderContent: function() {
+    if (this.state.isEditing) {
+      return (
+        <textarea
+          className="input focusArea preify"
+          defaultValue={this.props.body}
+          ref="body"
+        />
+      );
+    }
+
+    return (
+      <div
+        className="body content"
+        ref="content"
+        dangerouslySetInnerHTML={this.renderAsHTML(this.state.transformedContent)}
+      />
+    );
+  },
+
   componentDidMount: function() {
     return this.transformContent(this.props.body);
   },
 
-  componentWillReceiveProps: function() {
+  componentWillReceiveProps: function(nextProps) {
+    if (nextProps.body !== this.props.body) {
+      return this.transformContent(nextProps.body);
+    }
+
     return this.transformContent(this.state.transformedContent);
   },
 
@@ -57,11 +133,7 @@ module.exports = React.createClass({
             {this.props.user && this.props.user.name}
           </span> {moment(this.props.updated_at).fromNow()}.
         </div>
-        <div
-          className="body content"
-          ref="content"
-          dangerouslySetInnerHTML={this.renderAsHTML(this.state.transformedContent)}
-        />
+        {this.renderContent()}
         <div
           className="actionContainer"
           onClick={function(event){
@@ -74,6 +146,7 @@ module.exports = React.createClass({
           >
             Quote
           </div>
+          {this.renderEdit()}
         </div>
       </div>
     )
