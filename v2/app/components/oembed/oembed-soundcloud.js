@@ -1,4 +1,4 @@
-var $ = require('jquery');
+var superagent = require('superagent');
 
 module.exports = function embedSoundCloud(input, done) {
   const SOUNDCLOUD = /(.*)?(https?:\/\/(www\.)?(m.)?soundcloud.com\/[^\s]+)(\s*.*)?/i
@@ -9,21 +9,14 @@ module.exports = function embedSoundCloud(input, done) {
 
   const captured = SOUNDCLOUD.exec(input);
 
-  return $.ajax({
-    url: '//soundcloud.com/oembed',
-    dataType: 'jsonp',
-    data: {
-      url: captured[2],
-      format: 'js',
-      maxheight: 166
-    },
-    success: function(data) {
-      if (typeof captured[1] === 'undefined') {
-        return done(input.replace(SOUNDCLOUD, data.html));
-      }
-
-      return done(input.replace(SOUNDCLOUD, captured[1] + data.html));
+  return superagent.get(
+    `/embed/soundcloud/${encodeURIComponent(captured[2])}`
+  ).then(function(response) {
+    if (typeof captured[1] === 'undefined') {
+      return done(input.replace(SOUNDCLOUD, response.body.html));
     }
+
+    return done(input.replace(SOUNDCLOUD, captured[1] + response.body.html));
   });
 }
 

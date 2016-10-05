@@ -1,4 +1,4 @@
-var $ = require('jquery');
+var superagent = require('superagent');
 
 module.exports = function embedInstagram(input, done) {
   const INSTAGRAM = /(.*)?(https?:\/\/(www\.)?(instagram\.com|instagr\.am)\/p\/.*)(\s.*)?/i;
@@ -9,16 +9,14 @@ module.exports = function embedInstagram(input, done) {
     return done(input);
   }
 
-  return $.ajax({
-    url: `//api.instagram.com/oembed?url=${encodeURIComponent(captured[2].replace('mobile.', ''))}&omitscript`,
-    dataType: 'jsonp',
-    success: function(data) {
-      if (typeof captured[1] === 'undefined') {
-        return done(input.replace(INSTAGRAM, data.html));
-      }
-
-      return done(input.replace(INSTAGRAM, captured[1] + data.html));
+  return superagent.get(
+    `/embed/instagram/${encodeURIComponent(captured[2].replace('mobile.', ''))}`
+  ).then(function(response) {
+    if (typeof captured[1] === 'undefined') {
+      return done(input.replace(INSTAGRAM, response.body.html));
     }
+
+    return done(input.replace(INSTAGRAM, captured[1] + response.body.html));
   });
 }
 

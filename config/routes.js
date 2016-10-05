@@ -3,6 +3,7 @@ var UserController = rootRequire('app/controllers/UserController');
 var authentication = rootRequire('lib/authentication');
 
 var userlist = {};
+var superagent = require('superagent');
 
 var routes = function(app, passport){
   app.all('*', function(request, response, next){
@@ -423,6 +424,43 @@ var routes = function(app, passport){
     });
   });
 
+  app.get('/embed/twitter/:url', function(request, response, next) {
+    superagent.get(
+      `https://publish.twitter.com/oembed?url=${encodeURIComponent(request.params.url)}&omitscript`
+      ).then(function(serviceResponse) {
+        response.send(serviceResponse.body);
+      }, function(error) {
+        console.error(error);
+        response.sendStatus(error.status);
+      });
+  });
+
+  app.get('/embed/instagram/:url', function(request, response, next) {
+    superagent.get(
+      `https://api.instagram.com/oembed?url=${encodeURIComponent(request.params.url)}&omitscript`
+    ).then(function(serviceResponse) {
+      response.send(serviceResponse.body)
+    }, function(error) {
+      console.error(error);
+      response.sendStatus(error.status);
+    })
+  });
+
+  app.get('/embed/soundcloud/:url', function(request, response, next) {
+    superagent.get(
+      `https://soundcloud.com/oembed`
+    )
+    .query({
+      url: request.params.url,
+      format: 'json',
+      maxheight: 166
+    }).then(function(serviceResponse) {
+      response.send(serviceResponse.body)
+    }, function(error) {
+      console.error(error);
+      response.sendStatus(error.status);
+    })
+  });
 };
 
 function tokenValidation(request, response, next){
