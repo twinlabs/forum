@@ -34,7 +34,7 @@ var NewPost = React.createClass({
 
     this.refs.body.value = quote
       .replace(/^\s+/g,'')
-      .replace(/\n +/,'\n');
+      .replace(/\n +/,'\n').trim() + '\n\n';
 
     this.handleFocus();
   },
