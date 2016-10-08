@@ -37,6 +37,13 @@ window.socket.on('post', function(response) {
   });
 });
 
+window.socket.on('edit', function(response) {
+  window.store.dispatch({
+    type: 'EDIT',
+    value: response
+  });
+});
+
 window.socket.on('destroy', function(response){
   window.store.dispatch({
     type: 'REMOVE',

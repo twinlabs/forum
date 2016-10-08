@@ -45,6 +45,19 @@ module.exports = function doPosts(state, action) {
     return action.value.concat(state);
   }
 
+  if (action.type === 'EDIT') {
+    let newPost = Object.assign({}, action.value);
+
+    const postIndex = state.findIndex(function(element) {
+      return element.id === action.value.id;
+    });
+
+    let posts = state.slice(0, postIndex)
+      .concat(newPost, state.slice(postIndex + 1));
+
+    return posts;
+  }
+
   if (action.type === 'NEW') {
     let newPost = Object.assign({}, action.value, {isNew: true});
     let newState = [].concat(state, newPost);
