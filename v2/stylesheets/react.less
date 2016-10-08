@@ -49,11 +49,16 @@ body {
   position: relative;
 }
 
-.action:hover {
+.action:hover,
+.action:focus {
   &:before,
   &:after {
     opacity: 1;
   }
+}
+
+.action:focus {
+  outline: none !important;
 }
 
 .action:before,

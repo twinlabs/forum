@@ -24,12 +24,13 @@ module.exports = React.createClass({
     }
 
     return (
-      <div
+      <a
+        href="#"
         className="action"
         onClick={this.handleDelete}
       >
         Delete
-      </div>
+      </a>
     );
   },
 
@@ -40,22 +41,24 @@ module.exports = React.createClass({
 
     if (this.state.isEditing) {
       return (
-        <div
+        <a
+          href="#"
           className="action"
           onClick={this.handleSave}
         >
           Save
-        </div>
+        </a>
       );
     }
 
     return (
-      <div
+      <a
+        href="#"
         className="action"
         onClick={this.showEdit}
       >
         Edit
-      </div>
+      </a>
     );
   },
 
@@ -165,12 +168,13 @@ module.exports = React.createClass({
             event.preventDefault();
           }}
         >
-          <div
+          <a
+            href="#"
             className="action"
             onClick={this.sendQuote}
           >
             Quote
-          </div>
+          </a>
           {this.renderEdit()}
           {this.renderDelete()}
         </div>
