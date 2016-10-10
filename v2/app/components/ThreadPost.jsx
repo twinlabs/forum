@@ -41,13 +41,22 @@ module.exports = React.createClass({
 
     if (this.state.isEditing) {
       return (
-        <a
-          href="#"
-          className="action"
-          onClick={this.handleSave}
-        >
-          Save
-        </a>
+        <div style={{display: 'inline-block'}}>
+          <a
+            href="#"
+            className="action"
+            onClick={this.cancelEdit}
+          >
+            Cancel
+          </a>
+          <a
+            href="#"
+            className="action"
+            onClick={this.handleSave}
+          >
+            Save
+          </a>
+        </div>
       );
     }
 
@@ -82,6 +91,14 @@ module.exports = React.createClass({
         name: window.forum.constants.user.name
       }
     });
+
+    this.setState({
+      isEditing: false
+    });
+  },
+
+  cancelEdit: function(event) {
+    event.preventDefault();
 
     this.setState({
       isEditing: false
