@@ -76,7 +76,7 @@
   "devDependencies": {
     "eslint": "^3.7.0",
     "eslint-plugin-react": "^6.3.0",
-    "mocha": "~1.13.0",
+    "mocha": "^3.0.0",
     "node-inspector": "^0.12.8",
     "request": "^2.49.0",
     "sinon": "~1.7.3"
