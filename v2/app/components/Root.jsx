@@ -6,6 +6,16 @@ var _ = require('lodash/core');
 var ControlBar = require('./ControlBar.jsx');
 
 var Root = React.createClass({
+  getThreadTitle: function(props) {
+    if (!props || !props.params.id) {
+      return null;
+    }
+
+    return _.find(props.value.topics, {
+      id: parseInt(props.params.id, 10)
+    }).title;
+  },
+
   handleRootNavigation: function(event) {
     event.preventDefault();
 
@@ -78,16 +88,10 @@ var Root = React.createClass({
   },
 
   render: function() {
-    if (this.props.params.id) {
-      var threadTitle = _.find(this.props.value.topics, {
-        id: parseInt(this.props.params.id, 10)
-      }).title;
-    }
-
     return (
       <div className="app">
         <ControlBar
-          title={threadTitle || this.props.value.appName}
+          title={this.getThreadTitle(this.props) || this.props.value.appName}
           handleRootNavigation={this.handleRootNavigation}
           handleRootRefresh={this.handleRootRefresh}
         />
