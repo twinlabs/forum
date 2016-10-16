@@ -46,6 +46,10 @@ var NewPost = React.createClass({
   handleSubmit: function(event) {
     event.preventDefault();
 
+    if (!this.refs.body || !this.refs.body.value.trim()) {
+      return false;
+    }
+
     this.setState({
       restrictSubmit: true
     });
