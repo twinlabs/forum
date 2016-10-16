@@ -96,6 +96,10 @@ var routes = function(app, passport){
   });
 
   app.get('/v2*', function(request, response) {
+    if (request.session.user.id === 0) {
+      response.sendStatus(404);
+    }
+
     PostsController.topics().done(function(error, posts){
       UserController.get(request.session.user.id).done(function(err, userData){
         response.render(`${__dirname}/../templates/react.ejs.html`, {
