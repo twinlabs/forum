@@ -51,10 +51,6 @@ var ControlBar = React.createClass({
           onDoubleClick={this.props.handleRootRefresh}
           onTouchStart={this.detectDoubleTap}
           className="controlBar-title"
-          style={{
-            fontSize: "32px",
-            textAlign: "center"
-          }}
         >
           {this.props.title}
         </a>
