@@ -2,6 +2,12 @@ var React = require('react');
 var browserHistory = require('react-router').browserHistory;
 
 var NewPost = React.createClass({
+  getInitialState: function() {
+    return {
+      inline: true
+    };
+  },
+
   animateSubmission: function() {
     this.setState({
       animatedHeight: '0'
@@ -94,21 +100,71 @@ var NewPost = React.createClass({
   },
 
   renderBody: function() {
+    if (!this.props.inline || !this.state.inline) {
+      return (
+        <textarea
+          className="input focusArea"
+          style={{
+            height: this.state && this.state.animatedHeight,
+            minHeight: (this.state && this.state.animatedHeight) ? '0' : null,
+            padding: (this.state && this.state.animatedHeight) ? '4px' : null
+          }}
+          type="text"
+          placeholder="Body"
+          ref="body"
+          onFocus={this.handleFocus}
+          disabled={this.state && this.state.restrictSubmit}
+          defaultValue={this.refs.body && this.refs.body.value}
+        ></textarea>
+      )
+    }
+
     return (
-      <textarea
-        className="input focusArea"
-        style={{
-          height: this.state && this.state.animatedHeight,
-          minHeight: (this.state && this.state.animatedHeight) ? '0' : null,
-          padding: (this.state && this.state.animatedHeight) ? '4px' : null
-        }}
-        type="text"
-        placeholder="Body"
-        ref="body"
-        onFocus={this.handleFocus}
-        disabled={this.state && this.state.restrictSubmit}
-      ></textarea>
-    )
+      <div
+        style={{display: 'flex'}}
+      >
+        <input
+          className="input"
+          type="text"
+          placeholder="Body"
+          ref="body"
+          onFocus={this.handleFocus}
+          disabled={this.state && this.state.restrictSubmit}
+        />
+        <button
+          ref="button"
+          className="action action--alwaysOn inlineAction"
+          type="button"
+          onClick={function() {
+            this.setState({
+              inline: false
+            });
+          }.bind(this)}
+          style={{
+            backgroundColor: 'transparent',
+            border: 'none',
+            whiteSpace: 'nowrap',
+            margin: 0
+          }}
+        >
+          ...
+        </button>
+      </div>
+    );
+  },
+
+  renderSubmitContext: function() {
+    if (!this.props.inline || !this.state.inline) {
+      return (
+        <button
+          ref="button"
+          className="focusAction action action--alwaysOn"
+          type="submit"
+        >
+          Submit Post
+        </button>
+      );
+    }
   },
 
   render: function() {
@@ -117,23 +173,22 @@ var NewPost = React.createClass({
         {this.renderTitle()}
         {this.renderBody()}
         {this.constructQuote(this.props.receivedQuote)}
-        <button
-          ref="button"
-          className="focusAction action action--alwaysOn"
-          type="submit"
-        >
-          Submit Post
-        </button>
+        {this.renderSubmitContext()}
       </form>
     )
   }
 });
 
 module.exports = React.createClass({
+  forceLongform: function() {
+    return this.props.location && this.props.location.pathname === '/topic/new';
+  },
+
   render: function() {
     return (
       <NewPost
         receivedQuote={this.props.receivedQuote}
+        inline={!this.forceLongform()}
         store={window.store}
         parent={this.props.parent}
         route={this.props.route}

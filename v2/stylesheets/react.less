@@ -164,6 +164,31 @@ body {
   transform: scale(2);
 }
 
+.inlineAction {
+  transition-property: min-width;
+  transition-duration: 100ms;
+  min-width: 0;
+
+  &:before,
+  &:after {
+    display: inline-block;
+    transition-property: transform, margin;
+    transition-duration: 100ms;
+  }
+}
+.inlineAction:focus,
+.inlineAction:hover {
+  min-width: 25%;
+}
+.inlineAction:focus,
+.inlineAction:hover {
+  &:before,
+  &:after {
+    margin: 0.5em;
+    transform: scale(2);
+  }
+}
+
 .preify {
   font-family: monospace;
   margin: 1em 0;
