@@ -29,6 +29,54 @@ var Root = React.createClass({
        });
   },
 
+  renderFooter: function() {
+    if (this.props.location.pathname === '/') {
+      return null;
+    }
+
+    return (
+      <div className="footerBar">
+        <a
+          href="/"
+          className="footerRoot"
+          onClick={function(event) {
+            event.preventDefault();
+
+            return browserHistory.push('/v2');
+          }}
+        >
+          Back to Root
+        </a>
+        <a
+          href=""
+          onClick={function(event) {
+            event.preventDefault();
+
+            return scroll(0, 0);
+          }}
+          style={{
+            flex: 1,
+            textAlign: 'center',
+            padding: '1em'
+          }}
+        >
+          "{this.getThreadTitle(this.props)}"
+        </a>
+        <a
+          href=""
+          onClick={function(event) {
+            event.preventDefault();
+
+            return scroll(0, 0);
+          }}
+          className="footerTop"
+        >
+          Top
+        </a>
+      </div>
+    );
+  },
+
   render: function() {
     if (this.props.params.id) {
       var threadTitle = _.find(this.props.value.topics, {
@@ -44,6 +92,7 @@ var Root = React.createClass({
           handleRootRefresh={this.handleRootRefresh}
         />
         {this.props.children}
+        {this.renderFooter()}
       </div>
     );
   }

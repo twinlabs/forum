@@ -218,6 +218,35 @@ body {
   vertical-align: top;
 }
 
+.footerBar {
+  display: flex;
+  border-top: 1px solid #ececec;
+}
+
+.footerRoot {
+  flex: 1;
+  padding: 1em;
+  text-align: left;
+}
+
+.footerTop {
+  flex: 1;
+  padding: 1em;
+  text-align: right;
+}
+
+.footerBar a {
+  border: solid transparent;
+  border-width: 2px 0 0;
+  transition-property: border-color;
+  transition-duration: 100ms;
+}
+.footerBar a:hover,
+.footerBar a:focus {
+  outline: none !important;
+  border-top-color: #ff0e00;
+}
+
 a {
   color: inherit;
   text-decoration: none;
