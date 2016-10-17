@@ -1,21 +1,34 @@
 var superagent = require('superagent');
+var Promise = require('bluebird');
 
-module.exports = function embedTwitter(input, done) {
-  const TWITTER = /(.*)(https?:\/\/(www\.)?(mobile\.)?twitter.com\/.+?\/status(es)?(.*))/ig;
+module.exports = function embedTwitter(input) {
+  const TWITTER = /https?:\/\/(www\.)?(mobile\.)?twitter.com\/.+?\/status(es)?\/\d+/ig;
 
-  if (!input || input.match(TWITTER) === null) {
-    return done(input);
+  var matches = input && input.match(TWITTER);
+  var responseBody = '';
+  var responsePromiseStack = [];
+
+  if (!matches) {
+    return Promise.resolve(input);
   }
 
-  const captured = TWITTER.exec(input);
+  for (var i = 0; i<matches.length; i++) {
+    responsePromiseStack.push(superagent.get(
+      `/embed/twitter/${encodeURIComponent(matches[i].replace('mobile.', ''))}`
+    ));
+  }
 
-  return superagent.get(
-    `/embed/twitter/${encodeURIComponent(captured[2].replace('mobile.', ''))}`
-  ).then(function(response) {
-    if (typeof captured[2] === 'undefined') {
-      return done(input.replace(TWITTER, response.body.html));
+  return Promise.all(responsePromiseStack).then(function(responses) {
+    for (var i = 0; i<matches.length; i++) {
+      if (!responseBody) {
+        responseBody = responseBody + input.replace(matches[i], responses[i].body.html);
+      } else {
+        responseBody = responseBody.replace(matches[i], responses[i].body.html);
+      }
+
+      if (i === matches.length - 1) {
+        return responseBody;
+      }
     }
-
-    return done(input.replace(TWITTER, captured[1] + response.body.html));
   });
 }

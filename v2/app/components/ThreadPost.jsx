@@ -3,6 +3,18 @@ var moment = require('moment');
 var oembed = require('./oembed');
 
 module.exports = React.createClass({
+  getDefaultProps: function() {
+    return {
+      contentRenderer: function(input){
+        return input
+      },
+      forumUser: {
+        id: 0,
+        name: '[User Name]'
+      }
+    };
+  },
+
   getInitialState: function() {
     return {
       isEditing: false
@@ -19,7 +31,7 @@ module.exports = React.createClass({
   },
 
   renderDelete: function() {
-    if (this.props.user_id !== window.forum.constants.user.id) {
+    if (this.props.user_id !== this.props.forumUser.id) {
       return null;
     }
 
@@ -35,7 +47,7 @@ module.exports = React.createClass({
   },
 
   renderEdit: function() {
-    if (this.props.user_id !== window.forum.constants.user.id) {
+    if (this.props.user_id !== this.props.forumUser.id) {
       return null;
     }
 
@@ -75,8 +87,8 @@ module.exports = React.createClass({
     window.socket.emit('destroy', {
       id: this.props.id,
       user: {
-        id: window.forum.constants.user.id,
-        name: window.forum.constants.user.name
+        id: this.props.forumUser.id,
+        name: this.props.forumUser.name
       }
     });
   },
@@ -87,8 +99,8 @@ module.exports = React.createClass({
       id: this.props.id,
       parent: this.props.parent,
       user: {
-        id: window.forum.constants.user.id,
-        name: window.forum.constants.user.name
+        id: this.props.forumUser.id,
+        name: this.props.forumUser.name
       }
     });
 
@@ -146,13 +158,13 @@ module.exports = React.createClass({
   },
 
   transformContent: function(transformableContent) {
-    oembed(transformableContent, function(transformedContent) {
+    oembed(transformableContent).then(function(transformedContent) {
       this.setState({
         transformedContent: transformedContent
       });
 
-      window.twttr.widgets.load();
-      window.instgrm.Embeds.process();
+      window.twttr && window.twttr.widgets.load();
+      window.instgrm && window.instgrm.Embeds.process();
     }.bind(this));
   },
 
@@ -160,7 +172,7 @@ module.exports = React.createClass({
     input = input || '';
 
     return {
-      __html: this.props.marked(input)
+      __html: this.props.contentRenderer(input)
     };
   },
 

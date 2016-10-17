@@ -18,9 +18,9 @@
     "check": "./node_modules/.bin/eslint --ext .js,.jsx v2/app",
     "db:seed": "node db/seed.js",
     "deploy": "git push heroku deploy:master",
-    "test": "npm run check && NODE_ENV=test mocha --require test/test_helper.js --recursive ./test",
-    "test:watch": "NODE_ENV=test mocha --require test/test_helper.js --recursive --watch --reporter min ./test",
-    "test:debug": "NODE_ENV=test node-debug _mocha --require test/test_helper.js --recursive --watch --reporter min ./test",
+    "test": "NODE_ENV=test mocha --require test/test_helper.js --compilers jsx:babel-register --recursive ./test && npm run check",
+    "test:watch": "NODE_ENV=test mocha --require test/test_helper.js --compilers jsx:babel-register --recursive --watch --reporter min ./test",
+    "test:debug": "NODE_ENV=test node-debug _mocha --require test/test_helper.js --compilers jsx:babel-register --recursive --watch --reporter min ./test",
     "start": "concurrently \"npm run bundle:lib\" \"node app.js\" \"npm run bundle:app:watch\"",
     "start:debug": "node-debug app.js"
   },
@@ -34,6 +34,7 @@
     "babel-register": "^6.9.0",
     "babelify": "^7.3.0",
     "bcrypt": "~0.8.0",
+    "bluebird": "^3.4.6",
     "body-parser": "^1.12.2",
     "browserify": "^13.0.0",
     "compression": "^1.4.3",
@@ -74,11 +75,14 @@
     "watchify": "^3.7.0"
   },
   "devDependencies": {
+    "dedent": "^0.6.0",
     "eslint": "^3.7.0",
     "eslint-plugin-react": "^6.3.0",
-    "mocha": "~1.13.0",
+    "jsdom": "^9.6.0",
+    "mocha": "^3.0.0",
     "node-inspector": "^0.12.8",
+    "react-addons-test-utils": "^15.3.2",
     "request": "^2.49.0",
-    "sinon": "~1.7.3"
+    "sinon": "^1.17.0"
   }
 }
