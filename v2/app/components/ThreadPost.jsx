@@ -10,7 +10,7 @@ module.exports = React.createClass({
       },
       forumUser: {
         id: 0,
-        name: 'User Name'
+        name: '[User Name]'
       }
     };
   },
