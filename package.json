@@ -81,6 +81,6 @@
     "node-inspector": "^0.12.8",
     "react-addons-test-utils": "^15.3.2",
     "request": "^2.49.0",
-    "sinon": "~1.7.3"
+    "sinon": "^1.17.0"
   }
 }
