@@ -33,7 +33,7 @@ describe('twitter embeds', function() {
       });
     }));
 
-    it('works with mobile twitter URLS', sinon.test(function() {
+    it('works with mobile twitter URLS', sinon.test(function(done) {
       const USER_INPUT = 'https://mobile.twitter.com/username/status/12345';
 
       var requestStub = this.stub(superagent, 'get');
@@ -97,6 +97,52 @@ describe('twitter embeds', function() {
       });
     }));
 
-    it('renders consecutive tweets in the same body of content');
+    it('renders consecutive tweets in the same body of content', sinon.test(function(done) {
+      const USER_INPUT = dedent`
+        https://twitter.com/username/status/0
+        https://twitter.com/username/status/1
+        https://twitter.com/username/status/2
+        https://twitter.com/username/status/3
+      `;
+      var requestStub = this.stub(superagent, 'get');
+
+      requestStub.onCall(0).returns(Promise.resolve({
+        body: {
+          html: `<blockquote class="twitter-tweet">{tweet content}<a href="https://twitter.com/username/status/0">https://twitter.com/username/status/0</a></blockquote>`
+        }
+      }));
+
+      requestStub.onCall(1).returns(Promise.resolve({
+        body: {
+          html: `<blockquote class="twitter-tweet">{tweet content}<a href="https://twitter.com/username/status/1">https://twitter.com/username/status/1</a></blockquote>`
+        }
+      }));
+
+      requestStub.onCall(2).returns(Promise.resolve({
+        body: {
+          html: `<blockquote class="twitter-tweet">{tweet content}<a href="https://twitter.com/username/status/2">https://twitter.com/username/status/2</a></blockquote>`
+        }
+      }));
+
+      requestStub.onCall(3).returns(Promise.resolve({
+        body: {
+          html: `<blockquote class="twitter-tweet">{tweet content}<a href="https://twitter.com/username/status/3">https://twitter.com/username/status/3</a></blockquote>`
+        }
+      }));
+
+      embedTwitter(USER_INPUT).then(function(output) {
+        var expectedOutput = dedent`
+          <blockquote class="twitter-tweet">{tweet content}<a href="https://twitter.com/username/status/0">https://twitter.com/username/status/0</a></blockquote>
+          <blockquote class="twitter-tweet">{tweet content}<a href="https://twitter.com/username/status/1">https://twitter.com/username/status/1</a></blockquote>
+          <blockquote class="twitter-tweet">{tweet content}<a href="https://twitter.com/username/status/2">https://twitter.com/username/status/2</a></blockquote>
+          <blockquote class="twitter-tweet">{tweet content}<a href="https://twitter.com/username/status/3">https://twitter.com/username/status/3</a></blockquote>
+        `;
+
+        assert.equal(output, expectedOutput);
+        done();
+      });
+    }));
+
+    it('renders tweets interspersed with other types of content');
   });
 });

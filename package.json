@@ -34,6 +34,7 @@
     "babel-register": "^6.9.0",
     "babelify": "^7.3.0",
     "bcrypt": "~0.8.0",
+    "bluebird": "^3.4.6",
     "body-parser": "^1.12.2",
     "browserify": "^13.0.0",
     "compression": "^1.4.3",
