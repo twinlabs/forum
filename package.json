@@ -18,7 +18,7 @@
     "check": "./node_modules/.bin/eslint --ext .js,.jsx v2/app",
     "db:seed": "node db/seed.js",
     "deploy": "git push heroku deploy:master",
-    "test": "npm run check && NODE_ENV=test mocha --require test/test_helper.js --compilers jsx:babel-register --recursive ./test",
+    "test": "NODE_ENV=test mocha --require test/test_helper.js --compilers jsx:babel-register --recursive ./test && npm run check",
     "test:watch": "NODE_ENV=test mocha --require test/test_helper.js --compilers jsx:babel-register --recursive --watch --reporter min ./test",
     "test:debug": "NODE_ENV=test node-debug _mocha --require test/test_helper.js --compilers jsx:babel-register --recursive --watch --reporter min ./test",
     "start": "concurrently \"npm run bundle:lib\" \"node app.js\" \"npm run bundle:app:watch\"",
