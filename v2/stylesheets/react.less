@@ -243,6 +243,19 @@ body {
   vertical-align: top;
 }
 
+.controlBar-control {
+  border: solid transparent;
+  border-width: 0 0 2px;
+  transition-property: border-color;
+  transition-duration: 100ms;
+}
+
+.controlBar-control:hover,
+.controlBar-control:focus {
+  outline: none !important;
+  border-bottom-color: #ff0e00;
+}
+
 .footerBar {
   display: flex;
   border-top: 1px solid #ececec;

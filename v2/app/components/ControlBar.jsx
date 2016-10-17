@@ -36,7 +36,7 @@ var ControlBar = React.createClass({
         className="controlBar"
       >
         <a
-          className="settingsControl"
+          className="controlBar-control settingsControl"
           href="/v2/settings"
           onClick={function(event){
             event.preventDefault();
@@ -50,12 +50,16 @@ var ControlBar = React.createClass({
           onClick={this.props.handleRootNavigation}
           onDoubleClick={this.props.handleRootRefresh}
           onTouchStart={this.detectDoubleTap}
-          className="controlBar-title"
+          className="controlBar-control controlBar-title"
+          style={{
+            fontSize: "32px",
+            textAlign: "center"
+          }}
         >
           {this.props.title}
         </a>
         <a
-          className="newPostControl"
+          className=" controlBar-control newPostControl"
           href="/v2/topic/new"
           onClick={this.handleRightControl}
         >
