@@ -158,7 +158,7 @@ module.exports = React.createClass({
   },
 
   transformContent: function(transformableContent) {
-    oembed(transformableContent, function(transformedContent) {
+    oembed(transformableContent).then(function(transformedContent) {
       this.setState({
         transformedContent: transformedContent
       });

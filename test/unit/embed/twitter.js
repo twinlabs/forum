@@ -8,7 +8,7 @@ describe('twitter embeds', function() {
   it('returns given input if there are no tweets', function(done) {
     const USER_INPUT = 'hello world, this is a basic post';
 
-    embedTwitter(USER_INPUT, function(output) {
+    embedTwitter(USER_INPUT).then(function(output) {
       assert(output === USER_INPUT);
       done();
     });
@@ -26,7 +26,7 @@ describe('twitter embeds', function() {
         }
       }));
 
-      embedTwitter(USER_INPUT, function(output) {
+      embedTwitter(USER_INPUT).then(function(output) {
         assert(output === `<blockquote class="twitter-tweet">{tweet content}<a href="{tweet url}">{tweet link text}</a></blockquote>`);
 
         done();
@@ -45,7 +45,7 @@ describe('twitter embeds', function() {
         }
       }));
 
-      embedTwitter(USER_INPUT, function(output) {
+      embedTwitter(USER_INPUT).then(function(output) {
         assert(output === `<blockquote class="twitter-tweet">{tweet content}<a href="{tweet url}">{tweet link text}</a></blockquote>`);
 
         done();
@@ -63,7 +63,7 @@ describe('twitter embeds', function() {
         }
       }));
 
-      embedTwitter(USER_INPUT, function(output) {
+      embedTwitter(USER_INPUT).then(function(output) {
         assert(!requestStub.called);
         done();
       });
@@ -85,7 +85,7 @@ describe('twitter embeds', function() {
         }
       }));
 
-      embedTwitter(USER_INPUT, function(output) {
+      embedTwitter(USER_INPUT).then(function(output) {
         var expectedOutput = dedent`
           hello \n\n **check this out**:
           > <blockquote class="twitter-tweet">{tweet content}<a href="{tweet url}">{tweet link}</a></blockquote>
