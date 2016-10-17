@@ -1,13 +1,17 @@
 var superagent = require('superagent');
 
 module.exports = function embedTwitter(input, done) {
-  const TWITTER = /(.*)(https?:\/\/(www\.)?(mobile\.)?twitter.com\/.+?\/status(es)?(.*))/ig;
+  const TWITTER = /(.*)(https?:\/\/(www\.)?(mobile\.)?twitter.com\/.+?\/status(es)?\/(.*))/ig;
 
   if (!input || input.match(TWITTER) === null) {
     return done(input);
   }
 
   const captured = TWITTER.exec(input);
+
+  if (!captured[6]) {
+    return done(input);
+  }
 
   return superagent.get(
     `/embed/twitter/${encodeURIComponent(captured[2].replace('mobile.', ''))}`
