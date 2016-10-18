@@ -1,5 +1,5 @@
 module.exports = function embedYouTube(input) {
-  const YOUTUBE = /(?:https?:\/\/)?(?:m\.)?(?:www\.)?(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})(.+)?/i;
+  const YOUTUBE = /(?:https?:\/\/)?(?:m\.)?(?:www\.)?(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})([^\s]+)?/i;
 
   var matches = input && input.match(new RegExp(YOUTUBE, 'g'));
   var matchID;
