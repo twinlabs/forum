@@ -3,6 +3,17 @@ var moment = require('moment');
 var oembed = require('./oembed');
 
 module.exports = React.createClass({
+  shouldComponentUpdate: function(nextProps, nextState) {
+    if (
+      this.state.transformedContent
+      && (nextProps.body === this.props.body)
+    ) {
+      return false;
+    }
+
+    return true;
+  },
+
   getDefaultProps: function() {
     return {
       contentRenderer: function(input){
