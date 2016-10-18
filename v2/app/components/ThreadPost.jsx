@@ -6,6 +6,7 @@ module.exports = React.createClass({
   shouldComponentUpdate: function(nextProps, nextState) {
     if (
       this.state.transformedContent
+      && this.state.isEditing === nextState.isEditing
       && (nextProps.body === this.props.body)
     ) {
       return false;
