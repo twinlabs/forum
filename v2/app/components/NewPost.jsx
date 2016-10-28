@@ -24,29 +24,30 @@ var NewPost = React.createClass({
     }.bind(this), 200);
   },
   constructQuote: function(data) {
-    if (!this.refs.body || !data) {
+    if (this.state.body === data.body) {
       return false;
     }
 
-    data.body = data.body
-      .replace(/^/, "> ")
-      .replace(/\n/g, "\n> ")
+    this.setState({
+      body: this.bodyMassage(data.body, data.author),
+    }, this.handleFocus);
 
-    var quote = `
-      > ${data.author} wrote:
+  },
 
-      ${data.body}
-    `;
+  bodyMassage: function(body, author) {
+     return `
+      > ${author} wrote:
 
-    this.refs.body.value = quote
+      ${body.replace(/^/, "> ")
+        .replace(/\n/g, "\n> ")}
+     `
       .replace(/^\s+/g,'')
       .replace(/\n +/,'\n').trim() + '\n\n';
-
-    this.handleFocus();
   },
 
   handleFocus: function() {
-    scroll(0, document.body.scrollHeight);
+    this.refs.body.scrollIntoView();
+    this.refs.body.focus();
   },
 
   handleSubmit: function(event) {
@@ -70,7 +71,8 @@ var NewPost = React.createClass({
       }
     }, function() {
       this.setState({
-        restrictSubmit: false
+        restrictSubmit: false,
+        body: null
       });
 
       this.animateSubmission();
@@ -99,6 +101,12 @@ var NewPost = React.createClass({
     );
   },
 
+  handleChange: function(event) {
+    this.setState({
+      body: event.target.value
+    });
+  },
+
   renderBody: function() {
     if (!this.props.inline || !this.state.inline) {
       return (
@@ -114,7 +122,8 @@ var NewPost = React.createClass({
           ref="body"
           onFocus={this.handleFocus}
           disabled={this.state && this.state.restrictSubmit}
-          defaultValue={this.refs.body && this.refs.body.value}
+          onChange={this.handleChange}
+          value={this.state.body}
         ></textarea>
       )
     }
@@ -153,6 +162,12 @@ var NewPost = React.createClass({
     );
   },
 
+  componentWillReceiveProps: function(nextProps) {
+    if (nextProps.receivedQuote) {
+      this.constructQuote(nextProps.receivedQuote);
+    }
+  },
+
   renderSubmitContext: function() {
     if (!this.props.inline || !this.state.inline) {
       return (
@@ -172,7 +187,6 @@ var NewPost = React.createClass({
       <form onSubmit={this.handleSubmit}>
         {this.renderTitle()}
         {this.renderBody()}
-        {this.constructQuote(this.props.receivedQuote)}
         {this.renderSubmitContext()}
       </form>
     )
@@ -181,7 +195,13 @@ var NewPost = React.createClass({
 
 module.exports = React.createClass({
   forceLongform: function() {
-    return this.props.location && this.props.location.pathname === '/topic/new';
+    if (this.props.receivedQuote) {
+      return true;
+    }
+
+    if (this.props.location && this.props.location.pathname === '/topic/new') {
+      return true;
+    }
   },
 
   render: function() {
