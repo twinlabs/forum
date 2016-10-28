@@ -23,6 +23,7 @@ var NewPost = React.createClass({
       });
     }.bind(this), 200);
   },
+
   constructQuote: function(data) {
     if (this.state.body === data.body) {
       return false;
