@@ -37,7 +37,7 @@ var ThreadPostWrapper = function(postData, index) {
   return (
     <ThreadPost
       handleQuote={this.handleQuote}
-      key={index}
+      key={postData.id}
       contentRenderer={require('./markdownInitializer')}
       forumUser={window.forum.constants.user}
       {...postData}
