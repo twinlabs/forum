@@ -6,6 +6,7 @@ module.exports = React.createClass({
   shouldComponentUpdate: function(nextProps, nextState) {
     if (
       this.state.transformedContent
+      && !this.state.needsFlush
       && this.state.isEditing === nextState.isEditing
       && (nextProps.body === this.props.body)
     ) {
@@ -117,7 +118,8 @@ module.exports = React.createClass({
     });
 
     this.setState({
-      isEditing: false
+      isEditing: false,
+      needsFlush: true
     });
   },
 
@@ -172,7 +174,8 @@ module.exports = React.createClass({
   transformContent: function(transformableContent) {
     oembed(transformableContent).then(function(transformedContent) {
       this.setState({
-        transformedContent: transformedContent
+        transformedContent: transformedContent,
+        needsFlush: false
       });
 
       window.twttr && window.twttr.widgets.load();
