@@ -102,6 +102,13 @@ var routes = function(app, passport){
 
     PostsController.topics().done(function(error, posts){
       UserController.get(request.session.user.id).done(function(err, userData){
+        posts.forEach(function(post) {
+          var postTimestamp = +new Date(post.lastreply.created_at);
+          var lastVisitedTimestamp = +new Date(response.locals.lastVisited[post.id]);
+          if (postTimestamp > lastVisitedTimestamp) {
+            post.lastreply.isNew = true;
+          }
+        });
         response.render(`${__dirname}/../templates/react.ejs.html`, {
           postData: JSON.stringify(posts),
           settings: JSON.stringify(userData),
