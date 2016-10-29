@@ -27,7 +27,7 @@ var Topics = React.createClass({
 
   toggleUnread: function(event) {
     if (this.hasUnreadFilter()) {
-      return this.updateFilterValue(this.state.filterValue.replace('is:unread', ''))
+      return this.updateFilterValue(this.state.filterValue.replace('is:unread', '').trim())
     }
 
     return this.updateFilterValue('is:unread ' + this.state.filterValue);
