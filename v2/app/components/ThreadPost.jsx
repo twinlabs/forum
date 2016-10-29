@@ -152,7 +152,7 @@ module.exports = React.createClass({
       <div
         className="body content"
         ref="content"
-        dangerouslySetInnerHTML={this.renderAsHTML(this.state.transformedContent)}
+        dangerouslySetInnerHTML={this.renderAsHTML(this.state.transformedContent || this.props.body)}
       />
     );
   },
