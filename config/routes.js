@@ -160,6 +160,8 @@ var routes = function(app, passport){
 
         PostsController.findTopicTitle(request.params.id).spread(function(topic) {
           if (request.header('Accept') === 'application/json') {
+            UserController.updateLastVisited(request.session.user.id, request.params.id);
+
             return response.json(posts.rows.reverse())
           }
 
