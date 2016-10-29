@@ -139,6 +139,8 @@ var NewPost = React.createClass({
           placeholder="Body"
           ref="body"
           onFocus={this.handleFocus}
+          onChange={this.handleChange}
+          value={this.state.body}
           disabled={this.state && this.state.restrictSubmit}
         />
         <button
