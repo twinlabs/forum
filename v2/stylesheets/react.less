@@ -127,6 +127,38 @@ body {
   border-width: 0 2px;
 }
 
+.input--flush {
+  font-family: inherit;
+  width: 100%;
+  border: none;
+
+  &:focus {
+    outline: none !important;
+  }
+}
+
+.input--toggle {
+  background: transparent;
+  border: 2px solid #ff0e00;
+  border-radius: 2px;
+  flex-basis: 40%;
+  transition-property: background, border, color;
+  transition-duration: 100ms;
+
+  &:focus {
+    outline: none !important;
+  }
+}
+.input--toggle.isActive {
+  background: #ff0e00;
+  color: #fff;
+  border-color: transparent;
+}
+
+.inputGroup {
+  display: flex;
+}
+
 .clickable {
   cursor: pointer;
 }

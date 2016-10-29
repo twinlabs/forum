@@ -5,39 +5,90 @@ var Topic = require('./Topic.jsx');
 var Topics = React.createClass({
   getInitialState: function() {
     return {
-      filterValue: null
+      filterValue: localStorage.getItem('forumFilterValue') || ''
     };
   },
 
-  updateFilterValue: function(event) {
-    this.setState({
-      filterValue: event.target.value
+  handleFilterChange: function(event) {
+    this.updateFilterValue(event.target.value);
+  },
+
+  updateFilterValue: function(newFilterValue) {
+    return this.setState({
+      filterValue: newFilterValue
+    }, function() {
+      localStorage.setItem('forumFilterValue', newFilterValue);
     });
+  },
+
+  hasUnreadFilter: function() {
+    return this.state.filterValue.match('is:unread');
+  },
+
+  toggleUnread: function(event) {
+    if (this.hasUnreadFilter()) {
+      return this.updateFilterValue(this.state.filterValue.replace('is:unread', ''))
+    }
+
+    return this.updateFilterValue('is:unread ' + this.state.filterValue);
+  },
+
+  toggleClassNames: function() {
+    if (this.hasUnreadFilter()) {
+      return 'input--toggle isActive';
+    }
+
+    return 'input--toggle';
+  },
+
+  filterThreads: function() {
+    return _.filter(this.props.value.topics, function(topic) {
+      if (this.hasUnreadFilter()) {
+        return unreadCriteria(topic) && filterCriteria(topic, this.state.filterValue.replace('is:unread', '').trim());
+      }
+
+      if (this.state.filterValue) {
+        return filterCriteria(topic, this.state.filterValue.replace('is:unread', '').trim());
+      }
+
+      return !topic.parent;
+    }.bind(this));
   },
 
   render: function() {
     return (
       <div className="topicsContainer">
-        <div className="topicsFilter">
+        <div className="topicsFilter input inputGroup">
           <input
-            className="input"
+            className="input--flush"
             type="text"
             placeholder="Filter Topic Name"
             ref="topicFilter"
-            onChange={this.updateFilterValue}
+            onChange={this.handleFilterChange}
+            value={this.state.filterValue}
           />
+          <button
+            className={this.toggleClassNames()}
+            onClick={this.toggleUnread}
+          >
+            Only Unread
+          </button>
         </div>
-        {_.filter(this.props.value.topics, function(topic) {
-          if (this.state.filterValue) {
-            return !topic.parent && (topic.title.toLowerCase().indexOf(this.state.filterValue.toLowerCase()) !== -1);
-          }
-          return !topic.parent;
-         }.bind(this)).map(Topic)}
+        {this.filterThreads().map(Topic)}
       </div>
     );
   }
 });
 
+
+function unreadCriteria(topic) {
+  return !topic.parent && topic.lastreply.isNew;
+}
+
+function filterCriteria(topic, filterValue) {
+  return !topic.parent &&
+    (topic.title.toLowerCase().indexOf(filterValue.toLowerCase()) !== -1);
+}
 
 module.exports = Topics;
 
