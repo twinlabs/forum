@@ -24,7 +24,10 @@ module.exports = React.createClass({
       forumUser: {
         id: 0,
         name: '[User Name]'
-      }
+      },
+      // obviously we shouldn't have both.
+      // this is debt that must be reconciled:
+      user: {}
     };
   },
 
@@ -151,10 +154,26 @@ module.exports = React.createClass({
     }
 
     return (
+      <div>
+        <div
+          className="body content"
+          ref="content"
+          dangerouslySetInnerHTML={this.renderAsHTML(this.state.transformedContent || this.props.body, this.props.contentRenderer)}
+        />
+        {this.renderSignature()}
+      </div>
+    );
+  },
+
+  renderSignature: function() {
+    if (this.props.user.hide_signatures) {
+      return null;
+    }
+
+    return (
       <div
-        className="body content"
-        ref="content"
-        dangerouslySetInnerHTML={this.renderAsHTML(this.state.transformedContent || this.props.body)}
+        className="signature"
+        dangerouslySetInnerHTML={this.renderAsHTML(this.props.user.signature)}
       />
     );
   },
@@ -183,11 +202,12 @@ module.exports = React.createClass({
     }.bind(this));
   },
 
-  renderAsHTML: function(input) {
+  renderAsHTML: function(input, renderer) {
     input = input || '';
+    renderer = renderer || function(input) { return input };
 
     return {
-      __html: this.props.contentRenderer(input)
+      __html: renderer(input)
     };
   },
 
@@ -196,6 +216,7 @@ module.exports = React.createClass({
       <div
         className="post"
         data-id={this.props.id}
+        data-user-id={this.props.user.id}
         key={this.props.id}
       >
         <div
