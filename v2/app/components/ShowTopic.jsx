@@ -7,30 +7,20 @@ var superagent = require('superagent');
 module.exports = React.createClass({
   getInitialState: function() {
     return {
-      offset: 20
+      offset: 0
     };
   },
 
-  componentWillMount: function() {
-    const topicID = parseInt(this.props.routeParams.id, 10);
-    const receivedTopicChildren = _.some(window.store.getState().topics, {
-      parent: topicID
+  getExistingChildren: function() {
+    return _.filter(window.store.getState().topics, {
+      parent: parseInt(this.props.routeParams.id, 10)
     });
+  },
 
-    if (receivedTopicChildren) {
-      return false
-    }
-
-    superagent.get(`/topic/${topicID}`)
-      .set('Accept', 'application/json')
-      .then(function(response){
-        window.store.dispatch({
-          type: 'GETTHREAD',
-          value: response.body
-        });
-      }.bind(this), function(error){
-        throw new Error(error);
-      });
+  componentWillMount: function() {
+    this.setState({
+      offset: this.state.offset + this.getExistingChildren().length || 0
+    }, this.handleLoadMore);
   },
 
   handleLoadMore: function() {
