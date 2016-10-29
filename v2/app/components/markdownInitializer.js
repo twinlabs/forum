@@ -21,7 +21,7 @@ module.exports = (function() {
   marked.setOptions({
     emoji: function (emoji) {
       return '<img src="'
-          + 'http://cloud.ahfr.org/images/emoji/'
+          + 'https://cloud.ahfr.org/images/emoji/'
           + encodeURIComponent(emoji)
           + '.png"'
           + ' alt=":'
