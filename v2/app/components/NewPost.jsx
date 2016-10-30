@@ -4,7 +4,8 @@ var browserHistory = require('react-router').browserHistory;
 var NewPost = React.createClass({
   getInitialState: function() {
     return {
-      inline: true
+      inline: true,
+      body: ''
     };
   },
 
@@ -73,7 +74,7 @@ var NewPost = React.createClass({
     }, function() {
       this.setState({
         restrictSubmit: false,
-        body: null
+        body: ''
       });
 
       this.animateSubmission();
