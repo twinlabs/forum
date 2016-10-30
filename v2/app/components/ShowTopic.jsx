@@ -18,6 +18,18 @@ module.exports = React.createClass({
   },
 
   componentWillMount: function() {
+    // if the user has mounted before, they'll have
+    // many existing children, so we shouldn't
+    // do additional server work without their action:
+    if (this.getExistingChildren().length >= 20) {
+      return this.setState({
+        offset: this.state.offset + this.getExistingChildren().length || 0
+      });
+    }
+    // previous statement doesn't make concession for
+    // tremendous socket activity in a short period of time,
+    // but that's probably OK.
+
     this.setState({
       offset: this.state.offset + this.getExistingChildren().length || 0
     }, this.handleLoadMore);
