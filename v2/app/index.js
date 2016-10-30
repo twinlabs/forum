@@ -3,6 +3,7 @@ var ReactDOM = require('react-dom');
 var redux = require('redux');
 var Root = require('./components/index.jsx')
 var reducerRoot = require('./reducer-root');
+var Favico = require('favico.js');
 
 function render() {
   ReactDOM.render(
@@ -20,6 +21,21 @@ window.store.subscribe(render);
 
 render();
 
+var favicon = new Favico({
+  animation: 'none',
+  bgColor: '#ff0e00',
+  color: '#fff'
+});
+
+window.addEventListener('blur', function() {
+  window.forum.focus = false;
+});
+window.addEventListener('focus', function() {
+  window.forum.focus = true;
+  window.forum.replyCount = 0;
+  favicon.reset();
+})
+
 // set up sockets
 
 var io = require('socket.io-client');
@@ -31,6 +47,11 @@ window.socket = io.connect(window.forum.constants.socketAddress, {
 });
 
 window.socket.on('post', function(response) {
+  if (!window.forum.focus) {
+    window.forum.replyCount++;
+    favicon.badge(window.forum.replyCount);
+  }
+
   window.store.dispatch({
     type: 'NEW',
     value: response

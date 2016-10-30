@@ -46,7 +46,7 @@
     "epilogue": "0.3.2",
     "express": "^4.12.3",
     "express-session": "1.7.6",
-    "favico.js": "git://github.com/ejci/favico.js#0.3.7",
+    "favico.js": "^0.3.10",
     "history": "^2.0.0",
     "horsey": "^2.6.1",
     "jade": "~0.35.0",
