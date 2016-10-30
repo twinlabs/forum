@@ -276,6 +276,8 @@ var routes = function(app, passport){
         data.id = result.id;
         app.get('io').sockets.emit('post', data);
 
+        UserController.updateLastVisited(data.user.id, data.parent);
+
         app.set('lastModifiedIndex', new Date());
 
         if (typeof callback === "function") {
