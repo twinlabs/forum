@@ -50,8 +50,10 @@ module.exports = React.createClass({
         });
 
         document.body.classList.remove('is-loading');
-      }.bind(this), function(error) {
-        throw new Error(error);
+      }.bind(this), function(error, a, b) {
+        console.error(error);
+
+        document.body.classList.remove('is-loading');
       });
   },
 
