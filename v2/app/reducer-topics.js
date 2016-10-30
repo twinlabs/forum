@@ -59,7 +59,13 @@ module.exports = function doPosts(state, action) {
   }
 
   if (action.type === 'NEW') {
-    let newPost = Object.assign({}, action.value, {isNew: true});
+    let isNewValue = true
+
+    if (window.forum.constants.user.id === action.value.user_id) {
+      isNewValue = false
+    }
+
+    let newPost = Object.assign({}, action.value, {isNew: isNewValue});
     let newState = [].concat(state, newPost);
 
     if (newPost.parent) {
