@@ -82,7 +82,7 @@ var Topics = React.createClass({
 
 
 function unreadCriteria(topic) {
-  return !topic.parent && topic.lastreply.isNew;
+  return !topic.parent && topic.lastreply && topic.lastreply.isNew;
 }
 
 function filterCriteria(topic, filterValue) {
