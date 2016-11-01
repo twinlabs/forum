@@ -9,6 +9,14 @@ var Thread = React.createClass({
     }
   },
 
+  componentDidMount: function () {
+    document.title = this.props.title;
+  },
+
+  componentWillUnmount: function() {
+    document.title = 'Forum';
+  },
+
   handleQuote: function(data) {
     return this.setState({
       quote: data
