@@ -3,6 +3,7 @@ var browserHistory = require('react-router').browserHistory;
 var superagent = require('superagent');
 var _ = require('lodash/core');
 
+var ConnectionBar = require('./ConnectionBar.jsx');
 var ControlBar = require('./ControlBar.jsx');
 
 var Root = React.createClass({
@@ -90,6 +91,7 @@ var Root = React.createClass({
   render: function() {
     return (
       <div className="app">
+        <ConnectionBar userList={this.props.value.userList} />
         <ControlBar
           title={this.getThreadTitle(this.props) || this.props.value.appName}
           handleRootNavigation={this.handleRootNavigation}

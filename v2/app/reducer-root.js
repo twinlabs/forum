@@ -37,9 +37,21 @@ function handleSettings(state, action) {
   return state;
 }
 
+function userList(state, action) {
+  if (typeof state === 'undefined') {
+    return {};
+  }
+
+  if (action.type === 'USERLIST') {
+    return Object.assign({}, state, action.value);
+  }
+
+  return state;
+}
 
 module.exports = redux.combineReducers({
   appName: nameChange,
+  userList: userList,
   topics: require('./reducer-topics'),
   settings: handleSettings
 });
