@@ -71,3 +71,10 @@ window.socket.on('destroy', function(response){
     value: response.id
   });
 });
+
+window.socket.on('updateuserlist', function(userList) {
+  window.store.dispatch({
+    type: 'USERLIST',
+    value: userList
+  });
+});
