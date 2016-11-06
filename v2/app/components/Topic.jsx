@@ -89,8 +89,9 @@ var Topic = React.createClass({
     return (
       <Link
         to={`/topic/${this.props.id}`}
-        className={`post ${this.isNew() ? 'isNew':null}`}
+        className={`post ${this.isNew() ? 'isNew':null} atom`}
         onClick={this.markRead}
+        data-id={this.props.id}
       >
         <div className="" style={{fontSize: "20px"}}>{this.props.title}</div>
         <div
