@@ -119,7 +119,7 @@ var NewPost = React.createClass({
           disabled={this.state && this.state.restrictSubmit}
           onChange={this.handleChange}
           value={this.state.body}
-        ></textarea>
+        />
       )
     }
 
