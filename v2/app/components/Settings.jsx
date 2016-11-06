@@ -29,6 +29,13 @@ var Settings = React.createClass({
     })
   },
 
+  handleStyleChange: function(event) {
+    this.props.store.dispatch({
+      type: 'STYLECHANGE',
+      value: event.target.value
+    });
+  },
+
   render: function() {
     return (
       <form className="settings" onSubmit={this.handleSubmit}>
@@ -87,6 +94,18 @@ var Settings = React.createClass({
             />
           </label>
         </div>
+        <div className="field">
+          <label>
+            Style
+            <select
+              value={this.props.settings.style}
+              onChange={this.handleStyleChange}
+            >
+              <option value="default">default</option>
+              <option value="classic">classic</option>
+            </select>
+          </label>
+          </div>
         <button>Submit</button>
         <div data-user-id={this.props.settings.id}>
           <div

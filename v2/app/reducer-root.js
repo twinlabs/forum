@@ -2,7 +2,9 @@ var redux = require('redux');
 
 function handleSettings(state, action) {
   if (typeof state === 'undefined') {
-    return window.__INITIAL_STATE__.settings;
+    return Object.assign({}, window.__INITIAL_STATE__.settings, {
+      style: localStorage.getItem('forumStyleValue') || 'default'
+    });
   }
 
   if (action.type === 'SIGCHANGE') {
@@ -14,6 +16,14 @@ function handleSettings(state, action) {
   if (action.type === 'VERSION') {
     return Object.assign({}, state, {
       is_v2: action.value
+    });
+  }
+
+  if (action.type === 'STYLECHANGE') {
+    localStorage.setItem('forumStyleValue', action.value);
+
+    return Object.assign({}, state, {
+      style: action.value
     });
   }
 
