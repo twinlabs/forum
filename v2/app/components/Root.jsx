@@ -90,7 +90,7 @@ var Root = React.createClass({
 
   render: function() {
     return (
-      <div className="app">
+      <div className="root">
         <ConnectionBar userList={this.props.value.userList} />
         <ControlBar
           title={this.getTitle(this.props)}

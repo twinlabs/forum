@@ -26,7 +26,7 @@ function createElement(originalProps) {
 module.exports = React.createClass({
   render: function() {
     return (
-      <div className="app">
+      <div className="routerContainer">
         <link rel="stylesheet" href={`/stylesheets/v2-${this.props.value.settings.style}.css`} />
         <Router
           history={withBasename(browserHistory, '/v2')}
