@@ -15,12 +15,10 @@ var NewPost = React.createClass({
     });
 
     setTimeout(function() {
-      if (this.refs.body) {
-        this.refs.body.value = '';
-      }
-
       this.setState({
-        animatedHeight: null
+        animatedHeight: null,
+        body: '',
+        restrictSubmit: false
       });
     }.bind(this), 200);
   },
@@ -72,11 +70,6 @@ var NewPost = React.createClass({
         name: window.forum.constants.user.name
       }
     }, function() {
-      this.setState({
-        restrictSubmit: false,
-        body: ''
-      });
-
       this.animateSubmission();
 
       if (this.props.route && this.props.route.path === 'topic/new') {
