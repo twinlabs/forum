@@ -1,7 +1,3 @@
-.content a,
-.content blockquote {
-  border-color: #ff0e00;
-}
 .content blockquote blockquote {
   font-size: 0.95em;
 }
