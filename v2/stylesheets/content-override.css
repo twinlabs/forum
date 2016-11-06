@@ -2,6 +2,11 @@
   font-size: 0.95em;
 }
 
+.content table {
+  table-layout: auto;
+  font-family: monospace;
+}
+
 .post .signature {
   margin-top: 1em;
   padding-top: 1em;
