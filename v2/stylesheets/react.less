@@ -5,7 +5,7 @@
 }
 
 *:focus {
-  outline: 2px solid hsla(3, 100%, 50%, 0.75) !important;
+  outline: 2px solid currentColor !important;
 }
 
 html {
@@ -15,7 +15,7 @@ html {
 body {
   min-height: 100%;
   font-size: 16px;
-  font-family: 'Playfair Display', serif;
+  font-family: sans-serif;
   scroll-behavior: smooth;
 }
 
@@ -40,7 +40,6 @@ body {
 }
 
 .accent {
-  color: #ff0e00;
   font-size: 1.285em;
 }
 
@@ -56,32 +55,6 @@ body {
   &:after {
     opacity: 1;
   }
-}
-
-.action:focus {
-  outline: none !important;
-}
-
-.action:before,
-.action:after {
-  color: #ff0e00;
-  opacity: 0;
-  font-size: 128.5%;
-  transition-property: opacity;
-  transition-duration: 200ms;
-}
-.action--alwaysOn:before,
-.action--alwaysOn:after {
-  opacity: 1;
-}
-
-.action:before {
-  content: '{';
-  left: -10%;
-}
-.action:after {
-  content: '}';
-  right: -10%;
 }
 
 .data {
@@ -122,7 +95,6 @@ body {
 .input--secondary {
   position: relative;
   padding: 0.5em;
-  color: #ff0e00;
   border: solid currentColor;
   border-width: 0 2px;
 }
@@ -139,7 +111,7 @@ body {
 
 .input--toggle {
   background: transparent;
-  border: 1px solid #ff0e00;
+  border: 1px solid currentColor;
   border-radius: 2px;
   flex-basis: 40%;
   transition-property: background, border, color;
@@ -150,7 +122,6 @@ body {
   }
 }
 .input--toggle.isActive {
-  background: #ff0e00;
   color: #fff;
   border-color: transparent;
 }
@@ -179,22 +150,6 @@ body {
   background: transparent;
   border: none;
   cursor: pointer;
-}
-.focusAction:focus {
-  outline: none !important;
-}
-.focusAction:before,
-.focusAction:after {
-  display: inline-block;
-  transition-property: transform, color;
-  transition-duration: 100ms;
-}
-.focusAction:hover:before,
-.focusAction:hover:after,
-.focusAction:focus:before,
-.focusAction:focus:after {
-  color: #fe3311;
-  transform: scale(2);
 }
 
 .inlineAction {
@@ -243,7 +198,7 @@ body {
   }
 }
 .post.isNew {
-  border-left: 10px solid #ff0e00;
+  border-left: 10px solid currentColor;
 }
 
 .connectionBar {
@@ -257,7 +212,6 @@ body {
 .connectionBar-name {
   display: inline-block;
   padding: 0.5em;
-  background-color: #ff0e00;
   margin: 0 2px;
   color: white;
   border-radius: 4px;
@@ -303,7 +257,6 @@ body {
 .controlBar-control:hover,
 .controlBar-control:focus {
   outline: none !important;
-  border-bottom-color: #ff0e00;
 }
 
 .footerBar {
@@ -332,7 +285,6 @@ body {
 .footerBar a:hover,
 .footerBar a:focus {
   outline: none !important;
-  border-top-color: #ff0e00;
 }
 
 a {

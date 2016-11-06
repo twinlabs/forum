@@ -1,0 +1,90 @@
+*:focus {
+  outline: 2px solid hsla(3, 100%, 50%, 0.75) !important;
+}
+
+body {
+  font-family: 'Playfair Display', serif;
+}
+
+.accent {
+  color: #ff0e00;
+}
+
+.action:focus {
+  outline: none !important;
+}
+
+.action:before,
+.action:after {
+  color: #ff0e00;
+  opacity: 0;
+  font-size: 128.5%;
+  transition-property: opacity;
+  transition-duration: 200ms;
+}
+.action--alwaysOn:before,
+.action--alwaysOn:after {
+  opacity: 1;
+}
+
+.action:before {
+  content: '{';
+  left: -10%;
+}
+.action:after {
+  content: '}';
+  right: -10%;
+}
+
+.focusAction:focus {
+  outline: none !important;
+}
+
+.focusAction:before,
+.focusAction:after {
+  display: inline-block;
+  transition-property: transform, color;
+  transition-duration: 100ms;
+}
+.focusAction:hover:before,
+.focusAction:hover:after,
+.focusAction:focus:before,
+.focusAction:focus:after {
+  color: #fe3311;
+  transform: scale(2);
+}
+
+.input--secondary {
+  color: #ff0e00;
+}
+
+.input--toggle {
+  border-color: #ff0e00;
+}
+
+.input--toggle.isActive {
+  background: #ff0e00;
+}
+
+.post.isNew {
+  border-color: #ff0e00;
+}
+
+.connectionBar-name {
+  background-color: #ff0e00;
+}
+
+.controlBar-control:hover,
+.controlBar-control:focus {
+  border-bottom-color: #ff0e00;
+}
+
+.footerBar a:hover,
+.footerBar a:focus {
+  border-top-color: #ff0e00;
+}
+
+.content a,
+.content blockquote {
+  border-color: #ff0e00;
+}
