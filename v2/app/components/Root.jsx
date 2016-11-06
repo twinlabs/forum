@@ -7,9 +7,9 @@ var ConnectionBar = require('./ConnectionBar.jsx');
 var ControlBar = require('./ControlBar.jsx');
 
 var Root = React.createClass({
-  getThreadTitle: function(props) {
-    if (!props || !props.params.id) {
-      return null;
+  getTitle: function(props) {
+    if (!props.params.id) {
+      return 'The Forum';
     }
 
     return _.find(props.value.topics, {
@@ -71,7 +71,7 @@ var Root = React.createClass({
             padding: '1em'
           }}
         >
-          "{this.getThreadTitle(this.props)}"
+          "{this.getTitle(this.props)}"
         </a>
         <a
           href=""
@@ -93,7 +93,7 @@ var Root = React.createClass({
       <div className="app">
         <ConnectionBar userList={this.props.value.userList} />
         <ControlBar
-          title={this.getThreadTitle(this.props) || this.props.value.appName}
+          title={this.getTitle(this.props)}
           handleRootNavigation={this.handleRootNavigation}
           handleRootRefresh={this.handleRootRefresh}
         />

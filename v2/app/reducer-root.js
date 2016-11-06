@@ -1,22 +1,5 @@
 var redux = require('redux');
 
-var names = [
-  'The Forum',
-  'Ethix Skeptro Viewpoint Simulator',
-  'Masked Terror #3 Hatchery',
-  'Funk Docta Bombay Mortuary',
-  'Jason Gloss War Tribunal',
-  'Will High Observatory'
-];
-
-function nameChange(state, action) {
-  if (typeof state === 'undefined') {
-    return names[0];
-  }
-
-  return names[Math.floor(Math.random() * names.length)];
-}
-
 function handleSettings(state, action) {
   if (typeof state === 'undefined') {
     return window.__INITIAL_STATE__.settings;
@@ -50,7 +33,6 @@ function userList(state, action) {
 }
 
 module.exports = redux.combineReducers({
-  appName: nameChange,
   userList: userList,
   topics: require('./reducer-topics'),
   settings: handleSettings
