@@ -20,6 +20,22 @@ var Topic = React.createClass({
     }
   },
 
+  componentDidMount: function() {
+    this.mountTicker(this.props.lastreply.created_at);
+  },
+
+  mountTicker: function(timestamp) {
+    this.setState({
+      activeTime: moment(timestamp).fromNow()
+    });
+
+    setInterval(function(){
+      this.setState({
+        activeTime: moment(timestamp).fromNow()
+      });
+    }.bind(this), 1000);
+  },
+
   handleDelete: function() {
     window.socket.emit('destroy', {
       id: this.props.id,
@@ -100,7 +116,8 @@ var Topic = React.createClass({
           {this.props.replycount} Replies,
           last by <span className="data-callout">
             {this.props.lastreply.user.name}
-          </span> {moment(this.props.lastreply.created_at).fromNow()}.
+          </span>
+          {` ${this.state.activeTime}.`}
         </div>
       </Link>
     )

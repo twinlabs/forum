@@ -178,7 +178,21 @@ module.exports = React.createClass({
     );
   },
 
+  mountTicker: function(timestamp) {
+    this.setState({
+      activeTime: moment(timestamp).fromNow()
+    });
+
+    setInterval(function(){
+      this.setState({
+        activeTime: moment(timestamp).fromNow()
+      });
+    }.bind(this), 1000);
+  },
+
   componentDidMount: function() {
+    this.mountTicker(this.props.updated_at);
+
     return this.transformContent(this.props.body);
   },
 
@@ -224,7 +238,8 @@ module.exports = React.createClass({
         >
           <span className="data-callout">
             {this.props.user && this.props.user.name}
-          </span> {moment(this.props.updated_at).fromNow()}.
+          </span>
+          {` ${this.state.activeTime}.`}
         </div>
         {this.renderContent()}
         <div
