@@ -109,7 +109,7 @@ var Topic = React.createClass({
         onClick={this.markRead}
         data-id={this.props.id}
       >
-        <div className="" style={{fontSize: "20px"}}>{this.props.title}</div>
+        <div className="topic-title">{this.props.title}</div>
         <div
           className="data"
         >
