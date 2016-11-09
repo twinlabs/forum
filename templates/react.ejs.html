@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="/stylesheets/react-content.css" />
     <link rel="stylesheet" href="/stylesheets/content-override.css" />
     <link rel="icon" href="/favicon_v2.png" />
+    <% if (user && user.id !== 0) { %>
+      <%- user.custom_code %>
+    <% } %>
   </head>
 
   <body class="body is-loading">
