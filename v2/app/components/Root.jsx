@@ -21,6 +21,10 @@ var Root = React.createClass({
     event.preventDefault();
 
     browserHistory.push('/v2');
+
+    setTimeout(function() {
+      return scroll(0, 0);
+    }, 10);
   },
 
   handleRootRefresh: function(event) {
@@ -50,11 +54,7 @@ var Root = React.createClass({
         <a
           href="/"
           className="footerRoot"
-          onClick={function(event) {
-            event.preventDefault();
-
-            return browserHistory.push('/v2');
-          }}
+          onClick={this.handleRootNavigation}
         >
           Back to Root
         </a>
