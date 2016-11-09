@@ -183,7 +183,7 @@ module.exports = React.createClass({
       activeTime: moment(timestamp).fromNow()
     });
 
-    setInterval(function(){
+    this.tickerID = setInterval(function(){
       this.setState({
         activeTime: moment(timestamp).fromNow()
       });
@@ -194,6 +194,10 @@ module.exports = React.createClass({
     this.mountTicker(this.props.updated_at);
 
     return this.transformContent(this.props.body);
+  },
+
+  componentWillUnmount: function() {
+    clearInterval(this.tickerID);
   },
 
   componentWillReceiveProps: function(nextProps) {

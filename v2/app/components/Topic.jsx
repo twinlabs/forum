@@ -24,12 +24,16 @@ var Topic = React.createClass({
     this.mountTicker(this.props.lastreply.created_at);
   },
 
+  componentWillUnmount: function() {
+    clearInterval(this.tickerID);
+  },
+
   mountTicker: function(timestamp) {
     this.setState({
       activeTime: moment(timestamp).fromNow()
     });
 
-    setInterval(function(){
+    this.tickerID = setInterval(function(){
       this.setState({
         activeTime: moment(timestamp).fromNow()
       });
