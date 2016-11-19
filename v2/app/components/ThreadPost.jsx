@@ -1,4 +1,5 @@
 var React = require('react');
+var Link = require('react-router').Link;
 var moment = require('moment');
 var oembed = require('./oembed');
 
@@ -243,7 +244,11 @@ module.exports = React.createClass({
           <span className="data-callout">
             {this.props.user && this.props.user.name}
           </span>
-          {` ${this.state.activeTime}.`}
+          <Link
+            to={`/post/${this.props.id}`}
+          >
+            {` ${this.state.activeTime}.`}
+          </Link>
         </div>
         {this.renderContent()}
         <div

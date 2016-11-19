@@ -8,6 +8,7 @@ var useBasename = require('history/lib/useBasename');
 var Root = require('./Root.jsx');
 var Topics = require('./Topics.jsx');
 var ShowTopic = require('./ShowTopic.jsx');
+var ShowPost = require('./ShowPost.jsx');
 var NewPost = require('./NewPost.jsx');
 var Settings = require('./Settings.jsx');
 
@@ -37,6 +38,7 @@ module.exports = React.createClass({
             <Route path="settings" component={Settings} />
             <Route path="topic/new" component={NewPost} />
             <Route path="topic/:id" component={ShowTopic} />
+            <Route path="post/:id" component={ShowPost} />
           </Route>
         </Router>
       </div>

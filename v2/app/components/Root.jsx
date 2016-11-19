@@ -12,9 +12,13 @@ var Root = React.createClass({
       return 'The Forum';
     }
 
-    return _.find(props.value.topics, {
+    var thread = _.find(props.value.topics, {
       id: parseInt(props.params.id, 10)
-    }).title;
+    });
+
+    if (thread && thread.title) {
+      return thread.title;
+    }
   },
 
   handleRootNavigation: function(event) {
