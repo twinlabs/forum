@@ -60,9 +60,9 @@ var Root = React.createClass({
         <a
           href="/"
           className="footerRoot"
-          onClick={this.handleRootNavigation}
+          onClick={browserHistory.goBack}
         >
-          Back to Root
+          Go Back
         </a>
         <a
           href=""
