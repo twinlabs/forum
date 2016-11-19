@@ -160,7 +160,7 @@ var NewPost = React.createClass({
   },
 
   componentWillReceiveProps: function(nextProps) {
-    if (nextProps.receivedQuote) {
+    if (nextProps.receivedQuote && nextProps.receivedQuote !== this.props.receivedQuote) {
       this.constructQuote(nextProps.receivedQuote);
     }
   },
