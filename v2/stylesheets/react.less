@@ -245,7 +245,14 @@ body {
 
 .controlBar-title {
   flex-basis: 100%;
-  font-size: 2em;
+  font-size: 1.5em;
+  white-space: nowrap;
+}
+
+@media (min-width: 32em) {
+  .controlBar-title {
+    font-size: 2em;
+  }
 }
 
 .footerBar {
