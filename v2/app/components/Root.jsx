@@ -60,7 +60,11 @@ var Root = React.createClass({
         <a
           href="/"
           className="footerRoot"
-          onClick={browserHistory.goBack}
+          onClick={function(event) {
+            event.preventDefault();
+
+            browserHistory.goBack()
+          }}
         >
           Go Back
         </a>
