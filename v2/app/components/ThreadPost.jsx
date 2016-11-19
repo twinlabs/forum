@@ -1,4 +1,5 @@
 var React = require('react');
+var Link = require('react-router').Link;
 var ThreadPostTime = require('./ThreadPostTime.jsx');
 var oembed = require('./oembed');
 
@@ -243,6 +244,13 @@ module.exports = React.createClass({
           >
             Quote
           </a>
+
+          <Link
+            className="action"
+            to={`/post/${this.props.id}`}
+          >
+            Link
+          </Link>
           {this.renderEdit()}
           {this.renderDelete()}
         </div>

@@ -19,6 +19,8 @@ var Root = React.createClass({
     if (thread && thread.title) {
       return thread.title;
     }
+
+    return 'Context-Free Post...';
   },
 
   handleRootNavigation: function(event) {

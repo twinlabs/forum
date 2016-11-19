@@ -18,7 +18,9 @@ module.exports = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <div
+        className="thread"
+      >
         <ThreadPost
           contentRenderer={require('./markdownInitializer')}
           {...this.state && this.state.postData}
