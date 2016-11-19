@@ -1,6 +1,6 @@
 var React = require('react');
 var Link = require('react-router').Link;
-var moment = require('moment');
+var ThreadPostTime = require('./ThreadPostTime.jsx');
 var oembed = require('./oembed');
 
 module.exports = React.createClass({
@@ -179,26 +179,8 @@ module.exports = React.createClass({
     );
   },
 
-  mountTicker: function(timestamp) {
-    this.setState({
-      activeTime: moment(timestamp).fromNow()
-    });
-
-    this.tickerID = setInterval(function(){
-      this.setState({
-        activeTime: moment(timestamp).fromNow()
-      });
-    }.bind(this), 1000);
-  },
-
   componentDidMount: function() {
-    this.mountTicker(this.props.updated_at);
-
     return this.transformContent(this.props.body);
-  },
-
-  componentWillUnmount: function() {
-    clearInterval(this.tickerID);
   },
 
   componentWillReceiveProps: function(nextProps) {
@@ -247,7 +229,9 @@ module.exports = React.createClass({
           <Link
             to={`/post/${this.props.id}`}
           >
-            {` ${this.state.activeTime}.`}
+            <ThreadPostTime
+              timestamp={this.props.updated_at}
+            />
           </Link>
         </div>
         {this.renderContent()}
