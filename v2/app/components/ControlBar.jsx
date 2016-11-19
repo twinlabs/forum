@@ -43,7 +43,7 @@ var ControlBar = React.createClass({
             browserHistory.push('/v2/settings');
           }}
         >
-          &hellip;
+          Settings
         </a>
         <a
           href="/v2"
@@ -59,7 +59,7 @@ var ControlBar = React.createClass({
           href="/v2/topic/new"
           onClick={this.handleRightControl}
         >
-          +
+          New
         </a>
       </div>
     )

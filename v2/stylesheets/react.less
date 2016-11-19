@@ -226,32 +226,12 @@ body {
   display: flex;
 }
 
-.controlBar-title {
-  flex: 1;
-  flex-basis: 100%;
-  font-size: 2em;
-  padding: 1em 0;
-  vertical-align: top;
-  text-align: center;
-}
-
-.settingsControl {
-  flex: 1;
-  padding: 1em;
-  font-size: 2.25em;
-  line-height: 0.5;
-  vertical-align: top;
-}
-
-.newPostControl {
-  flex: 1;
-  padding: 1em;
-  font-size: 2.25em;
-  line-height: 0.88;
-  vertical-align: top;
-}
-
 .controlBar-control {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1em;
+  text-align: center;
   border: solid transparent;
   border-width: 0 0 2px;
   transition-property: border-color;
@@ -261,6 +241,11 @@ body {
 .controlBar-control:hover,
 .controlBar-control:focus {
   outline: none !important;
+}
+
+.controlBar-title {
+  flex-basis: 100%;
+  font-size: 2em;
 }
 
 .footerBar {
