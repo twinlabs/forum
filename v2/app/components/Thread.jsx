@@ -35,6 +35,7 @@ var Thread = React.createClass({
           parent={this.props.id}
           receivedQuote={this.state.quote}
           store={window.store}
+          location={this.props.location}
         />
       </div>
     )

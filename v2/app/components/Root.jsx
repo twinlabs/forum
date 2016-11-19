@@ -51,10 +51,6 @@ var Root = React.createClass({
   },
 
   renderFooter: function() {
-    if (this.props.location.pathname === '/') {
-      return null;
-    }
-
     return (
       <div className="footerBar">
         <a

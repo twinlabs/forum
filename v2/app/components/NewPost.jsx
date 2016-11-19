@@ -165,6 +165,16 @@ var NewPost = React.createClass({
     }
   },
 
+  getSubmitText: function() {
+    if (!this.props.location) {
+      // thread
+      return 'Submit';
+    }
+
+    // post
+    return 'Submit';
+  },
+
   renderSubmitContext: function() {
     if (!this.props.inline || !this.state.inline) {
       return (
@@ -173,7 +183,7 @@ var NewPost = React.createClass({
           className="focusAction action action--alwaysOn"
           type="submit"
         >
-          Submit Post
+          {this.getSubmitText()}
         </button>
       );
     }
@@ -199,6 +209,10 @@ module.exports = React.createClass({
     if (this.props.location && this.props.location.pathname === '/topic/new') {
       return true;
     }
+
+    if (this.props.location && this.props.location.pathname === '/') {
+      return true;
+    }
   },
 
   render: function() {
@@ -209,6 +223,7 @@ module.exports = React.createClass({
         store={window.store}
         parent={this.props.parent}
         route={this.props.route}
+        location={this.props.location}
       />
     );
   }

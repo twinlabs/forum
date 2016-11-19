@@ -1,6 +1,7 @@
 var _ = require('lodash/core');
 var React = require('react');
 var Topic = require('./Topic.jsx');
+var NewPost = require('./NewPost.jsx');
 
 var Topics = React.createClass({
   getInitialState: function() {
@@ -75,6 +76,9 @@ var Topics = React.createClass({
           </button>
         </div>
         {this.filterThreads().map(Topic)}
+        <NewPost
+          location={this.props.location}
+        />
       </div>
     );
   }
