@@ -1,5 +1,4 @@
 var React = require('react');
-var Link = require('react-router').Link;
 var ThreadPostTime = require('./ThreadPostTime.jsx');
 var oembed = require('./oembed');
 
@@ -226,13 +225,9 @@ module.exports = React.createClass({
           <span className="data-callout">
             {this.props.user && this.props.user.name}
           </span>
-          <Link
-            to={`/post/${this.props.id}`}
-          >
-            <ThreadPostTime
-              timestamp={this.props.updated_at}
-            />
-          </Link>
+          <ThreadPostTime
+            timestamp={this.props.updated_at}
+          />
         </div>
         {this.renderContent()}
         <div
