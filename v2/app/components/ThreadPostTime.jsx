@@ -16,7 +16,7 @@ module.exports = React.createClass({
       this.setState({
         activeTime: moment(timestamp).fromNow()
       });
-    }.bind(this), 1000);
+    }.bind(this), 60000);
   },
 
   componentDidMount: function() {
