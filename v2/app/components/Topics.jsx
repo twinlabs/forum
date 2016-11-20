@@ -22,6 +22,10 @@ var Topics = React.createClass({
     });
   },
 
+  hasFilterValue: function() {
+    return !!this.state.filterValue.trim().length;
+  },
+
   hasUnreadFilter: function() {
     return this.state.filterValue.match('is:unread');
   },
@@ -56,6 +60,18 @@ var Topics = React.createClass({
     }.bind(this));
   },
 
+  renderNewPost: function() {
+    if (this.hasFilterValue()) {
+      return null;
+    }
+
+    return (
+      <NewPost
+        location={this.props.location}
+      />
+    );
+  },
+
   render: function() {
     return (
       <div className="topicsContainer">
@@ -76,9 +92,7 @@ var Topics = React.createClass({
           </button>
         </div>
         {this.filterThreads().map(Topic)}
-        <NewPost
-          location={this.props.location}
-        />
+        {this.renderNewPost()}
       </div>
     );
   }
