@@ -39,32 +39,48 @@ var Settings = React.createClass({
   render: function() {
     return (
       <form className="settings" onSubmit={this.handleSubmit}>
-        <div className="field">
+        <div className="input">
           <label>
-            Signature
+            Signature:
             <textarea
-              className="preify input"
               defaultValue={this.props.settings.signature}
               onChange={this.handleSigChange}
               style={{
                 "display": "block",
                 "width": "100%",
-                "minHeight": "400px"
+                'margin': '1em 0',
+                "minHeight": "400px",
+                "fontFamily": "monospace"
               }}
             />
+
+            <div
+              style={{
+                'margin': '1em 0'
+              }}
+              data-user-id={this.props.settings.id}
+            >
+              <div
+                className="signature"
+                dangerouslySetInnerHTML={{
+                  __html: this.props.settings.signature
+                }}
+              />
+            </div>
           </label>
         </div>
-        <div className="field">
+        <div className="input">
           <label>
-            Hide Connected Status:
+            Hide Connected Status:&nbsp;
             <input
               defaultChecked={this.props.settings.hide_connected}
               name="hide_connected"
               type="radio"
             />
           </label>
+          &nbsp;
           <label>
-            Reveal Connected Status:
+            Reveal Connected Status:&nbsp;
             <input
               defaultChecked={!this.props.settings.hide_connected}
               name="hide_connected"
@@ -72,9 +88,9 @@ var Settings = React.createClass({
             />
           </label>
         </div>
-        <div className="field">
+        <div className="input">
           <label>
-            Use v1:
+            Use Forum v1:&nbsp;
             <input
               defaultChecked={!this.props.settings.is_v2}
               onChange={this.handleVersionChange}
@@ -83,8 +99,9 @@ var Settings = React.createClass({
               type="radio"
             />
           </label>
+          &nbsp;
           <label>
-            Use v2
+            Use Forum v2:&nbsp;
             <input
               defaultChecked={this.props.settings.is_v2}
               onChange={this.handleVersionChange}
@@ -94,9 +111,9 @@ var Settings = React.createClass({
             />
           </label>
         </div>
-        <div className="field">
+        <div className="input">
           <label>
-            Style
+            Style:&nbsp;
             <select
               value={this.props.settings.style}
               onChange={this.handleStyleChange}
@@ -105,15 +122,15 @@ var Settings = React.createClass({
               <option value="classic">classic</option>
             </select>
           </label>
-          </div>
-        <button>Submit</button>
-        <div data-user-id={this.props.settings.id}>
-          <div
-            className="signature"
-            dangerouslySetInnerHTML={{
-              __html: this.props.settings.signature
-            }}
-          />
+        </div>
+        <div
+          style={{
+            'margin': '1em 0'
+          }}
+        >
+          <label>
+            <button>Save Settings</button>
+          </label>
         </div>
       </form>
     )
