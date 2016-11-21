@@ -5,9 +5,13 @@ var Settings = React.createClass({
   handleSubmit: function(event) {
     event.preventDefault();
 
+    document.body.classList.add('is-loading');
+
     superagent.post('/settings')
       .send(this.props.settings)
       .end(function(error, response) {
+        document.body.classList.remove('is-loading');
+
         this.props.store.dispatch({
             type: 'SETTINGS',
             value: response.body
