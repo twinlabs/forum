@@ -1,6 +1,7 @@
 var React = require('react');
 var ThreadPost = require('./ThreadPost.jsx');
 var Loader = require('./Loader.jsx');
+var Link = require('react-router').Link;
 var superagent = require('superagent');
 var _ = require('lodash/core');
 
@@ -27,11 +28,41 @@ module.exports = React.createClass({
       });
   },
 
+  getThread: function() {
+    if (!this.state) {
+      return false;
+    }
+
+    var parent = _.find(this.props.value.topics, {
+      id: this.state.postData.parent
+    });
+
+    return (
+      <div
+        style={{
+          'display': 'flex'
+        }}
+      >
+        <Link
+          to={`/topic/${parent.id}`}
+          className="controlBar-control"
+          style={{
+            'margin': '1em auto',
+          }}
+        >
+          From Thread: {parent.title}
+        </Link>
+      </div>
+    );
+  },
+
   render: function() {
     return (
       <div
         className="thread"
       >
+        {this.getThread()}
+
         <ThreadPost
           contentRenderer={require('./markdownInitializer')}
           {...this.state && this.state.postData}
