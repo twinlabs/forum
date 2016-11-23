@@ -8,10 +8,6 @@ var ControlBar = require('./ControlBar.jsx');
 
 var Root = React.createClass({
   getTitle: function(props) {
-    if (!props.params.id) {
-      return 'The Forum';
-    }
-
     var thread = _.find(props.value.topics, {
       id: parseInt(props.params.id, 10)
     });
@@ -20,7 +16,7 @@ var Root = React.createClass({
       return thread.title;
     }
 
-    return 'Context-Free Post...';
+    return 'The Forum';
   },
 
   handleRootNavigation: function(event) {
