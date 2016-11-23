@@ -2,6 +2,40 @@ var React = require('react');
 var superagent = require('superagent');
 
 var Settings = React.createClass({
+  getInitialState: function() {
+    return {
+      needsSave: true
+    };
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    if (this.calcNeedsSave(nextProps.settings)) {
+      this.setState({
+        needsSave: true
+      });
+    }
+  },
+
+  calcNeedsSave: function(nextSettings) {
+    var thisSettings = this.props.settings;
+
+    if (nextSettings.signature !== thisSettings.signature) {
+      return true;
+    }
+
+    if (nextSettings.customCode !== thisSettings.customCode) {
+      return true;
+    }
+
+    if (nextSettings.hide_connected !== thisSettings.hide_connected) {
+      return true;
+    }
+
+    if (nextSettings.is_v2 !== thisSettings.is_v2) {
+      return true;
+    }
+  },
+
   handleSubmit: function(event) {
     event.preventDefault();
 
@@ -11,6 +45,10 @@ var Settings = React.createClass({
       .send(this.props.settings)
       .end(function(error, response) {
         document.body.classList.remove('is-loading');
+
+        this.setState({
+          needsSave: false
+        });
 
         this.props.store.dispatch({
             type: 'SETTINGS',
@@ -38,6 +76,14 @@ var Settings = React.createClass({
       type: 'STYLECHANGE',
       value: event.target.value
     });
+  },
+
+  getSaveButtonText: function() {
+    if (!this.state.needsSave) {
+      return 'Saved';
+    }
+
+    return 'Save Settings';
   },
 
   render: function() {
@@ -133,7 +179,7 @@ var Settings = React.createClass({
           }}
         >
           <label>
-            <button>Save Settings</button>
+            <button>{this.getSaveButtonText()}</button>
           </label>
         </div>
       </form>
