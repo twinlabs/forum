@@ -155,7 +155,7 @@ module.exports = React.createClass({
     }
 
     return (
-      <div>
+      <div className="contentFrame">
         <div
           className="body content"
           ref="content"

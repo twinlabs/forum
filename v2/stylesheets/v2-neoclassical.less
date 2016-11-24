@@ -1,78 +1,46 @@
 *:focus {
-  outline: 2px solid hsla(3, 100%, 50%, 0.75) !important;
+  outline: 2px solid hsla(200, 100%, 50%, 0.75) !important;
 }
 
-@import url('https://fonts.googleapis.com/css?family=Playfair+Display');
+@font-face {
+  font-family: 'Avenir';
+  src: url('/fonts/AvenirLTStd-Roman.otf') format('opentype');
+}
 
 body {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Avenir', sans-serif;
 }
 
 .accent {
-  color: #ff0e00;
-}
-
-.action:focus {
-  outline: none !important;
-}
-
-.action:before,
-.action:after {
-  color: #ff0e00;
-  opacity: 0;
-  font-size: 128.5%;
-  transition-property: opacity;
-  transition-duration: 200ms;
-}
-.action--alwaysOn:before,
-.action--alwaysOn:after {
-  opacity: 1;
+  color: #00bbff;
 }
 
 .action:before {
-  content: '{';
+  content: '';
 }
+
 .action:after {
-  content: '}';
+  content: '';
 }
 
-.focusAction:focus {
-  outline: none !important;
-}
-
-.focusAction:before,
-.focusAction:after {
-  display: inline-block;
-  transition-property: transform, color;
-  transition-duration: 100ms;
-}
-.focusAction:hover:before,
-.focusAction:hover:after,
-.focusAction:focus:before,
-.focusAction:focus:after {
-  color: #fe3311;
-  transform: scale(2);
+.focusAction:hover {
+  border-bottom: 2px solid #00bbff;
 }
 
 .input--secondary {
-  color: #ff0e00;
+  color: #00bbff;
 }
 
 .input--toggle {
-  border-color: #ff0e00;
+  border-color: #00bbff;
 }
 
 .input--toggle.isActive {
-  background: #ff0e00;
+  background: #00bbff;
 }
 
-.post {
-  &:hover {
-    border-color: black
-  }
-}
 .post.isNew {
-  border-color: #ff0e00;
+  border-color: #00bbff;
 }
 .thread .post {
   transition-property: padding-top, padding-bottom;
@@ -136,20 +104,20 @@ body {
 }
 
 .connectionBar-name {
-  background-color: #ff0e00;
+  background-color: #00bbff;
 }
 
 .controlBar-control:hover,
 .controlBar-control:focus {
-  border-bottom-color: #ff0e00;
+  border-bottom-color: #00bbff;
 }
 
 .footerBar a:hover,
 .footerBar a:focus {
-  border-top-color: #ff0e00;
+  border-top-color: #00bbff;
 }
 
 .content a,
 .content blockquote {
-  border-color: #ff0e00;
+  border-color: #00bbff;
 }

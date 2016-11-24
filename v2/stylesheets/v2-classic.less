@@ -15,8 +15,17 @@ body {
   color: #00bbff;
 }
 
-.focusAction:hover {
-  border-bottom: 2px solid #00bbff;
+.action:focus {
+  outline: none !important;
+}
+
+.action:before,
+.action:after {
+  color: #00bbff;
+  opacity: 0;
+  font-size: 128.5%;
+  transition-property: opacity;
+  transition-duration: 200ms;
 }
 
 .input--secondary {
@@ -31,8 +40,21 @@ body {
   background: #00bbff;
 }
 
+.post {
+  box-shadow: 0 0 1px currentColor;
+
+  &:hover {
+    box-shadow: 0 0 2px 1px #00bbff;
+  }
+}
 .post.isNew {
   border-color: #00bbff;
+}
+
+.post .actionContainer {
+  margin-bottom: -1em;
+  padding: 1em 0;
+  border-top: 1px solid currentColor;
 }
 
 .connectionBar-name {

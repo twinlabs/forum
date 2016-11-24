@@ -170,6 +170,7 @@ var Settings = React.createClass({
             >
               <option value="default">default</option>
               <option value="classic">classic</option>
+              <option value="neoclassical">neoclassical</option>
             </select>
           </label>
         </div>

@@ -49,6 +49,15 @@ body {
   position: relative;
 }
 
+.action:before {
+  content: '[';
+  left: -10%;
+}
+.action:after {
+  content: ']';
+  right: -10%;
+}
+
 .action:hover,
 .action:focus {
   &:before,
@@ -190,16 +199,18 @@ body {
   padding: 1em;
   border: solid #ececec;
   border-width: 1px 0;
-  transition-property: border-color;
+  transition-property: border-color, box-shadow;
   transition-duration: 500ms;
 
-  &:hover {
-    border-color: black
-  }
 }
 .post.isNew {
   border-left: 10px solid currentColor;
 }
+
+.contentFrame {
+  margin: 1em 0;
+}
+
 .topic-title {
   font-size: 1.25em;
 }
@@ -302,69 +313,16 @@ a {
   margin-bottom: 1em;
 }
 
-.thread .post {
-  transition-property: padding-top, padding-bottom;
-  transition-duration: 200ms;
-
-  &:hover {
-    padding: 1em 1em 5em;
-  }
-}
-
 .post {
   position: relative;
 }
-
-.post .actionContainer {
-  padding: 1em 1em 2em;
-  position: absolute;
-  width: 100%;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-
-  &:before {
-    content: '';
-    display: inline-block;
-    vertical-align: middle;
-    height: 100%;
-  }
-
-  &:after {
-    content: '';
-    position: absolute;
-    margin: 0 1em;
-    top: 0;
-    left: 0;
-    right: 0;
-    border-top: 1px solid transparent;
-  }
-}
-
-.post:hover .actionContainer {
-  padding: 1em 1em 0;
-  bottom: 2em;
-  top: auto;
-  right: auto;
-}
-
-.post:hover .actionContainer:after {
-  border-color: #ececec;
+.thread .post {
+  transition-duration: 200ms;
 }
 
 .post .action {
-  display: inline-block;
-  vertical-align: bottom;
   margin-right: 1em;
   cursor: pointer;
-  transition-property: opacity;
-  transition-duration: 200ms;
-  opacity: 0;
-}
-
-.post:hover .action {
-  opacity: 1;
 }
 
 .post .body {
