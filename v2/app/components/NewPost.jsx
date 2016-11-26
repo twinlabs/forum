@@ -1,4 +1,5 @@
 var React = require('react');
+var Input = require('./Input.jsx');
 var browserHistory = require('react-router').browserHistory;
 
 var NewPost = React.createClass({
@@ -86,8 +87,8 @@ var NewPost = React.createClass({
     }
 
     return (
-      <input
-        className="input"
+      <Input
+        className="v-Atom"
         type="text"
         placeholder="Title"
         ref="title"
@@ -106,7 +107,7 @@ var NewPost = React.createClass({
     if (!this.props.inline || !this.state.inline) {
       return (
         <textarea
-          className="input focusArea"
+          className="input focusArea v-Atom"
           style={{
             height: this.state && this.state.animatedHeight,
             minHeight: (this.state && this.state.animatedHeight) ? '0' : null,
@@ -127,8 +128,8 @@ var NewPost = React.createClass({
       <div
         style={{display: 'flex'}}
       >
-        <input
-          className="input"
+        <Input
+          className="v-Atom"
           type="text"
           placeholder="Body"
           ref="body"

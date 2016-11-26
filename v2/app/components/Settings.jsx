@@ -89,7 +89,7 @@ var Settings = React.createClass({
   render: function() {
     return (
       <form className="settings" onSubmit={this.handleSubmit}>
-        <div className="input">
+        <div className="post v-Atom">
           <label>
             Signature:
             <textarea
@@ -119,7 +119,7 @@ var Settings = React.createClass({
             </div>
           </label>
         </div>
-        <div className="input">
+        <div className="post v-Atom">
           <label>
             Hide Connected Status:&nbsp;
             <input
@@ -138,7 +138,7 @@ var Settings = React.createClass({
             />
           </label>
         </div>
-        <div className="input">
+        <div className="post v-Atom">
           <label>
             Use Forum v1:&nbsp;
             <input
@@ -161,7 +161,7 @@ var Settings = React.createClass({
             />
           </label>
         </div>
-        <div className="input">
+        <div className="post v-Atom">
           <label>
             Style:&nbsp;
             <select

@@ -215,7 +215,7 @@ module.exports = React.createClass({
   render: function() {
     return (
       <div
-        className="post"
+        className="post v-Atom"
         data-id={this.props.id}
         data-user-id={this.props.user.id}
         key={this.props.id}

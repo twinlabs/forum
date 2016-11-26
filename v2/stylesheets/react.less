@@ -17,6 +17,7 @@ body {
   font-size: 13px;
   font-family: sans-serif;
   scroll-behavior: smooth;
+  background-color: #fbfbfa;
 }
 
 @media (min-width: 32em) {
@@ -94,6 +95,9 @@ body {
 
 .inputGroup {
   display: flex;
+  margin: 1em 0;
+  padding: 1em;
+  border: 1px solid currentColor;
 }
 
 .input {
@@ -121,16 +125,6 @@ body {
   padding: 0.5em;
   border: solid currentColor;
   border-width: 0 2px;
-}
-
-.input--flush {
-  font-family: inherit;
-  width: 100%;
-  border: none;
-
-  &:focus {
-    outline: none !important;
-  }
 }
 
 .input--toggle {
@@ -216,7 +210,6 @@ body {
   border-width: 1px 0;
   transition-property: border-color, box-shadow;
   transition-duration: 500ms;
-
 }
 .post.isNew {
   border-left: 10px solid currentColor;
@@ -343,4 +336,8 @@ a {
 .post .body {
   position: relative;
   z-index: 1;
+}
+
+.v-Atom {
+  background-color: #fff;
 }

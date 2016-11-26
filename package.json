@@ -37,6 +37,7 @@
     "bluebird": "^3.4.6",
     "body-parser": "^1.12.2",
     "browserify": "^13.0.0",
+    "classnames": "^2.2.5",
     "compression": "^1.4.3",
     "concurrently": "^2.1.0",
     "connect-pg-simple": "^2.1.1",

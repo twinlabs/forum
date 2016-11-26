@@ -2,6 +2,7 @@ var _ = require('lodash/core');
 var React = require('react');
 var Topic = require('./Topic.jsx');
 var NewPost = require('./NewPost.jsx');
+var InputGroup = require('./InputGroup.jsx');
 
 var Topics = React.createClass({
   getInitialState: function() {
@@ -75,14 +76,20 @@ var Topics = React.createClass({
   render: function() {
     return (
       <div className="topicsContainer">
-        <div className="topicsFilter input inputGroup">
+        <InputGroup
+          className="v-Atom"
+        >
           <input
-            className="input--flush"
             type="text"
             placeholder="Filter Topic Name"
             ref="topicFilter"
             onChange={this.handleFilterChange}
             value={this.state.filterValue}
+            style={{
+              'width': '100%',
+              'border': 'none',
+              'outline': 'none'
+            }}
           />
           <button
             className={this.toggleClassNames()}
@@ -90,7 +97,7 @@ var Topics = React.createClass({
           >
             Only Unread
           </button>
-        </div>
+        </InputGroup>
         {this.filterThreads().map(Topic)}
         {this.renderNewPost()}
       </div>

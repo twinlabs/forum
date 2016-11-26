@@ -109,7 +109,7 @@ var Topic = React.createClass({
     return (
       <Link
         to={`/topic/${this.props.id}`}
-        className={`post ${this.isNew() ? 'isNew':null} atom`}
+        className={`post ${this.isNew() ? 'isNew':null} v-Atom`}
         onClick={this.markRead}
         data-id={this.props.id}
       >
