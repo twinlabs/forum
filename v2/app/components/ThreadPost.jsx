@@ -167,6 +167,10 @@ module.exports = React.createClass({
   },
 
   renderSignature: function() {
+    if (!this.props.user.signature) {
+      return null;
+    }
+
     if (window.forum.constants.user.hide_signatures) {
       return null;
     }
