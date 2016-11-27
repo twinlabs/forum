@@ -102,15 +102,11 @@ var routes = function(app, passport){
 
     PostsController.topics().done(function(error, posts){
       UserController.get(request.session.user.id).done(function(err, userData){
-        posts.forEach(function(post) {
-          var postTimestamp = +new Date(post.lastreply.created_at);
-          var lastVisitedTimestamp = +new Date(response.locals.lastVisited[post.id]);
-          if (postTimestamp > lastVisitedTimestamp) {
-            post.lastreply.isNew = true;
-          }
-        });
+
+        var responsePosts = addLastVisited(posts, response.locals.lastVisited);
+
         response.render(`${__dirname}/../templates/react.ejs.html`, {
-          postData: JSON.stringify(posts),
+          postData: JSON.stringify(responsePosts),
           settings: JSON.stringify(userData),
           initialState: JSON.stringify({
             postData: posts,
@@ -124,8 +120,10 @@ var routes = function(app, passport){
   app.get('/topics', function(request, response) {
     PostsController.topics().done(function(error, posts){
       UserController.get(request.session.user.id).done(function(err, userData){
+        var responsePosts = addLastVisited(posts, response.locals.lastVisited);
+
         if (request.header('Accept') === 'application/json') {
-          return response.json(posts)
+          return response.json(responsePosts)
         }
       });
     });
@@ -477,6 +475,20 @@ var routes = function(app, passport){
     })
   });
 };
+
+function addLastVisited(posts, lastVisitedMap) {
+  var returnPosts = posts.slice();
+
+  returnPosts.forEach(function(post) {
+    var postTimestamp = +new Date(post.lastreply.created_at);
+    var lastVisitedTimestamp = +new Date(lastVisitedMap[post.id]);
+    if (postTimestamp > lastVisitedTimestamp) {
+      post.lastreply.isNew = true;
+    }
+  });
+
+  return returnPosts;
+}
 
 function tokenValidation(request, response, next){
   // this function is middleware for the '/signup' endpoint.
