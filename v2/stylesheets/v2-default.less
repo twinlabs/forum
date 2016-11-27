@@ -71,17 +71,15 @@ body {
 }
 
 .post {
-  box-shadow: 0 0 1px;
-
   &:hover {
-    box-shadow: 0 0 4px currentColor;
+    box-shadow: 0 0 1px currentColor;
   }
 }
 .post.isNew {
   border-color: #ff0e00;
 }
 .thread .post {
-  transition-property: padding-top, padding-bottom;
+  transition-property: padding-top, padding-bottom, box-shadow;
 
   &:hover {
     padding: 1em 1em 5em;
