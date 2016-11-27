@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var Input = require('./Input.jsx');
 var browserHistory = require('react-router').browserHistory;
 
@@ -47,14 +48,16 @@ var NewPost = React.createClass({
   },
 
   handleFocus: function() {
-    this.refs.body.scrollIntoView();
-    this.refs.body.focus();
+    ReactDOM.findDOMNode(this.refs.body).scrollIntoView();
+    ReactDOM.findDOMNode(this.refs.body).focus();
   },
 
   handleSubmit: function(event) {
     event.preventDefault();
 
-    if (!this.refs.body || !this.refs.body.value.trim()) {
+    var postBody = ReactDOM.findDOMNode(this.refs.body).value.trim();
+
+    if (!postBody) {
       return false;
     }
 
@@ -65,7 +68,7 @@ var NewPost = React.createClass({
     window.socket.emit('post', {
       parent: this.props.parent,
       title: this.refs.title && this.refs.title.value,
-      body: this.refs.body && this.refs.body.value,
+      body: postBody,
       user: {
         id: window.forum.constants.user.id,
         name: window.forum.constants.user.name
