@@ -9,7 +9,7 @@ var app = express();
 var session = require('express-session');
 var lessMiddleware = require('less-middleware');
 var multer = require('multer');
-var autoprefixer = require('autoprefixer-core');
+var postcss = require('postcss');
 var httpServer = http.createServer(app);
 var passport = require('passport');
 var pg = require('pg');
@@ -63,7 +63,7 @@ app.use('/templates/post', express.static(__dirname + '/app/views/posts/'));
 app.use(lessMiddleware(__dirname + '/app/assets', {
   postprocess: {
     css: function(css, request){
-      return autoprefixer.process(css).css;
+      return postcss([require('autoprefixer')]).process(css).css;
     }
   }
 }));
@@ -71,7 +71,7 @@ app.use(lessMiddleware(__dirname + '/app/assets', {
 app.use(lessMiddleware(__dirname + '/v2', {
   postprocess: {
     css: function(css, request){
-      return autoprefixer.process(css).css;
+      return postcss([require('autoprefixer')]).process(css).css;
     }
   }
 }));
