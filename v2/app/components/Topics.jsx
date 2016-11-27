@@ -77,7 +77,7 @@ var Topics = React.createClass({
     return (
       <div className="topicsContainer">
         <InputGroup
-          className="v-Atom"
+          className="v-Atom filter"
         >
           <input
             type="text"
