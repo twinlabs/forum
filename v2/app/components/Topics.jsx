@@ -15,6 +15,10 @@ var Topics = React.createClass({
     this.updateFilterValue(event.target.value);
   },
 
+  clearFilter: function() {
+    this.updateFilterValue('');
+  },
+
   updateFilterValue: function(newFilterValue) {
     return this.setState({
       filterValue: newFilterValue
@@ -73,6 +77,24 @@ var Topics = React.createClass({
     );
   },
 
+  renderClearFilter: function() {
+    if (!this.hasFilterValue()) {
+      return null;
+    }
+
+    return (
+      <button
+        style={{
+          'border': 'none',
+          'backgroundColor':'transparent'
+        }}
+        onClick={this.clearFilter}
+      >
+        &times;
+      </button>
+    );
+  },
+
   render: function() {
     return (
       <div className="topicsContainer">
@@ -91,6 +113,7 @@ var Topics = React.createClass({
               'outline': 'none'
             }}
           />
+          {this.renderClearFilter()}
           <button
             className={this.toggleClassNames()}
             onClick={this.toggleUnread}
