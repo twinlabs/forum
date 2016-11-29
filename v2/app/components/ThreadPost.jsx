@@ -209,6 +209,15 @@ module.exports = React.createClass({
 
   renderAsHTML: function(input, renderer) {
     input = input || '';
+
+    // tweets are complex.
+    // don't try to pass them through markdown renderer:
+    if (input.match('class="twitter-tweet"')) {
+      return {
+        __html: input
+      };
+    }
+
     renderer = renderer || function(input) { return input };
 
     return {
