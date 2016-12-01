@@ -135,7 +135,7 @@ function unreadCriteria(topic) {
 
 function filterCriteria(topic, filterValue) {
   return !topic.parent &&
-    (topic.title.toLowerCase().indexOf(filterValue.toLowerCase()) !== -1);
+    (topic.title && topic.title.toLowerCase().indexOf(filterValue.toLowerCase()) !== -1);
 }
 
 module.exports = Topics;
