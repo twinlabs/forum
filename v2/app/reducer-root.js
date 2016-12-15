@@ -3,7 +3,7 @@ var redux = require('redux');
 function handleSettings(state, action) {
   if (typeof state === 'undefined') {
     return Object.assign({}, window.__INITIAL_STATE__.settings, {
-      style: localStorage.getItem('forumStyleValue') || 'default'
+      style: localStorage.getItem('forumStyleValue') || 'classic'
     });
   }
 
