@@ -30,10 +30,6 @@ var Settings = React.createClass({
     if (nextSettings.hide_connected !== thisSettings.hide_connected) {
       return true;
     }
-
-    if (nextSettings.is_v2 !== thisSettings.is_v2) {
-      return true;
-    }
   },
 
   handleSubmit: function(event) {
@@ -61,13 +57,6 @@ var Settings = React.createClass({
     this.props.store.dispatch({
       type: 'SIGCHANGE',
       value: event.target.value
-    })
-  },
-
-  handleVersionChange: function(event) {
-    this.props.store.dispatch({
-      type: 'VERSION',
-      value: event.target.dataset.value === "true"
     })
   },
 
@@ -134,29 +123,6 @@ var Settings = React.createClass({
             <input
               defaultChecked={!this.props.settings.hide_connected}
               name="hide_connected"
-              type="radio"
-            />
-          </label>
-        </div>
-        <div className="post v-Atom">
-          <label>
-            Use Forum v1:&nbsp;
-            <input
-              defaultChecked={!this.props.settings.is_v2}
-              onChange={this.handleVersionChange}
-              data-value="false"
-              name="is_v2"
-              type="radio"
-            />
-          </label>
-          &nbsp;
-          <label>
-            Use Forum v2:&nbsp;
-            <input
-              defaultChecked={this.props.settings.is_v2}
-              onChange={this.handleVersionChange}
-              data-value="true"
-              name="is_v2"
               type="radio"
             />
           </label>
