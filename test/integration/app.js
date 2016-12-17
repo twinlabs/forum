@@ -20,39 +20,6 @@ describe('app.js', function(){
   });
 });
 
-
-describe('assets', function(){
-  it('uses middleware to serve LESS assets as CSS', function(done){
-    var request = http.request({
-      path: '/stylesheets/normalize.css',
-      port: appModule.port
-    }, function(response){
-      assert(response.statusCode === 200, "status code not 200/OK");
-      done();
-    });
-
-    request.end();
-
-    request.on('error', function(error){
-      console.log('request error: ' + error.message);
-    });
-  });
-});
-
-describe('rendering', function(){
-  it('looks for views in the "app/views" subdirectory', function(){
-    assert(appModule.app.get('views') === rootDir + '/app/views', "this instance of express has a different 'views' default than expected.");
-  });
-
-  it('registers jade as a templating engine', function(){
-    assert(appModule.app.engines['.jade'], "jade is not registered with this instance of express.");
-  });
-
-  it('registers ejs.html as the default templating engine', function(){
-    assert(appModule.app.get('view engine') === 'ejs.html', "ejs (with ejs.html) is not the default view engine for this instance of express.");
-  });
-});
-
 describe('socket communication', function(){
   // this all requires server to be running. seems like an integration test suite.
   before(function(done){
@@ -61,8 +28,8 @@ describe('socket communication', function(){
     var sequelize = new Sequelize("postgres://postgres@localhost/" + appModule.app.get('db-test'));
 
     // pending comment
-    var post = rootRequire('app/models/Post.orm')(sequelize);
-    var user = rootRequire('app/models/User.orm')(sequelize);
+    var post = rootRequire('models/Post.orm')(sequelize);
+    var user = rootRequire('models/User.orm')(sequelize);
 
     var models = {
       post: post,

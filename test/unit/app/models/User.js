@@ -1,5 +1,5 @@
 var assert = require('assert');
-var user = rootRequire('app/models/User');
+var user = rootRequire('models/User');
 
 describe('models/User.js', function(){
   it('has a name', function(){

@@ -4,7 +4,7 @@ var _ = require('lodash');
 var appModule = rootRequire('app');
 var http = require('http');
 var request = require('request');
-var User = rootRequire('app/models/User');
+var User = rootRequire('models/User');
 
 describe('authentication', function(){
   before(function(done){
