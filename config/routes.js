@@ -1,6 +1,6 @@
-var PostsController = rootRequire('app/controllers/PostsController');
-var UserController = rootRequire('app/controllers/UserController');
-var authentication = rootRequire('lib/authentication');
+var PostsController = rootRequire('controllers/PostsController');
+var UserController =  rootRequire('controllers/UserController');
+var authentication =  rootRequire('lib/authentication');
 
 var userlist = {};
 var superagent = require('superagent');
@@ -32,7 +32,7 @@ var routes = function(app, passport){
     }
 
 
-    var assetPaths = ['stylesheets', 'javascripts', 'fonts', 'images', 'react', '.js'];
+    var assetPaths = ['stylesheets', 'javascripts', 'fonts', 'images', '.js'];
 
     // skip "last visited" lookup if the request is obviously just for an asset:
     for (var i = 0; i < assetPaths.length; i++) {
@@ -40,8 +40,6 @@ var routes = function(app, passport){
         return next();
       }
     }
-
-
 
     UserController.get(request.session.user.id).then(function(userData) {
       response.locals.user.custom_code = userData.custom_code;
@@ -54,13 +52,77 @@ var routes = function(app, passport){
     });
   });
 
-  app.get('/lastVisited', function(request, response) {
-    response.send(response.locals.lastVisited);
+  app.get('/logout', function(request, response){
+    request.session.destroy();
+
+    response.redirect('/');
   });
 
-  app.get('/', function(request, response){
+
+  app.get('/login', function(request, response){
+    response.render('login', {
+    });
+  });
+
+  app.get('/signup', function(request, response){
+    response.render('signup', {
+    });
+  });
+
+  app.get('/embed/twitter/:url', function(request, response, next) {
+    superagent.get(
+      `https://publish.twitter.com/oembed?url=${encodeURIComponent(request.params.url)}&omitscript`
+      ).then(function(serviceResponse) {
+        response.send(serviceResponse.body);
+      }, function(error) {
+        console.error(error);
+        response.sendStatus(error.status);
+      });
+  });
+
+  app.get('/embed/instagram/:url', function(request, response, next) {
+    superagent.get(
+      `https://api.instagram.com/oembed?url=${encodeURIComponent(request.params.url)}&omitscript`
+    ).then(function(serviceResponse) {
+      response.send(serviceResponse.body)
+    }, function(error) {
+      console.error(error);
+      response.sendStatus(error.status);
+    })
+  });
+
+  app.get('/embed/soundcloud/:url', function(request, response, next) {
+    superagent.get(
+      `https://soundcloud.com/oembed`
+    )
+    .query({
+      url: request.params.url,
+      format: 'json',
+      maxheight: 166
+    }).then(function(serviceResponse) {
+      response.send(serviceResponse.body)
+    }, function(error) {
+      console.error(error);
+      response.sendStatus(error.status);
+    })
+  });
+
+  app.get('/*', function(request, response, next){
     if (request.session.user.id === 0){
-      return response.render('index', {});
+      return response.render('login', {});
+    }
+
+    if (request.header('Accept') === 'application/json') {
+      return next();
+    }
+
+    var assetPaths = ['stylesheets', 'javascripts', 'fonts', 'images', '.js'];
+
+    // skip lookup if the request is obviously just for an asset:
+    for (var i = 0; i < assetPaths.length; i++) {
+      if (request.originalUrl.indexOf(assetPaths[i]) !== -1) {
+        return next();
+      }
     }
 
     if (app.get('lastModifiedIndex') && request.get('If-Modified-Since') &&
@@ -80,32 +142,12 @@ var routes = function(app, passport){
       app.set('lastModifiedIndex', new Date().toString());
     }
 
-    UserController.get(request.session.user.id).done(function(error, userData) {
-      if (userData && userData.is_v2 && !request.query.force) {
-        return response.redirect('/v2');
-      }
-
-      PostsController.topics().done(function(error, posts){
-        response.render('index', { posts: posts });
-      });
-    });
-  });
-
-  app.get('/react*', function(request, response) {
-    return response.redirect(`/v2${request.path.replace('/react', '')}`);
-  });
-
-  app.get('/v2*', function(request, response) {
-    if (request.session.user.id === 0) {
-      response.sendStatus(404);
-    }
-
     PostsController.topics().done(function(error, posts){
       UserController.get(request.session.user.id).done(function(err, userData){
 
         var responsePosts = addLastVisited(posts, response.locals.lastVisited);
 
-        response.render(`${__dirname}/../templates/react.ejs.html`, {
+        response.render('react', {
           postData: JSON.stringify(responsePosts),
           settings: JSON.stringify(userData),
           initialState: JSON.stringify({
@@ -122,33 +164,16 @@ var routes = function(app, passport){
       UserController.get(request.session.user.id).done(function(err, userData){
         var responsePosts = addLastVisited(posts, response.locals.lastVisited);
 
-        if (request.header('Accept') === 'application/json') {
-          return response.json(responsePosts)
-        }
+        return response.json(responsePosts)
       });
     });
   });
 
   app.get('/topic/:id', function(request, response, next) {
     if (request.session.user.id === 0){
-      return response.render('index', {});
+      return response.sendStatus(404);
     }
 
-    if (request.query.all) {
-      return PostsController.postsForTopicAll(request.params.id).done(function(error, posts) {
-        if (posts && posts.length < 1) {
-          return response.sendStatus(404);
-        }
-
-        PostsController.findTopicTitle(request.params.id).spread(function(topic) {
-          response.render('all', {
-            posts: posts,
-            parent: request.params.id,
-            topic: topic[0]
-          });
-        });
-      });
-    }
     if (request.query.limit) {
       return PostsController.postsForTopic(response.locals.lastVisited[request.params.id] || +new Date(null), request.params.id, request.query.limit, request.query.offset).then(function(posts){
 
@@ -157,58 +182,27 @@ var routes = function(app, passport){
         }
 
         PostsController.findTopicTitle(request.params.id).spread(function(topic) {
-          if (request.header('Accept') === 'application/json') {
-            UserController.updateLastVisited(request.session.user.id, request.params.id);
+          UserController.updateLastVisited(request.session.user.id, request.params.id);
 
-            return response.json(posts.rows.reverse())
-          }
-
-          response.render('all', {
-            posts: posts.rows.reverse(),
-            parent: request.params.id,
-            count: posts.count,
-            topic: topic[0],
-            limit: parseInt(request.query.limit, 10) || 20,
-            offset: parseInt(request.query.offset, 10) || 0
-          });
+          return response.json(posts.rows.reverse())
         });
       });
-
     }
 
     return next();
 
   }, function(request, response, next) {
-    if (request.session.user.id === 0){
-      return response.render('index', {});
-    }
-
     UserController.updateLastVisited(request.session.user.id, request.params.id);
 
     next();
   }, function(request, response) {
-    if (request.session.user.id === 0){
-      return response.render('index', {});
-    }
-
     PostsController.postsForTopic(response.locals.lastVisited[request.params.id] || +new Date(null), request.params.id).then(function(posts){
 
       if (posts.rows && posts.rows.length < 1) {
         return response.sendStatus(404);
       }
 
-      if (request.header('Accept') === 'application/json') {
-        return response.json(posts.rows.reverse())
-      }
-
-      PostsController.findTopicTitle(request.params.id).spread(function(topic) {
-        response.render('all', {
-          posts: posts.rows.reverse(),
-          parent: request.params.id,
-          topic: topic[0],
-          count: posts.count
-        });
-      });
+      return response.json(posts.rows.reverse());
     });
   });
 
@@ -222,19 +216,6 @@ var routes = function(app, passport){
     //return post data using response.send which should return the markdown you need to quote the post
     PostsController.get(request.params.id).done(function(err, post){
       response.send(post);
-    });
-  });
-
-
-  app.get('/all', function(request, response){
-    if (request.session.user.id === 0){
-      return response.sendStatus(404);
-    }
-
-    PostsController.index().done(function(error, posts){
-      response.render('all', {
-        posts: posts
-      });
     });
   });
 
@@ -337,17 +318,6 @@ var routes = function(app, passport){
     response.redirect('/');
   });
 
-  app.get('/settings', function(request, response){
-    if (request.session.user.id === 0) {
-      response.sendStatus(404);
-    }
-    UserController.get(request.session.user.id).done(function(err, user){
-      response.render('settings', {
-        user: user
-      });
-    });
-  });
-
   app.post('/settings', function(request, response){
     UserController.get(request.session.user.id)
     .done(function(err, user){
@@ -355,30 +325,8 @@ var routes = function(app, passport){
       request.body.is_v2 = (request.body.is_v2 === 'true' || request.body.is_v2);
 
       user.updateAttributes(request.body).success(function(){
-        response.render('settings', {
-          user: user
-        });
+        response.send(user);
       });
-    });
-  });
-
-  app.post('/settings/markAllUnread', function(request, response) {
-    if (request.session.user.id === 0) {
-      response.sendStatus(404);
-    }
-
-    UserController.markAllUnread({user: {id: request.session.user.id}}).then(function(){
-      response.redirect('/');
-    });
-  });
-
-  app.post('/settings/markAllRead', function(request, response) {
-    if (request.session.user.id === 0) {
-      response.sendStatus(404);
-    }
-
-    UserController.markAllRead({user: {id: request.session.user.id}}).then(function(){
-      response.redirect('/');
     });
   });
 
@@ -397,70 +345,6 @@ var routes = function(app, passport){
   app.get('/signup', function(request, response){
     response.render('signup', {
     });
-  });
-
-  app.get('/javascripts/react/bundle-static.js', function (req, res, next) {
-    if (process.env.ENV === 'production') {
-      return false;
-    }
-
-    var browserify = require('browserify')('./v2/app/index.js', {
-      bundleExternal: false,
-      debug: true,
-      transform: 'babelify'
-    });
-
-    res.set('Content-Type', 'text/javascript');
-
-    browserify.bundle(function(error, buffer) {
-      if (error) {
-        res.set('Content-Type', 'text/json');
-        res.set('Stacktrace', error);
-        console.log('error generating bundle.');
-        return res.status('500').end();
-      }
-
-      console.log(`client bundle regenerated: ${buffer.length} bytes.`);
-      res.send(buffer);
-    });
-  });
-
-  app.get('/embed/twitter/:url', function(request, response, next) {
-    superagent.get(
-      `https://publish.twitter.com/oembed?url=${encodeURIComponent(request.params.url)}&omitscript`
-      ).then(function(serviceResponse) {
-        response.send(serviceResponse.body);
-      }, function(error) {
-        console.error(error);
-        response.sendStatus(error.status);
-      });
-  });
-
-  app.get('/embed/instagram/:url', function(request, response, next) {
-    superagent.get(
-      `https://api.instagram.com/oembed?url=${encodeURIComponent(request.params.url)}&omitscript`
-    ).then(function(serviceResponse) {
-      response.send(serviceResponse.body)
-    }, function(error) {
-      console.error(error);
-      response.sendStatus(error.status);
-    })
-  });
-
-  app.get('/embed/soundcloud/:url', function(request, response, next) {
-    superagent.get(
-      `https://soundcloud.com/oembed`
-    )
-    .query({
-      url: request.params.url,
-      format: 'json',
-      maxheight: 166
-    }).then(function(serviceResponse) {
-      response.send(serviceResponse.body)
-    }, function(error) {
-      console.error(error);
-      response.sendStatus(error.status);
-    })
   });
 };
 

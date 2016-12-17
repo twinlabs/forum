@@ -1,5 +1,5 @@
 var assert = require('assert');
-var embedYouTube = require('../../../v2/app/components/oembed/oembed-youtube');
+var embedYouTube = require('../../../app/components/oembed/oembed-youtube');
 var superagent = require('superagent');
 var sinon = require('sinon');
 var dedent = require('dedent');

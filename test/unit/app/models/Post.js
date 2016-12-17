@@ -1,5 +1,5 @@
 var assert = require('assert');
-var Post = rootRequire('app/models/Post');
+var Post = rootRequire('models/Post');
 
 describe('models/Post.js', function(){
   it('has a body', function(){

@@ -52,13 +52,10 @@ var clientConstants = {
 
 app.locals.clientConstants = JSON.stringify(clientConstants);
 
-app.engine('jade', require('jade').__express);
 app.engine('ejs.html', require('ejs').renderFile);
 app.engine('html', require('ejs').renderFile);
-app.set('views', process.cwd() + '/app/views');
+app.set('views', process.cwd() + '/templates');
 app.set('view engine', 'ejs.html');
-app.locals.basedir = process.cwd() + '/app/views';
-app.use('/templates/post', express.static(__dirname + '/app/views/posts/'));
 
 app.use(lessMiddleware(__dirname + '/app/assets', {
   postprocess: {
@@ -76,8 +73,8 @@ app.use(lessMiddleware(__dirname + '/v2', {
   }
 }));
 
-app.use(express.static(__dirname + '/app/assets'));
-app.use(express.static(__dirname + '/v2'));
+app.use(express.static(__dirname + '/assets'));
+app.use(express.static(__dirname + '/build'));
 
 module.exports = {
   server: httpServer.listen(app.get('PORT'), function(){
@@ -141,7 +138,7 @@ var checkAuth = function(req, res, context) {
   }
 };
 
-rootRequire('app/controllers/UserApi')(rest, checkAuth);
-rootRequire('app/controllers/TopicApi')(rest, checkAuth);
-rootRequire('app/controllers/PostApi')(rest, checkAuth);
+rootRequire('controllers/UserApi')(rest, checkAuth);
+rootRequire('controllers/TopicApi')(rest, checkAuth);
+rootRequire('controllers/PostApi')(rest, checkAuth);
 

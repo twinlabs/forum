@@ -1,5 +1,5 @@
 var assert = require('assert');
-var embedTwitter = require('../../../v2/app/components/oembed/oembed-twitter');
+var embedTwitter = require('../../../app/components/oembed/oembed-twitter');
 var superagent = require('superagent');
 var sinon = require('sinon');
 var dedent = require('dedent');

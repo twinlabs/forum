@@ -1,6 +1,6 @@
 var assert = require('assert');
 var sinon = require('sinon');
-var Post = rootRequire('app/models/PostLegacy');
+var Post = rootRequire('models/PostLegacy');
 
 describe('models/PostLegacy.js', function(){
   var TEST_USER = {

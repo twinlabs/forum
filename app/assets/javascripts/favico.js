@@ -1,1 +1,0 @@
-../../../node_modules/favico.js/favico.js

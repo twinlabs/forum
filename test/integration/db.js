@@ -4,8 +4,8 @@ var Sequelize = require('sequelize');
 
 var sequelize = new Sequelize("postgres://postgres@localhost/" + rootRequire('app').app.get('db-test'));
 
-var post = rootRequire('app/models/Post.orm')(sequelize);
-var user = rootRequire('app/models/User.orm')(sequelize);
+var post = rootRequire('models/Post.orm')(sequelize);
+var user = rootRequire('models/User.orm')(sequelize);
 
 var models = {
   post: post,

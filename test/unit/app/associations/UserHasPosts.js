@@ -1,6 +1,6 @@
 var assert = require('assert');
-var post = rootRequire('app/models/Post');
-var user = rootRequire('app/models/User');
+var post = rootRequire('models/Post');
+var user = rootRequire('models/User');
 
 var models = {
   post: post,

@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/stylesheets/react.css" />
     <link rel="stylesheet" href="/stylesheets/react-content.css" />
     <link rel="stylesheet" href="/stylesheets/content-override.css" />
-    <link rel="icon" href="/favicon_v2.png" />
+    <link rel="icon" href="/favicon.png" />
     <% if (user && user.id !== 0) { %>
       <%- user.custom_code %>
     <% } %>
@@ -40,7 +40,7 @@
       window.__INITIAL_STATE__ = <%- initialState %>;
       window.postData = <%- postData %>;
     </script>
-    <script src="/app/lib.js"></script>
-    <script src="/app/bundle.js"></script>
+    <script src="/lib.js"></script>
+    <script src="/bundle.js"></script>
   </body>
 </html>
