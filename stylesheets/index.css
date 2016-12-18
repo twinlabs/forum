@@ -111,7 +111,7 @@ body {
   padding: 1em;
   appearance: none;
 
-  // this font-size prevents iOS browsers from auto-zooming:
+  /* this font-size prevents iOS browsers from auto-zooming: */
   font-size: 16px;
 }
 @media (min-width: 32em) {

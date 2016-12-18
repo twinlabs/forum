@@ -7,13 +7,13 @@ var cookieParser = require('cookie-parser');
 var http = require('http');
 var app = express();
 var session = require('express-session');
-var lessMiddleware = require('less-middleware');
 var multer = require('multer');
-var postcss = require('postcss');
 var httpServer = http.createServer(app);
 var passport = require('passport');
 var pg = require('pg');
 var pgSession = require('connect-pg-simple')(session);
+var postcssMiddleware = require('postcss-middleware');
+var cssnext = require('postcss-cssnext');
 
 rootRequire('config/environments')(app);
 app.set('io', require('socket.io').listen(httpServer));
@@ -57,23 +57,15 @@ app.engine('html', require('ejs').renderFile);
 app.set('views', process.cwd() + '/templates');
 app.set('view engine', 'ejs.html');
 
-app.use(lessMiddleware(__dirname + '/app/assets', {
-  postprocess: {
-    css: function(css, request){
-      return postcss([require('autoprefixer')]).process(css).css;
-    }
-  }
-}));
-
-app.use(lessMiddleware(__dirname + '/v2', {
-  postprocess: {
-    css: function(css, request){
-      return postcss([require('autoprefixer')]).process(css).css;
-    }
-  }
+app.use(postcssMiddleware({
+  src: function(request) {
+    return `${__dirname}/${request.path}`;
+  },
+  plugins: [cssnext]
 }));
 
 app.use(express.static(__dirname + '/assets'));
+app.use('/stylesheets', express.static(__dirname + '/stylesheets'));
 app.use(express.static(__dirname + '/build'));
 
 module.exports = {
