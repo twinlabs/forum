@@ -45,6 +45,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(multer());
 
 rootRequire('config/routes')(app, passport);
+require('./config/socketRoutes')(app);
 
 var clientConstants = {
     socketAddress: ''
