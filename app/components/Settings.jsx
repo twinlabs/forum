@@ -78,6 +78,17 @@ var Settings = React.createClass({
   render: function() {
     return (
       <form className="settings" onSubmit={this.handleSubmit}>
+        <a
+          href="https://github.com/twinlabs/forum/issues"
+          target="_new"
+          className="post v-Atom"
+          style={{
+            textAlign: 'center',
+            fontSize: '1em'
+          }}
+        >
+          Need Help? Have Feedback? Click Here to View or Open Issues
+        </a>
         <div className="post v-Atom">
           <label>
             Signature:
