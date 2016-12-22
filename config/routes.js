@@ -31,7 +31,7 @@ var routes = function(app, passport){
     }
 
 
-    var assetPaths = ['stylesheets', 'javascripts', 'fonts', 'images', '.js'];
+    var assetPaths = ['stylesheets', 'javascripts', 'fonts', 'images', '.js', '.png', '.jpg', '.gif'];
 
     // skip "last visited" lookup if the request is obviously just for an asset:
     for (var i = 0; i < assetPaths.length; i++) {
@@ -116,7 +116,7 @@ var routes = function(app, passport){
       return next();
     }
 
-    var assetPaths = ['stylesheets', 'javascripts', 'fonts', 'images', '.js'];
+    var assetPaths = ['stylesheets', 'javascripts', 'fonts', 'images', '.js', '.png', '.jpg', '.gif'];
 
     // skip lookup if the request is obviously just for an asset:
     for (var i = 0; i < assetPaths.length; i++) {
