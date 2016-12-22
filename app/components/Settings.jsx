@@ -77,91 +77,93 @@ var Settings = React.createClass({
 
   render: function() {
     return (
-      <form className="settings" onSubmit={this.handleSubmit}>
-        <a
-          href="https://github.com/twinlabs/forum/issues"
-          target="_new"
-          className="post v-Atom"
-          style={{
-            textAlign: 'center',
-            fontSize: '1em'
-          }}
-        >
-          Need Help? Have Feedback? Click Here to View or Open Issues
-        </a>
-        <div className="post v-Atom">
-          <label>
-            Signature:
-            <textarea
-              defaultValue={this.props.settings.signature}
-              onChange={this.handleSigChange}
-              style={{
-                "display": "block",
-                "width": "100%",
-                'margin': '1em 0',
-                "minHeight": "400px",
-                "fontFamily": "monospace"
-              }}
-            />
-
-            <div
-              style={{
-                'margin': '1em 0'
-              }}
-              data-user-id={this.props.settings.id}
-            >
-              <div
-                className="signature"
-                dangerouslySetInnerHTML={{
-                  __html: this.props.settings.signature
+      <div>
+        <form className="settings" onSubmit={this.handleSubmit}>
+          <a
+            href="https://github.com/twinlabs/forum/issues"
+            target="_new"
+            className="post v-Atom"
+            style={{
+              textAlign: 'center',
+              fontSize: '1em'
+            }}
+          >
+            Need Help? Have Feedback? Click Here to View or Open Issues
+          </a>
+          <div className="post v-Atom">
+            <label>
+              Signature:
+              <textarea
+                defaultValue={this.props.settings.signature}
+                onChange={this.handleSigChange}
+                style={{
+                  "display": "block",
+                  "width": "100%",
+                  'margin': '1em 0',
+                  "minHeight": "400px",
+                  "fontFamily": "monospace"
                 }}
               />
-            </div>
-          </label>
-        </div>
-        <div className="post v-Atom">
-          <label>
-            Hide Connected Status:&nbsp;
-            <input
-              defaultChecked={this.props.settings.hide_connected}
-              name="hide_connected"
-              type="radio"
-            />
-          </label>
-          &nbsp;
-          <label>
-            Reveal Connected Status:&nbsp;
-            <input
-              defaultChecked={!this.props.settings.hide_connected}
-              name="hide_connected"
-              type="radio"
-            />
-          </label>
-        </div>
-        <div className="post v-Atom">
-          <label>
-            Style:&nbsp;
-            <select
-              value={this.props.settings.style}
-              onChange={this.handleStyleChange}
-            >
-              <option value="default">default</option>
-              <option value="classic">classic</option>
-              <option value="neoclassical">neoclassical</option>
-            </select>
-          </label>
-        </div>
-        <div
-          style={{
-            'margin': '1em 0'
-          }}
-        >
-          <label>
-            <button>{this.getSaveButtonText()}</button>
-          </label>
-        </div>
-      </form>
-    )
+
+              <div
+                style={{
+                  'margin': '1em 0'
+                }}
+                data-user-id={this.props.settings.id}
+              >
+                <div
+                  className="signature"
+                  dangerouslySetInnerHTML={{
+                    __html: this.props.settings.signature
+                  }}
+                />
+              </div>
+            </label>
+          </div>
+          <div className="post v-Atom">
+            <label>
+              Hide Connected Status:&nbsp;
+              <input
+                defaultChecked={this.props.settings.hide_connected}
+                name="hide_connected"
+                type="radio"
+              />
+            </label>
+            &nbsp;
+            <label>
+              Reveal Connected Status:&nbsp;
+              <input
+                defaultChecked={!this.props.settings.hide_connected}
+                name="hide_connected"
+                type="radio"
+              />
+            </label>
+          </div>
+          <div className="post v-Atom">
+            <label>
+              Style:&nbsp;
+              <select
+                value={this.props.settings.style}
+                onChange={this.handleStyleChange}
+              >
+                <option value="default">default</option>
+                <option value="classic">classic</option>
+                <option value="neoclassical">neoclassical</option>
+              </select>
+            </label>
+          </div>
+          <div
+            style={{
+              'margin': '1em 0'
+            }}
+          >
+            <label>
+              <button>{this.getSaveButtonText()}</button>
+            </label>
+          </div>
+        </form>
+      </div>
+    );
   }
 });
 
