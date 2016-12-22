@@ -42,6 +42,7 @@ var routes = function(app, passport){
 
     UserController.get(request.session.user.id).then(function(userData) {
       response.locals.user.custom_code = userData.custom_code;
+      response.locals.user.is_supporter = userData.is_supporter;
 
       UserController.getLastVisited(request.session.user.id).then(function(lastVisited) {
         response.locals.lastVisited = lastVisited || {};

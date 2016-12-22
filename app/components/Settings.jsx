@@ -1,5 +1,6 @@
 var React = require('react');
 var superagent = require('superagent');
+var helpers = require('../../lib/helpers');
 
 var Settings = React.createClass({
   getInitialState: function() {
@@ -75,9 +76,37 @@ var Settings = React.createClass({
     return 'Save Settings';
   },
 
+  renderDonate: function() {
+    const supporterStatus = helpers.isSupporter(window.forum.constants.user);
+
+    return (
+      <form
+        action={supporterStatus.action}
+        method="post"
+        target="_top"
+      >
+        <input type="hidden" name="cmd" value="_s-xclick" />
+        <input type="hidden" name="hosted_button_id" value="TXU8GUQR6XA6W" />
+        <button
+          type="submit"
+          title={supporterStatus.text}
+          className="post v-Atom"
+          style={{
+            cursor: 'pointer',
+            width: '100%'
+          }}
+        >
+          {supporterStatus.text}
+        </button>
+        <img alt="" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+      </form>
+    );
+  },
+
   render: function() {
     return (
       <div>
+        {this.renderDonate()}
         <form className="settings" onSubmit={this.handleSubmit}>
           <a
             href="https://github.com/twinlabs/forum/issues"
