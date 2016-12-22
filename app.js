@@ -78,43 +78,6 @@ module.exports = {
   port: app.get('PORT')
 };
 
-app.locals.moment = require('moment');
-app.locals.marked = require('marked');
-app.locals.getPostDate = application_helper.getPostDate;
-app.locals.isSupporter = application_helper.isSupporter;
-
-var markedRenderer = new app.locals.marked.Renderer();
-markedRenderer.link = function(href, title, text) {
-  return '<a target="_blank"' +
-      'href="' + href + '"' +
-      (title ? 'title="' + title + '"' : '') +
-    '>' + text + "</a>";
-};
-
-var lexer = new app.locals.marked.Lexer();
-lexer.rules.heading = { exec: function() {} };
-
-app.locals.marked.lexer = lexer;
-
-app.locals.marked.setOptions({
-  emoji: function (emoji) {
-    return '<img src="'
-        + 'https://cloud.ahfr.org/images/emoji/'
-        + encodeURIComponent(emoji)
-        + '.png"'
-        + ' alt=":'
-        + escape(emoji)
-        + ':"'
-        + ' title=":'
-        + escape(emoji)
-        + ':"'
-        + ' class="emoji" align="absmiddle" height="20" width="20">';
-
-  },
-  breaks: true,
-  renderer: markedRenderer
-});
-
 var rest = require('epilogue');
 
 rest.initialize({
