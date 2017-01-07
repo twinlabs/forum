@@ -39,8 +39,6 @@ var postApi = function(rest, checkAuth) {
   });
 
   posts.create.send.after(function(req, res, context) {
-    rest.app.set('lastModifiedIndex', new Date().toString());
-
     var data = {
       id: context.instance.id,
       user_id: context.instance.user_id,

@@ -125,23 +125,6 @@ var routes = function(app, passport){
       }
     }
 
-    if (app.get('lastModifiedIndex') && request.get('If-Modified-Since') &&
-      (new Date(request.get('If-Modified-Since')).getTime() >= new Date(app.get('lastModifiedIndex')).getTime())
-    ) {
-
-      return response.sendStatus(304);
-    }
-
-
-    if (app.get('lastModifiedIndex')) {
-      response.set('Last-Modified', app.get('lastModifiedIndex'));
-    }
-
-
-    if (typeof app.get('lastModifiedIndex') === "undefined") {
-      app.set('lastModifiedIndex', new Date().toString());
-    }
-
     PostsController.topics().done(function(error, posts){
       UserController.get(request.session.user.id).done(function(err, userData){
 
