@@ -1,8 +1,20 @@
 var React = require('react');
 var NewPost = require('./NewPost.jsx');
 var ThreadPost = require('./ThreadPost.jsx');
+var _ = require('lodash/core');
 
 var Thread = React.createClass({
+  shouldComponentUpdate: function(nextProps, nextState) {
+    if (
+      _.isEqual(this.state, nextState)
+      && _.isEqual(this.props, nextProps)
+    ) {
+      return false;
+    }
+
+    return true;
+  },
+
   getInitialState: function(){
     return {
       posts: []
