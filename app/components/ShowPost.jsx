@@ -7,6 +7,13 @@ var _ = require('lodash/core');
 
 module.exports = React.createClass({
   componentWillMount: function() {
+    // if we don't have an ID, we don't have anything
+    // to find or fetch - we're populating the ThreadPost
+    // from passed-in props.
+    if (!this.props.routeParams.id) {
+      return false;
+    }
+
     var thread = _.find(this.props.value.topics, {
       id: +this.props.params.id
     });
@@ -56,6 +63,16 @@ module.exports = React.createClass({
     );
   },
 
+  getData: function() {
+    if (this.state) {
+      return this.state && this.state.postData;
+    }
+
+    if (this.props) {
+      return this.props;
+    }
+  },
+
   render: function() {
     return (
       <div
@@ -65,7 +82,7 @@ module.exports = React.createClass({
 
         <ThreadPost
           contentRenderer={require('./markdownInitializer')}
-          {...this.state && this.state.postData}
+          {...this.getData()}
         />
         <Loader />
       </div>

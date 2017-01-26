@@ -202,6 +202,17 @@ var routes = function(app, passport){
     });
   });
 
+  app.get('/search/:searchTerm', function(request, response) {
+    // if the user isn't logged in, return a 404:
+    if (request.session.user.id === 0) {
+      response.sendStatus(404);
+    }
+
+    PostsController.search(request.params.searchTerm, request.query.offset).done(function(err, posts){
+      response.send(posts);
+    });
+  });
+
   app.post('/signup', tokenValidation, passport.authenticate('local-signup', {}), function(request, response, next){
     response.redirect('/login');
   });

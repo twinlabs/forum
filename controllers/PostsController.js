@@ -128,6 +128,22 @@ var PostsController = {
       },
       include: [user]
     });
+  },
+
+  search: function(term, offset = 0) {
+    return post.findAll({
+      where: {
+        $or: {
+          body: {
+            $iLike: `%${term}%`
+          }
+        }
+      },
+      include: [user],
+      limit: 20,
+      offset: offset,
+      order: 'created_at DESC'
+    });
   }
 };
 
