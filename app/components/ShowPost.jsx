@@ -8,7 +8,7 @@ var _ = require('lodash/core');
 module.exports = React.createClass({
   componentWillMount: function() {
     var thread = _.find(this.props.value.topics, {
-      id: parseInt(this.props.params.id, 10)
+      id: +this.props.params.id
     });
 
     if (thread) {
