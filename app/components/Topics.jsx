@@ -1,8 +1,9 @@
 var _ = require('lodash/core');
 var React = require('react');
+var browserHistory = require('react-router').browserHistory;
 var Topic = require('./Topic.jsx');
 var NewPost = require('./NewPost.jsx');
-var InputGroup = require('./InputGroup.jsx');
+var Filter = require('./Filter.jsx');
 
 var Topics = React.createClass({
   getInitialState: function() {
@@ -11,12 +12,21 @@ var Topics = React.createClass({
     };
   },
 
-  handleFilterChange: function(event) {
-    this.updateFilterValue(event.target.value);
+  handleSearch: function(event) {
+    event.preventDefault();
+
+    if (!this.hasFilterValue()) {
+      return false;
+    }
+
+    localStorage.setItem('forumFilterValue', '');
+    document.body.classList.add('is-loading');
+
+    browserHistory.push(`/search/${this.state.filterValue}`);
   },
 
-  clearFilter: function() {
-    this.updateFilterValue('');
+  handleFilterChange: function(event) {
+    this.updateFilterValue(event.target.value);
   },
 
   updateFilterValue: function(newFilterValue) {
@@ -77,50 +87,27 @@ var Topics = React.createClass({
     );
   },
 
-  renderClearFilter: function() {
-    if (!this.hasFilterValue()) {
-      return null;
-    }
-
-    return (
-      <button
-        style={{
-          'border': 'none',
-          'backgroundColor':'transparent'
-        }}
-        onClick={this.clearFilter}
-      >
-        &times;
-      </button>
-    );
-  },
-
   render: function() {
     return (
       <div className="topicsContainer">
-        <InputGroup
-          className="v-Atom filter"
+        <form
+          onSubmit={this.handleSearch}
         >
-          <input
-            type="text"
-            placeholder="Filter Topic Name"
-            ref="topicFilter"
+          <Filter
+            clearFilter={this.updateFilterValue.bind(this, '')}
             onChange={this.handleFilterChange}
+            placeholder="Filter or Hit ↵ to Search"
             value={this.state.filterValue}
-            style={{
-              'width': '100%',
-              'border': 'none',
-              'outline': 'none'
-            }}
-          />
-          {this.renderClearFilter()}
-          <button
-            className={this.toggleClassNames()}
-            onClick={this.toggleUnread}
           >
-            Only Unread
-          </button>
-        </InputGroup>
+            <button
+              type="button"
+              className={this.toggleClassNames()}
+              onClick={this.toggleUnread}
+            >
+              Only Unread
+            </button>
+          </Filter>
+        </form>
         {this.filterThreads().map(Topic)}
         {this.renderNewPost()}
       </div>
