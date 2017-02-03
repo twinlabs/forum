@@ -36,6 +36,14 @@ var NewPost = React.createClass({
 
   },
 
+  getTitle: function() {
+    var titleNode = ReactDOM.findDOMNode(this.refs.title);
+
+    if (titleNode) {
+      return titleNode.value;
+    }
+  },
+
   bodyMassage: function(body, author) {
      return `
       > ${author} wrote:
@@ -67,7 +75,7 @@ var NewPost = React.createClass({
 
     window.socket.emit('post', {
       parent: this.props.parent,
-      title: this.refs.title && this.refs.title.value,
+      title: this.getTitle(),
       body: postBody,
       user: {
         id: window.forum.constants.user.id,
