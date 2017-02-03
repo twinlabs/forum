@@ -36,11 +36,15 @@ var NewPost = React.createClass({
 
   },
 
+  hasTitle: function() {
+    return ReactDOM.findDOMNode(this.refs.title);
+  },
+
   getTitle: function() {
-    var titleNode = ReactDOM.findDOMNode(this.refs.title);
+    var titleNode = this.hasTitle();
 
     if (titleNode) {
-      return titleNode.value;
+      return titleNode.value.trim();
     }
   },
 
@@ -68,6 +72,11 @@ var NewPost = React.createClass({
     if (!postBody) {
       return false;
     }
+
+    if (this.hasTitle() && !this.getTitle()) {
+      return false;
+    }
+
 
     this.setState({
       restrictSubmit: true
