@@ -42,6 +42,16 @@ module.exports = function doPosts(state, action) {
   }
 
   if (action.type === 'BACKFILL') {
+    if (action.value.length === 1) {
+      const postIndex = state.findIndex(function(element) {
+        return element.id === action.value[0].id;
+      });
+
+      let newState = state.slice(0, postIndex).concat(action.value, state.slice(postIndex + 1))
+
+      return newState;
+    }
+
     return action.value.concat(state);
   }
 
