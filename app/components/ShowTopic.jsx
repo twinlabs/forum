@@ -12,7 +12,7 @@ module.exports = React.createClass({
   },
 
   getExistingChildren: function() {
-    return _.filter(window.store.getState().topics, {
+    return _.filter(this.props.value.topics, {
       parent: +this.props.routeParams.id
     });
   },
