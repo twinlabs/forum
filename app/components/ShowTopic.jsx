@@ -17,6 +17,14 @@ module.exports = React.createClass({
     });
   },
 
+  getTopicPosts: function() {
+    if (this.getExistingChildren().length < 20) {
+      return _.filter(this.props.value.topics, {id: +this.props.routeParams.id}).concat(this.getExistingChildren());
+    }
+
+    return this.getExistingChildren();
+  },
+
   componentWillMount: function() {
     // if the user has mounted before, they'll have
     // many existing children, so we shouldn't
@@ -78,11 +86,7 @@ module.exports = React.createClass({
           {...topicData}
           loadMore={this.loadMore}
           renderLoadMore={this.renderLoadMore}
-          posts={_.filter(this.props.value.topics,
-            {
-              parent: parseInt(this.props.routeParams.id, 10)
-            }
-          )}
+          posts={this.getTopicPosts()}
         />
         <Loader />
       </div>
