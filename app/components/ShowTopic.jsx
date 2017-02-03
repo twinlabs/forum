@@ -13,7 +13,7 @@ module.exports = React.createClass({
 
   getExistingChildren: function() {
     return _.filter(window.store.getState().topics, {
-      parent: parseInt(this.props.routeParams.id, 10)
+      parent: +this.props.routeParams.id
     });
   },
 
@@ -37,7 +37,7 @@ module.exports = React.createClass({
 
   handleLoadMore: function() {
     document.body.classList.add('is-loading');
-    superagent.get(`/topic/${parseInt(this.props.routeParams.id, 10)}?limit=20&offset=${this.state.offset}`)
+    superagent.get(`/topic/${+this.props.routeParams.id}?limit=20&offset=${this.state.offset}`)
       .set('Accept', 'application/json')
       .then(function(response){
         window.store.dispatch({
@@ -69,7 +69,7 @@ module.exports = React.createClass({
 
   render: function() {
     var topicData = _.find(this.props.value.topics, {
-      id: parseInt(this.props.routeParams.id, 10)
+      id: +this.props.routeParams.id
     });
 
     return (

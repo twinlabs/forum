@@ -24,7 +24,7 @@ module.exports = React.createClass({
       });
     }
 
-    superagent.get(`/topic/${parseInt(this.props.routeParams.id, 10)}`)
+    superagent.get(`/topic/${+this.props.routeParams.id}`)
       .set('Accept', 'application/json')
       .then(function(response){
         this.setState({

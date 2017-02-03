@@ -73,7 +73,7 @@ module.exports = function doPosts(state, action) {
         id: newPost.parent
       });
       parentPost.lastreply = newPost;
-      parentPost.replycount = parseInt(parentPost.replycount, 10) + 1;
+      parentPost.replycount = +parentPost.replycount + 1;
     }
 
     return newState;
