@@ -12,9 +12,17 @@ module.exports = React.createClass({
   },
 
   getExistingChildren: function() {
-    return _.filter(window.store.getState().topics, {
-      parent: parseInt(this.props.routeParams.id, 10)
+    return _.filter(this.props.value.topics, {
+      parent: +this.props.routeParams.id
     });
+  },
+
+  getTopicPosts: function() {
+    if (this.getExistingChildren().length < 20) {
+      return _.filter(this.props.value.topics, {id: +this.props.routeParams.id}).concat(this.getExistingChildren());
+    }
+
+    return this.getExistingChildren();
   },
 
   componentWillMount: function() {
@@ -37,7 +45,7 @@ module.exports = React.createClass({
 
   handleLoadMore: function() {
     document.body.classList.add('is-loading');
-    superagent.get(`/topic/${parseInt(this.props.routeParams.id, 10)}?limit=20&offset=${this.state.offset}`)
+    superagent.get(`/topic/${+this.props.routeParams.id}?limit=20&offset=${this.state.offset}`)
       .set('Accept', 'application/json')
       .then(function(response){
         window.store.dispatch({
@@ -69,7 +77,7 @@ module.exports = React.createClass({
 
   render: function() {
     var topicData = _.find(this.props.value.topics, {
-      id: parseInt(this.props.routeParams.id, 10)
+      id: +this.props.routeParams.id
     });
 
     return (
@@ -78,11 +86,7 @@ module.exports = React.createClass({
           {...topicData}
           loadMore={this.loadMore}
           renderLoadMore={this.renderLoadMore}
-          posts={_.filter(this.props.value.topics,
-            {
-              parent: parseInt(this.props.routeParams.id, 10)
-            }
-          )}
+          posts={this.getTopicPosts()}
         />
         <Loader />
       </div>

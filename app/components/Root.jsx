@@ -9,7 +9,7 @@ var ControlBar = require('./ControlBar.jsx');
 var Root = React.createClass({
   getTitle: function(props) {
     var thread = _.find(props.value.topics, {
-      id: parseInt(props.params.id, 10)
+      id: +props.params.id
     });
 
     if (thread && thread.title) {

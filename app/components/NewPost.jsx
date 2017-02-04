@@ -36,6 +36,18 @@ var NewPost = React.createClass({
 
   },
 
+  hasTitle: function() {
+    return ReactDOM.findDOMNode(this.refs.title);
+  },
+
+  getTitle: function() {
+    var titleNode = this.hasTitle();
+
+    if (titleNode) {
+      return titleNode.value.trim();
+    }
+  },
+
   bodyMassage: function(body, author) {
      return `
       > ${author} wrote:
@@ -61,13 +73,18 @@ var NewPost = React.createClass({
       return false;
     }
 
+    if (this.hasTitle() && !this.getTitle()) {
+      return false;
+    }
+
+
     this.setState({
       restrictSubmit: true
     });
 
     window.socket.emit('post', {
       parent: this.props.parent,
-      title: this.refs.title && this.refs.title.value,
+      title: this.getTitle(),
       body: postBody,
       user: {
         id: window.forum.constants.user.id,
