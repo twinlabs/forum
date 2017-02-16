@@ -76,6 +76,11 @@ module.exports = function doPosts(state, action) {
     }
 
     let newPost = Object.assign({}, action.value, {isNew: isNewValue});
+
+    if (!newPost.parent) {
+      newPost.lastreply = newPost;
+    }
+
     let newState = [].concat(state, newPost);
 
     if (newPost.parent) {
