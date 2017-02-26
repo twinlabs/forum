@@ -55,6 +55,8 @@ body {
   cursor: pointer;
   line-height: 1.285;
   position: relative;
+  background-color: transparent;
+  border-width: 0;
 }
 
 .action:before {
