@@ -9,6 +9,7 @@ module.exports = React.createClass({
       this.state.transformedContent
       && !this.state.needsFlush
       && this.state.isEditing === nextState.isEditing
+      && this.state.showDelete === nextState.showDelete
       && (nextProps.body === this.props.body)
     ) {
       return false;
@@ -34,7 +35,8 @@ module.exports = React.createClass({
 
   getInitialState: function() {
     return {
-      isEditing: false
+      isEditing: false,
+      showDelete: false
     };
   },
 
@@ -56,11 +58,38 @@ module.exports = React.createClass({
       <a
         href="#"
         className="action"
-        onClick={this.handleDelete}
+        onClick={this.setState.bind(this, {showDelete: true}, null)}
       >
         Delete
       </a>
     );
+  },
+
+  renderDeleteConfirm: function() {
+    return (
+      <div
+        style={{
+          textAlign: 'center'
+        }}
+      >
+        <h2>
+          Really Delete?
+        </h2>
+
+        <button
+          className="action"
+          onClick={this.handleDelete}
+        >
+          Yes
+        </button>
+        <button
+          className="action"
+          onClick={this.setState.bind(this, {showDelete: false}, null)}
+        >
+          No
+        </button>
+      </div>
+    )
   },
 
   renderEdit: function() {
@@ -101,6 +130,10 @@ module.exports = React.createClass({
   },
 
   handleDelete: function() {
+    this.setState({
+      showDelete: false
+    });
+
     window.socket.emit('destroy', {
       id: this.props.id,
       user: {
@@ -144,6 +177,12 @@ module.exports = React.createClass({
   },
 
   renderContent: function() {
+    if (this.state.showDelete) {
+      return (
+        this.renderDeleteConfirm()
+      )
+    }
+
     if (this.state.isEditing) {
       return (
         <textarea
