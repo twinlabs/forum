@@ -66,28 +66,32 @@ module.exports = React.createClass({
   },
 
   renderDeleteConfirm: function() {
+    if (!this.state.showDelete) {
+      return null;
+    }
+
     return (
       <div
-        style={{
-          textAlign: 'center'
-        }}
+        className="v-Overlay"
       >
         <h2>
           Really Delete?
         </h2>
 
-        <button
-          className="action"
-          onClick={this.handleDelete}
-        >
-          Yes
-        </button>
-        <button
-          className="action"
-          onClick={this.setState.bind(this, {showDelete: false}, null)}
-        >
-          No
-        </button>
+        <div>
+          <button
+            className="action"
+            onClick={this.handleDelete}
+          >
+            Yes
+          </button>
+          <button
+            className="action"
+            onClick={this.setState.bind(this, {showDelete: false}, null)}
+          >
+            No
+          </button>
+        </div>
       </div>
     )
   },
@@ -177,12 +181,6 @@ module.exports = React.createClass({
   },
 
   renderContent: function() {
-    if (this.state.showDelete) {
-      return (
-        this.renderDeleteConfirm()
-      )
-    }
-
     if (this.state.isEditing) {
       return (
         <textarea
@@ -201,6 +199,7 @@ module.exports = React.createClass({
           dangerouslySetInnerHTML={this.renderAsHTML(this.state.transformedContent || this.props.body, this.props.contentRenderer)}
         />
         {this.renderSignature()}
+        {this.renderDeleteConfirm()}
       </div>
     );
   },

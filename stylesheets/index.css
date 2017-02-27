@@ -344,5 +344,20 @@ a {
 }
 
 .v-Atom {
+  position: relative;
   background-color: #fff;
+}
+
+.v-Overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  text-align: center;
+  background-color: hsla(0, 0%, 100%, 0.9);
 }
