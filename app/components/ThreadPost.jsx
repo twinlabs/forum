@@ -58,10 +58,7 @@ module.exports = React.createClass({
       <a
         href="#"
         className="action"
-        onClick={this.setState.bind(this, {
-          isEditing: false,
-          showDelete: true
-        }, null)}
+        onClick={this.setState.bind(this, {showDelete: true}, null)}
       >
         Delete
       </a>
@@ -186,11 +183,14 @@ module.exports = React.createClass({
   renderContent: function() {
     if (this.state.isEditing) {
       return (
-        <textarea
-          className="input focusArea preify"
-          defaultValue={this.props.body}
-          ref="body"
-        />
+        <div>
+          <textarea
+            className="input focusArea preify"
+            defaultValue={this.props.body}
+            ref="body"
+          />
+          {this.renderDeleteConfirm()}
+        </div>
       );
     }
 
