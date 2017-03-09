@@ -58,7 +58,10 @@ module.exports = React.createClass({
       <a
         href="#"
         className="action"
-        onClick={this.setState.bind(this, {showDelete: true}, null)}
+        onClick={this.setState.bind(this, {
+          isEditing: false,
+          showDelete: true
+        }, null)}
       >
         Delete
       </a>
