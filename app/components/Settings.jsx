@@ -1,6 +1,7 @@
 var React = require('react');
 var superagent = require('superagent');
 var helpers = require('../../lib/helpers');
+var _ = require('lodash');
 
 var Settings = React.createClass({
   getInitialState: function() {
@@ -35,6 +36,16 @@ var Settings = React.createClass({
 
   handleSubmit: function(event) {
     event.preventDefault();
+
+    if (this.props.settings.signature.match('script>')) {
+      return this.setState({
+        validationError: 'No script tags in signatures, sorry.'
+      });
+    }
+
+    this.setState({
+      validationError: null
+    });
 
     document.body.classList.add('is-loading');
 
@@ -103,6 +114,22 @@ var Settings = React.createClass({
     );
   },
 
+  renderValidationError: function() {
+    return (
+      <div>
+        {this.state.validationError}
+      </div>
+    );
+  },
+
+  renderValidationStyle: function() {
+    if (this.state.validationError) {
+      return {
+        border: '4px solid red'
+      };
+    }
+  },
+
   render: function() {
     return (
       <div>
@@ -122,16 +149,17 @@ var Settings = React.createClass({
           <div className="post v-Atom">
             <label>
               Signature:
+              {this.renderValidationError()}
               <textarea
                 defaultValue={this.props.settings.signature}
                 onChange={this.handleSigChange}
-                style={{
+                style={_.assign({
                   "display": "block",
                   "width": "100%",
                   'margin': '1em 0',
                   "minHeight": "400px",
                   "fontFamily": "monospace"
-                }}
+                }, this.renderValidationStyle())}
               />
 
               <div
