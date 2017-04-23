@@ -5,6 +5,7 @@ module.exports = function(input) {
 
   return require('./oembed-instagram')(input)
     .then(require('./oembed-spotify'))
+    .then(require('./oembed-applemusic'))
     .then(require('./oembed-soundcloud'))
     .then(require('./oembed-twitter'))
     .then(require('./oembed-vine'))
