@@ -105,6 +105,7 @@ body {
 .input {
   display: block;
   width: 100%;
+  max-width: 100%;
   font-family: inherit;
   margin: 1em 0;
   background: transparent;
