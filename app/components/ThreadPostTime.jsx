@@ -29,7 +29,7 @@ module.exports = React.createClass({
 
   render: function() {
     return (
-      <span>
+      <span title={moment(this.props.timestamp).format('MMMM Do YYYY, h:mm:ss a')}>
         {` ${this.state.activeTime}.`}
       </span>
     );
