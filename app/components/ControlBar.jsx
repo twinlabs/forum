@@ -38,6 +38,7 @@ var ControlBar = React.createClass({
             event.preventDefault();
             browserHistory.push('/settings');
           }}
+          title="User settings"
         >
           Settings
         </a>
@@ -47,6 +48,7 @@ var ControlBar = React.createClass({
           onDoubleClick={this.props.handleRootRefresh}
           onTouchStart={this.detectDoubleTap}
           className="controlBar-control controlBar-title"
+          title={this.props.title}
         >
           {this.props.title}
         </a>
@@ -54,6 +56,7 @@ var ControlBar = React.createClass({
           className=" controlBar-control newPostControl"
           href="/topic/new"
           onClick={this.handleRightControl}
+          title="Create a new post"
         >
           New
         </a>
