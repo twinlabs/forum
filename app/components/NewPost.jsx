@@ -26,12 +26,26 @@ var NewPost = React.createClass({
   },
 
   constructQuote: function(data) {
+    if (data.author) {
+      return this.constructQuoteInline(data);
+    }
+
+    return this.constructQuoteReference(data);
+  },
+
+  constructQuoteInline: function(data) {
     if (this.state.body === data.body) {
       return false;
     }
 
     this.setState({
       body: this.bodyMassage(data.body, data.author),
+     }, this.handleFocus);
+  },
+
+  constructQuoteReference: function(postId) {
+    this.setState({
+      body: `https://${window.location.host}/post/${postId}\n\n`
     }, this.handleFocus);
 
   },

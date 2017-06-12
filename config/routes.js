@@ -107,6 +107,23 @@ var routes = function(app, passport){
     })
   });
 
+  app.get('/embed/v1/post/:id', function(request, response) {
+    if (request.session.user.id === 0) {
+      response.sendStatus(404);
+    }
+
+    PostsController.get(request.params.id).done(function(err, post){
+      if (!post) {
+
+        return response.send(404);
+      }
+
+      response.render('embed', {
+        post: post
+      });
+    });
+  });
+
   app.get('/*', function(request, response, next){
     if (request.session.user.id === 0){
       return response.render('login', {});

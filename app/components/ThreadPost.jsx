@@ -1,5 +1,7 @@
 var React = require('react');
 var Link = require('react-router').Link;
+var classNames = require('classnames');
+var iframeResizer = require('iframe-resizer').iframeResizer;
 var ThreadPostTime = require('./ThreadPostTime.jsx');
 var oembed = require('./oembed');
 
@@ -40,13 +42,19 @@ module.exports = React.createClass({
     };
   },
 
-  sendQuote: function(event) {
+  inlineQuote: function(event) {
     event.preventDefault();
 
     return this.props.handleQuote({
       author: this.props.user.name,
       body: this.props.body
     });
+  },
+
+  referenceQuote: function(event) {
+    event.preventDefault();
+
+    return this.props.handleQuote(this.props.id);
   },
 
   renderDelete: function() {
@@ -208,6 +216,10 @@ module.exports = React.createClass({
   },
 
   renderSignature: function() {
+    if (this.props.depth) {
+      return null;
+    }
+
     if (!this.props.user.signature) {
       return null;
     }
@@ -237,7 +249,8 @@ module.exports = React.createClass({
   },
 
   transformContent: function(transformableContent) {
-    oembed(transformableContent).then(function(transformedContent) {
+
+    oembed(transformableContent, parseInt(this.props.depth) + 1).then(function(transformedContent) {
       this.setState({
         transformedContent: transformedContent,
         needsFlush: false
@@ -245,6 +258,7 @@ module.exports = React.createClass({
 
       window.twttr && window.twttr.widgets.load();
       window.instgrm && window.instgrm.Embeds.process();
+      iframeResizer();
     }.bind(this));
   },
 
@@ -257,10 +271,53 @@ module.exports = React.createClass({
     };
   },
 
+  renderActions: function() {
+    if (this.props.depth) {
+      return (
+        null
+      );
+    }
+
+    return (
+      <div
+        className="actionContainer"
+        onClick={function(event){
+          event.preventDefault();
+        }}
+      >
+        <a
+          href={`/post/${this.props.id}`}
+          className="action"
+          onClick={this.referenceQuote}
+        >
+          Quote
+        </a>
+
+        <a
+          href="#"
+          className="action"
+          onClick={this.inlineQuote}
+        >
+          Inline
+        </a>
+
+        <Link
+          className="action"
+          to={`/post/${this.props.id}`}
+        >
+          Link
+        </Link>
+
+        {this.renderEdit()}
+        {this.renderDelete()}
+      </div>
+    );
+  },
+
   render: function() {
     return (
       <div
-        className="post v-Atom"
+        className={classNames("post v-Atom", this.props.className)}
         data-id={this.props.id}
         data-user-id={this.props.user.id}
         key={this.props.id}
@@ -276,29 +333,7 @@ module.exports = React.createClass({
           />
         </div>
         {this.renderContent()}
-        <div
-          className="actionContainer"
-          onClick={function(event){
-            event.preventDefault();
-          }}
-        >
-          <a
-            href="#"
-            className="action"
-            onClick={this.sendQuote}
-          >
-            Quote
-          </a>
-
-          <Link
-            className="action"
-            to={`/post/${this.props.id}`}
-          >
-            Link
-          </Link>
-          {this.renderEdit()}
-          {this.renderDelete()}
-        </div>
+        {this.renderActions()}
       </div>
     )
   }

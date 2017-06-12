@@ -1,0 +1,39 @@
+.embedBody {
+  position: relative;
+  padding: 1em 0 0;
+  font-size: 0.75em;
+  min-height: 0;
+}
+.embedBody--topLevel {
+  padding-bottom: 4em;
+}
+
+.embedBody,
+.embedBody iframe,
+.embedBody .v-Atom {
+  background-color: transparent;
+}
+.post.post--embed {
+  margin: 0;
+  padding: 0 1em;
+  border: 0;
+  box-shadow: none;
+  overflow: hidden;
+}
+.post.post--embed:hover {
+  box-shadow: none;
+}
+
+.embedHeadline {
+  position: fixed;
+  z-index: 1;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: block;
+  padding: 0.5em;
+  cursor: pointer;
+  background: white;
+  margin: auto;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.5);
+}
