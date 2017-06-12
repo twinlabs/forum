@@ -13,15 +13,16 @@
     "registry": "http://registry.npmjs.org/"
   },
   "scripts": {
-    "bundle:lib": "./node_modules/.bin/browserify --require react --require react-dom --require redux --require \"lodash/core\" --require superagent --require socket.io-client > ./build/lib.js",
-    "bundle:app:watch": "node_modules/.bin/watchify app/index.js --external react-dom --external react --external redux --external \"lodash/core\" --external superagent --external socketio-client -t babelify -p livereactload -o build/bundle.js",
+    "bundle:lib": "./node_modules/.bin/browserify --require react --require react-dom --require redux --require \"lodash/core\" --require superagent --require iframe-resizer --require socket.io-client > ./build/lib.js",
+    "bundle:app:watch": "node_modules/.bin/watchify app/index.js --external react-dom --external react --external redux --external \"lodash/core\"  --external superagent --external socketio-client -t babelify -p livereactload -o build/bundle.js",
+    "bundle:embedapp:watch": "node_modules/.bin/watchify app/embed.js --external react-dom --external react --external redux --external \"lodash/core\" --external superagent -t babelify -o build/embedapp.js",
     "check": "./node_modules/.bin/eslint --ext .js,.jsx app/",
     "db:seed": "node db/seed.js",
     "deploy": "git push heroku deploy:master",
     "test": "NODE_ENV=test mocha --require test/test_helper.js --compilers jsx:babel-register --recursive ./test && npm run check",
     "test:watch": "NODE_ENV=test mocha --require test/test_helper.js --compilers jsx:babel-register --recursive --watch --reporter min ./test",
     "test:debug": "NODE_ENV=test node-debug _mocha --require test/test_helper.js --compilers jsx:babel-register --recursive --watch --reporter min ./test",
-    "start": "concurrently \"npm run bundle:lib\" \"node app.js\" \"npm run bundle:app:watch\"",
+    "start": "concurrently \"npm run bundle:lib\" \"node app.js\" \"npm run bundle:embedapp:watch\" \"npm run bundle:app:watch\"",
     "start:debug": "node-debug app.js"
   },
   "dependencies": {
@@ -40,7 +41,7 @@
     "compression": "^1.4.3",
     "concurrently": "^2.1.0",
     "connect-pg-simple": "^2.1.1",
-    "content.css": "^3.1.2",
+    "content.css": "^3.2.0",
     "cookie-parser": "^1.3.4",
     "ejs": "^2.3.4",
     "epilogue": "0.3.2",
@@ -49,6 +50,7 @@
     "favico.js": "^0.3.10",
     "history": "^2.0.0",
     "horsey": "^2.6.1",
+    "iframe-resizer": "^3.5.14",
     "livereactload": "^2.2.3",
     "lodash": "^4.13.1",
     "marked": "git://github.com/twinlabs/marked.git",

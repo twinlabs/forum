@@ -14,34 +14,21 @@
     <link rel="stylesheet" href="/stylesheets/content-override.css" />
     <link rel="stylesheet" href="/stylesheets/embed.css" />
     <link rel="icon" href="/favicon.png?12-22-2016" />
-    <% if (user && user.id !== 0) { %>
-      <%- user.custom_code %>
-    <% } %>
   </head>
 
-  <body class="body is-loading">
-    <div id="app" class="app">
-      You must enable JavaScript to use this app.
-      What are you thinking having JS disabled?
+  <body class="embedBody">
+    <div id="app">
     </div>
-
-    <div class="loader">
-      <span class="loader-text">
-        Loading...
-      </span>
-    </div>
-
-    <script src="//platform.twitter.com/widgets.js"></script>
-    <script src="//platform.instagram.com/en_US/embeds.js"></script>
     <script>
       window.forum = {};
       forum.constants = <%- clientConstants %>;
       forum.constants.user = <%- JSON.stringify(user) %>;
-
-      window.__INITIAL_STATE__ = <%- initialState %>;
-      window.postData = <%- postData %>;
+      window.post = <%- JSON.stringify(post) %>
+      window.postDepth = window.location.hash.split('depth=')[1];
     </script>
+    <script src="//platform.twitter.com/widgets.js"></script>
+    <script src="//platform.instagram.com/en_US/embeds.js"></script>
     <script src="/lib.js"></script>
-    <script src="/bundle.js"></script>
+    <script src="/embedapp.js"></script>
   </body>
 </html>

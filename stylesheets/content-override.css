@@ -2,6 +2,10 @@
   line-height: 1.618;
 }
 
+.content .embedFrame {
+  padding: 0;
+}
+
 .content blockquote blockquote {
   font-size: 0.95em;
 }

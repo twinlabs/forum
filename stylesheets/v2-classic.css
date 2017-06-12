@@ -79,10 +79,12 @@ body {
 }
 
 .content a,
-.content blockquote {
+.content blockquote,
+.content .blockquote {
   border-color: #00bbff;
 }
 
-.content blockquote {
+.content blockquote,
+.content .blockquote  {
   background-color: hsla(0, 0%, 50%, 0.05);
 }
