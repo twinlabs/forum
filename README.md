@@ -1,5 +1,9 @@
 [![Build Status](https://travis-ci.org/twinlabs/forum.svg?branch=master)](https://travis-ci.org/twinlabs/forum)
 
+Installation:
+=============
+`npm install`
+
 Persistent Tests:
 =================
 `npm run test:watch`
