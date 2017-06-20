@@ -17,7 +17,7 @@ function handleEmbedTransform(depth) {
   depth = depth || 1;
 
   return function(input) {
-    if (depth > 2) {
+    if (depth > 5) {
       return Promise.resolve(input);
     }
 
