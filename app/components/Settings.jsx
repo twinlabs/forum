@@ -79,6 +79,13 @@ var Settings = React.createClass({
     });
   },
 
+  handleEmbedChange: function(event) {
+    this.props.store.dispatch({
+      type: 'EMBEDCHANGE',
+      value: event.target.value
+    });
+  },
+
   getSaveButtonText: function() {
     if (!this.state.needsSave) {
       return 'Saved';
@@ -207,6 +214,31 @@ var Settings = React.createClass({
                 <option value="classic">classic</option>
                 <option value="neoclassical">neoclassical</option>
               </select>
+            </label>
+          </div>
+          <div className="post v-Atom">
+            <label>
+              Disable Embeds:&nbsp;
+
+              <input
+                defaultChecked={this.props.settings.disableEmbeds}
+                onChange={this.handleEmbedChange}
+                value="true"
+                name="disableEmbeds"
+                type="radio"
+              />
+            </label>
+            &nbsp;
+            <label>
+              Enable Embeds:&nbsp;
+
+              <input
+                defaultChecked={!this.props.settings.disableEmbeds}
+                onChange={this.handleEmbedChange}
+                value="false"
+                name="disableEmbeds"
+                type="radio"
+              />
             </label>
           </div>
           <div

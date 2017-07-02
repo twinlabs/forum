@@ -87,6 +87,7 @@ module.exports = React.createClass({
           loadMore={this.loadMore}
           renderLoadMore={this.renderLoadMore}
           posts={this.getTopicPosts()}
+          settings={this.props.value.settings}
         />
         <Loader />
       </div>

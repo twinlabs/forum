@@ -3,7 +3,8 @@ var redux = require('redux');
 function handleSettings(state, action) {
   if (typeof state === 'undefined') {
     return Object.assign({}, window.__INITIAL_STATE__.settings, {
-      style: localStorage.getItem('forumStyleValue') || 'classic'
+      style: localStorage.getItem('forumStyleValue') || 'classic',
+      disableEmbeds: localStorage.getItem('forumEmbedValue') || false
     });
   }
 
@@ -16,6 +17,14 @@ function handleSettings(state, action) {
   if (action.type === 'VERSION') {
     return Object.assign({}, state, {
       is_v2: action.value
+    });
+  }
+
+  if (action.type === 'EMBEDCHANGE') {
+    localStorage.setItem('forumEmbedValue', action.value);
+
+    return Object.assign({}, state, {
+      disableEmbeds: action.value
     });
   }
 

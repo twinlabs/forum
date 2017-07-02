@@ -61,6 +61,7 @@ var ThreadPostWrapper = function(postData, index) {
       key={postData.id}
       contentRenderer={require('./markdownInitializer')}
       forumUser={window.forum.constants.user}
+      settings={this.props.settings}
       {...postData}
     />
   );
