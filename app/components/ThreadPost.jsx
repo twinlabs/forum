@@ -249,6 +249,12 @@ module.exports = React.createClass({
   },
 
   transformContent: function(transformableContent) {
+    if (this.props.settings && this.props.settings.disableEmbeds === 'true') {
+      return this.setState({
+        transformedContent: transformableContent,
+        needsFlush: false
+      });
+    }
 
     oembed(transformableContent, parseInt(this.props.depth) + 1).then(function(transformedContent) {
       this.setState({
