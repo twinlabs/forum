@@ -36,7 +36,6 @@ function renderFrame(host, id, depth) {
     data-depth="${depth}"
     width="100%"
     frameborder="0"
-    allowtransparency="true"
-  ></iframe>
+    allowtransparency="true"></iframe>
   `
 }
