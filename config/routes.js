@@ -3,6 +3,7 @@ var UserController =  rootRequire('controllers/UserController');
 var authentication =  rootRequire('lib/authentication');
 
 var superagent = require('superagent');
+var _ = require('lodash');
 
 var routes = function(app, passport){
   app.all('*', function(request, response, next){
@@ -119,7 +120,7 @@ var routes = function(app, passport){
       }
 
       response.render('embed', {
-        post: post
+        post: scrubPosts(post)
       });
     });
   });
@@ -145,7 +146,7 @@ var routes = function(app, passport){
     PostsController.topics().done(function(error, posts){
       UserController.get(request.session.user.id).done(function(err, userData){
 
-        var responsePosts = addLastVisited(posts, response.locals.lastVisited);
+        var responsePosts = scrubPosts(addLastVisited(posts, response.locals.lastVisited));
 
         response.render('react', {
           postData: JSON.stringify(responsePosts),
@@ -282,6 +283,26 @@ function addLastVisited(posts, lastVisitedMap) {
     if (postTimestamp > lastVisitedTimestamp) {
       post.lastreply.isNew = true;
     }
+  });
+
+  return returnPosts;
+}
+
+function scrubPosts(posts) {
+  if (!posts.length) {
+    _.set(posts, 'lastreply.user.email', undefined);
+    _.set(posts, 'user.email', undefined);
+    _.set(posts, 'lastreply.user.password', undefined);
+    _.set(posts, 'user.password', undefined);
+
+    return posts;
+  }
+
+  var returnPosts = posts.slice();
+
+  returnPosts.forEach(function(post) {
+    _.set(post, 'lastreply.user.password', undefined);
+    _.set(post, 'lastreply.user.email', undefined);
   });
 
   return returnPosts;
