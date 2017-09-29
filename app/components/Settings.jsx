@@ -1,9 +1,12 @@
 var React = require('react');
+var createReactClass = require('create-react-class');
 var superagent = require('superagent');
 var helpers = require('../../lib/helpers');
 var _ = require('lodash');
 
-var Settings = React.createClass({
+var Settings = createReactClass({
+  displayName: 'Settings',
+
   getInitialState: function() {
     return {
       needsSave: true
@@ -253,10 +256,10 @@ var Settings = React.createClass({
         </form>
       </div>
     );
-  }
+  },
 });
 
-module.exports = React.createClass({
+module.exports = createReactClass({
   render: function() {
     return (
       <Settings

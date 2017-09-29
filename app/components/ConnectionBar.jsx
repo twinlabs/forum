@@ -1,6 +1,10 @@
 var React = require('react');
 
-var ConnectionBar = React.createClass({
+var createReactClass = require('create-react-class');
+
+var ConnectionBar = createReactClass({
+  displayName: 'ConnectionBar',
+
   render: function() {
     return (
       <div className="connectionBar">
@@ -19,7 +23,7 @@ var ConnectionBar = React.createClass({
        }
       </div>
     );
-  }
+  },
 });
 
 module.exports = ConnectionBar;

@@ -1,7 +1,8 @@
 var React = require('react');
+var createReactClass = require('create-react-class');
 var moment = require('moment');
 
-module.exports = React.createClass({
+module.exports = createReactClass({
   getInitialState: function () {
     return {
       activeTime: ''

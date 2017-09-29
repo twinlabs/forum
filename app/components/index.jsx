@@ -1,4 +1,5 @@
 var React = require('react');
+var createReactClass = require('create-react-class');
 var Router = require('react-router').Router;
 var IndexRoute = require('react-router').IndexRoute;
 var Route = require('react-router').Route;
@@ -18,7 +19,7 @@ function createElement(originalProps) {
   }
 }
 
-module.exports = React.createClass({
+module.exports = createReactClass({
   render: function() {
     return (
       <div className="routerContainer">

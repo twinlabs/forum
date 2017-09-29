@@ -1,7 +1,10 @@
 var React = require('react');
+var createReactClass = require('create-react-class');
 var browserHistory = require('react-router').browserHistory;
 
-var ControlBar = React.createClass({
+var ControlBar = createReactClass({
+  displayName: 'ControlBar',
+
   getInitialState: function() {
     return {
       lastTapped: +new Date()
@@ -62,7 +65,7 @@ var ControlBar = React.createClass({
         </a>
       </div>
     )
-  }
+  },
 });
 
 module.exports = ControlBar;

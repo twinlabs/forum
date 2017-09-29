@@ -1,9 +1,12 @@
 var React = require('react');
+var createReactClass = require('create-react-class');
 var NewPost = require('./NewPost.jsx');
 var ThreadPost = require('./ThreadPost.jsx');
 var _ = require('lodash/core');
 
-var Thread = React.createClass({
+var Thread = createReactClass({
+  displayName: 'Thread',
+
   shouldComponentUpdate: function(nextProps, nextState) {
     if (
       _.isEqual(this.state, nextState)
@@ -51,7 +54,7 @@ var Thread = React.createClass({
         />
       </div>
     )
-  }
+  },
 });
 
 var ThreadPostWrapper = function(postData, index) {

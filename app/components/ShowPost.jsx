@@ -1,11 +1,12 @@
 var React = require('react');
+var createReactClass = require('create-react-class');
 var ThreadPost = require('./ThreadPost.jsx');
 var Loader = require('./Loader.jsx');
 var Link = require('react-router').Link;
 var superagent = require('superagent');
 var _ = require('lodash/core');
 
-module.exports = React.createClass({
+module.exports = createReactClass({
   componentWillMount: function() {
     // if we don't have an ID, we don't have anything
     // to find or fetch - we're populating the ThreadPost

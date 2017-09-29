@@ -1,9 +1,12 @@
 var React = require('react');
+var createReactClass = require('create-react-class');
 var ReactDOM = require('react-dom');
 var Input = require('./Input.jsx');
 var browserHistory = require('react-router').browserHistory;
 
-var NewPost = React.createClass({
+var NewPost = createReactClass({
+  displayName: 'NewPost',
+
   getInitialState: function() {
     return {
       inline: true,
@@ -232,10 +235,10 @@ var NewPost = React.createClass({
         {this.renderSubmitContext()}
       </form>
     )
-  }
+  },
 });
 
-module.exports = React.createClass({
+module.exports = createReactClass({
   forceLongform: function() {
     if (this.props.receivedQuote) {
       return true;

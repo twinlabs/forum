@@ -1,11 +1,12 @@
 var React = require('react');
+var createReactClass = require('create-react-class');
 var Link = require('react-router').Link;
 var classNames = require('classnames');
 var iframeResizer = require('iframe-resizer').iframeResizer;
 var ThreadPostTime = require('./ThreadPostTime.jsx');
 var oembed = require('./oembed');
 
-module.exports = React.createClass({
+module.exports = createReactClass({
   shouldComponentUpdate: function(nextProps, nextState) {
     if (
       this.state.transformedContent
