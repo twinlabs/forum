@@ -1,4 +1,4 @@
-var TestUtils = require('react-addons-test-utils');
+var TestUtils = require('react-dom/test-utils');
 var React = require('react');
 var assert = require('assert');
 

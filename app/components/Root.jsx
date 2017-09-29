@@ -1,4 +1,5 @@
 var React = require('react');
+var createReactClass = require('create-react-class');
 var browserHistory = require('react-router').browserHistory;
 var superagent = require('superagent');
 var _ = require('lodash/core');
@@ -6,7 +7,9 @@ var _ = require('lodash/core');
 var ConnectionBar = require('./ConnectionBar.jsx');
 var ControlBar = require('./ControlBar.jsx');
 
-var Root = React.createClass({
+var Root = createReactClass({
+  displayName: 'Root',
+
   getTitle: function(props) {
     var thread = _.find(props.value.topics, {
       id: +props.params.id
@@ -103,7 +106,7 @@ var Root = React.createClass({
         {this.renderFooter()}
       </div>
     );
-  }
+  },
 });
 
 module.exports = Root;

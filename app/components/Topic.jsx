@@ -1,8 +1,11 @@
 var React = require('react');
+var createReactClass = require('create-react-class');
 var moment = require('moment');
 var Link = require('react-router').Link;
 
-var Topic = React.createClass({
+var Topic = createReactClass({
+  displayName: 'Topic',
+
   getInitialState: function() {
     return {
       isEditing: false
@@ -81,7 +84,7 @@ var Topic = React.createClass({
         </div>
       </Link>
     )
-  }
+  },
 });
 
 module.exports = function(topicData, index) {

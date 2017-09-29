@@ -1,10 +1,11 @@
 var _ = require('lodash/core');
 var React = require('react');
+var createReactClass = require('create-react-class');
 var Thread = require('./Thread.jsx');
 var Loader = require('./Loader.jsx');
 var superagent = require('superagent');
 
-module.exports = React.createClass({
+module.exports = createReactClass({
   getInitialState: function() {
     return {
       offset: 0

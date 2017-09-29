@@ -1,11 +1,14 @@
 var _ = require('lodash/core');
 var React = require('react');
+var createReactClass = require('create-react-class');
 var browserHistory = require('react-router').browserHistory;
 var Topic = require('./Topic.jsx');
 var NewPost = require('./NewPost.jsx');
 var Filter = require('./Filter.jsx');
 
-var Topics = React.createClass({
+var Topics = createReactClass({
+  displayName: 'Topics',
+
   getInitialState: function() {
     return {
       filterValue: localStorage.getItem('forumFilterValue') || ''
@@ -112,7 +115,7 @@ var Topics = React.createClass({
         {this.renderNewPost()}
       </div>
     );
-  }
+  },
 });
 
 

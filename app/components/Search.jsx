@@ -1,10 +1,13 @@
 var superagent = require('superagent');
 var browserHistory = require('react-router').browserHistory;
 var React = require('react');
+var createReactClass = require('create-react-class');
 var ShowPost = require('./ShowPost.jsx');
 var Filter = require('./Filter.jsx');
 
-var Search = React.createClass({
+var Search = createReactClass({
+  displayName: 'Search',
+
   getInitialState: function() {
     return {
       filterValue: this.props.routeParams.searchTerm || '',
@@ -136,7 +139,7 @@ var Search = React.createClass({
         {this.renderResults()}
       </div>
     );
-  }
+  },
 });
 
 module.exports = Search;

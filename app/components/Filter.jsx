@@ -1,7 +1,10 @@
 var React = require('react');
+var createReactClass = require('create-react-class');
 var InputGroup = require('./InputGroup.jsx');
 
-var Filter = React.createClass({
+var Filter = createReactClass({
+  displayName: 'Filter',
+
   renderClearFilter: function() {
     if (!this.props.value) {
       return null;
@@ -47,7 +50,7 @@ var Filter = React.createClass({
         {this.props.children}
       </InputGroup>
     );
-  }
+  },
 });
 
 module.exports = Filter;
