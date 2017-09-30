@@ -120,6 +120,7 @@ var routes = function(app, passport){
       }
 
       response.render('embed', {
+        env: process.env.NODE_ENV,
         post: scrubPosts(post)
       });
     });
@@ -149,6 +150,7 @@ var routes = function(app, passport){
         var responsePosts = scrubPosts(addLastVisited(posts, response.locals.lastVisited));
 
         response.render('react', {
+          env: process.env.NODE_ENV,
           postData: JSON.stringify(responsePosts),
           settings: JSON.stringify(userData),
           initialState: JSON.stringify({

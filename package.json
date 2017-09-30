@@ -13,16 +13,21 @@
     "registry": "http://registry.npmjs.org/"
   },
   "scripts": {
+    "build:app": "browserify app/index.js -t babelify -g [ envify --NODE_ENV production ] -g uglifyify -p bundle-collapser/plugin | uglifyjs --compress --mangle > build/bundle.js",
+    "build:embed": "browserify app/embed.js -t babelify -g [ envify --NODE_ENV production ] -g uglifyify -p bundle-collapser/plugin | uglifyjs --compress --mangle > build/embedapp.js",
+    "build": "npm run build:app && npm run build:embed",
     "bundle:lib": "./node_modules/.bin/browserify --require react --require react-dom --require redux --require \"lodash/core\" --require superagent --require iframe-resizer --require socket.io-client > ./build/lib.js",
     "bundle:app:watch": "node_modules/.bin/watchify app/index.js --external react-dom --external react --external redux --external \"lodash/core\"  --external superagent --external socketio-client -t babelify -p livereactload -o build/bundle.js",
     "bundle:embedapp:watch": "node_modules/.bin/watchify app/embed.js --external react-dom --external react --external redux --external \"lodash/core\" --external superagent -t babelify -o build/embedapp.js",
     "check": "./node_modules/.bin/eslint --ext .js,.jsx app/",
     "db:seed": "node db/seed.js",
     "deploy": "git push heroku deploy:master",
+    "heroku-postbuild": "npm run build",
     "test": "NODE_ENV=test mocha --require test/test_helper.js --compilers jsx:babel-register --recursive ./test && npm run check",
     "test:watch": "NODE_ENV=test mocha --require test/test_helper.js --compilers jsx:babel-register --recursive --watch --reporter min ./test",
     "test:debug": "NODE_ENV=test node-debug _mocha --require test/test_helper.js --compilers jsx:babel-register --recursive --watch --reporter min ./test",
-    "start": "concurrently \"npm run bundle:lib\" \"node app.js\" \"npm run bundle:embedapp:watch\" \"npm run bundle:app:watch\"",
+    "start": "node app.js",
+    "start:dev": "concurrently \"npm run bundle:lib\" \"node app.js\" \"npm run bundle:embedapp:watch\" \"npm run bundle:app:watch\"",
     "start:debug": "node-debug app.js"
   },
   "dependencies": {
@@ -37,6 +42,7 @@
     "bluebird": "^3.4.6",
     "body-parser": "^1.12.2",
     "browserify": "^13.0.0",
+    "bundle-collapser": "^1.3.0",
     "classnames": "^2.2.5",
     "compression": "^1.4.3",
     "concurrently": "^2.1.0",
@@ -45,6 +51,7 @@
     "cookie-parser": "^1.3.4",
     "create-react-class": "^15.6.2",
     "ejs": "^2.3.4",
+    "envify": "^4.1.0",
     "epilogue": "0.3.2",
     "express": "^4.12.3",
     "express-session": "1.7.6",
@@ -75,6 +82,8 @@
     "socket.io": "~1.3.5",
     "socket.io-client": "~1.3.5",
     "superagent": "^2.0.0",
+    "uglify-js": "^3.1.2",
+    "uglifyify": "^4.0.4",
     "watchify": "^3.7.0"
   },
   "devDependencies": {

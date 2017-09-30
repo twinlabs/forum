@@ -8,9 +8,9 @@ Persistent Tests:
 =================
 `npm run test:watch`
 
-Run App:
-========
-`npm start`
+Run App Locally:
+================
+`npm run start:dev`
 
 Debug App:
 ==========
@@ -45,4 +45,4 @@ After registering, login using the user/pass you signed up with.
 
 Hot Reload
 ==========
-`npm run start` does 'hot reloading' by default. This is subject to change.
+`npm run start:dev` does 'hot reloading' by default. This is subject to change.
