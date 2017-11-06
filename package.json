@@ -80,7 +80,7 @@
     "react-proxy": "^1.1.8",
     "react-router": "^3.0.0",
     "redux": "^3.5.2",
-    "sequelize": "~3.20.0",
+    "sequelize": "~3.23.6",
     "socket.io": "~2.0.2",
     "socket.io-client": "~2.0.2",
     "superagent": "^3.7.0",
