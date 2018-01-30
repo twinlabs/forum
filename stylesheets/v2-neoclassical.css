@@ -55,6 +55,7 @@ body {
 }
 
 .post .actionContainer {
+  font-size: 0.8em;
   padding: 1em 1em 2em;
   position: absolute;
   width: 100%;
