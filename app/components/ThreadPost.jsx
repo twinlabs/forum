@@ -142,6 +142,28 @@ module.exports = createReactClass({
     );
   },
 
+  renderThread: function() {
+    if (this.props.parent) {
+      return (
+        <Link
+          className="action"
+          to={`/topic/${this.props.parent}`}
+        >
+          Thread
+        </Link>
+      );
+    } else {
+      return (
+        <Link
+          className="action"
+          to={`/topic/${this.props.id}`}
+        >
+          Thread
+        </Link>
+      );
+    }
+  },
+
   handleDelete: function() {
     this.setState({
       showDelete: false
@@ -315,6 +337,7 @@ module.exports = createReactClass({
           Link
         </Link>
 
+        {this.renderThread()}
         {this.renderEdit()}
         {this.renderDelete()}
       </div>
