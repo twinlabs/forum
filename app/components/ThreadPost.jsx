@@ -152,16 +152,15 @@ module.exports = createReactClass({
           Thread
         </Link>
       );
-    } else {
-      return (
-        <Link
-          className="action"
-          to={`/topic/${this.props.id}`}
-        >
-          Thread
-        </Link>
-      );
     }
+    return (
+      <Link
+        className="action"
+        to={`/topic/${this.props.id}`}
+      >
+        Thread
+      </Link>
+    );
   },
 
   handleDelete: function() {
