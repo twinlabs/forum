@@ -173,24 +173,28 @@ module.exports = createReactClass({
   },
 
   renderThread: function() {
-    if (this.props.parent) {
+    if (this.props.isSearchResult) {
+      if (this.props.parent) {
+        return (
+          <Link
+            className="action"
+            to={`/topic/${this.props.parent}`}
+          >
+            Thread
+          </Link>
+        );
+      }
       return (
         <Link
           className="action"
-          to={`/topic/${this.props.parent}`}
+          to={`/topic/${this.props.id}`}
         >
           Thread
         </Link>
       );
     }
-    return (
-      <Link
-        className="action"
-        to={`/topic/${this.props.id}`}
-      >
-        Thread
-      </Link>
-    );
+
+    return null;
   },
 
   handleDelete: function() {
