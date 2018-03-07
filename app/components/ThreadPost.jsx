@@ -46,6 +46,26 @@ module.exports = createReactClass({
   inlineQuote: function(event) {
     event.preventDefault();
 
+    if (this.props.isSearchResult) {
+      var setInlinePost = function(author, body) {
+         return `
+          > ${author} wrote:
+
+          ${body.replace(/^/, "> ")
+            .replace(/\n/g, "\n> ")}
+         `
+          .replace(/^\s+/g,'')
+          .replace(/\n +/,'\n').trim() + '\n\n';
+      }
+      var inlinePost = setInlinePost(this.props.user.name, this.props.body);
+      document.addEventListener('copy', function (event) {
+        event.clipboardData.setData('text/plain', inlinePost);
+        event.preventDefault();
+      })
+      document.execCommand('copy', inlinePost);
+      return alert('Copied inline post to clipboard');
+    }
+
     return this.props.handleQuote({
       author: this.props.user.name,
       body: this.props.body
@@ -54,6 +74,16 @@ module.exports = createReactClass({
 
   referenceQuote: function(event) {
     event.preventDefault();
+
+    if (this.props.isSearchResult) {
+      var postUrl = `https://${window.location.host}/post/${this.props.id}`;
+      document.addEventListener('copy', function (event) {
+        event.clipboardData.setData('text/plain', postUrl);
+        event.preventDefault();
+      })
+      document.execCommand('copy', postUrl);
+      return alert('Copied post URL to clipboard');
+    }
 
     return this.props.handleQuote(this.props.id);
   },
@@ -143,24 +173,28 @@ module.exports = createReactClass({
   },
 
   renderThread: function() {
-    if (this.props.parent) {
+    if (this.props.isSearchResult) {
+      if (this.props.parent) {
+        return (
+          <Link
+            className="action"
+            to={`/topic/${this.props.parent}`}
+          >
+            Thread
+          </Link>
+        );
+      }
       return (
         <Link
           className="action"
-          to={`/topic/${this.props.parent}`}
+          to={`/topic/${this.props.id}`}
         >
           Thread
         </Link>
       );
     }
-    return (
-      <Link
-        className="action"
-        to={`/topic/${this.props.id}`}
-      >
-        Thread
-      </Link>
-    );
+
+    return null;
   },
 
   handleDelete: function() {

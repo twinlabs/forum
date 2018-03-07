@@ -82,6 +82,7 @@ module.exports = createReactClass({
         {this.getThread()}
 
         <ThreadPost
+          isSearchResult={true}
           contentRenderer={require('./markdownInitializer')}
           {...this.getData()}
         />
