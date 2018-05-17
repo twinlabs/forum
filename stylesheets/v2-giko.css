@@ -16,14 +16,19 @@
 .post:not(.post--embed) .data {
   position: absolute;
   bottom: -3.5em;
+  left: 0;
 
   &:before {
     position: relative;
-    content: '    ∧ ∧ \A（ ﾟДﾟ）';
+    content: '    ∧ ∧\A（ ﾟДﾟ）';
     white-space: pre;
   }
 
   @media (min-width: 60em) {
-    left: -4.5em;
+    left: -4em;
+
+    &:before {
+      content: '    ∧ ∧   / \A（ ﾟДﾟ）';
+    }
   }
 }
