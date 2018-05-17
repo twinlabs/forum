@@ -1,0 +1,26 @@
+/*
+ *
+ *         ∧ ∧
+ *   　  （ ﾟДﾟ）
+ *
+ *
+ *　　  ∧   ∧
+ *     (,,ﾟДﾟ)
+ * */
+
+
+.post {
+  margin-bottom: 6em;
+}
+
+.post .data {
+  position: absolute;
+  bottom: -3em;
+  left: -3em;
+
+  &:before {
+    position: relative;
+    content: '    ∧ ∧ \A（ ﾟДﾟ）';
+    white-space: pre;
+  }
+}
