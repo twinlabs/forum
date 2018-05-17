@@ -9,16 +9,20 @@
  * */
 
 
-.post:not(.post--embed) {
+.v-Atom:not(.post--embed) {
   margin-bottom: 6em;
   border-radius: 40px;
+  border-color: #ececec;
   border-bottom-width: 10px;
 }
-.thread .post:not(.post--embed) {
+.v-Atom.isNew {
+  border-color: #ececec;
+}
+.thread .v-Atom:not(.post--embed) {
   padding-top: 0;
 }
 
-.post:not(.post--embed) .data {
+.v-Atom:not(.post--embed) .data {
   position: absolute;
   bottom: -3.5em;
   left: 0;
