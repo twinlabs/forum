@@ -10,7 +10,7 @@
 
 
 .post:not(.post--embed) {
-  margin-bottom: 4em;
+  margin-bottom: 6em;
 }
 
 .post:not(.post--embed) .data {
