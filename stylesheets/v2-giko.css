@@ -11,6 +11,9 @@
 
 .post:not(.post--embed) {
   margin-bottom: 6em;
+  padding-top: 0;
+  border-radius: 40px;
+  border-bottom-width: 10px;
 }
 
 .post:not(.post--embed) .data {
