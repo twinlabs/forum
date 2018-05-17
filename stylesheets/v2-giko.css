@@ -10,17 +10,20 @@
 
 
 .post {
-  margin-bottom: 6em;
+  margin-bottom: 4em;
 }
 
 .post .data {
   position: absolute;
-  bottom: -3em;
-  left: -3em;
+  bottom: -3.5em;
 
   &:before {
     position: relative;
     content: '    ∧ ∧ \A（ ﾟДﾟ）';
     white-space: pre;
+  }
+
+  @media (min-width: 60em) {
+    left: -4.5em;
   }
 }
