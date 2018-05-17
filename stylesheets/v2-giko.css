@@ -9,11 +9,11 @@
  * */
 
 
-.post {
+.post:not(.post--embed) {
   margin-bottom: 4em;
 }
 
-.post .data {
+.post:not(.post--embed) .data {
   position: absolute;
   bottom: -3.5em;
 
