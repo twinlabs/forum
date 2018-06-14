@@ -2,7 +2,7 @@ var superagent = require('superagent');
 var Promise = require('bluebird');
 
 module.exports = function embedTwitter(input) {
-  const TWITTER = /https?:\/\/(www\.)?(mobile\.)?twitter.com\/.+?\/status(es)?\/\d+/ig;
+  const TWITTER = /https?:\/\/(www\.)?(mobile\.)?twitter.com\/.+?\/status(es)?\/\d+(\?.*)?/ig;
 
   var matches = input && input.match(TWITTER);
   var responseBody = '';
