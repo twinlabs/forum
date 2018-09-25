@@ -1,7 +1,6 @@
 var React = require('react');
 var createReactClass = require('create-react-class');
 var ThreadPost = require('./ThreadPost.jsx');
-var Loader = require('./Loader.jsx');
 var Link = require('react-router').Link;
 var superagent = require('superagent');
 var _ = require('lodash/core');
@@ -86,7 +85,6 @@ module.exports = createReactClass({
           {...this.getData()}
           {...this.props.value}
         />
-        <Loader />
       </div>
 
     )
