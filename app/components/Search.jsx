@@ -21,8 +21,11 @@ var Search = createReactClass({
   },
 
   componentWillReceiveProps: function(nextProps) {
-    this.doSearch(nextProps.routeParams.searchTerm);
-    this.updateFilterValue(nextProps.routeParams.searchTerm);
+    if (nextProps.searchTerm !== this.props.searchTerm) {
+      this.updateFilterValue(nextProps.routeParams.searchTerm);
+
+      return this.doSearch(nextProps.routeParams.searchTerm);
+    }
   },
 
   doSearch: function(searchTerm, offset = 0) {
@@ -71,7 +74,8 @@ var Search = createReactClass({
   updateFilterValue: function(newFilterValue) {
     this.setState({
       filterValue: newFilterValue,
-      newSearch: this.props.routeParams.searchTerm !== newFilterValue
+      newSearch: this.props.routeParams.searchTerm !== newFilterValue,
+      searchResults: [],
     });
   },
 
@@ -94,6 +98,17 @@ var Search = createReactClass({
   },
 
   renderFilterControl: function() {
+    if (this.state.searchResults.length && this.state.searchResults.length < 20) {
+      return (
+        <button
+          className={'input--toggle'}
+          disabled
+        >
+          Search
+        </button>
+      );
+    }
+
     if (!this.state.searchResults.length || this.state.searchResults.length % 20 !== 0) {
       return (
         <button
