@@ -84,6 +84,7 @@ module.exports = createReactClass({
         <ThreadPost
           contentRenderer={require('./markdownInitializer')}
           {...this.getData()}
+          {...this.props.value}
         />
         <Loader />
       </div>
