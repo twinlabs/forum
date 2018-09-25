@@ -88,7 +88,7 @@ var Search = createReactClass({
     return this.state.searchResults.map(function(data, index) {
       return (
         <ShowPost
-          key={index}
+          key={data.id}
           value={this.props.value}
           routeParams={this.props.routeParams}
           {...data}
