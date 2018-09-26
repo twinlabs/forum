@@ -4,6 +4,7 @@ var React = require('react');
 var createReactClass = require('create-react-class');
 var ShowPost = require('./ShowPost.jsx');
 var Filter = require('./Filter.jsx');
+var Divider = require('./Divider.jsx');
 
 var Search = createReactClass({
   displayName: 'Search',
@@ -37,7 +38,7 @@ var Search = createReactClass({
       .set('Accept', 'application/json')
       .then(function(response){
         this.setState({
-          searchResults: response.body.concat(this.state.searchResults),
+          searchResults: this.state.searchResults.concat(response.body),
           offset: offset
         });
         document.body.classList.remove('is-loading');
@@ -49,6 +50,14 @@ var Search = createReactClass({
 
   handleFilterChange: function(event) {
     this.updateFilterValue(event.target.value);
+  },
+
+  redoSearch: function(event) {
+    this.setState({
+      newSearch: true,
+    })
+
+    this.handleSearch(event);
   },
 
   handleSearch: function(event) {
@@ -86,6 +95,19 @@ var Search = createReactClass({
 
   renderResults: function() {
     return this.state.searchResults.map(function(data, index) {
+      if (index > 0 && index % 20 === 0 ) {
+        return (
+          <div>
+            <Divider />
+            <ShowPost
+              key={data.id}
+              value={this.props.value}
+              routeParams={this.props.routeParams}
+              {...data}
+            />
+          </div>
+        );
+      }
       return (
         <ShowPost
           key={data.id}
@@ -113,9 +135,9 @@ var Search = createReactClass({
       return (
         <button
           className={'input--toggle'}
-          onClick={this.handleSearch}
+          onClick={this.redoSearch}
         >
-          Search
+          New Search
         </button>
       );
     }
@@ -129,7 +151,7 @@ var Search = createReactClass({
           }, this.handleSearch);
         }.bind(this)}
       >
-        Get Next Results
+        Append More Results
       </button>
     )
   },

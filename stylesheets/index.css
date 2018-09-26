@@ -362,3 +362,15 @@ a {
   text-align: center;
   background-color: hsla(0, 0%, 100%, 0.9);
 }
+
+.v-Divider {
+  margin: 8em 2em;
+  border: solid transparent;
+  border-width: 0 0 2px;
+}
+
+@media (min-width: 60em) {
+  .v-Divider {
+    margin: 8em -5em;
+  }
+}
