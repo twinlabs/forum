@@ -90,7 +90,7 @@ var Topic = createReactClass({
 module.exports = function(topicData, index) {
   return (
     <Topic
-      key={index}
+      key={topicData.id}
       {...topicData}
     />
   );
