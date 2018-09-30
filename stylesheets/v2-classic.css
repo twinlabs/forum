@@ -77,6 +77,10 @@ body {
   border-bottom-color: #00bbff;
 }
 
+.v-Progress {
+  border-bottom-color: #00bbff;
+}
+
 .footerBar a:hover,
 .footerBar a:focus {
   border-top-color: #00bbff;

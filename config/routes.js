@@ -257,6 +257,19 @@ var routes = function(app, passport){
     });
   });
 
+  app.post('/upload', function(request, response){
+
+    var promise = require('../lib/storage')[process.env.FORUM_STORAGE_ADAPTER]
+      .send(request, require('../lib/storage')[process.env.FORUM_STORAGE_ADAPTER].configuration);
+
+    promise.then(function(data){
+      response.send(data);
+    }).catch(function(data) {
+      response.status(502);
+      response.send(data);
+    })
+  });
+
   app.get('/logout', function(request, response){
     request.session.destroy();
 
