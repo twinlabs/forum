@@ -41,16 +41,27 @@ var NewPost = createReactClass({
       return false;
     }
 
+    var updatedBody = `${this.bodyMassage(data.body, data.author)}`;
+
+    if (this.state.body.trim().length) {
+      updatedBody = `${this.state.body.trim()}\n\n${this.bodyMassage(data.body, data.author)}`;
+    }
+
     this.setState({
-      body: this.bodyMassage(data.body, data.author),
+      body: updatedBody,
      }, this.handleFocus);
   },
 
   constructQuoteReference: function(postId) {
-    this.setState({
-      body: `https://${window.location.host}/post/${postId}\n\n`
-    }, this.handleFocus);
+    var updatedBody = `https://${window.location.host}/post/${postId}\n\n`;
 
+    if (this.state.body.trim().length) {
+      updatedBody = `${this.state.body.trim()}\n\nhttps://${window.location.host}/post/${postId}\n\n`;
+    }
+
+    this.setState({
+      body: updatedBody,
+    }, this.handleFocus);
   },
 
   hasTitle: function() {
