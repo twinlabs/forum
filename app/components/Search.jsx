@@ -37,9 +37,16 @@ var Search = createReactClass({
     superagent.get(`/search/${searchTerm}?offset=${offset}`)
       .set('Accept', 'application/json')
       .then(function(response){
+        if (response.body.length === 0) {
+          return this.setState({
+            noResults: true,
+          });
+        }
+
         this.setState({
           searchResults: this.state.searchResults.concat(response.body),
-          offset: offset
+          offset: offset,
+          noResults: null,
         });
         document.body.classList.remove('is-loading');
       }.bind(this), function(error, a, b) {
@@ -94,6 +101,20 @@ var Search = createReactClass({
   },
 
   renderResults: function() {
+    if (this.state.noResults && !this.state.newSearch) {
+      return (
+        <div
+          className="v-Atom post"
+          style={{
+            fontSize: '1.25em',
+            textAlign: 'center',
+          }}
+        >
+          Search again? No results found for <code>{this.state.filterValue}</code>.
+        </div>
+      )
+    }
+
     return this.state.searchResults.map(function(data, index) {
       if (index > 0 && index % 20 === 0 ) {
         return (
