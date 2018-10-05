@@ -5,6 +5,8 @@ var authentication =  rootRequire('lib/authentication');
 var superagent = require('superagent');
 var _ = require('lodash');
 
+var assetPathIdentifiers = ['stylesheets', 'javascripts', 'fonts', 'images', '.js', '.png', '.jpg', '.gif', '.svg'];
+
 var routes = function(app, passport){
   app.all('*', function(request, response, next){
     if (typeof request.session.user === "undefined") {
@@ -32,11 +34,10 @@ var routes = function(app, passport){
     }
 
 
-    var assetPaths = ['stylesheets', 'javascripts', 'fonts', 'images', '.js', '.png', '.jpg', '.gif'];
 
     // skip "last visited" lookup if the request is obviously just for an asset:
-    for (var i = 0; i < assetPaths.length; i++) {
-      if (request.originalUrl.indexOf(assetPaths[i]) !== -1) {
+    for (var i = 0; i < assetPathIdentifiers.length; i++) {
+      if (request.originalUrl.indexOf(assetPathIdentifiers[i]) !== -1) {
         return next();
       }
     }
@@ -135,11 +136,9 @@ var routes = function(app, passport){
       return next();
     }
 
-    var assetPaths = ['stylesheets', 'javascripts', 'fonts', 'images', '.js', '.png', '.jpg', '.gif'];
-
     // skip lookup if the request is obviously just for an asset:
-    for (var i = 0; i < assetPaths.length; i++) {
-      if (request.originalUrl.indexOf(assetPaths[i]) !== -1) {
+    for (var i = 0; i < assetPathIdentifiers.length; i++) {
+      if (request.originalUrl.indexOf(assetPathIdentifiers[i]) !== -1) {
         return next();
       }
     }
