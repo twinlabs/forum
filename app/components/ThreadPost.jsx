@@ -7,6 +7,8 @@ var ThreadPostTime = require('./ThreadPostTime.jsx');
 var oembed = require('./oembed');
 
 module.exports = createReactClass({
+  displayName: 'ThreadPost',
+
   shouldComponentUpdate: function(nextProps, nextState) {
     if (
       this.state.transformedContent
