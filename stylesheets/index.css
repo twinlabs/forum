@@ -374,3 +374,8 @@ a {
     margin: 8em -5em;
   }
 }
+
+.v-Progress {
+  border: solid transparent;
+  border-width: 0 0 2px;
+}

@@ -46,3 +46,7 @@ After registering, login using the user/pass you signed up with.
 Hot Reload
 ==========
 `npm run start:dev` does 'hot reloading' by default. This is subject to change.
+
+Environment Variables
+=====================
+`FORUM_STORAGE_ADAPTER=S3` - change this and provide another module to use your chosen storage back-end. For documentation on the default `S3` adapter, see [that module's documentation](https://www.npmjs.com/package/f.orum-storage-s3).

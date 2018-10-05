@@ -2,7 +2,10 @@ var React = require('react');
 var createReactClass = require('create-react-class');
 var ReactDOM = require('react-dom');
 var Input = require('./Input.jsx');
+var Progress = require('./Progress.jsx');
 var browserHistory = require('react-router').browserHistory;
+var superagent = require('superagent');
+var getMarkdownFileType = require('../../lib/helpers').getMarkdownFileType;
 
 var NewPost = createReactClass({
   displayName: 'NewPost',
@@ -87,6 +90,37 @@ var NewPost = createReactClass({
       .replace(/\n +/,'\n').trim() + '\n\n';
   },
 
+  handleFile: function(event) {
+    var formData = new FormData();
+
+    for (var fileKey in event.target.files) {
+      if (event.target.files.hasOwnProperty(fileKey) && event.target.files[fileKey] instanceof File) {
+        formData.append('files[]', event.target.files[fileKey])
+      }
+    }
+
+    superagent.post('/upload')
+      .send(formData)
+      .on('progress', function(event) {
+        this.setState({
+          progress: event.percent,
+        });
+      }.bind(this))
+      .end(function(error, response){
+        var updatedBody = getMarkdownFileType(response.body.url)
+
+        if (this.state.body.trim().length) {
+          updatedBody = `${this.state.body}\n\n${updatedBody}`;
+        }
+
+        this.setState({
+          inline: false,
+          body: updatedBody,
+          progress: null,
+        })
+      }.bind(this))
+  },
+
   handleFocus: function() {
     ReactDOM.findDOMNode(this.refs.body).scrollIntoView();
     ReactDOM.findDOMNode(this.refs.body).focus();
@@ -154,56 +188,66 @@ var NewPost = createReactClass({
   renderBody: function() {
     if (!this.props.inline || !this.state.inline) {
       return (
-        <textarea
-          className="input focusArea v-Atom"
-          style={{
-            height: this.state && this.state.animatedHeight,
-            minHeight: (this.state && this.state.animatedHeight) ? '0' : null,
-            padding: (this.state && this.state.animatedHeight) ? '4px' : null
-          }}
-          type="text"
-          placeholder="Body"
-          ref="body"
-          onFocus={this.handleFocus}
-          disabled={this.state && this.state.restrictSubmit}
-          onChange={this.handleChange}
-          value={this.state.body}
-        />
+        <div>
+          <Progress progress={this.state.progress} />
+          <div>
+            <textarea
+              className="input focusArea v-Atom"
+              style={{
+                height: this.state && this.state.animatedHeight,
+                minHeight: (this.state && this.state.animatedHeight) ? '0' : null,
+                padding: (this.state && this.state.animatedHeight) ? '4px' : null
+              }}
+              type="text"
+              placeholder="Body"
+              ref="body"
+              onFocus={this.handleFocus}
+              disabled={this.state && this.state.restrictSubmit}
+              onChange={this.handleChange}
+              value={this.state.body}
+            />
+            {this.renderAttachInput()}
+          </div>
+        </div>
       )
     }
 
     return (
-      <div
-        style={{display: 'flex'}}
-      >
-        <Input
-          className="v-Atom"
-          type="text"
-          placeholder="Body"
-          ref="body"
-          onFocus={this.handleFocus}
-          onChange={this.handleChange}
-          value={this.state.body}
-          disabled={this.state && this.state.restrictSubmit}
-        />
-        <button
-          ref="button"
-          className="action action--alwaysOn inlineAction"
-          type="button"
-          onClick={function() {
-            this.setState({
-              inline: false
-            });
-          }.bind(this)}
-          style={{
-            backgroundColor: 'transparent',
-            border: 'none',
-            whiteSpace: 'nowrap',
-            margin: 0
-          }}
+      <div>
+        <Progress progress={this.state.progress} />
+        <div
+          style={{display: 'flex'}}
         >
-          ...
-        </button>
+          <Input
+            className="v-Atom"
+            type="text"
+            placeholder="Body"
+            ref="body"
+            onFocus={this.handleFocus}
+            onChange={this.handleChange}
+            value={this.state.body}
+            disabled={this.state && this.state.restrictSubmit}
+          />
+          <button
+            ref="button"
+            className="action action--alwaysOn inlineAction"
+            type="button"
+            onClick={function() {
+              this.setState({
+                inline: false
+              });
+            }.bind(this)}
+            style={{
+              backgroundColor: 'transparent',
+              border: 'none',
+              whiteSpace: 'nowrap',
+              margin: 0
+            }}
+          >
+            ...
+          </button>
+          {this.renderAttachInput()}
+        </div>
       </div>
     );
   },
@@ -236,6 +280,39 @@ var NewPost = createReactClass({
         </button>
       );
     }
+  },
+
+  renderAttachInput() {
+    return (
+      <label
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          cursor: 'pointer'
+        }}
+      >
+        <img
+          src="/paperclip.svg"
+          style={{
+            width: '20px',
+            height: '20px',
+          }}
+        />
+        <input
+          type="file"
+          style={{
+            'width': '0.1px',
+            'height': '0.1px',
+            'opacity': 0,
+            'overflow': 'hidden',
+            'position': 'absolute',
+            'zIndex': '-1',
+          }}
+          tabIndex={-1}
+          onChange={this.handleFile}
+        />
+      </label>
+    )
   },
 
   render: function() {
