@@ -13,6 +13,21 @@ module.exports = (function() {
       </a>`
     ;
   };
+
+  if (window.localStorage.getItem('forumDisableImages') === 'true') {
+    markedRenderer.image = function(href, title, text) {
+      return `
+        <a
+          target="_blank"
+          href="${href}"
+          ${(title ? 'title="' + title + '"' : '')}
+        >
+          ${href}
+        </a>
+      `;
+    }
+  }
+
   var lexer = new marked.Lexer();
   lexer.rules.heading = { exec: function() {} };
 

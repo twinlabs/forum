@@ -28,6 +28,14 @@ function handleSettings(state, action) {
     });
   }
 
+  if (action.type === 'IMAGECHANGE') {
+    localStorage.setItem('forumDisableImages', action.value);
+
+    return Object.assign({}, state, {
+      disableImages: action.value
+    });
+  }
+
   if (action.type === 'STYLECHANGE') {
     localStorage.setItem('forumStyleValue', action.value);
 

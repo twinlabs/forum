@@ -82,6 +82,13 @@ var Settings = createReactClass({
     });
   },
 
+  handleImageDisableChange: function(event) {
+    this.props.store.dispatch({
+      type: 'IMAGECHANGE',
+      value: event.target.value
+    });
+  },
+
   handleEmbedChange: function(event) {
     this.props.store.dispatch({
       type: 'EMBEDCHANGE',
@@ -241,6 +248,31 @@ var Settings = createReactClass({
                 onChange={this.handleEmbedChange}
                 value="false"
                 name="disableEmbeds"
+                type="radio"
+              />
+            </label>
+          </div>
+          <div className="post v-Atom">
+            <label>
+              Disable Image Display:&nbsp;
+
+              <input
+                defaultChecked={(window.localStorage.getItem('forumDisableImages') === 'true')}
+                onChange={this.handleImageDisableChange}
+                value="true"
+                name="disableImages"
+                type="radio"
+              />
+            </label>
+            &nbsp;
+            <label>
+              Enable Image Display:&nbsp;
+
+              <input
+                defaultChecked={!(window.localStorage.getItem('forumDisableImages') === 'true')}
+                onChange={this.handleImageDisableChange}
+                value="false"
+                name="disableImages"
                 type="radio"
               />
             </label>
