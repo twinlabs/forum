@@ -11,6 +11,9 @@ services:
       - DATABASE_URL=postgres://forum@db:5432/forum
       - PORT=3000   
       - FORUM_STORAGE_ADAPTER=S3
+    volumes:
+      - ./app:/code/app
+      - ./stylesheets:/code/stylesheets
   db:
     build:
       context: .
