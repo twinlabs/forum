@@ -8,9 +8,7 @@ FROM node:6
 RUN mkdir /code
 ADD . /code
 RUN mkdir /code/build
-ADD . /code/builddock
 WORKDIR /code
 RUN npm install
 EXPOSE 80
-CMD ["npm", "test"]
-
+CMD ["npm", "run", "start:dev"]

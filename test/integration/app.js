@@ -25,7 +25,7 @@ describe('socket communication', function(){
   before(function(done){
     // establish database connection:
     var Sequelize = require('sequelize');
-    var sequelize = new Sequelize("postgres://postgres@localhost/" + appModule.app.get('db-test'));
+    var sequelize = new Sequelize("postgres://postgres@db/" + appModule.app.get('db-test'));
 
     // pending comment
     var post = rootRequire('models/Post.orm')(sequelize);

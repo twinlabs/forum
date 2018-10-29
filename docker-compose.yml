@@ -4,16 +4,19 @@ services:
     build: .
     ports: 
       - 80:3000
-    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; npm start'
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; npm run start:dev'
     depends_on:
       - db
     environment:
-      - DATABASE_URL=postgres://postgres:password@db:5432/forum
+      - DATABASE_URL=postgres://forum@db:5432/forum
       - PORT=3000   
       - FORUM_STORAGE_ADAPTER=S3
   db:
-    image: postgres
-    environment:
-      - POSTGRES_USER=forum
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=forum
+    build:
+      context: .
+      dockerfile: ./Dockerfile.postgres
+      # environment:
+      #   - POSTGRES_USER=forum
+      #   - POSTGRES_DB=forum
+    # volumes:
+    #   - ./data/postgres:/var/lib/postgresql/data
