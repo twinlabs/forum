@@ -11,4 +11,3 @@ RUN mkdir /code/build
 WORKDIR /code
 RUN npm install
 EXPOSE 80
-CMD ["npm", "run", "start:dev"]
