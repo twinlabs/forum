@@ -1,0 +1,10 @@
+FROM postgres:9.5
+
+ENV POSTGRES_DB forum_test
+ENV POSTGRES_USER postgres
+
+# Init db
+RUN mkdir -p /docker-entrypoint-initdb.d
+COPY tables.sql /docker-entrypoint-initdb.d/
+
+RUN /etc/init.d/postgresql start

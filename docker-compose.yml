@@ -15,8 +15,18 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile.postgres
-      # environment:
-      #   - POSTGRES_USER=forum
-      #   - POSTGRES_DB=forum
-    # volumes:
-    #   - ./data/postgres:/var/lib/postgresql/data
+  # Testing
+  e2e:
+    build: .
+    ports:
+      - 80:3099
+    command: bash -c 'while !</dev/tcp/test_db/5432; do sleep 1; done; npm run test'
+    depends_on:
+      - test_db
+    environment:
+      - DATABASE_URL=postgres://postgres@test_db:5432/forum_test
+      - PORT=3099
+  test_db:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.test.postgres

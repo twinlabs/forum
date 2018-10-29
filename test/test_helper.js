@@ -1,5 +1,5 @@
 if (process.env.NODE_ENV === 'test') {
-  process.env.DATABASE_URL = "postgres://postgres@db/forum_test";
+  process.env.DATABASE_URL = "postgres://postgres@test_db/forum_test";
 }
 
 require('../lib/helpers');

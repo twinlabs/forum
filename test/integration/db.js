@@ -2,7 +2,7 @@ var assert = require('assert');
 
 var Sequelize = require('sequelize');
 
-var sequelize = new Sequelize("postgres://postgres@db/" + rootRequire('app').app.get('db-test'));
+var sequelize = new Sequelize("postgres://postgres@test_db/" + rootRequire('app').app.get('db-test'));
 
 var post = rootRequire('models/Post.orm')(sequelize);
 var user = rootRequire('models/User.orm')(sequelize);
