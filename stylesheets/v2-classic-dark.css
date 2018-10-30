@@ -1,0 +1,108 @@
+*:focus {
+  outline-color: hsla(200, 100%, 50%, 0.75);
+}
+
+@font-face {
+  font-family: 'Avenir';
+  src: url('/fonts/AvenirLTStd-Roman.otf') format('opentype');
+}
+
+body {
+  font-family: 'Avenir', sans-serif;
+  background: #212733;
+  color: #d9d9d9;
+}
+
+.accent {
+  color: #00bbff;
+}
+
+.action:focus {
+  outline: none;
+}
+
+.action:before,
+.action:after {
+  color: #d9d9d9;
+  opacity: 0;
+  font-size: 128.5%;
+  transition-property: opacity;
+  transition-duration: 200ms;
+}
+
+.focusAction {
+  color: #d9d9d9;
+}
+
+.v-Atom {
+  background: #212733;
+}
+
+.filter,
+.input {
+  border: none;
+  box-shadow: 0 0 5px black inset;
+}
+
+.input--secondary {
+  color: #00bbff;
+  box-shadow: 0 0 2px black;
+}
+
+.input--toggle {
+  border-color: #00bbff;
+}
+
+.input--toggle.isActive {
+  background: #00bbff;
+}
+
+.post {
+  box-shadow: 0 0 1px currentColor;
+
+  &:hover {
+    box-shadow: 0 0 4px currentColor;
+  }
+}
+.post.isNew {
+  border-color: #00bbff;
+}
+
+.post .actionContainer {
+  margin-bottom: -1em;
+  padding: 1em 0;
+  border-top: 1px solid currentColor;
+}
+
+.connectionBar-name {
+  background-color: #00bbff;
+}
+
+.controlBar-control:hover,
+.controlBar-control:focus {
+  border-bottom-color: #00bbff;
+}
+
+.v-Divider {
+  border-bottom-color: #00bbff;
+}
+
+.v-Progress {
+  border-bottom-color: #00bbff;
+}
+
+.footerBar a:hover,
+.footerBar a:focus {
+  border-top-color: #00bbff;
+}
+
+.content a,
+.content blockquote,
+.content .blockquote {
+  border-color: #00bbff;
+}
+
+.content blockquote,
+.content .blockquote  {
+  background-color: hsla(0, 0%, 50%, 0.05);
+}
