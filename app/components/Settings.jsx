@@ -222,6 +222,7 @@ var Settings = createReactClass({
               >
                 <option value="default">default</option>
                 <option value="classic">classic</option>
+                <option value="classic-dark">classic dark</option>
                 <option value="neoclassical">neoclassical</option>
                 <option value="giko">giko</option>
               </select>
