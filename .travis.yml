@@ -6,4 +6,4 @@ services:
 before_install:
   docker-compose build
 script:
-  docker-compose run e2e
+  docker-compose run test

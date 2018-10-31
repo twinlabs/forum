@@ -19,7 +19,7 @@ services:
       context: .
       dockerfile: ./Dockerfile.postgres
   # Testing
-  e2e:
+  test:
     build: .
     ports:
       - 80:3099
