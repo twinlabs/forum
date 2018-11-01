@@ -37,9 +37,9 @@ Choose the file `duck.jpg` from your `/test/fixtures` as your authentication tok
 
 After registering, login using the user/pass you signed up with.
 
-Hot Reload (doesn't work yet.)
+Hot Reload
 ==========
-`npm run start:dev` does 'hot reloading' by default. This is subject to change.
+`docker-compose up web` does 'hot reloading' by default. This is subject to change.
 
 Environment Variables
 =====================
