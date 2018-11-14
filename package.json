@@ -63,7 +63,7 @@
     "livereactload": "^3.0.0",
     "lodash": "^4.17.10",
     "marked": "git://github.com/twinlabs/marked.git",
-    "moment": "~2.21.0",
+    "moment": "~2.22.2",
     "multer": "^0.1.8",
     "normalize.css": "^4.2.0",
     "passport": "~0.2.0",
