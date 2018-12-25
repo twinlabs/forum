@@ -1,4 +1,4 @@
-FROM node:6
+FROM node:8
 RUN mkdir /code
 ADD . /code
 RUN mkdir /code/build
