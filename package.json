@@ -7,7 +7,7 @@
   },
   "main": "app.js",
   "engines": {
-    "node": "6.x.x"
+    "node": "8.x.x"
   },
   "publishConfig": {
     "registry": "http://registry.npmjs.org/"
@@ -27,7 +27,7 @@
     "test:watch": "NODE_ENV=test mocha --require test/test_helper.js --compilers jsx:babel-register --recursive --watch --reporter min ./test",
     "test:debug": "NODE_ENV=test node-debug _mocha --require test/test_helper.js --compilers jsx:babel-register --recursive --watch --reporter min ./test",
     "start": "node app.js",
-    "start:dev": "concurrently \"npm run bundle:lib\" \"node app.js\" \"npm run bundle:embedapp:watch\" \"npm run bundle:app:watch\"",
+    "start:dev": "concurrently \"npm run bundle:lib\" \"nodemon app.js\" \"npm run bundle:embedapp:watch\" \"npm run bundle:app:watch\"",
     "start:debug": "node-debug app.js"
   },
   "dependencies": {
