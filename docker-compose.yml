@@ -13,7 +13,9 @@ services:
       - PORT=3000   
       - FORUM_STORAGE_ADAPTER=S3
     volumes:
-      - ./app:/code/app:rw
+      - .:/code
+      - /code/build
+      - /code/node_modules
       - ./stylesheets:/code/stylesheets:rw
   db:
     build:
