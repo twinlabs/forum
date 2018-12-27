@@ -1,0 +1,38 @@
+version: "2"
+services:
+  web: 
+    build: .
+    ports: 
+      - 80:3000
+      - 4474:4474
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; npm run start:dev'
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://forum@db:5432/forum
+      - PORT=3000   
+      - FORUM_STORAGE_ADAPTER=S3
+    volumes:
+      - .:/code
+      - /code/build
+      - /code/node_modules
+      - ./stylesheets:/code/stylesheets:rw
+  db:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.postgres
+  # Testing
+  test:
+    build: .
+    ports:
+      - 80:3099
+    command: bash -c 'while !</dev/tcp/test_db/5432; do sleep 1; done; npm run test'
+    depends_on:
+      - test_db
+    environment:
+      - DATABASE_URL=postgres://postgres@test_db:5432/forum_test
+      - PORT=3099
+  test_db:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.test.postgres

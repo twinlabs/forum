@@ -2,38 +2,32 @@
 
 Installation:
 =============
-`npm install`
+`docker-compose build`
 
-Persistent Tests:
+Persistent Tests (not yet working with Docker):
 =================
 `npm run test:watch`
 
 Run App Locally:
 ================
-`npm run start:dev`
+`docker-compose up web`
 
-Debug App:
+Debug App (not yet set up):
 ==========
 `npm run start:debug`
 
 Run Test Suite:
 ===============
-`npm test`
+`docker-compose run e2e`
 
-Run Test Suite in Debug Mode:
+Run Test Suite in Debug Mode (not yet working):
 =============================
 `npm run test:debug`
 
 Database
 ========
 
-```
-psql --command="create database forum;" && psql --echo-all --dbname=forum --file=tables.sql
-```
-
-Add /build Directory
-====================
-From installation directory root, `mkdir build`. This directory is needed so the app can write client-side bundles to it.
+Created on Install step.
 
 Register a User
 ===============
@@ -45,7 +39,7 @@ After registering, login using the user/pass you signed up with.
 
 Hot Reload
 ==========
-`npm run start:dev` does 'hot reloading' by default. This is subject to change.
+`docker-compose up web` does 'hot reloading' by default. This is subject to change.
 
 Environment Variables
 =====================
