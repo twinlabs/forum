@@ -59,7 +59,7 @@
     "f.orum-storage-s3": "^1.0.0",
     "history": "^2.0.0",
     "horsey": "^2.6.1",
-    "iframe-resizer": "^3.6.2",
+    "iframe-resizer": "^3.6.3",
     "livereactload": "^3.0.0",
     "lodash": "^4.17.10",
     "marked": "git://github.com/twinlabs/marked.git",
