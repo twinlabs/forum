@@ -48,7 +48,7 @@ describe('models/PostLegacy.js', function(){
     var parentPost = new Post();
     var childPost = new Post(parentPost);
 
-    assert(Post.find(childPost.id) === childPost);
+    assert(Post.findOne(childPost.id) === childPost);
   });
 
   it('associates posts with the session\'s user', function(){

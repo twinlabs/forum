@@ -114,7 +114,7 @@ var routes = function(app, passport){
       response.sendStatus(404);
     }
 
-    PostsController.get(request.params.id).done(function(err, post){
+    PostsController.get(request.params.id).then(function(post){
       if (!post) {
 
         return response.send(404);
@@ -143,8 +143,9 @@ var routes = function(app, passport){
       }
     }
 
-    PostsController.topics().done(function(error, posts){
-      UserController.get(request.session.user.id).done(function(err, userData){
+    PostsController.topics().then(function(posts){
+
+      UserController.get(request.session.user.id).then(function(userData){
 
         var responsePosts = scrubPosts(addLastVisited(posts, response.locals.lastVisited));
 
@@ -162,8 +163,8 @@ var routes = function(app, passport){
   });
 
   app.get('/topics', function(request, response) {
-    PostsController.topics().done(function(error, posts){
-      UserController.get(request.session.user.id).done(function(err, userData){
+    PostsController.topics().then(function(posts){
+      UserController.get(request.session.user.id).then(function(userData){
         var responsePosts = addLastVisited(posts, response.locals.lastVisited);
 
         return response.json(responsePosts)
@@ -216,7 +217,7 @@ var routes = function(app, passport){
 
     //look up post id based on get request
     //return post data using response.send which should return the markdown you need to quote the post
-    PostsController.get(request.params.id).done(function(err, post){
+    PostsController.get(request.params.id).then(function(post){
       response.send(post);
     });
   });
@@ -227,7 +228,7 @@ var routes = function(app, passport){
       response.sendStatus(404);
     }
 
-    PostsController.search(request.params.searchTerm, request.query.offset).done(function(err, posts){
+    PostsController.search(request.params.searchTerm, request.query.offset).then(function(posts){
       response.send(posts);
     });
   });
@@ -247,11 +248,11 @@ var routes = function(app, passport){
 
   app.post('/settings', function(request, response){
     UserController.get(request.session.user.id)
-    .done(function(err, user){
+    .then(function(user){
       request.body.hide_connected = (request.body.hide_connected === 'true');
       request.body.is_v2 = (request.body.is_v2 === 'true' || request.body.is_v2);
 
-      user.updateAttributes(request.body).success(function(){
+      user.updateAttributes(request.body).then(function(){
         response.send(user);
       });
     });

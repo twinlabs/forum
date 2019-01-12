@@ -18,7 +18,7 @@ var PostsController = {
     });
   },
   add: function(data, callback){
-    post.create(data).done(callback);
+    post.create(data).then(callback);
   },
 
   destroy: function(data){

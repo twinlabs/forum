@@ -8,7 +8,7 @@ var User = rootRequire('models/User');
 
 describe('authentication', function(){
   before(function(done){
-    User.sync({force: true}).success(function(){
+    User.sync({force: true}).then(function(){
       done();
     });
   });
@@ -30,11 +30,11 @@ describe('authentication', function(){
 
         assert(response.statusCode === 302, "status code not 302: " + response.statusCode);
 
-        User.find({
+        User.findOne({
           where: {
             email: 'will@ahfr.org'
           }
-        }).done(function(error,user){
+        }).then(function(user){
           assert(user.name === "Will");
 
           done();
@@ -72,11 +72,11 @@ describe('authentication', function(){
           token: fs.createReadStream(__dirname + '/../fixtures/duck.jpg')
         }
       }, function(error, response, body){
-        User.find({
+        User.findOne({
           where: {
             email: 'villain@ahfr.org'
           }
-        }).done(function(error,user){
+        }).then(function(user){
           assert(user.password && user.password !== "plaintextPassword");
 
           done();
@@ -94,11 +94,11 @@ describe('authentication', function(){
           token: fs.createReadStream(__dirname + '/../fixtures/duck.jpg')
         }
       }, function(error, response, body){
-        User.find({
+        User.findOne({
           where: {
             email: 'user@ahfr.org'
           }
-        }).done(function(error,user){
+        }).then(function(user){
           user.isValidPassword('userpassword', function(error, passwordResponse){
             assert(passwordResponse === true);
 

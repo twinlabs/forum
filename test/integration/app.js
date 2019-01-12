@@ -37,10 +37,10 @@ describe('socket communication', function(){
     };
 
     // ensure that fresh database tables are created:
-    post.sync({force: true}).success(function(){
+    post.sync({force: true}).then(function(){
       post.associate(models);
 
-      user.sync({force: true}).success(function(){
+      user.sync({force: true}).then(function(){
         user.associate(models);
         done();
       });

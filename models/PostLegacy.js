@@ -11,7 +11,7 @@ var Post = function(parent){
 
 Post.prototype.className = 'Post';
 Post._list = [];
-Post.find = function(id){
+Post.findOne = function(id){
   for (var i = 0; Post._list.length; i++){
     if (id === Post._list[i].id) return Post._list[i];
   }

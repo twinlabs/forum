@@ -14,10 +14,10 @@ var models = {
 
 describe("database (user and post tables) stuff", function(){
   before(function(done){
-    post.sync({force: true}).success(function(){
+    post.sync({force: true}).then(function(){
       post.associate(models);
 
-      user.sync({force: true}).success(function(){
+      user.sync({force: true}).then(function(){
         user.associate(models);
         done();
       });
@@ -28,7 +28,7 @@ describe("database (user and post tables) stuff", function(){
     post.create({
       body: "it's happening",
       user_id: 1
-    }).success(function(post){
+    }).then(function(post){
       assert(post.body === "it's happening");
       done();
     });

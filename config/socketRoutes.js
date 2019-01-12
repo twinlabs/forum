@@ -31,7 +31,7 @@ module.exports = function(app) {
 
       data.created_at = new Date();
 
-      PostsController.add(data, function(error, result){
+      PostsController.add(data, function(result){
         data.id = result.id;
         app.get('io').sockets.emit('post', data);
 
