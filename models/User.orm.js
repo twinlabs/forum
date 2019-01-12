@@ -41,25 +41,20 @@ var UserSequelize = function(sequelize){
       type: Sequelize.JSON
     }
   }, {
-    // options go here:
-    classMethods: {
-      associate: function(models){
-        user.hasMany(models.post, {foreignKey: 'user_id'});
-      }
-    },
-    instanceMethods: {
-      isValidPassword: function(password, callback){
-        return bcrypt.compare(password, this.password, callback);
-      }
-    },
     underscored: true,
-    tableName: 'forum_user' // what should this be
+    tableName: 'forum_user'
   });
+
+  user.associate = function(models){
+    user.hasMany(models.post, {foreignKey: 'user_id'});
+  };
+
+  user.prototype.isValidPassword = function(password, callback){
+    return bcrypt.compare(password, this.password, callback);
+  }
 
   return user;
 };
 
-// nodejs modules usually export something
-// so that other modules can consume them:
 module.exports = UserSequelize;
 

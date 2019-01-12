@@ -32,7 +32,7 @@ var PostsController = {
   index: function(){
     return post.findAll({
       include: [user],
-      order: 'created_at ASC'
+      order: [['created_at', 'ASC']]
     });
   },
 
@@ -59,7 +59,7 @@ var PostsController = {
           { id: topicID }
         ),
         include: [user],
-        order: 'created_at DESC',
+        order: [['created_at', 'DESC']],
         limit: limit,
         offset: offset
       });
@@ -86,7 +86,7 @@ var PostsController = {
             { id: topicID }
           ),
           include: [user],
-          order: 'created_at DESC',
+          order: [['created_at', 'DESC']],
           limit: limit,
           offset: offset
         });
@@ -104,7 +104,7 @@ var PostsController = {
             )
           ),
           include: [user],
-          order: 'created_at DESC'
+          order: [['created_at', 'DESC']],
         });
       }
     });
@@ -117,7 +117,7 @@ var PostsController = {
         {id: topicID}
       ),
       include: [user],
-      order: 'created_at ASC'
+      order: [['created_at', 'ASC']]
     });
   },
 
@@ -142,7 +142,7 @@ var PostsController = {
       include: [user],
       limit: 20,
       offset: offset,
-      order: 'created_at DESC'
+      order: [['created_at', 'DESC']],
     });
   }
 };

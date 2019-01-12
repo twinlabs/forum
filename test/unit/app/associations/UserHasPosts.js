@@ -9,11 +9,6 @@ var models = {
 
 
 describe('User', function(){
-  before(function(){
-    post.associate(models);
-    user.associate(models);
-  });
-
   it('can ask for posts', function(){
     var userInstance = user.build({
       name: 'Ty',
