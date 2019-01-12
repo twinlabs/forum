@@ -108,7 +108,7 @@ body {
   background-color: hsla(0, 0%, 50%, 0.05);
 }
 
-textarea, input,
+textarea, input, select,
 .data-callout,
 .input--toggle {
   background: inherit;
