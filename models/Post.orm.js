@@ -20,7 +20,12 @@ var PostSequelize = function(sequelize){
     }
   }, {
     underscored: true,
-    tableName: 'post'
+    tableName: 'post',
+    indexes: [
+      {
+        fields: ['id']
+      }
+    ],
   });
 
 
