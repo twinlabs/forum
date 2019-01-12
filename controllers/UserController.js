@@ -3,7 +3,7 @@ var PostsController = rootRequire('controllers/PostsController');
 
 var UserController = {
   get: function(id) {
-    return user.find(id);
+    return user.findById(id);
   },
   getLastVisited: function(id) {
     return this.get(id).then(function(userInstance) {

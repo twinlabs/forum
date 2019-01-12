@@ -28,8 +28,8 @@ var PostSequelize = function(sequelize){
         });
       },
 
-      findTopicsAndMetadata: function() {
-        return sequelize.query(
+      findTopicsAndMetadata: async function() {
+         return sequelize.query(
           `
             select
               title
@@ -66,7 +66,7 @@ var PostSequelize = function(sequelize){
             nest: true,
             raw: true
           }
-        );
+        )
       },
 
       findTopics: function() {
@@ -104,7 +104,7 @@ var PostSequelize = function(sequelize){
     tableName: 'post',
     instanceMethods: {
       getParent: function(){
-        return post.find(this.parent);
+        return post.findOne(this.parent);
       }
     }
   });
