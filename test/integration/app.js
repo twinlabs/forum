@@ -1,5 +1,7 @@
 var assert = require('assert');
 var sinon = require('sinon');
+var test = require('sinon-test')(sinon);
+sinon.test = test;
 var appModule = rootRequire('app');
 var io = require('socket.io-client');
 var http = require('http');

@@ -2,6 +2,8 @@ var assert = require('assert');
 var embedTwitter = require('../../../app/components/oembed/oembed-twitter');
 var superagent = require('superagent');
 var sinon = require('sinon');
+var test = require('sinon-test')(sinon);
+sinon.test = test;
 var dedent = require('dedent');
 
 describe('twitter embeds', function() {
