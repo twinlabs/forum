@@ -21,7 +21,8 @@ var UserController = {
       }, {
         where: {
           id: id
-        }
+        },
+        logging: false,
       });
     });
 
