@@ -17,7 +17,7 @@ describe('models/User.js', function(){
       name: ''
     });
 
-    userInstance.validate().then(function(error) {
+    userInstance.validate().catch(function(error) {
       assert.equal(error.errors[0].path, 'name');
 
       done();
@@ -29,7 +29,7 @@ describe('models/User.js', function(){
       name: 'critique of pure reason, critique of pure will'
     });
 
-    userInstance.validate().then(function(error) {
+    userInstance.validate().catch(function(error) {
       assert.equal(error.errors[0].path, 'name');
 
       done();
