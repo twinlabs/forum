@@ -94,7 +94,7 @@
     "eslint-plugin-react": "^6.3.0",
     "jsdom": "^9.6.0",
     "mocha": "^3.5.3",
-    "request": "^2.87.0",
+    "request": "^2.88.0",
     "sinon": "^1.17.0"
   }
 }
