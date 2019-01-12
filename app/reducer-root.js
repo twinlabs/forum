@@ -39,6 +39,8 @@ function handleSettings(state, action) {
   if (action.type === 'STYLECHANGE') {
     localStorage.setItem('forumStyleValue', action.value);
 
+    document.getElementById('forumstylesheet').href = `/stylesheets/v2-${window.localStorage.getItem('forumStyleValue')}.css`;
+
     return Object.assign({}, state, {
       style: action.value
     });

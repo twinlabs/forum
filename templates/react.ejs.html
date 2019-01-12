@@ -19,6 +19,11 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/homeicon.png" />
     <link rel="icon" sizes="192x192" href="/homeicon.png" />
     <link rel="icon" href="/favicon.png?12-22-2016" />
+    <link rel="stylesheet" id="forumstylesheet" />
+    <script>
+      document.getElementById('forumstylesheet').href = '/stylesheets/v2-' + window.localStorage.getItem('forumStyleValue') + '.css';
+    </script>
+
     <% if (user && user.id !== 0) { %>
       <%- user.custom_code %>
     <% } %>
