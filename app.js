@@ -18,7 +18,7 @@ var cssnext = require('postcss-cssnext');
 rootRequire('config/environments')(app);
 app.set('io', require('socket.io').listen(httpServer));
 
-var conString = process.env.DATABASE_URL || "postgres://postgres@localhost/forum";
+var conString = process.env.FORUM_DATABASE_URL || "postgres://postgres@localhost/forum";
 
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize(conString);
