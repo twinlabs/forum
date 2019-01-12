@@ -85,7 +85,7 @@
     "socket.io-client": "~1.3.5",
     "superagent": "^4.1.0",
     "uglify-js": "^3.4.9",
-    "uglifyify": "^4.0.5",
+    "uglifyify": "^5.0.1",
     "watchify": "^3.11.0"
   },
   "devDependencies": {
