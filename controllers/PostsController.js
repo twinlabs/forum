@@ -1,6 +1,7 @@
 var post = rootRequire('models/Post');
 var user = rootRequire('models/User');
 var Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 var models = { post: post, user: user };
 
@@ -123,9 +124,9 @@ var PostsController = {
   search: function(term, offset = 0) {
     return post.findAll({
       where: {
-        $or: {
+        [Op.or]: {
           body: {
-            $iLike: `%${term}%`,
+            [Op.iLike]: `%${term}%`,
           },
         },
       },
