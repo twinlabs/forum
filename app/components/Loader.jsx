@@ -7,15 +7,11 @@ module.exports = createReactClass({
     return (
       <div className="loader">
         <span className="loader-text">
-          <span className="accent">
-            {'{'}
-          </span>
+          <span className="accent">{'{'}</span>
           Loading...
-          <span className="accent">
-            {'}'}
-          </span>
+          <span className="accent">{'}'}</span>
         </span>
       </div>
     );
-  }
+  },
 });

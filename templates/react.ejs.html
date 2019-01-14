@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>
-      Forum
-    </title>
+    <title>Forum</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
     <link rel="stylesheet" href="/stylesheets/normalize.css" />
     <link rel="stylesheet" href="/stylesheets/index.css" />
     <link rel="stylesheet" href="/stylesheets/content.css" />
@@ -21,25 +22,22 @@
     <link rel="icon" href="/favicon.png?12-22-2016" />
     <link rel="stylesheet" id="forumstylesheet" />
     <script>
-      document.getElementById('forumstylesheet').href = '/stylesheets/v2-' + window.localStorage.getItem('forumStyleValue') + '.css';
+      document.getElementById('forumstylesheet').href =
+        '/stylesheets/v2-' +
+        window.localStorage.getItem('forumStyleValue') +
+        '.css';
     </script>
 
-    <% if (user && user.id !== 0) { %>
-      <%- user.custom_code %>
-    <% } %>
+    <% if (user && user.id !== 0) { %> <%- user.custom_code %> <% } %>
   </head>
 
   <body class="body is-loading">
     <div id="app" class="app">
-      You must enable JavaScript to use this app.
-      What are you thinking having JS disabled?
+      You must enable JavaScript to use this app. What are you thinking having
+      JS disabled?
     </div>
 
-    <div class="loader">
-      <span class="loader-text">
-        Loading...
-      </span>
-    </div>
+    <div class="loader"><span class="loader-text"> Loading... </span></div>
 
     <script src="//platform.twitter.com/widgets.js"></script>
     <script src="//platform.instagram.com/en_US/embeds.js"></script>
@@ -52,7 +50,7 @@
       window.postData = <%- postData %>;
     </script>
     <% if (env !== 'production') { %>
-      <script src="/lib.js"></script>
+    <script src="/lib.js"></script>
     <% } %>
     <script src="/bundle.js"></script>
   </body>

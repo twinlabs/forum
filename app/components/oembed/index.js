@@ -1,5 +1,4 @@
 module.exports = function(input, depth) {
-
   // this is just a series of transforms,
   // they can happen in any order:
 
@@ -10,7 +9,7 @@ module.exports = function(input, depth) {
     .then(require('./oembed-twitter'))
     .then(require('./oembed-vine'))
     .then(require('./oembed-youtube'))
-    .then(handleEmbedTransform(depth))
+    .then(handleEmbedTransform(depth));
 };
 
 function handleEmbedTransform(depth) {

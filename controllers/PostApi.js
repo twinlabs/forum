@@ -8,7 +8,7 @@ var postApi = function(rest, checkAuth) {
   var posts = rest.resource({
     model: Post,
     endpoints: ['/api/posts', '/api/posts/:id'],
-    actions: ['read', 'list', 'create']
+    actions: ['read', 'list', 'create'],
   });
 
   posts.all.auth(checkAuth);
@@ -21,7 +21,8 @@ var postApi = function(rest, checkAuth) {
   posts.list.fetch.before(function(req, res, context) {
     if (req.query.topic) {
       context.criteria = Sequelize.or(
-        {id: req.query.topic}, { parent: req.query.topic }
+        { id: req.query.topic },
+        { parent: req.query.topic },
       );
     }
     context.continue();
@@ -48,8 +49,8 @@ var postApi = function(rest, checkAuth) {
       created_at: context.instance.created_at,
       user: {
         id: req.session.user.id,
-        name: req.session.user.name
-      }
+        name: req.session.user.name,
+      },
     };
     rest.app.get('io').sockets.emit('post', data);
 

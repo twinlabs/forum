@@ -104,11 +104,13 @@ body {
 }
 
 .content blockquote,
-.content .blockquote  {
+.content .blockquote {
   background-color: hsla(0, 0%, 50%, 0.05);
 }
 
-textarea, input, select,
+textarea,
+input,
+select,
 .data-callout,
 .input--toggle {
   background: inherit;

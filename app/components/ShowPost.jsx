@@ -15,24 +15,28 @@ module.exports = createReactClass({
     }
 
     var thread = _.find(this.props.value.topics, {
-      id: +this.props.params.id
+      id: +this.props.params.id,
     });
 
     if (thread) {
       return this.setState({
-        postData: thread
+        postData: thread,
       });
     }
 
-    superagent.get(`/topic/${+this.props.routeParams.id}`)
+    superagent
+      .get(`/topic/${+this.props.routeParams.id}`)
       .set('Accept', 'application/json')
-      .then(function(response){
-        this.setState({
-          postData: response.body[0]
-        });
-      }.bind(this), function(error, a, b) {
-        console.error(error);
-      });
+      .then(
+        function(response) {
+          this.setState({
+            postData: response.body[0],
+          });
+        }.bind(this),
+        function(error, a, b) {
+          console.error(error);
+        },
+      );
   },
 
   getThread: function() {
@@ -41,20 +45,20 @@ module.exports = createReactClass({
     }
 
     var parent = _.find(this.props.value.topics, {
-      id: this.state.postData.parent
+      id: this.state.postData.parent,
     });
 
     return (
       <div
         style={{
-          'display': 'flex'
+          display: 'flex',
         }}
       >
         <Link
           to={`/topic/${parent.id}`}
           className="controlBar-control"
           style={{
-            'margin': '1em auto',
+            margin: '1em auto',
           }}
         >
           From Thread: {parent.title}
@@ -75,9 +79,7 @@ module.exports = createReactClass({
 
   render: function() {
     return (
-      <div
-        className="thread"
-      >
+      <div className="thread">
         {this.getThread()}
 
         <ThreadPost
@@ -86,7 +88,6 @@ module.exports = createReactClass({
           {...this.props.value}
         />
       </div>
-
-    )
-  }
+    );
+  },
 });

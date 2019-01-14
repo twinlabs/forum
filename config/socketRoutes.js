@@ -1,11 +1,11 @@
 var PostsController = rootRequire('controllers/PostsController');
-var UserController =  rootRequire('controllers/UserController');
+var UserController = rootRequire('controllers/UserController');
 var userlist = {};
 
 module.exports = function(app) {
-  app.get('io').sockets.on('connection', function(socket){
-    if (typeof socket.handshake.query.user === "undefined") {
-      socket.handshake.query.user = "{}";
+  app.get('io').sockets.on('connection', function(socket) {
+    if (typeof socket.handshake.query.user === 'undefined') {
+      socket.handshake.query.user = '{}';
     }
 
     var user = JSON.parse(socket.handshake.query.user);
@@ -14,8 +14,8 @@ module.exports = function(app) {
       UserController.get(user.id).then(function(userData) {
         if (!userData.hide_connected) {
           userlist[user.name] = {
-            name: user.name
-          }
+            name: user.name,
+          };
         }
 
         app.get('io').sockets.emit('updateuserlist', userlist);
@@ -31,19 +31,19 @@ module.exports = function(app) {
 
       data.created_at = new Date();
 
-      PostsController.add(data, function(result){
+      PostsController.add(data, function(result) {
         data.id = result.id;
         app.get('io').sockets.emit('post', data);
 
         UserController.updateLastVisited(data.user.id, data.parent);
 
-        if (typeof callback === "function") {
+        if (typeof callback === 'function') {
           callback();
         }
       });
     });
 
-    socket.on('edit', function(data){
+    socket.on('edit', function(data) {
       data.user_id = data.user.id;
       app.get('io').sockets.emit('edit', data);
 
@@ -54,7 +54,7 @@ module.exports = function(app) {
       PostsController.edit(data);
     });
 
-    socket.on('destroy', function(data){
+    socket.on('destroy', function(data) {
       data.user_id = data.user.id;
       app.get('io').sockets.emit('destroy', data);
 

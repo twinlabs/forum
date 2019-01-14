@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>
-      Forum
-    </title>
+    <title>Forum</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -17,8 +15,7 @@
   </head>
 
   <body class="embedBody">
-    <div id="app">
-    </div>
+    <div id="app"></div>
     <script>
       window.forum = {};
       forum.constants = <%- clientConstants %>;
@@ -29,7 +26,7 @@
     <script src="//platform.twitter.com/widgets.js"></script>
     <script src="//platform.instagram.com/en_US/embeds.js"></script>
     <% if (env !== 'production') { %>
-      <script src="/lib.js"></script>
+    <script src="/lib.js"></script>
     <% } %>
     <script src="/embedapp.js"></script>
   </body>

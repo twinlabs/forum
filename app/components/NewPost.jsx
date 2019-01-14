@@ -13,22 +13,25 @@ var NewPost = createReactClass({
   getInitialState: function() {
     return {
       inline: true,
-      body: ''
+      body: '',
     };
   },
 
   animateSubmission: function() {
     this.setState({
-      animatedHeight: '0'
+      animatedHeight: '0',
     });
 
-    setTimeout(function() {
-      this.setState({
-        animatedHeight: null,
-        body: '',
-        restrictSubmit: false
-      });
-    }.bind(this), 200);
+    setTimeout(
+      function() {
+        this.setState({
+          animatedHeight: null,
+          body: '',
+          restrictSubmit: false,
+        });
+      }.bind(this),
+      200,
+    );
   },
 
   constructQuote: function(data) {
@@ -47,24 +50,35 @@ var NewPost = createReactClass({
     var updatedBody = `${this.bodyMassage(data.body, data.author)}`;
 
     if (this.state.body.trim().length) {
-      updatedBody = `${this.state.body.trim()}\n\n${this.bodyMassage(data.body, data.author)}`;
+      updatedBody = `${this.state.body.trim()}\n\n${this.bodyMassage(
+        data.body,
+        data.author,
+      )}`;
     }
 
-    this.setState({
-      body: updatedBody,
-     }, this.handleFocus);
+    this.setState(
+      {
+        body: updatedBody,
+      },
+      this.handleFocus,
+    );
   },
 
   constructQuoteReference: function(postId) {
     var updatedBody = `https://${window.location.host}/post/${postId}\n\n`;
 
     if (this.state.body.trim().length) {
-      updatedBody = `${this.state.body.trim()}\n\nhttps://${window.location.host}/post/${postId}\n\n`;
+      updatedBody = `${this.state.body.trim()}\n\nhttps://${
+        window.location.host
+      }/post/${postId}\n\n`;
     }
 
-    this.setState({
-      body: updatedBody,
-    }, this.handleFocus);
+    this.setState(
+      {
+        body: updatedBody,
+      },
+      this.handleFocus,
+    );
   },
 
   hasTitle: function() {
@@ -80,45 +94,56 @@ var NewPost = createReactClass({
   },
 
   bodyMassage: function(body, author) {
-     return `
+    return (
+      `
       > ${author} wrote:
 
-      ${body.replace(/^/, "> ")
-        .replace(/\n/g, "\n> ")}
+      ${body.replace(/^/, '> ').replace(/\n/g, '\n> ')}
      `
-      .replace(/^\s+/g,'')
-      .replace(/\n +/,'\n').trim() + '\n\n';
+        .replace(/^\s+/g, '')
+        .replace(/\n +/, '\n')
+        .trim() + '\n\n'
+    );
   },
 
   handleFile: function(event) {
     var formData = new FormData();
 
     for (var fileKey in event.target.files) {
-      if (event.target.files.hasOwnProperty(fileKey) && event.target.files[fileKey] instanceof File) {
-        formData.append('files[]', event.target.files[fileKey])
+      if (
+        event.target.files.hasOwnProperty(fileKey) &&
+        event.target.files[fileKey] instanceof File
+      ) {
+        formData.append('files[]', event.target.files[fileKey]);
       }
     }
 
-    superagent.post('/upload')
+    superagent
+      .post('/upload')
       .send(formData)
-      .on('progress', function(event) {
-        this.setState({
-          progress: event.percent,
-        });
-      }.bind(this))
-      .end(function(error, response){
-        var updatedBody = getMarkdownFileType(response.body.url)
+      .on(
+        'progress',
+        function(event) {
+          this.setState({
+            progress: event.percent,
+          });
+        }.bind(this),
+      )
+      .end(
+        function(error, response) {
+          var updatedBody = getMarkdownFileType(response.body.url);
 
-        if (this.state.body.trim().length) {
-          updatedBody = `${this.state.body}\n\n${updatedBody}`;
-        }
+          if (this.state.body.trim().length) {
+            updatedBody = `${this.state.body}\n\n${updatedBody}`;
+          }
 
-        this.setState({
-          inline: false,
-          body: updatedBody,
-          progress: null,
-        })
-      }.bind(this))
+          this.setState({
+            inline: false,
+            body: updatedBody,
+            progress: null,
+          });
+        }.bind(this),
+      );
   },
 
   handleFocus: function() {
@@ -139,28 +164,31 @@ var NewPost = createReactClass({
       return false;
     }
 
-
     this.setState({
-      restrictSubmit: true
+      restrictSubmit: true,
     });
 
-    window.socket.emit('post', {
-      parent: this.props.parent,
-      title: this.getTitle(),
-      body: postBody,
-      user: {
-        id: window.forum.constants.user.id,
-        name: window.forum.constants.user.name
-      }
-    }, function() {
-      this.animateSubmission();
+    window.socket.emit(
+      'post',
+      {
+        parent: this.props.parent,
+        title: this.getTitle(),
+        body: postBody,
+        user: {
+          id: window.forum.constants.user.id,
+          name: window.forum.constants.user.name,
+        },
+      },
+      function() {
+        this.animateSubmission();
 
-      if (this.props.route && this.props.route.path === 'topic/new') {
-        setTimeout(function() {
-          browserHistory.push('/');
-        }, 1);
-      }
-    }.bind(this))
+        if (this.props.route && this.props.route.path === 'topic/new') {
+          setTimeout(function() {
+            browserHistory.push('/');
+          }, 1);
+        }
+      }.bind(this),
+    );
   },
 
   renderTitle: function() {
@@ -181,7 +209,7 @@ var NewPost = createReactClass({
 
   handleChange: function(event) {
     this.setState({
-      body: event.target.value
+      body: event.target.value,
     });
   },
 
@@ -195,8 +223,8 @@ var NewPost = createReactClass({
               className="input focusArea v-Atom"
               style={{
                 height: this.state && this.state.animatedHeight,
-                minHeight: (this.state && this.state.animatedHeight) ? '0' : null,
-                padding: (this.state && this.state.animatedHeight) ? '4px' : null
+                minHeight: this.state && this.state.animatedHeight ? '0' : null,
+                padding: this.state && this.state.animatedHeight ? '4px' : null,
               }}
               type="text"
               placeholder="Body"
@@ -209,15 +237,13 @@ var NewPost = createReactClass({
             {this.renderAttachInput()}
           </div>
         </div>
-      )
+      );
     }
 
     return (
       <div>
         <Progress progress={this.state.progress} />
-        <div
-          style={{display: 'flex'}}
-        >
+        <div style={{ display: 'flex' }}>
           <Input
             className="v-Atom"
             type="text"
@@ -234,14 +260,14 @@ var NewPost = createReactClass({
             type="button"
             onClick={function() {
               this.setState({
-                inline: false
+                inline: false,
               });
             }.bind(this)}
             style={{
               backgroundColor: 'transparent',
               border: 'none',
               whiteSpace: 'nowrap',
-              margin: 0
+              margin: 0,
             }}
           >
             ...
@@ -253,7 +279,10 @@ var NewPost = createReactClass({
   },
 
   componentWillReceiveProps: function(nextProps) {
-    if (nextProps.receivedQuote && nextProps.receivedQuote !== this.props.receivedQuote) {
+    if (
+      nextProps.receivedQuote &&
+      nextProps.receivedQuote !== this.props.receivedQuote
+    ) {
       this.constructQuote(nextProps.receivedQuote);
     }
   },
@@ -288,7 +317,7 @@ var NewPost = createReactClass({
         style={{
           display: 'flex',
           alignItems: 'center',
-          cursor: 'pointer'
+          cursor: 'pointer',
         }}
       >
         <img
@@ -301,18 +330,18 @@ var NewPost = createReactClass({
         <input
           type="file"
           style={{
-            'width': '0.1px',
-            'height': '0.1px',
-            'opacity': 0,
-            'overflow': 'hidden',
-            'position': 'absolute',
-            'zIndex': '-1',
+            width: '0.1px',
+            height: '0.1px',
+            opacity: 0,
+            overflow: 'hidden',
+            position: 'absolute',
+            zIndex: '-1',
           }}
           tabIndex={-1}
           onChange={this.handleFile}
         />
       </label>
-    )
+    );
   },
 
   render: function() {
@@ -322,7 +351,7 @@ var NewPost = createReactClass({
         {this.renderBody()}
         {this.renderSubmitContext()}
       </form>
-    )
+    );
   },
 });
 
@@ -352,5 +381,5 @@ module.exports = createReactClass({
         location={this.props.location}
       />
     );
-  }
+  },
 });

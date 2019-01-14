@@ -16,48 +16,56 @@ var UserController = {
 
       lastVisited[topicID] = +new Date();
 
-      return user.update({
-        last_visited: lastVisited
-      }, {
-        where: {
-          id: id
+      return user.update(
+        {
+          last_visited: lastVisited,
         },
-        logging: false,
-      });
+        {
+          where: {
+            id: id,
+          },
+          logging: false,
+        },
+      );
     });
-
   },
 
   markAllUnread: function(data) {
     return PostsController.topics().then(function(topics) {
-      user.update({
-        last_visited: null
-      }, {
-        where: {
-          id: data.user.id
-        }
-      });
+      user.update(
+        {
+          last_visited: null,
+        },
+        {
+          where: {
+            id: data.user.id,
+          },
+        },
+      );
     });
   },
 
   markAllRead: function(data) {
     return PostsController.topics().then(function(topics) {
-      var date = + new Date();
+      var date = +new Date();
       var lastVisited = {};
 
       topics.forEach(function(topic) {
         lastVisited[topic.id] = date;
       });
 
-      user.update({
-        last_visited: lastVisited
-      }, {
-        where: {
-          id: data.user.id
-        }
-      });
+      user.update(
+        {
+          last_visited: lastVisited,
+        },
+        {
+          where: {
+            id: data.user.id,
+          },
+        },
+      );
     });
-  }
+  },
 };
 
 module.exports = UserController;

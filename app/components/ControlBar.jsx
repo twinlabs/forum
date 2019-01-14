@@ -7,19 +7,19 @@ var ControlBar = createReactClass({
 
   getInitialState: function() {
     return {
-      lastTapped: +new Date()
-    }
+      lastTapped: +new Date(),
+    };
   },
 
   detectDoubleTap: function(event) {
-    const delay = (+new Date()) - this.state.lastTapped;
+    const delay = +new Date() - this.state.lastTapped;
 
     if (delay < 300) {
-      this.props.handleRootRefresh(event)
+      this.props.handleRootRefresh(event);
     }
 
     this.setState({
-      lastTapped: +new Date()
+      lastTapped: +new Date(),
     });
   },
 
@@ -31,13 +31,11 @@ var ControlBar = createReactClass({
 
   render: function() {
     return (
-      <div
-        className="controlBar"
-      >
+      <div className="controlBar">
         <a
           className="controlBar-control settingsControl"
           href="/settings"
-          onClick={function(event){
+          onClick={function(event) {
             event.preventDefault();
             browserHistory.push('/settings');
           }}
@@ -64,7 +62,7 @@ var ControlBar = createReactClass({
           New
         </a>
       </div>
-    )
+    );
   },
 });
 

@@ -9,14 +9,14 @@ var Settings = createReactClass({
 
   getInitialState: function() {
     return {
-      needsSave: true
+      needsSave: true,
     };
   },
 
   componentWillReceiveProps: function(nextProps) {
     if (this.calcNeedsSave(nextProps.settings)) {
       this.setState({
-        needsSave: true
+        needsSave: true,
       });
     }
   },
@@ -42,57 +42,60 @@ var Settings = createReactClass({
 
     if (this.props.settings.signature.match('script>')) {
       return this.setState({
-        validationError: 'No script tags in signatures, sorry.'
+        validationError: 'No script tags in signatures, sorry.',
       });
     }
 
     this.setState({
-      validationError: null
+      validationError: null,
     });
 
     document.body.classList.add('is-loading');
 
-    superagent.post('/settings')
+    superagent
+      .post('/settings')
       .send(this.props.settings)
-      .end(function(error, response) {
-        document.body.classList.remove('is-loading');
+      .end(
+        function(error, response) {
+          document.body.classList.remove('is-loading');
 
-        this.setState({
-          needsSave: false
-        });
+          this.setState({
+            needsSave: false,
+          });
 
-        this.props.store.dispatch({
+          this.props.store.dispatch({
             type: 'SETTINGS',
-            value: response.body
-        });
-      }.bind(this));
+            value: response.body,
+          });
+        }.bind(this),
+      );
   },
 
   handleSigChange: function(event) {
     this.props.store.dispatch({
       type: 'SIGCHANGE',
-      value: event.target.value
-    })
+      value: event.target.value,
+    });
   },
 
   handleStyleChange: function(event) {
     this.props.store.dispatch({
       type: 'STYLECHANGE',
-      value: event.target.value
+      value: event.target.value,
     });
   },
 
   handleImageDisableChange: function(event) {
     this.props.store.dispatch({
       type: 'IMAGECHANGE',
-      value: event.target.value
+      value: event.target.value,
     });
   },
 
   handleEmbedChange: function(event) {
     this.props.store.dispatch({
       type: 'EMBEDCHANGE',
-      value: event.target.value
+      value: event.target.value,
     });
   },
 
@@ -108,11 +111,7 @@ var Settings = createReactClass({
     const supporterStatus = helpers.isSupporter(window.forum.constants.user);
 
     return (
-      <form
-        action={supporterStatus.action}
-        method="post"
-        target="_top"
-      >
+      <form action={supporterStatus.action} method="post" target="_top">
         <input type="hidden" name="cmd" value="_s-xclick" />
         <input type="hidden" name="hosted_button_id" value="TXU8GUQR6XA6W" />
         <button
@@ -121,28 +120,29 @@ var Settings = createReactClass({
           className="post v-Atom"
           style={{
             cursor: 'pointer',
-            width: '100%'
+            width: '100%',
           }}
         >
           {supporterStatus.text}
         </button>
-        <img alt="" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+        <img
+          alt=""
+          src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif"
+          width="1"
+          height="1"
+        />
       </form>
     );
   },
 
   renderValidationError: function() {
-    return (
-      <div>
-        {this.state.validationError}
-      </div>
-    );
+    return <div>{this.state.validationError}</div>;
   },
 
   renderValidationStyle: function() {
     if (this.state.validationError) {
       return {
-        border: '4px solid red'
+        border: '4px solid red',
       };
     }
   },
@@ -158,7 +158,7 @@ var Settings = createReactClass({
             className="post v-Atom"
             style={{
               textAlign: 'center',
-              fontSize: '1em'
+              fontSize: '1em',
             }}
           >
             Need Help? Have Feedback? Click Here to View or Open Issues
@@ -170,25 +170,27 @@ var Settings = createReactClass({
               <textarea
                 defaultValue={this.props.settings.signature}
                 onChange={this.handleSigChange}
-                style={_.assign({
-                  "display": "block",
-                  "width": "100%",
-                  'margin': '1em 0',
-                  "minHeight": "400px",
-                  "fontFamily": "monospace"
-                }, this.renderValidationStyle())}
+                style={_.assign(
+                  {
+                    display: 'block',
+                    width: '100%',
+                    margin: '1em 0',
+                    minHeight: '400px',
+                    fontFamily: 'monospace',
+                  },
+                  this.renderValidationStyle(),
+                )}
               />
-
               <div
                 style={{
-                  'margin': '1em 0'
+                  margin: '1em 0',
                 }}
                 data-user-id={this.props.settings.id}
               >
                 <div
                   className="signature"
                   dangerouslySetInnerHTML={{
-                    __html: this.props.settings.signature
+                    __html: this.props.settings.signature,
                   }}
                 />
               </div>
@@ -231,7 +233,6 @@ var Settings = createReactClass({
           <div className="post v-Atom">
             <label>
               Disable Embeds:&nbsp;
-
               <input
                 defaultChecked={this.props.settings.disableEmbeds}
                 onChange={this.handleEmbedChange}
@@ -243,7 +244,6 @@ var Settings = createReactClass({
             &nbsp;
             <label>
               Enable Embeds:&nbsp;
-
               <input
                 defaultChecked={!this.props.settings.disableEmbeds}
                 onChange={this.handleEmbedChange}
@@ -256,9 +256,10 @@ var Settings = createReactClass({
           <div className="post v-Atom">
             <label>
               Disable Image Display:&nbsp;
-
               <input
-                defaultChecked={(window.localStorage.getItem('forumDisableImages') === 'true')}
+                defaultChecked={
+                  window.localStorage.getItem('forumDisableImages') === 'true'
+                }
                 onChange={this.handleImageDisableChange}
                 value="true"
                 name="disableImages"
@@ -268,9 +269,12 @@ var Settings = createReactClass({
             &nbsp;
             <label>
               Enable Image Display:&nbsp;
-
               <input
-                defaultChecked={!(window.localStorage.getItem('forumDisableImages') === 'true')}
+                defaultChecked={
+                  !(
+                    window.localStorage.getItem('forumDisableImages') === 'true'
+                  )
+                }
                 onChange={this.handleImageDisableChange}
                 value="false"
                 name="disableImages"
@@ -280,7 +284,7 @@ var Settings = createReactClass({
           </div>
           <div
             style={{
-              'margin': '1em 0'
+              margin: '1em 0',
             }}
           >
             <label>
@@ -296,10 +300,7 @@ var Settings = createReactClass({
 module.exports = createReactClass({
   render: function() {
     return (
-      <Settings
-        settings={this.props.value.settings}
-        store={window.store}
-      />
+      <Settings settings={this.props.value.settings} store={window.store} />
     );
-  }
-})
+  },
+});

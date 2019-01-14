@@ -9,8 +9,8 @@ module.exports = function(props) {
     <div
       className="v-Progress"
       style={{
-        width: `${props.progress}%`
+        width: `${props.progress}%`,
       }}
     />
-  )
-}
+  );
+};

@@ -17,133 +17,167 @@ describe('twitter embeds', function() {
   });
 
   describe('talks to twitter when it finds a tweet', function() {
-    it('works with well-formed basic twitter URLS', sinon.test(function(done) {
-      const USER_INPUT = 'https://twitter.com/username/status/12345';
-      var requestStub = this.stub(superagent, 'get');
+    it(
+      'works with well-formed basic twitter URLS',
+      sinon.test(function(done) {
+        const USER_INPUT = 'https://twitter.com/username/status/12345';
+        var requestStub = this.stub(superagent, 'get');
 
-      requestStub.returns(Promise.resolve({
-        body: {
-          html: `<blockquote class="twitter-tweet">{tweet content}<a href="{tweet url}">{tweet link text}</a></blockquote>`
+        requestStub.returns(
+          Promise.resolve({
+            body: {
+              html: `<blockquote class="twitter-tweet">{tweet content}<a href="{tweet url}">{tweet link text}</a></blockquote>`,
+            },
+          }),
+        );
 
-        }
-      }));
+        embedTwitter(USER_INPUT).then(function(output) {
+          assert(
+            output ===
+              `<blockquote class="twitter-tweet">{tweet content}<a href="{tweet url}">{tweet link text}</a></blockquote>`,
+          );
 
-      embedTwitter(USER_INPUT).then(function(output) {
-        assert(output === `<blockquote class="twitter-tweet">{tweet content}<a href="{tweet url}">{tweet link text}</a></blockquote>`);
+          done();
+        });
+      }),
+    );
 
-        done();
-      });
-    }));
+    it(
+      'works with mobile twitter URLS',
+      sinon.test(function(done) {
+        const USER_INPUT = 'https://mobile.twitter.com/username/status/12345';
 
-    it('works with mobile twitter URLS', sinon.test(function(done) {
-      const USER_INPUT = 'https://mobile.twitter.com/username/status/12345';
+        var requestStub = this.stub(superagent, 'get');
 
-      var requestStub = this.stub(superagent, 'get');
+        requestStub.returns(
+          Promise.resolve({
+            body: {
+              html: `<blockquote class="twitter-tweet">{tweet content}<a href="{tweet url}">{tweet link text}</a></blockquote>`,
+            },
+          }),
+        );
 
-      requestStub.returns(Promise.resolve({
-        body: {
-          html: `<blockquote class="twitter-tweet">{tweet content}<a href="{tweet url}">{tweet link text}</a></blockquote>`
+        embedTwitter(USER_INPUT).then(function(output) {
+          assert(
+            output ===
+              `<blockquote class="twitter-tweet">{tweet content}<a href="{tweet url}">{tweet link text}</a></blockquote>`,
+          );
 
-        }
-      }));
+          done();
+        });
+      }),
+    );
 
-      embedTwitter(USER_INPUT).then(function(output) {
-        assert(output === `<blockquote class="twitter-tweet">{tweet content}<a href="{tweet url}">{tweet link text}</a></blockquote>`);
+    it(
+      "doesn't bother making requests for URLs without statuses",
+      sinon.test(function(done) {
+        const USER_INPUT = 'https://mobile.twitter.com/username/status/';
 
-        done();
-      });
-    }));
+        var requestStub = this.stub(superagent, 'get');
 
-    it('doesn\'t bother making requests for URLs without statuses', sinon.test(function(done) {
-      const USER_INPUT = 'https://mobile.twitter.com/username/status/';
+        requestStub.returns(
+          Promise.resolve({
+            body: {
+              html: '',
+            },
+          }),
+        );
 
-      var requestStub = this.stub(superagent, 'get');
+        embedTwitter(USER_INPUT).then(function(output) {
+          assert(!requestStub.called);
+          done();
+        });
+      }),
+    );
 
-      requestStub.returns(Promise.resolve({
-        body: {
-          html: ''
-        }
-      }));
-
-      embedTwitter(USER_INPUT).then(function(output) {
-        assert(!requestStub.called);
-        done();
-      });
-    }));
-
-    it('replaces tweets in mixed content posts', sinon.test(function(done) {
-      const USER_INPUT = dedent`
+    it(
+      'replaces tweets in mixed content posts',
+      sinon.test(function(done) {
+        const USER_INPUT = dedent`
         hello \n\n **check this out**:
         > https://mobile.twitter.com/username/status/12345
         :thumbsup:
       `;
 
-      var requestStub = this.stub(superagent, 'get');
+        var requestStub = this.stub(superagent, 'get');
 
-      requestStub.returns(Promise.resolve({
-        body: {
-          html: `<blockquote class="twitter-tweet">{tweet content}<a href="{tweet url}">{tweet link}</a></blockquote>`
+        requestStub.returns(
+          Promise.resolve({
+            body: {
+              html: `<blockquote class="twitter-tweet">{tweet content}<a href="{tweet url}">{tweet link}</a></blockquote>`,
+            },
+          }),
+        );
 
-        }
-      }));
-
-      embedTwitter(USER_INPUT).then(function(output) {
-        var expectedOutput = dedent`
+        embedTwitter(USER_INPUT).then(function(output) {
+          var expectedOutput = dedent`
           hello \n\n **check this out**:
           > <blockquote class="twitter-tweet">{tweet content}<a href="{tweet url}">{tweet link}</a></blockquote>
           :thumbsup:
         `;
 
-        assert.equal(output, expectedOutput);
-        done();
-      });
-    }));
+          assert.equal(output, expectedOutput);
+          done();
+        });
+      }),
+    );
 
-    it('renders consecutive tweets in the same body of content', sinon.test(function(done) {
-      const USER_INPUT = dedent`
+    it(
+      'renders consecutive tweets in the same body of content',
+      sinon.test(function(done) {
+        const USER_INPUT = dedent`
         https://twitter.com/username/status/0
         https://twitter.com/username/status/1
         https://twitter.com/username/status/2
         https://twitter.com/username/status/3
       `;
-      var requestStub = this.stub(superagent, 'get');
+        var requestStub = this.stub(superagent, 'get');
 
-      requestStub.onCall(0).returns(Promise.resolve({
-        body: {
-          html: `<blockquote class="twitter-tweet">{tweet content}<a href="https://twitter.com/username/status/0">https://twitter.com/username/status/0</a></blockquote>`
-        }
-      }));
+        requestStub.onCall(0).returns(
+          Promise.resolve({
+            body: {
+              html: `<blockquote class="twitter-tweet">{tweet content}<a href="https://twitter.com/username/status/0">https://twitter.com/username/status/0</a></blockquote>`,
+            },
+          }),
+        );
 
-      requestStub.onCall(1).returns(Promise.resolve({
-        body: {
-          html: `<blockquote class="twitter-tweet">{tweet content}<a href="https://twitter.com/username/status/1">https://twitter.com/username/status/1</a></blockquote>`
-        }
-      }));
+        requestStub.onCall(1).returns(
+          Promise.resolve({
+            body: {
+              html: `<blockquote class="twitter-tweet">{tweet content}<a href="https://twitter.com/username/status/1">https://twitter.com/username/status/1</a></blockquote>`,
+            },
+          }),
+        );
 
-      requestStub.onCall(2).returns(Promise.resolve({
-        body: {
-          html: `<blockquote class="twitter-tweet">{tweet content}<a href="https://twitter.com/username/status/2">https://twitter.com/username/status/2</a></blockquote>`
-        }
-      }));
+        requestStub.onCall(2).returns(
+          Promise.resolve({
+            body: {
+              html: `<blockquote class="twitter-tweet">{tweet content}<a href="https://twitter.com/username/status/2">https://twitter.com/username/status/2</a></blockquote>`,
+            },
+          }),
+        );
 
-      requestStub.onCall(3).returns(Promise.resolve({
-        body: {
-          html: `<blockquote class="twitter-tweet">{tweet content}<a href="https://twitter.com/username/status/3">https://twitter.com/username/status/3</a></blockquote>`
-        }
-      }));
+        requestStub.onCall(3).returns(
+          Promise.resolve({
+            body: {
+              html: `<blockquote class="twitter-tweet">{tweet content}<a href="https://twitter.com/username/status/3">https://twitter.com/username/status/3</a></blockquote>`,
+            },
+          }),
+        );
 
-      embedTwitter(USER_INPUT).then(function(output) {
-        var expectedOutput = dedent`
+        embedTwitter(USER_INPUT).then(function(output) {
+          var expectedOutput = dedent`
           <blockquote class="twitter-tweet">{tweet content}<a href="https://twitter.com/username/status/0">https://twitter.com/username/status/0</a></blockquote>
           <blockquote class="twitter-tweet">{tweet content}<a href="https://twitter.com/username/status/1">https://twitter.com/username/status/1</a></blockquote>
           <blockquote class="twitter-tweet">{tweet content}<a href="https://twitter.com/username/status/2">https://twitter.com/username/status/2</a></blockquote>
           <blockquote class="twitter-tweet">{tweet content}<a href="https://twitter.com/username/status/3">https://twitter.com/username/status/3</a></blockquote>
         `;
 
-        assert.equal(output, expectedOutput);
-        done();
-      });
-    }));
+          assert.equal(output, expectedOutput);
+          done();
+        });
+      }),
+    );
 
     it('renders tweets interspersed with other types of content');
   });

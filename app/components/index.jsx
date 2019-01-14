@@ -15,8 +15,8 @@ var Settings = require('./Settings.jsx');
 
 function createElement(originalProps) {
   return function(Component, props) {
-    return <Component {...props} {...originalProps} />
-  }
+    return <Component {...props} {...originalProps} />;
+  };
 }
 
 module.exports = createReactClass({
@@ -39,5 +39,5 @@ module.exports = createReactClass({
         </Router>
       </div>
     );
-  }
+  },
 });

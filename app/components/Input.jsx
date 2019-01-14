@@ -9,6 +9,6 @@ module.exports = createReactClass({
         {...this.props}
         className={classnames('input', this.props.className)}
       />
-    )
-  }
+    );
+  },
 });

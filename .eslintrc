@@ -1,5 +1,5 @@
 {
- "parserOptions": {
+  "parserOptions": {
     "ecmaVersion": 6,
     "ecmaFeatures": {
       "jsx": true
@@ -12,17 +12,18 @@
     "node": true,
     "mocha": true
   },
-  "plugins": [
-    "react"
-  ],
-  rules: {
+  "plugins": ["react"],
+  "rules": {
     "jsx-quotes": ["error", "prefer-double"],
     "react/jsx-uses-react": 2,
     "react/jsx-uses-vars": 2,
-    "no-console": ["error", { allow: ["warn", "error"] }],
-    "no-unused-vars": ["error", {
-      "vars": "all",
-      "args": "none"
-    }]
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "no-unused-vars": [
+      "error",
+      {
+        "vars": "all",
+        "args": "none"
+      }
+    ]
   }
 }

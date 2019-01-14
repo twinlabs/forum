@@ -18,9 +18,9 @@ var Filter = createReactClass({
       <button
         type="button"
         style={{
-          'border': 'none',
-          'backgroundColor':'transparent',
-          'cursor': 'pointer'
+          border: 'none',
+          backgroundColor: 'transparent',
+          cursor: 'pointer',
         }}
         onClick={this.props.clearFilter}
       >
@@ -31,9 +31,7 @@ var Filter = createReactClass({
 
   render: function() {
     return (
-      <InputGroup
-        className="v-Atom filter"
-      >
+      <InputGroup className="v-Atom filter">
         <input
           type="text"
           placeholder={this.props.placeholder}
@@ -41,9 +39,9 @@ var Filter = createReactClass({
           onChange={this.props.onChange}
           value={this.props.value}
           style={{
-            'width': '100%',
-            'border': 'none',
-            'outline': 'none'
+            width: '100%',
+            border: 'none',
+            outline: 'none',
           }}
         />
         {this.renderClearFilter()}

@@ -5,8 +5,6 @@ module.exports = createReactClass({
   displayName: 'Divider',
 
   render: function() {
-    return (
-      <div className="v-Divider" />
-    );
-  }
+    return <div className="v-Divider" />;
+  },
 });

@@ -4,7 +4,7 @@ var userApi = function(rest, checkAuth) {
   var users = rest.resource({
     model: User,
     endpoints: ['/api/users', '/api/users/:id'],
-    actions: ['read', 'list']
+    actions: ['read', 'list'],
   });
 
   users.all.auth(checkAuth);
@@ -22,7 +22,7 @@ var userApi = function(rest, checkAuth) {
     context.instance = { user: context.instance };
     context.continue();
   });
-  
+
   return users;
 };
 

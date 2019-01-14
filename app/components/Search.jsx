@@ -13,7 +13,7 @@ var Search = createReactClass({
     return {
       filterValue: this.props.routeParams.searchTerm || '',
       offset: 0,
-      searchResults: []
+      searchResults: [],
     };
   },
 
@@ -34,25 +34,29 @@ var Search = createReactClass({
       return false;
     }
 
-    superagent.get(`/search/${searchTerm}?offset=${offset}`)
+    superagent
+      .get(`/search/${searchTerm}?offset=${offset}`)
       .set('Accept', 'application/json')
-      .then(function(response){
-        if (response.body.length === 0) {
-          return this.setState({
-            noResults: true,
-          });
-        }
+      .then(
+        function(response) {
+          if (response.body.length === 0) {
+            return this.setState({
+              noResults: true,
+            });
+          }
 
-        this.setState({
-          searchResults: this.state.searchResults.concat(response.body),
-          offset: offset,
-          noResults: null,
-        });
-        document.body.classList.remove('is-loading');
-      }.bind(this), function(error, a, b) {
-        document.body.classList.remove('is-loading');
-        console.error(error);
-      });
+          this.setState({
+            searchResults: this.state.searchResults.concat(response.body),
+            offset: offset,
+            noResults: null,
+          });
+          document.body.classList.remove('is-loading');
+        }.bind(this),
+        function(error, a, b) {
+          document.body.classList.remove('is-loading');
+          console.error(error);
+        },
+      );
   },
 
   handleFilterChange: function(event) {
@@ -62,7 +66,7 @@ var Search = createReactClass({
   redoSearch: function(event) {
     this.setState({
       newSearch: true,
-    })
+    });
 
     this.handleSearch(event);
   },
@@ -77,11 +81,14 @@ var Search = createReactClass({
     document.body.classList.add('is-loading');
 
     if (this.state.newSearch) {
-      return this.setState({
-        searchResults: []
-      }, function() {
-        browserHistory.push(`/search/${this.state.filterValue}`);
-      }.bind(this))
+      return this.setState(
+        {
+          searchResults: [],
+        },
+        function() {
+          browserHistory.push(`/search/${this.state.filterValue}`);
+        }.bind(this),
+      );
     }
 
     this.doSearch(this.state.filterValue, this.state.offset);
@@ -110,54 +117,57 @@ var Search = createReactClass({
             textAlign: 'center',
           }}
         >
-          Search again? No results found for <code>{this.state.filterValue}</code>.
+          Search again? No results found for{' '}
+          <code>{this.state.filterValue}</code>.
         </div>
-      )
+      );
     }
 
-    return this.state.searchResults.map(function(data, index) {
-      if (index > 0 && index % 20 === 0 ) {
+    return this.state.searchResults.map(
+      function(data, index) {
+        if (index > 0 && index % 20 === 0) {
+          return (
+            <div>
+              <Divider />
+              <ShowPost
+                key={data.id}
+                value={this.props.value}
+                routeParams={this.props.routeParams}
+                {...data}
+              />
+            </div>
+          );
+        }
         return (
-          <div>
-            <Divider />
-            <ShowPost
-              key={data.id}
-              value={this.props.value}
-              routeParams={this.props.routeParams}
-              {...data}
-            />
-          </div>
+          <ShowPost
+            key={data.id}
+            value={this.props.value}
+            routeParams={this.props.routeParams}
+            {...data}
+          />
         );
-      }
-      return (
-        <ShowPost
-          key={data.id}
-          value={this.props.value}
-          routeParams={this.props.routeParams}
-          {...data}
-        />
-      );
-    }.bind(this));
+      }.bind(this),
+    );
   },
 
   renderFilterControl: function() {
-    if (this.state.searchResults.length && this.state.searchResults.length < 20) {
+    if (
+      this.state.searchResults.length &&
+      this.state.searchResults.length < 20
+    ) {
       return (
-        <button
-          className={'input--toggle'}
-          disabled
-        >
+        <button className={'input--toggle'} disabled>
           Search
         </button>
       );
     }
 
-    if (!this.state.searchResults.length || this.state.searchResults.length % 20 !== 0) {
+    if (
+      !this.state.searchResults.length ||
+      this.state.searchResults.length % 20 !== 0
+    ) {
       return (
-        <button
-          className={'input--toggle'}
-          onClick={this.redoSearch}
-        >
+        <button className={'input--toggle'} onClick={this.redoSearch}>
           New Search
         </button>
       );
@@ -167,14 +177,17 @@ var Search = createReactClass({
       <button
         className={'input--toggle'}
         onClick={function() {
-          this.setState({
-            offset: this.state.offset + 20
-          }, this.handleSearch);
+          this.setState(
+            {
+              offset: this.state.offset + 20,
+            },
+            this.handleSearch,
+          );
         }.bind(this)}
       >
         Append More Results
       </button>
-    )
+    );
   },
 
   render: function() {
@@ -182,7 +195,7 @@ var Search = createReactClass({
       <div className="topicsContainer">
         <form
           onSubmit={function(event) {
-            event.preventDefault()
+            event.preventDefault();
           }}
         >
           <Filter

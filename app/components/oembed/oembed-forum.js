@@ -13,20 +13,27 @@ module.exports = function embedForum(input, depth) {
     return Promise.resolve(input);
   }
 
-  for (var i = 0; i<matches.length; i++) {
-    matchID = matches[i].match(new RegExp(`https?:\/\/${host}\/post\/(\\d+)`, 'i'))[1]
+  for (var i = 0; i < matches.length; i++) {
+    matchID = matches[i].match(
+      new RegExp(`https?:\/\/${host}\/post\/(\\d+)`, 'i'),
+    )[1];
 
     if (!responseBody) {
-      responseBody = responseBody + input.replace(matches[i], renderFrame(host, matchID, depth));
+      responseBody =
+        responseBody +
+        input.replace(matches[i], renderFrame(host, matchID, depth));
     } else {
-      responseBody = responseBody.replace(matches[i], renderFrame(host, matchID, depth));
+      responseBody = responseBody.replace(
+        matches[i],
+        renderFrame(host, matchID, depth),
+      );
     }
 
     if (i === matches.length - 1) {
       return Promise.resolve(responseBody);
     }
   }
-}
+};
 
 function renderFrame(host, id, depth) {
   return `
@@ -37,5 +44,5 @@ function renderFrame(host, id, depth) {
     width="100%"
     frameborder="0"
     allowtransparency="true"></iframe>
-  `
+  `;
 }

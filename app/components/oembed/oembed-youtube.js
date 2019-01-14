@@ -10,7 +10,7 @@ module.exports = function embedYouTube(input) {
     return Promise.resolve(input);
   }
 
-  for (var i = 0; i<matches.length; i++) {
+  for (var i = 0; i < matches.length; i++) {
     matchID = matches[i].match(YOUTUBE)[1];
     matchParams = '';
 
@@ -19,13 +19,21 @@ module.exports = function embedYouTube(input) {
     }
 
     if (!responseBody) {
-      responseBody = responseBody + input.replace(matches[i], `<iframe style="min-height: 350px" src="//www.youtube.com/embed/${matchID}${matchParams}" frameborder="0" allowfullscreen></iframe>`);
+      responseBody =
+        responseBody +
+        input.replace(
+          matches[i],
+          `<iframe style="min-height: 350px" src="//www.youtube.com/embed/${matchID}${matchParams}" frameborder="0" allowfullscreen></iframe>`,
+        );
     } else {
-      responseBody = responseBody.replace(matches[i], `<iframe style="min-height: 350px" src="//www.youtube.com/embed/${matchID}?${matchParams}" frameborder="0" allowfullscreen></iframe>`);
+      responseBody = responseBody.replace(
+        matches[i],
+        `<iframe style="min-height: 350px" src="//www.youtube.com/embed/${matchID}?${matchParams}" frameborder="0" allowfullscreen></iframe>`,
+      );
     }
 
     if (i === matches.length - 1) {
       return Promise.resolve(responseBody);
     }
   }
-}
+};

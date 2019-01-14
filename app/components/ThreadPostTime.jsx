@@ -3,21 +3,24 @@ var createReactClass = require('create-react-class');
 var moment = require('moment');
 
 module.exports = createReactClass({
-  getInitialState: function () {
+  getInitialState: function() {
     return {
-      activeTime: ''
+      activeTime: '',
     };
   },
   mountTicker: function(timestamp) {
     this.setState({
-      activeTime: moment(timestamp).fromNow()
+      activeTime: moment(timestamp).fromNow(),
     });
 
-    this.tickerID = setInterval(function(){
-      this.setState({
-        activeTime: moment(timestamp).fromNow()
-      });
-    }.bind(this), 60000);
+    this.tickerID = setInterval(
+      function() {
+        this.setState({
+          activeTime: moment(timestamp).fromNow(),
+        });
+      }.bind(this),
+      60000,
+    );
   },
 
   componentDidMount: function() {
@@ -30,9 +33,11 @@ module.exports = createReactClass({
 
   render: function() {
     return (
-      <span title={moment(this.props.timestamp).format('MMMM Do YYYY, h:mm:ss a')}>
+      <span
+        title={moment(this.props.timestamp).format('MMMM Do YYYY, h:mm:ss a')}
+      >
         {` ${this.state.activeTime}.`}
       </span>
     );
-  }
+  },
 });

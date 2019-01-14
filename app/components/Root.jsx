@@ -12,7 +12,7 @@ var Root = createReactClass({
 
   getTitle: function(props) {
     var thread = _.find(props.value.topics, {
-      id: +props.params.id
+      id: +props.params.id,
     });
 
     if (thread && thread.title) {
@@ -36,17 +36,21 @@ var Root = createReactClass({
     event.preventDefault();
 
     document.body.classList.add('is-loading');
-    superagent.get(`/topics`)
+    superagent
+      .get(`/topics`)
       .set('Accept', 'application/json')
-        .then(function(response){
+      .then(
+        function(response) {
           window.store.dispatch({
             type: 'REINITIALIZE',
-            value: response.body
+            value: response.body,
           });
           document.body.classList.remove('is-loading');
-        }.bind(this), function(error){
-         throw new Error(error);
-       });
+        }.bind(this),
+        function(error) {
+          throw new Error(error);
+        },
+      );
   },
 
   renderFooter: function() {
@@ -58,7 +62,7 @@ var Root = createReactClass({
           onClick={function(event) {
             event.preventDefault();
 
-            browserHistory.goBack()
+            browserHistory.goBack();
           }}
         >
           Go Back
@@ -73,7 +77,7 @@ var Root = createReactClass({
           style={{
             flex: 1,
             textAlign: 'center',
-            padding: '1em'
+            padding: '1em',
           }}
         >
           "{this.getTitle(this.props)}"

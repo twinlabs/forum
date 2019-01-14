@@ -73,6 +73,7 @@
     "postcss": "^5.2.18",
     "postcss-cssnext": "^2.9.0",
     "postcss-middleware": "^1.1.4",
+    "prettier": "^1.15.3",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",

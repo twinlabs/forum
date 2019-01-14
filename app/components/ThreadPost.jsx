@@ -11,11 +11,11 @@ module.exports = createReactClass({
 
   shouldComponentUpdate: function(nextProps, nextState) {
     if (
-      this.state.transformedContent
-      && !this.state.needsFlush
-      && this.state.isEditing === nextState.isEditing
-      && this.state.showDelete === nextState.showDelete
-      && (nextProps.body === this.props.body)
+      this.state.transformedContent &&
+      !this.state.needsFlush &&
+      this.state.isEditing === nextState.isEditing &&
+      this.state.showDelete === nextState.showDelete &&
+      nextProps.body === this.props.body
     ) {
       return false;
     }
@@ -25,23 +25,23 @@ module.exports = createReactClass({
 
   getDefaultProps: function() {
     return {
-      contentRenderer: function(input){
-        return input
+      contentRenderer: function(input) {
+        return input;
       },
       forumUser: {
         id: 0,
-        name: '[User Name]'
+        name: '[User Name]',
       },
       // obviously we shouldn't have both.
       // this is debt that must be reconciled:
-      user: {}
+      user: {},
     };
   },
 
   getInitialState: function() {
     return {
       isEditing: false,
-      showDelete: false
+      showDelete: false,
     };
   },
 
@@ -50,7 +50,7 @@ module.exports = createReactClass({
 
     return this.props.handleQuote({
       author: this.props.user.name,
-      body: this.props.body
+      body: this.props.body,
     });
   },
 
@@ -69,7 +69,7 @@ module.exports = createReactClass({
       <a
         href="#"
         className="action"
-        onClick={this.setState.bind(this, {showDelete: true}, null)}
+        onClick={this.setState.bind(this, { showDelete: true }, null)}
       >
         Delete
       </a>
@@ -82,29 +82,22 @@ module.exports = createReactClass({
     }
 
     return (
-      <div
-        className="v-Overlay"
-      >
-        <h2>
-          Really Delete?
-        </h2>
+      <div className="v-Overlay">
+        <h2>Really Delete?</h2>
 
         <div>
-          <button
-            className="action"
-            onClick={this.handleDelete}
-          >
+          <button className="action" onClick={this.handleDelete}>
             Yes
           </button>
           <button
             className="action"
-            onClick={this.setState.bind(this, {showDelete: false}, null)}
+            onClick={this.setState.bind(this, { showDelete: false }, null)}
           >
             No
           </button>
         </div>
       </div>
-    )
+    );
   },
 
   renderEdit: function() {
@@ -114,19 +107,11 @@ module.exports = createReactClass({
 
     if (this.state.isEditing) {
       return (
-        <div style={{display: 'inline-block'}}>
-          <a
-            href="#"
-            className="action"
-            onClick={this.cancelEdit}
-          >
+        <div style={{ display: 'inline-block' }}>
+          <a href="#" className="action" onClick={this.cancelEdit}>
             Cancel
           </a>
-          <a
-            href="#"
-            className="action"
-            onClick={this.handleSave}
-          >
+          <a href="#" className="action" onClick={this.handleSave}>
             Save
           </a>
         </div>
@@ -134,11 +119,7 @@ module.exports = createReactClass({
     }
 
     return (
-      <a
-        href="#"
-        className="action"
-        onClick={this.showEdit}
-      >
+      <a href="#" className="action" onClick={this.showEdit}>
         Edit
       </a>
     );
@@ -146,15 +127,15 @@ module.exports = createReactClass({
 
   handleDelete: function() {
     this.setState({
-      showDelete: false
+      showDelete: false,
     });
 
     window.socket.emit('destroy', {
       id: this.props.id,
       user: {
         id: this.props.forumUser.id,
-        name: this.props.forumUser.name
-      }
+        name: this.props.forumUser.name,
+      },
     });
   },
 
@@ -165,13 +146,13 @@ module.exports = createReactClass({
       parent: this.props.parent,
       user: {
         id: this.props.forumUser.id,
-        name: this.props.forumUser.name
-      }
+        name: this.props.forumUser.name,
+      },
     });
 
     this.setState({
       isEditing: false,
-      needsFlush: true
+      needsFlush: true,
     });
   },
 
@@ -179,7 +160,7 @@ module.exports = createReactClass({
     event.preventDefault();
 
     this.setState({
-      isEditing: false
+      isEditing: false,
     });
   },
 
@@ -187,7 +168,7 @@ module.exports = createReactClass({
     event.preventDefault();
 
     this.setState({
-      isEditing: true
+      isEditing: true,
     });
   },
 
@@ -210,7 +191,10 @@ module.exports = createReactClass({
         <div
           className="body content"
           ref="content"
-          dangerouslySetInnerHTML={this.renderAsHTML(this.state.transformedContent || this.props.body, this.props.contentRenderer)}
+          dangerouslySetInnerHTML={this.renderAsHTML(
+            this.state.transformedContent || this.props.body,
+            this.props.contentRenderer,
+          )}
         />
         {this.renderSignature()}
         {this.renderDeleteConfirm()}
@@ -255,42 +239,46 @@ module.exports = createReactClass({
     if (this.props.settings && this.props.settings.disableEmbeds === 'true') {
       return this.setState({
         transformedContent: transformableContent,
-        needsFlush: false
+        needsFlush: false,
       });
     }
 
-    oembed(transformableContent, parseInt(this.props.depth) + 1).then(function(transformedContent) {
-      this.setState({
-        transformedContent: transformedContent,
-        needsFlush: false
-      });
+    oembed(transformableContent, parseInt(this.props.depth) + 1).then(
+      function(transformedContent) {
+        this.setState({
+          transformedContent: transformedContent,
+          needsFlush: false,
+        });
 
-      window.twttr && window.twttr.widgets.load();
-      window.instgrm && window.instgrm.Embeds.process();
-      iframeResizer();
-    }.bind(this));
+        window.twttr && window.twttr.widgets.load();
+        window.instgrm && window.instgrm.Embeds.process();
+        iframeResizer();
+      }.bind(this),
+    );
   },
 
   renderAsHTML: function(input, renderer) {
     input = input || '';
-    renderer = renderer || function(input) { return input };
+    renderer =
+      renderer ||
+      function(input) {
+        return input;
+      };
 
     return {
-      __html: renderer(input)
+      __html: renderer(input),
     };
   },
 
   renderActions: function() {
     if (this.props.depth) {
-      return (
-        null
-      );
+      return null;
     }
 
     return (
       <div
         className="actionContainer"
-        onClick={function(event){
+        onClick={function(event) {
           event.preventDefault();
         }}
       >
@@ -302,18 +290,11 @@ module.exports = createReactClass({
           Quote
         </a>
 
-        <a
-          href="#"
-          className="action"
-          onClick={this.inlineQuote}
-        >
+        <a href="#" className="action" onClick={this.inlineQuote}>
           Inline
         </a>
 
-        <Link
-          className="action"
-          to={`/post/${this.props.id}`}
-        >
+        <Link className="action" to={`/post/${this.props.id}`}>
           Link
         </Link>
 
@@ -326,24 +307,20 @@ module.exports = createReactClass({
   render: function() {
     return (
       <div
-        className={classNames("post v-Atom", this.props.className)}
+        className={classNames('post v-Atom', this.props.className)}
         data-id={this.props.id}
         data-user-id={this.props.user.id}
         key={this.props.id}
       >
-        <div
-          className="data"
-        >
+        <div className="data">
           <span className="data-callout">
             {this.props.user && this.props.user.name}
           </span>
-          <ThreadPostTime
-            timestamp={this.props.updated_at}
-          />
+          <ThreadPostTime timestamp={this.props.updated_at} />
         </div>
         {this.renderContent()}
         {this.renderActions()}
       </div>
-    )
-  }
+    );
+  },
 });

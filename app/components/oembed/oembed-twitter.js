@@ -2,7 +2,7 @@ var superagent = require('superagent');
 var Promise = require('bluebird');
 
 module.exports = function embedTwitter(input) {
-  const TWITTER = /https?:\/\/(www\.)?(mobile\.)?twitter.com\/.+?\/status(es)?\/\d+(\?.[^\s]*)?/ig;
+  const TWITTER = /https?:\/\/(www\.)?(mobile\.)?twitter.com\/.+?\/status(es)?\/\d+(\?.[^\s]*)?/gi;
 
   var matches = input && input.match(TWITTER);
   var responseBody = '';
@@ -12,16 +12,21 @@ module.exports = function embedTwitter(input) {
     return Promise.resolve(input);
   }
 
-  for (var i = 0; i<matches.length; i++) {
-    responsePromiseStack.push(superagent.get(
-      `/embed/twitter/${encodeURIComponent(matches[i].replace('mobile.', ''))}`
-    ));
+  for (var i = 0; i < matches.length; i++) {
+    responsePromiseStack.push(
+      superagent.get(
+        `/embed/twitter/${encodeURIComponent(
+          matches[i].replace('mobile.', ''),
+        )}`,
+      ),
+    );
   }
 
   return Promise.all(responsePromiseStack).then(function(responses) {
-    for (var i = 0; i<matches.length; i++) {
+    for (var i = 0; i < matches.length; i++) {
       if (!responseBody) {
-        responseBody = responseBody + input.replace(matches[i], responses[i].body.html);
+        responseBody =
+          responseBody + input.replace(matches[i], responses[i].body.html);
       } else {
         responseBody = responseBody.replace(matches[i], responses[i].body.html);
       }
@@ -31,4 +36,4 @@ module.exports = function embedTwitter(input) {
       }
     }
   });
-}
+};

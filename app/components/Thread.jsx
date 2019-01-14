@@ -8,23 +8,20 @@ var Thread = createReactClass({
   displayName: 'Thread',
 
   shouldComponentUpdate: function(nextProps, nextState) {
-    if (
-      _.isEqual(this.state, nextState)
-      && _.isEqual(this.props, nextProps)
-    ) {
+    if (_.isEqual(this.state, nextState) && _.isEqual(this.props, nextProps)) {
       return false;
     }
 
     return true;
   },
 
-  getInitialState: function(){
+  getInitialState: function() {
     return {
-      posts: []
-    }
+      posts: [],
+    };
   },
 
-  componentDidMount: function () {
+  componentDidMount: function() {
     document.title = this.props.title;
   },
 
@@ -34,16 +31,13 @@ var Thread = createReactClass({
 
   handleQuote: function(data) {
     return this.setState({
-      quote: data
+      quote: data,
     });
   },
 
   render: function() {
     return (
-      <div
-        className="thread"
-        data-id={this.props.id}
-      >
+      <div className="thread" data-id={this.props.id}>
         {this.props.renderLoadMore()}
         {this.props.posts.map(ThreadPostWrapper.bind(this))}
         <NewPost
@@ -53,7 +47,7 @@ var Thread = createReactClass({
           location={this.props.location}
         />
       </div>
-    )
+    );
   },
 });
 
@@ -68,6 +62,6 @@ var ThreadPostWrapper = function(postData, index) {
       {...postData}
     />
   );
-}
+};
 
 module.exports = Thread;

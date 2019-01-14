@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var redux = require('redux');
-var Root = require('./components/index.jsx')
+var Root = require('./components/index.jsx');
 var reducerRoot = require('./reducer-root');
 require('./reducer-connections');
 
@@ -11,7 +11,7 @@ function render() {
     document.getElementById('app'),
     function() {
       document.body.classList.remove('is-loading');
-    }
+    },
   );
 }
 

@@ -3,7 +3,7 @@ var Favico = require('favico.js');
 var favicon = new Favico({
   animation: 'none',
   bgColor: '#ff0e00',
-  color: '#fff'
+  color: '#fff',
 });
 
 window.addEventListener('blur', function() {

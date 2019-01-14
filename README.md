@@ -1,52 +1,51 @@
 [![Build Status](https://travis-ci.org/twinlabs/forum.svg?branch=master)](https://travis-ci.org/twinlabs/forum)
 
-Installation:
-=============
+# Installation:
+
 `npm install`
 
-Persistent Tests:
-=================
+# Persistent Tests:
+
 `npm run test:watch`
 
-Run App Locally:
-================
+# Run App Locally:
+
 `npm run start:dev`
 
-Debug App:
-==========
+# Debug App:
+
 `npm run start:debug`
 
-Run Test Suite:
-===============
+# Run Test Suite:
+
 `npm test`
 
-Run Test Suite in Debug Mode:
-=============================
+# Run Test Suite in Debug Mode:
+
 `npm run test:debug`
 
-Database
-========
+# Database
 
 ```
 psql --command="create database forum;" && psql --echo-all --dbname=forum --file=tables.sql
 ```
 
-Add /build Directory
-====================
+# Add /build Directory
+
 From installation directory root, `mkdir build`. This directory is needed so the app can write client-side bundles to it.
 
-Register a User
-===============
+# Register a User
+
 After installation, point your browser at `[root installation folder]/signup`.
 
 Choose the file `duck.jpg` from your `/test/fixtures` as your authentication token.
 
 After registering, login using the user/pass you signed up with.
 
-Hot Reload
-==========
+# Hot Reload
+
 `npm run start:dev` does 'hot reloading' by default. This is subject to change.
 
-Environment Variables
-=====================
+# Environment Variables
+
 `FORUM_STORAGE_ADAPTER=S3` - change this and provide another module to use your chosen storage back-end. For documentation on the default `S3` adapter, see [that module's documentation](https://www.npmjs.com/package/f.orum-storage-s3).

@@ -11,7 +11,7 @@ var Topics = createReactClass({
 
   getInitialState: function() {
     return {
-      filterValue: localStorage.getItem('forumFilterValue') || ''
+      filterValue: localStorage.getItem('forumFilterValue') || '',
     };
   },
 
@@ -33,11 +33,14 @@ var Topics = createReactClass({
   },
 
   updateFilterValue: function(newFilterValue) {
-    return this.setState({
-      filterValue: newFilterValue
-    }, function() {
-      localStorage.setItem('forumFilterValue', newFilterValue);
-    });
+    return this.setState(
+      {
+        filterValue: newFilterValue,
+      },
+      function() {
+        localStorage.setItem('forumFilterValue', newFilterValue);
+      },
+    );
   },
 
   hasFilterValue: function() {
@@ -50,7 +53,9 @@ var Topics = createReactClass({
 
   toggleUnread: function(event) {
     if (this.hasUnreadFilter()) {
-      return this.updateFilterValue(this.state.filterValue.replace('is:unread', '').trim())
+      return this.updateFilterValue(
+        this.state.filterValue.replace('is:unread', '').trim(),
+      );
     }
 
     return this.updateFilterValue('is:unread ' + this.state.filterValue);
@@ -65,17 +70,29 @@ var Topics = createReactClass({
   },
 
   filterThreads: function() {
-    return _.filter(this.props.value.topics, function(topic) {
-      if (this.hasUnreadFilter()) {
-        return unreadCriteria(topic) && filterCriteria(topic, this.state.filterValue.replace('is:unread', '').trim());
-      }
+    return _.filter(
+      this.props.value.topics,
+      function(topic) {
+        if (this.hasUnreadFilter()) {
+          return (
+            unreadCriteria(topic) &&
+            filterCriteria(
+              topic,
+              this.state.filterValue.replace('is:unread', '').trim(),
+            )
+          );
+        }
 
-      if (this.state.filterValue) {
-        return filterCriteria(topic, this.state.filterValue.replace('is:unread', '').trim());
-      }
+        if (this.state.filterValue) {
+          return filterCriteria(
+            topic,
+            this.state.filterValue.replace('is:unread', '').trim(),
+          );
+        }
 
-      return !topic.parent;
-    }.bind(this));
+        return !topic.parent;
+      }.bind(this),
+    );
   },
 
   renderNewPost: function() {
@@ -83,19 +100,13 @@ var Topics = createReactClass({
       return null;
     }
 
-    return (
-      <NewPost
-        location={this.props.location}
-      />
-    );
+    return <NewPost location={this.props.location} />;
   },
 
   render: function() {
     return (
       <div className="topicsContainer">
-        <form
-          onSubmit={this.handleSearch}
-        >
+        <form onSubmit={this.handleSearch}>
           <Filter
             clearFilter={this.updateFilterValue.bind(this, '')}
             onChange={this.handleFilterChange}
@@ -118,15 +129,16 @@ var Topics = createReactClass({
   },
 });
 
-
 function unreadCriteria(topic) {
   return !topic.parent && topic.lastreply && topic.lastreply.isNew;
 }
 
 function filterCriteria(topic, filterValue) {
-  return !topic.parent &&
-    (topic.title && topic.title.toLowerCase().indexOf(filterValue.toLowerCase()) !== -1);
+  return (
+    !topic.parent &&
+    (topic.title &&
+      topic.title.toLowerCase().indexOf(filterValue.toLowerCase()) !== -1)
+  );
 }
 
 module.exports = Topics;
-

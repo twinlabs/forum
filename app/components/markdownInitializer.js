@@ -7,11 +7,10 @@ module.exports = (function() {
       <a
         target="_blank"
         href="${href}"
-        ${(title ? 'title="' + title + '"' : '')}
+        ${title ? 'title="' + title + '"' : ''}
       >
         ${text}
-      </a>`
-    ;
+      </a>`;
   };
 
   if (window.localStorage.getItem('forumDisableImages') === 'true') {
@@ -20,12 +19,12 @@ module.exports = (function() {
         <a
           target="_blank"
           href="${href}"
-          ${(title ? 'title="' + title + '"' : '')}
+          ${title ? 'title="' + title + '"' : ''}
         >
           ${href}
         </a>
       `;
-    }
+    };
   }
 
   var lexer = new marked.Lexer();
@@ -34,22 +33,23 @@ module.exports = (function() {
   marked.lexer = lexer;
 
   marked.setOptions({
-    emoji: function (emoji) {
-      return '<img src="'
-          + 'https://cloud.ahfr.org/images/emoji/'
-          + encodeURIComponent(emoji)
-          + '.png"'
-          + ' alt=":'
-          + escape(emoji)
-          + ':"'
-          + ' title=":'
-          + escape(emoji)
-          + ':"'
-          + ' class="emoji" align="absmiddle" height="20" width="20">';
-
+    emoji: function(emoji) {
+      return (
+        '<img src="' +
+        'https://cloud.ahfr.org/images/emoji/' +
+        encodeURIComponent(emoji) +
+        '.png"' +
+        ' alt=":' +
+        escape(emoji) +
+        ':"' +
+        ' title=":' +
+        escape(emoji) +
+        ':"' +
+        ' class="emoji" align="absmiddle" height="20" width="20">'
+      );
     },
     breaks: true,
-    renderer: markedRenderer
+    renderer: markedRenderer,
   });
 
   return marked;

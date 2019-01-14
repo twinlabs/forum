@@ -8,7 +8,7 @@ var Topic = createReactClass({
 
   getInitialState: function() {
     return {
-      isEditing: false
+      isEditing: false,
     };
   },
 
@@ -17,9 +17,9 @@ var Topic = createReactClass({
       replycount: 0,
       lastreply: {
         created_at: {},
-        user: {}
-      }
-    }
+        user: {},
+      },
+    };
   },
 
   componentDidMount: function() {
@@ -32,14 +32,17 @@ var Topic = createReactClass({
 
   mountTicker: function(timestamp) {
     this.setState({
-      activeTime: moment(timestamp).fromNow()
+      activeTime: moment(timestamp).fromNow(),
     });
 
-    this.tickerID = setInterval(function(){
-      this.setState({
-        activeTime: moment(timestamp).fromNow()
-      });
-    }.bind(this), 1000);
+    this.tickerID = setInterval(
+      function() {
+        this.setState({
+          activeTime: moment(timestamp).fromNow(),
+        });
+      }.bind(this),
+      1000,
+    );
   },
 
   handleDelete: function() {
@@ -47,20 +50,19 @@ var Topic = createReactClass({
       id: this.props.id,
       user: {
         id: window.forum.constants.user.id,
-        name: window.forum.constants.user.name
-      }
+        name: window.forum.constants.user.name,
+      },
     });
   },
 
   isNew: function() {
-    return this.props.lastreply &&
-      this.props.lastreply.isNew;
+    return this.props.lastreply && this.props.lastreply.isNew;
   },
 
   markRead: function() {
     window.store.dispatch({
       type: 'MARKREAD',
-      value: this.props
+      value: this.props,
     });
   },
 
@@ -68,30 +70,21 @@ var Topic = createReactClass({
     return (
       <Link
         to={`/topic/${this.props.id}`}
-        className={`post ${this.isNew() ? 'isNew':null} v-Atom atom`}
+        className={`post ${this.isNew() ? 'isNew' : null} v-Atom atom`}
         onClick={this.markRead}
         data-id={this.props.id}
       >
         <div className="topic-title">{this.props.title}</div>
-        <div
-          className="data"
-        >
-          {this.props.replycount} Replies,
-          last by <span className="data-callout">
-            {this.props.lastreply.user.name}
-          </span>
+        <div className="data">
+          {this.props.replycount} Replies, last by{' '}
+          <span className="data-callout">{this.props.lastreply.user.name}</span>
           {` ${this.state.activeTime}.`}
         </div>
       </Link>
-    )
+    );
   },
 });
 
 module.exports = function(topicData, index) {
-  return (
-    <Topic
-      key={topicData.id}
-      {...topicData}
-    />
-  );
-}
+  return <Topic key={topicData.id} {...topicData} />;
+};

@@ -1,44 +1,47 @@
 var Sequelize = require('sequelize');
 
-var PostSequelize = function(sequelize){
-  var post = sequelize.define('post', {
-    id: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
+var PostSequelize = function(sequelize) {
+  var post = sequelize.define(
+    'post',
+    {
+      id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      body: Sequelize.TEXT,
+      user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      parent: {
+        type: Sequelize.INTEGER,
+      },
+      title: {
+        type: Sequelize.TEXT,
+      },
     },
-    body: Sequelize.TEXT,
-    user_id: {
-      type: Sequelize.INTEGER,
-      allowNull: false
+    {
+      underscored: true,
+      tableName: 'post',
+      indexes: [
+        {
+          fields: ['id'],
+        },
+      ],
     },
-    parent: {
-      type: Sequelize.INTEGER
-    },
-    title: {
-      type: Sequelize.TEXT
-    }
-  }, {
-    underscored: true,
-    tableName: 'post',
-    indexes: [
-      {
-        fields: ['id']
-      }
-    ],
-  });
+  );
 
-
-  post.associate = function(models){
-    post.belongsTo(models.user, {foreignKey: 'user_id'});
+  post.associate = function(models) {
+    post.belongsTo(models.user, { foreignKey: 'user_id' });
     post.hasMany(models.post, {
       as: 'children',
-      foreignKey: 'parent'
+      foreignKey: 'parent',
     });
   };
 
-  post.findTopicsAndMetadata = function async () {
-     return sequelize.query(
+  post.findTopicsAndMetadata = function async() {
+    return sequelize.query(
       `
         select
           title
@@ -73,9 +76,9 @@ var PostSequelize = function(sequelize){
       `,
       {
         nest: true,
-        raw: true
-      }
-    )
+        raw: true,
+      },
+    );
   };
 
   post.findTopics = function() {
@@ -95,27 +98,26 @@ var PostSequelize = function(sequelize){
       `,
       {
         nest: true,
-        raw: true
-      }
+        raw: true,
+      },
     );
   };
 
   post.countTopics = function() {
-    return sequelize.query(
-      'select count(*) from post where parent isnull'
-    );
+    return sequelize.query('select count(*) from post where parent isnull');
   };
 
   post.findTopicTitle = function(topicID) {
-    return sequelize.query('select title from post where id=' + topicID, {raw: true});
+    return sequelize.query('select title from post where id=' + topicID, {
+      raw: true,
+    });
   };
 
-  post.prototype.getParent = function(){
+  post.prototype.getParent = function() {
     return post.findOne(this.parent);
   };
 
   return post;
 };
-
 
 module.exports = PostSequelize;

@@ -9,14 +9,19 @@ module.exports = function embedInstagram(input) {
     return Promise.resolve(input);
   }
 
-  return superagent.get(
-    `/embed/instagram/${encodeURIComponent(captured[2].replace('mobile.', ''))}`
-  ).then(function(response) {
-    if (typeof captured[1] === 'undefined') {
-      return Promise.resolve(input.replace(INSTAGRAM, response.body.html));
-    }
+  return superagent
+    .get(
+      `/embed/instagram/${encodeURIComponent(
+        captured[2].replace('mobile.', ''),
+      )}`,
+    )
+    .then(function(response) {
+      if (typeof captured[1] === 'undefined') {
+        return Promise.resolve(input.replace(INSTAGRAM, response.body.html));
+      }
 
-    return Promise.resolve(input.replace(INSTAGRAM, captured[1] + response.body.html));
-  });
-}
-
+      return Promise.resolve(
+        input.replace(INSTAGRAM, captured[1] + response.body.html),
+      );
+    });
+};

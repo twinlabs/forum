@@ -11,23 +11,24 @@ appModule.io.set('log level', 1);
 
 var options = {
   transports: ['websocket'],
-  'force new connection': true
+  'force new connection': true,
 };
 
-
-describe('app.js', function(){
-  xit('accepts port as the first command-line argument', function(){
+describe('app.js', function() {
+  xit('accepts port as the first command-line argument', function() {
     sinon.spy(console, 'log');
     assert.ok(console.log.calledWith('listening on port 3000'));
   });
 });
 
-describe('socket communication', function(){
+describe('socket communication', function() {
   // this all requires server to be running. seems like an integration test suite.
-  before(function(done){
+  before(function(done) {
     // establish database connection:
     var Sequelize = require('sequelize');
-    var sequelize = new Sequelize("postgres://postgres@localhost/" + appModule.app.get('db-test'));
+    var sequelize = new Sequelize(
+      'postgres://postgres@localhost/' + appModule.app.get('db-test'),
+    );
 
     // pending comment
     var post = rootRequire('models/Post.orm')(sequelize);
@@ -35,53 +36,58 @@ describe('socket communication', function(){
 
     var models = {
       post: post,
-      user: user
+      user: user,
     };
 
     // ensure that fresh database tables are created:
-    post.sync({force: true}).then(function(){
+    post.sync({ force: true }).then(function() {
       post.associate(models);
 
-      user.sync({force: true}).then(function(){
+      user.sync({ force: true }).then(function() {
         user.associate(models);
         done();
       });
     });
 
     // set up a new event handler for our test event:
-    appModule.io.sockets.on('connection', function(socket){
-      socket.on('testEvent', function(data){
+    appModule.io.sockets.on('connection', function(socket) {
+      socket.on('testEvent', function(data) {
         appModule.io.sockets.emit(data.message, data);
       });
     });
   });
 
-  it('Should broadcast messages', function(done){
-    var client = io.connect(socketAddress, options);
-    var testData = {message: 'ping'};
+  it('Should broadcast messages', function(done) {
+    var client = io.connect(
+      socketAddress,
+      options,
+    );
+    var testData = { message: 'ping' };
 
-    client.on('connect', function(data){
-
+    client.on('connect', function(data) {
       client.emit('testEvent', testData);
 
       // TODO: can we remove this event in teardown?
-      client.once('ping', function(receivedData){
+      client.once('ping', function(receivedData) {
         assert(receivedData.message === testData.message);
         done();
       });
     });
   });
 
-  it('Should respond to "post" events', function(done){
-    var client = io.connect(socketAddress, options);
+  it('Should respond to "post" events', function(done) {
+    var client = io.connect(
+      socketAddress,
+      options,
+    );
     var testData = {
-      message: "hello world",
+      message: 'hello world',
       user: {
-        id: 1
-      }
+        id: 1,
+      },
     };
 
-    client.once('post', function(){
+    client.once('post', function() {
       assert(true);
       done();
     });
@@ -89,6 +95,5 @@ describe('socket communication', function(){
     client.emit('post', testData);
   });
 
-  after(function(){
-  });
+  after(function() {});
 });

@@ -4,7 +4,7 @@ var topicApi = function(rest, checkAuth) {
   var topics = rest.resource({
     model: Post,
     endpoints: ['/api/topics', '/api/topics/:id'],
-    actions: ['read', 'list']
+    actions: ['read', 'list'],
   });
 
   topics.all.auth(checkAuth);

@@ -11,9 +11,19 @@ module.exports = function embed(input) {
     matchID = MATCH.exec(input)[4];
   }
 
-  if (input.match('\/playlist\/')) {
-    return Promise.resolve(input.replace(MATCH, `<iframe src="https://tools.applemusic.com/embed/v1/playlist/pl.${matchID}" width="100%" height="500" frameborder="0" allowtransparency="true"></iframe>`));
+  if (input.match('/playlist/')) {
+    return Promise.resolve(
+      input.replace(
+        MATCH,
+        `<iframe src="https://tools.applemusic.com/embed/v1/playlist/pl.${matchID}" width="100%" height="500" frameborder="0" allowtransparency="true"></iframe>`,
+      ),
+    );
   }
 
-  return Promise.resolve(input.replace(MATCH, `<iframe src="https://tools.applemusic.com/embed/v1/song/${matchID}" width="100%" height="110" frameborder="0" allowtransparency="true"></iframe>`));
-}
+  return Promise.resolve(
+    input.replace(
+      MATCH,
+      `<iframe src="https://tools.applemusic.com/embed/v1/song/${matchID}" width="100%" height="110" frameborder="0" allowtransparency="true"></iframe>`,
+    ),
+  );
+};
