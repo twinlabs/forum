@@ -36,6 +36,7 @@ body {
 
 .v-Atom {
   background: #212733;
+  color: #d9d9d9;
 }
 
 .filter,
@@ -55,6 +56,10 @@ body {
 
 .input--toggle.isActive {
   background: #00bbff;
+}
+
+.paperclip {
+  filter: invert(0.6);
 }
 
 .post {
