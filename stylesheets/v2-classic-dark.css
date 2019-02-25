@@ -36,7 +36,7 @@ body {
 
 .v-Atom {
   background: #212733;
-  color: #d9d9d9;
+  color: inherit;
 }
 
 .filter,
