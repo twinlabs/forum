@@ -326,6 +326,7 @@ var NewPost = createReactClass({
             width: '20px',
             height: '20px',
           }}
+          className="paperclip"
         />
         <input
           type="file"
