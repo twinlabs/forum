@@ -45,6 +45,10 @@ body {
   box-shadow: 0 0 5px black inset;
 }
 
+.inlineAction {
+  color: #d9d9d9;
+}
+
 .input--secondary {
   color: #00bbff;
   box-shadow: 0 0 2px black;
@@ -59,7 +63,7 @@ body {
 }
 
 .paperclip {
-  filter: invert(0.6);
+  filter: invert(0.85);
 }
 
 .post {
