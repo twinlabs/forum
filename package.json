@@ -53,7 +53,7 @@
     "ejs": "^2.6.1",
     "envify": "^4.1.0",
     "epilogue": "0.3.2",
-    "express": "^4.16.3",
+    "express": "^4.17.1",
     "express-session": "1.7.6",
     "f.orum-storage-s3": "^1.0.0",
     "favico.js": "^0.3.10",
