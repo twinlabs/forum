@@ -54,7 +54,7 @@
     "envify": "^4.1.0",
     "epilogue": "0.3.2",
     "express": "^4.16.3",
-    "express-session": "1.7.6",
+    "express-session": "1.16.1",
     "f.orum-storage-s3": "^1.0.0",
     "favico.js": "^0.3.10",
     "history": "^2.0.0",
