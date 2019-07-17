@@ -14,6 +14,7 @@ var pg = require('pg');
 var pgSession = require('connect-pg-simple')(session);
 var postcssMiddleware = require('postcss-middleware');
 var cssnext = require('postcss-cssnext');
+const Sentry = require('@sentry/node');
 
 rootRequire('config/environments')(app);
 app.set('io', require('socket.io').listen(httpServer));
@@ -24,6 +25,9 @@ var conString =
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize(conString);
 
+Sentry.init({ dsn: 'https://bc7d0c24381847c1a5ef651fe047665f@sentry.io/1502122' });
+
+app.use(Sentry.Handlers.requestHandler());
 app.use(compression());
 app.use(cookieParser());
 app.use(
