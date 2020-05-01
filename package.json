@@ -68,7 +68,7 @@
     "normalize.css": "^8.0.1",
     "passport": "~0.2.0",
     "passport-local": "~1.0.0",
-    "pg": "^7.8.0",
+    "pg": "^8.0.3",
     "pg-hstore": "^2.3.1",
     "postcss": "^5.2.18",
     "postcss-cssnext": "^2.9.0",
