@@ -78,7 +78,7 @@
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-proxy": "^1.1.8",
-    "react-router": "^3.2.1",
+    "react-router": "^5.2.0",
     "redux": "^3.7.2",
     "sequelize": "^4.42.0",
     "sequelize-cli": "^5.4.0",
